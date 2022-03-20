@@ -3,12 +3,16 @@
 #secret key
 /src/firebase
 
+/_templates
+.firebase
+
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
 
 /firebase/
+
 # testing
 /coverage
 
