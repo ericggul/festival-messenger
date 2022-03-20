@@ -12,6 +12,7 @@ const useAuth = () => {
 
   useEffect(() => {
     const authorizeCodeFromKakao = window.location.search.split("code=")[1];
+    console.log(authorizeCodeFromKakao);
     if (authorizeCodeFromKakao !== undefined) {
       let kakaoAuth = httpsCallable(functions, "kakaoAuth");
       kakaoAuth({ code: authorizeCodeFromKakao })

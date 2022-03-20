@@ -3,10 +3,14 @@ import "./App.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import withUser from "@U/hoc/withUser";
-import useAuth from "@U/hooks/useAuth";
+import useAuth, { useUser } from "@U/hooks/useAuth";
+import useModal from "@U/hooks/useModal";
+import SignInModal from "@F/modal/content/SignInModal";
 
 function App() {
-  const { signIn } = useAuth();
+  const { user, isAuthorized } = useUser();
+
+  const { modalComponent: signInModalComponent, setIsModalOpen } = useModal(SignInModal);
 
   return (
     <div className="App">
@@ -14,8 +18,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <div onClick={signIn}>{Math.random() < 0.4 ? "Click to sign out" : "Click to sign in"}</div>
+        <div onClick={() => setIsModalOpen(true)}>{isAuthorized ? "Click to sign out" : "Click to sign in"}</div>
       </header>
+      {signInModalComponent}
     </div>
   );
 }

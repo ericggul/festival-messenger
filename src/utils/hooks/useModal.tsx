@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PopupModal from "@F/modal/PopupModal";
 
-const useModal = (ContentComponent: any, listenOpenChange: any, props: any, onModalChange: any) => {
+const useModal = (ContentComponent: any, listenOpenChange: any = true, props?: any, onModalChange?: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  useEffect(() => {
-    if (listenOpenChange && !isModalOpen) {
-      onModalChange();
-    }
-  }, [listenOpenChange, isModalOpen]);
+  // useEffect(() => {
+  //   if (listenOpenChange && !isModalOpen) {
+  //     onModalChange();
+  //   }
+  // }, [listenOpenChange, isModalOpen]);
 
   const modalComponent = (
     <PopupModal width={props?.width} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} closeOnDocumentClick>
@@ -17,3 +17,5 @@ const useModal = (ContentComponent: any, listenOpenChange: any, props: any, onMo
 
   return { modalComponent, isModalOpen, setIsModalOpen };
 };
+
+export default useModal;
