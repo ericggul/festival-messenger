@@ -1,0 +1,31 @@
+[debug] [2022-03-19T10:43:15.948Z] ----------------------------------------------------------------------
+[debug] [2022-03-19T10:43:15.949Z] Command:       /usr/local/bin/node /Users/jeongyoonchoi/Desktop/project/festival-messenger/node_modules/.bin/firebase deploy
+[debug] [2022-03-19T10:43:15.950Z] CLI Version:   10.4.0
+[debug] [2022-03-19T10:43:15.950Z] Platform:      darwin
+[debug] [2022-03-19T10:43:15.950Z] Node Version:  v16.14.0
+[debug] [2022-03-19T10:43:15.951Z] Time:          Sat Mar 19 2022 19:43:15 GMT+0900 (Korean Standard Time)
+[debug] [2022-03-19T10:43:15.951Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-03-19T10:43:15.982Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-03-19T10:43:15.982Z] > authorizing via signed-in user (ericggul@gmail.com)
+[debug] [2022-03-19T10:43:15.982Z] [iam] checking project festival-messenger-4df40 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-03-19T10:43:15.983Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/festival-messenger-4df40:testIamPermissions [none]
+[debug] [2022-03-19T10:43:15.983Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/festival-messenger-4df40:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-03-19T10:43:16.739Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/festival-messenger-4df40:testIamPermissions 200
+[debug] [2022-03-19T10:43:16.739Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/festival-messenger-4df40:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-03-19T10:43:16.740Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/festival-messenger-4df40/serviceAccounts/festival-messenger-4df40@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-03-19T10:43:16.740Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/festival-messenger-4df40/serviceAccounts/festival-messenger-4df40@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-03-19T10:43:17.612Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/festival-messenger-4df40/serviceAccounts/festival-messenger-4df40@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-03-19T10:43:17.612Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/festival-messenger-4df40/serviceAccounts/festival-messenger-4df40@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-03-19T10:43:17.613Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/festival-messenger-4df40 [none]
+[debug] [2022-03-19T10:43:18.126Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/festival-messenger-4df40 200
+[debug] [2022-03-19T10:43:18.126Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/festival-messenger-4df40 {"projectId":"festival-messenger-4df40","projectNumber":"746813718960","displayName":"festival-messenger","name":"projects/festival-messenger-4df40","resources":{"hostingSite":"festival-messenger-4df40","realtimeDatabaseInstance":"festival-messenger-4df40-default-rtdb","storageBucket":"festival-messenger-4df40.appspot.com","locationId":"asia-northeast3"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'festival-messenger-4df40'...
+[info] 
+[info] i  deploying functions, hosting 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2022-03-19T10:43:20.478Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/festival-messenger-4df40 [none]
+[debug] [2022-03-19T10:43:20.893Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/festival-messenger-4df40 200
+[debug] [2022-03-19T10:43:20.893Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/festival-messenger-4df40 {"projectId":"festival-messenger-4df40","projectNumber":"746813718960","displayName":"festival-messenger","name":"projects/festival-messenger-4df40","resources":{"hostingSite":"festival-messenger-4df40","realtimeDatabaseInstance":"festival-messenger-4df40-default-rtdb","storageBucket":"festival-messenger-4df40.appspot.com","locationId":"asia-northeast3"},"state":"ACTIVE"}
