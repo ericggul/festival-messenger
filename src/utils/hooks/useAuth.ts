@@ -6,13 +6,13 @@ import { functions, auth } from "@U/initalizer/firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
 
 const useAuth = () => {
-  const redirectUri = "http://localhost:3001";
+  const redirectUri = "http://localhost:3000";
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const authorizeCodeFromKakao = window.location.search.split("code=")[1];
-    console.log(authorizeCodeFromKakao);
+
     if (authorizeCodeFromKakao !== undefined) {
       let kakaoAuth = httpsCallable(functions, "kakaoAuth");
       kakaoAuth({ code: authorizeCodeFromKakao })

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexCenterStyle, AppearAnimation } from "@S/responsive/display";
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const SignInBox = styled.div`
   ${FlexCenterStyle};
@@ -12,6 +12,7 @@ export const SignInBox = styled.div`
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.16);
 
   width: ${({ theme }) => theme.windowWidth * 0.5}px;
+  background: white;
 `;
 
 export const CloseButton = styled.div``;
