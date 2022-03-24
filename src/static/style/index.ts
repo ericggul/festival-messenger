@@ -22,6 +22,26 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
 
+    @font-face{
+      font-family: 'Seoul Namsan';
+      src: url('/assets/fonts/SeoulNamsanM.ttf') format('truetype');
+    }
+    @font-face{
+      font-family: 'Seoul Namsan';
+      src: url('/assets/fonts/SeoulNamsanB.ttf') format('truetype');
+      font-weight: bold;
+    }
+    @font-face{
+      font-family: 'Seoul Namsan';
+      src: url('/assets/fonts/SeoulNamsanL.ttf') format('truetype');
+      font-weight: light;
+    }
+    @font-face{
+      font-family: 'Seoul Namsan';
+      src: url('/assets/fonts/SeoulNamsanVert.ttf') format('truetype');
+      font-weight: medium;
+    }
+
     font-family: 'Seoul Namsan', 'sans-serif';
     user-select: none;
     

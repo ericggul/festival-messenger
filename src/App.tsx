@@ -10,6 +10,7 @@ import { FlexCenterStyle } from "@S/style/responsive/display";
 import { GlobalStyle, theme } from "@S/style/index";
 import routes from "@/routes";
 import PageLoading from "@F/loading/PageLoading";
+const Intro = React.lazy(() => import("@/pages/intro/Intro"));
 
 function App() {
   const { user, isAuthorized } = useUser();
@@ -19,27 +20,31 @@ function App() {
   const [windowWidth, windowHeight] = useResize();
   const themeWithWindowSize = useMemo(() => ({ ...theme, windowHeight, windowWidth }), [windowHeight, windowWidth]);
 
+  routes.map((route: any, i: number) => console.log(route.component));
   return (
     <ThemeProvider theme={themeWithWindowSize}>
       <GlobalStyle />
-
       <Router>
-        <Suspense
-          fallback={
-            <LoadingWrapper height={windowHeight}>
-              <PageLoading />
-            </LoadingWrapper>
-          }
-        >
-          <Routes>
-            {routes.map((route: any) => (
-              <Route path={route.path}>{route.component}</Route>
-            ))}
-            <Route>
-              <NotFound />
-            </Route>
-          </Routes>
-        </Suspense>
+        <Routes>
+          {routes.map((route: any, i: number) => (
+            <Route
+              key={i}
+              path={route.path}
+              element={
+                <Suspense
+                  fallback={
+                    <LoadingWrapper height={windowHeight}>
+                      <PageLoading />
+                    </LoadingWrapper>
+                  }
+                >
+                  <route.component />
+                </Suspense>
+              }
+            />
+          ))}
+          <Route element={NotFound} />
+        </Routes>
       </Router>
     </ThemeProvider>
   );
