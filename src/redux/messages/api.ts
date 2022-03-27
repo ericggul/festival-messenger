@@ -1,25 +1,23 @@
-// import { messagesRef } from "@U/initalizer/firebase";
-export const test = () => {};
+import { messagesRef } from "@U/initalizer/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
-// export function fetchMessagesFromFirestore(chat: any) {
-//   return messagesRef
-//     .doc(chat.id)
-//     .get()
-//     .then((doc: any) => (doc.exists() ? doc.data : null));
-// }
+export async function fetchMessagesFromFirestore(chat: any) {
+  const docRef = doc(messagesRef, chat.id);
+  const docSnap = await getDoc(docRef);
 
-// export function setMessagesInFirestore(chat: any, messagedId: any, messages: any) {
-//   messagesRef
-//     .doc(chat.id)
-//     .set(
-//       {
-//         messagedId: messages,
-//       },
-//       { merge: true }
-//     )
-//     .then();
+  return docSnap.exists() ? docSnap.data() : null;
+}
 
-//   // miniGameCollectionRef.doc(user.uid).set({
-//   //     handwriting: handwritings,
-//   //   }, { merge: true }).then();
-// }
+export async function setMessagesInFirestore(chat: any, messageId: any, messages: any) {
+  await setDoc(
+    doc(messagesRef, chat.id),
+    {
+      messageId: messages,
+    },
+    { merge: true }
+  );
+
+  // miniGameCollectionRef.doc(user.uid).set({
+  //     handwriting: handwritings,
+  //   }, { merge: true }).then();
+}
