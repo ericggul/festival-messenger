@@ -1,29 +1,28 @@
-import { configureStore } from "@reduxjs/toolkit";
-
 import { createSlice } from "@reduxjs/toolkit";
 
 type SliceState = { uid: any; email: any; isLoading: any };
 const initialState: SliceState = {
   uid: null,
   email: null,
-  isLoading: null,
+  isLoading: false,
 };
 
 const slice = createSlice({
   name: "users",
-  initialState: initialState as SliceState,
+  initialState,
   reducers: {
-    setValue: (state: any, action: any) => {
-      console.log(action);
-      state = { ...state, ...action.payload };
+    setValue: (state, action: any) => {
+      return { ...state, ...action.payload };
     },
-    setLoading: (state: any, action: any) => {
-      state.isLoading = action.isLoading;
+    setLoading: (state, action: any) => {
+      state.isLoading = action.payload;
+      return state;
     },
-    reset: (state: any) => {
+    reset: (state) => {
       state.uid = null;
       state.email = null;
-      state.isLoading = null;
+      state.isLoading = false;
+      return state;
     },
   },
 });
