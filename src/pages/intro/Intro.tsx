@@ -4,6 +4,7 @@ import { actions } from "@R/chats/state";
 import useAuth from "@U/hooks/useAuth";
 
 import { fetchChatsById, fetchChatsByMember, createNewChat, addMemberToChat } from "@R/chats/middleware";
+import { fetchAllMessages, fetchMessage, createNewMessage, deleteMessage } from "@R/messages/middleware";
 
 export default function Intro() {
   const { signIn, user, isAuthorized } = useAuth();
@@ -12,7 +13,8 @@ export default function Intro() {
   useEffect(() => {
     const test = async () => {
       try {
-        await dispatch(addMemberToChat({ chatId: "8hToHR5FdtvLHInJoRWb", member: "testMemeber" })).unwrap();
+        const res = await dispatch(fetchChatsByMember(user.uid)).unwrap();
+        console.log(res);
       } catch (e) {
         console.log(e);
       }

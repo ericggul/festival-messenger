@@ -4,7 +4,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { initializeApp } from "firebase/app";
 import { getFunctions } from "firebase/functions";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref } from "firebase/storage";
 import { collection, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -17,5 +17,6 @@ export const storage = getStorage(app);
 
 //Refs
 export const chatsRef = collection(firestore, "chats");
+export const messageStorageRef = ref(storage, "messages");
 
 export const auth = getAuth();

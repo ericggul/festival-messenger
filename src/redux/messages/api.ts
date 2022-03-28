@@ -1,6 +1,5 @@
-import { chatsRef, firestore } from "@U/initalizer/firebase";
+import { chatsRef, messageStorageRef } from "@U/initalizer/firebase";
 import { doc, collection, getDoc, getDocs, deleteDoc, query, addDoc, serverTimestamp } from "firebase/firestore";
-import { getStorage, ref } from "firebase/storage";
 
 export async function fetchAllMessagesFromFirestore(chatId: any) {
   const parentChatRef = collection(chatsRef, chatId, "messages");
@@ -27,10 +26,12 @@ export async function createNewMessageFromFirestore(chatId: any, messageText: an
   const messageRef = await addDoc(parentChatRef, {
     createdAt: serverTimestamp(),
     messageText,
-    messageFrom,
-    messageTo,
+    messageFromId: messageFrom.id,
+    messageFromName: messageFrom.name,
+    messageToId: messageTo.id,
+    messageToName: messageTo.name,
   });
-  return messageRef.id;
+  return messageRef;
 }
 
 export async function deleteMessageFromFirestore(chatId: any, messageId: any) {
