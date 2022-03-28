@@ -1,23 +1,37 @@
-import { messagesRef } from "@U/initalizer/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { chatsRef, firestore } from "@U/initalizer/firebase";
+import { doc, collection, getDoc, getDocs, setDoc, deleteDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
 
-export async function fetchMessagesFromFirestore(chat: any) {
-  const docRef = doc(messagesRef, chat.id);
-  const docSnap = await getDoc(docRef);
+export async function fetchAllMessagesFromFirestore(chatId: any) {
+  const parentChatRef = collection(chatsRef, chatId, "messages");
+  const q = query(parentChatRef);
+  const querySnapShot = await getDocs(q);
+
+  let result: any[] = [];
+  querySnapShot.forEach((doc: any) => {
+    result.push(doc.id);
+  });
+
+  return result;
+}
+
+export async function fetchMessageFromFirestore(chatId: any, messageId: any) {
+  const parentChatRef = doc(chatsRef, chatId, "messages", messageId);
+  const docSnap = await getDoc(parentChatRef);
 
   return docSnap.exists() ? docSnap.data() : null;
 }
 
-export async function setMessagesInFirestore(chat: any, messageId: any, messages: any) {
-  await setDoc(
-    doc(messagesRef, chat.id),
-    {
-      messageId: messages,
-    },
-    { merge: true }
-  );
+export async function createNewMessageFromFirestore(chatId: any, messageText: any, messageFrom: any, messageTo: any) {
+  const parentChatRef = collection(chatsRef, chatId, "messages");
+  const messageRef = await addDoc(parentChatRef, {
+    createdAt: serverTimestamp(),
+    messageText,
+    messageFrom,
+    messageTo,
+  });
+  return messageRef.id;
+}
 
-  // miniGameCollectionRef.doc(user.uid).set({
-  //     handwriting: handwritings,
-  //   }, { merge: true }).then();
+export async function deleteMessageFromFirestore(chatId: any, messageId: any) {
+  await deleteDoc(doc(chatsRef, chatId, "messages", messageId));
 }

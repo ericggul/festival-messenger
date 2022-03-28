@@ -32,7 +32,7 @@ const slice = createSlice({
         state.chatId = action.payload;
       })
       .addCase(addMemberToChat.fulfilled, (state, action: any) => {
-        console.log(action);
+        state.members = action.payload;
       });
   },
 });

@@ -15,6 +15,5 @@ export const firestore = getFirestore();
 
 //Refs
 export const chatsRef = collection(firestore, "chats");
-export const messagesRef = collection(firestore, "messages");
 
 export const auth = getAuth();

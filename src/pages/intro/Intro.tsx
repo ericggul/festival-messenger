@@ -9,11 +9,7 @@ export default function Intro() {
   const { signIn, user, isAuthorized } = useAuth();
   const dispatch = useAppThunkDispatch();
 
-  const [chatId, setChatId] = useState("");
-
   useEffect(() => {
-    dispatch(actions.createNewChat({ members: "hey" }));
-
     const test = async () => {
       try {
         await dispatch(addMemberToChat({ chatId: "8hToHR5FdtvLHInJoRWb", member: "testMemeber" })).unwrap();

@@ -1,8 +1,7 @@
 import { chatsRef } from "@U/initalizer/firebase";
-import { doc, getDoc, getDocs, setDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, getDocs, setDoc, deleteDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
 
 export async function fetchChatsFromFirestore(chatId: any) {
-  console.log(chatId);
   const docRef = doc(chatsRef, chatId);
   const docSnap = await getDoc(docRef);
 
@@ -34,4 +33,10 @@ export async function addMemberToChatFromFirestore(chatId: any, member: any) {
   await updateDoc(docRef, {
     members: arrayUnion(member),
   });
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data().members : [];
+}
+
+export async function deleteChatFromFirestore(chatId: any) {
+  await deleteDoc(doc(chatsRef, chatId));
 }
