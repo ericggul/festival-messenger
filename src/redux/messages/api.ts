@@ -1,5 +1,13 @@
 import { chatsRef, messageStorageRef } from "@U/initalizer/firebase";
-import { doc, collection, getDoc, getDocs, deleteDoc, query, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, collection, getDoc, getDocs, deleteDoc, query, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
+
+export async function createNewChatFromFirestore(members: any) {
+  const docRef = await addDoc(chatsRef, {
+    members,
+    createdAt: serverTimestamp(),
+  });
+  return docRef.id;
+}
 
 export async function fetchAllMessagesFromFirestore(chatId: any) {
   const parentChatRef = collection(chatsRef, chatId, "messages");
@@ -32,6 +40,15 @@ export async function createNewMessageFromFirestore(chatId: any, messageText: an
     messageToName: messageTo.name || "",
   });
   return messageRef.id;
+}
+
+export async function addMemberToChatFromFirestore(chatId: any, member: any) {
+  const docRef = doc(chatsRef, chatId);
+  await updateDoc(docRef, {
+    members: arrayUnion(member),
+  });
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data().members : [];
 }
 
 export async function deleteMessageFromFirestore(chatId: any, messageId: any) {

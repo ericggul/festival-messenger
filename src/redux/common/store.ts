@@ -1,5 +1,6 @@
 import userReducer from "@R/users/state";
 import chatReducer from "@R/chats/state";
+import messageReducer from "@R/messages/state";
 import { configureStore, combineReducers, ThunkDispatch, Action } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
@@ -8,6 +9,7 @@ import thunk from "redux-thunk";
 const reducers = combineReducers({
   users: userReducer,
   chats: chatReducer,
+  messages: messageReducer,
 });
 
 const persistConfig = {

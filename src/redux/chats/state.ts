@@ -1,16 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createNewChat, addMemberToChat } from "@R/chats/middleware";
-import { createNewMessage, deleteMessage } from "@R/messages/middleware";
+import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
 
-//members only include users who are registered priorly: updateMembers used to update
-type User = { uid: String; name?: String };
-type Message = { messageId: String; messageFrom: User; messageTo: User; messageText: String };
-type SliceState = { members: User[]; chatId: String; messages: Message[] };
+import type { Chat } from "@R/messages/state";
+
+export type SliceState = { chats: Chat[] };
 
 const initialState: SliceState = {
-  chatId: "",
-  members: [],
-  messages: [],
+  chats: [],
 };
 
 const slice = createSlice({
@@ -18,32 +14,14 @@ const slice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.chatId = "";
-      state.members = [];
-      state.messages = [];
+      state.chats = [];
       return state;
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(createNewChat.fulfilled, (state, action) => {
-        state.members = action.meta.arg;
-        state.chatId = action.payload;
-      })
-      .addCase(addMemberToChat.fulfilled, (state, action) => {
-        state.members = action.payload;
-      })
-      .addCase(createNewMessage.fulfilled, (state, action) => {
-        let copiedMessages = state.messages || [];
-        let newMessage = action.meta.arg;
-        delete newMessage.chatId;
-        newMessage = { ...newMessage, messageId: action.payload };
-        copiedMessages = [...copiedMessages, newMessage];
-        state.messages = copiedMessages;
-      })
-      .addCase(deleteMessage.fulfilled, (state, action) => {
-        console.log(action.payload);
-      });
+    builder.addCase(fetchChatsByMember.fulfilled, (state, action) => {
+      state.chats = action.payload;
+    });
   },
 });
 export default slice.reducer;

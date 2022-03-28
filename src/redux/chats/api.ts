@@ -20,23 +20,6 @@ export async function fetchChatsByMemberFromFirestore(member: any) {
   return result;
 }
 
-export async function createNewChatFromFirestore(members: any) {
-  const docRef = await addDoc(chatsRef, {
-    members,
-    createdAt: serverTimestamp(),
-  });
-  return docRef.id;
-}
-
-export async function addMemberToChatFromFirestore(chatId: any, member: any) {
-  const docRef = doc(chatsRef, chatId);
-  await updateDoc(docRef, {
-    members: arrayUnion(member),
-  });
-  const docSnap = await getDoc(docRef);
-  return docSnap.exists() ? docSnap.data().members : [];
-}
-
 export async function deleteChatFromFirestore(chatId: any) {
   await deleteDoc(doc(chatsRef, chatId));
 }

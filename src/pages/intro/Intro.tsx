@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAppThunkDispatch, useAppSelector } from "@R/common/hooks";
-import { actions } from "@R/chats/state";
+import { actions as chatActions } from "@R/chats/state";
+import { actions as messageActions } from "@R/messages/state";
 import useAuth from "@U/hooks/useAuth";
 
-import { fetchChatsById, fetchChatsByMember, createNewChat, addMemberToChat } from "@R/chats/middleware";
-import { fetchAllMessages, fetchMessage, createNewMessage, deleteMessage } from "@R/messages/middleware";
+import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
+import { fetchAllMessages, fetchMessage, createNewMessage, deleteMessage, addMemberToChat } from "@R/messages/middleware";
 
 export default function Intro() {
   const { signIn, user, isAuthorized } = useAuth();

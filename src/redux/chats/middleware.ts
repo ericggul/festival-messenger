@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchChatsFromFirestore, fetchChatsByMemberFromFirestore, createNewChatFromFirestore, addMemberToChatFromFirestore } from "@R/chats/api";
+import { fetchChatsFromFirestore, fetchChatsByMemberFromFirestore } from "@R/chats/api";
 
 export const fetchChatsById = createAsyncThunk("chats/fetchChatsById", async (chatId: String, thunkAPI: any) => {
   const response: any = await fetchChatsFromFirestore(chatId);
@@ -8,15 +8,5 @@ export const fetchChatsById = createAsyncThunk("chats/fetchChatsById", async (ch
 
 export const fetchChatsByMember = createAsyncThunk("chats/fetchChatsByMember", async (member: String) => {
   const response: any = await fetchChatsByMemberFromFirestore(member);
-  return response;
-});
-
-export const createNewChat = createAsyncThunk("chats/createNewChat", async (members: any) => {
-  const response: any = await createNewChatFromFirestore(members);
-  return response;
-});
-
-export const addMemberToChat = createAsyncThunk("chats/addMemberToChat", async (params: any) => {
-  const response = await addMemberToChatFromFirestore(params.chatId, params.member);
   return response;
 });
