@@ -1,5 +1,6 @@
 import { chatsRef, firestore } from "@U/initalizer/firebase";
-import { doc, collection, getDoc, getDocs, setDoc, deleteDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, collection, getDoc, getDocs, deleteDoc, query, addDoc, serverTimestamp } from "firebase/firestore";
+import { getStorage, ref } from "firebase/storage";
 
 export async function fetchAllMessagesFromFirestore(chatId: any) {
   const parentChatRef = collection(chatsRef, chatId, "messages");
