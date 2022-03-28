@@ -5,11 +5,18 @@ import {
   fetchAllMessagesFromFirestore,
   fetchMessageFromFirestore,
   createNewMessageFromFirestore,
+  alterMessageReadStateFromFirestore,
+  alterMessageToFromFireStore,
   deleteMessageFromFirestore,
 } from "@R/messages/api";
 
 export const createNewChat = createAsyncThunk("messages/createNewChat", async (members: any) => {
   const response: any = await createNewChatFromFirestore(members);
+  return response;
+});
+
+export const addMemberToChat = createAsyncThunk("messages/addMemberToChat", async (params: any) => {
+  const response = await addMemberToChatFromFirestore(params.chatId, params.member);
   return response;
 });
 
@@ -24,15 +31,17 @@ export const fetchMessage = createAsyncThunk("messages/fetchMessage", async (pro
 });
 
 export const createNewMessage = createAsyncThunk("messages/createNewMessage", async (props: any) => {
-  const response: any = await createNewMessageFromFirestore(props.chatId, props.messageText, props.messageFrom, props.messageTo);
+  const response: any = await createNewMessageFromFirestore(props.chatId, props.messageText, props.messageFrom, props.messageTo, props.latLngPos);
   return response;
+});
+
+export const alterMessageReadState = createAsyncThunk("messages/alterMessageReadState", async (props: any) => {
+  await alterMessageReadStateFromFirestore(props.chatId, props.messageId, props.newReadState);
+});
+export const alterMessageTo = createAsyncThunk("messages/alterMessageTo", async (props: any) => {
+  await alterMessageToFromFireStore(props.chatId, props.messageId, props.newMessageTo);
 });
 
 export const deleteMessage = createAsyncThunk("messages/deleteMessage", async (props: any) => {
   await deleteMessageFromFirestore(props.chatId, props.messageId);
-});
-
-export const addMemberToChat = createAsyncThunk("messages/addMemberToChat", async (params: any) => {
-  const response = await addMemberToChatFromFirestore(params.chatId, params.member);
-  return response;
 });

@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
-import { createNewChat, fetchAllMessages, fetchMessage, createNewMessage, deleteMessage, addMemberToChat } from "@R/messages/middleware";
+import { createNewChat, addMemberToChat, fetchAllMessages, fetchMessage, createNewMessage, alterMessageReadState, alterMessageTo, deleteMessage } from "@R/messages/middleware";
 
 //members only include users who are registered priorly: updateMembers used to update
 export type User = { uid: String; name?: String };
-export type Message = { messageId: String; messageFrom: User; messageTo: User; messageText: String };
+export type Message = { messageId: String; messageFrom: User; messageTo: User; messageText: String; latLngPos: any; read: any };
 export type Chat = { members: User[]; chatId: String; messages: Message[] };
 
 const initialState: Chat = {
@@ -30,11 +30,11 @@ const slice = createSlice({
         state.members = action.meta.arg;
         state.chatId = action.payload;
       })
-      .addCase(fetchAllMessages.fulfilled, (state, action) => {
-        state.messages = action.payload;
-      })
       .addCase(addMemberToChat.fulfilled, (state, action) => {
         state.members = action.payload;
+      })
+      .addCase(fetchAllMessages.fulfilled, (state, action) => {
+        state.messages = action.payload;
       })
       .addCase(createNewMessage.fulfilled, (state, action) => {
         let copiedMessages = state.messages || [];
@@ -42,6 +42,16 @@ const slice = createSlice({
         delete newMessage.chatId;
         newMessage = { ...newMessage, messageId: action.payload };
         copiedMessages = [...copiedMessages, newMessage];
+        state.messages = copiedMessages;
+      })
+      .addCase(alterMessageReadState.fulfilled, (state, action) => {
+        let copiedMessages = state.messages || [];
+        copiedMessages.filter((msg) => msg.messageId === action.meta.arg.messageId).forEach((msg) => (msg.read = action.meta.arg.newReadState));
+        state.messages = copiedMessages;
+      })
+      .addCase(alterMessageTo.fulfilled, (state, action) => {
+        let copiedMessages = state.messages || [];
+        copiedMessages.filter((msg) => msg.messageId === action.meta.arg.messageId).forEach((msg) => (msg.messageTo = action.meta.arg.newMessageTo));
         state.messages = copiedMessages;
       })
       .addCase(deleteMessage.fulfilled, (state, action) => {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function useGeoLocation() {
   const [pos, setPos] = useState({});
+  const [permittedStatus, setPermittedStatus] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -9,6 +10,7 @@ export default function useGeoLocation() {
         (position) => {
           console.log(position);
           setPos({ lat: position.coords.latitude, lng: position.coords.longitude });
+          setPermittedStatus(true);
         },
         (error) => {
           console.log(error);
@@ -17,5 +19,5 @@ export default function useGeoLocation() {
     }
   }, []);
 
-  return pos;
+  return { pos, permittedStatus };
 }
