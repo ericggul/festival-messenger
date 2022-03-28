@@ -26,12 +26,12 @@ export async function createNewMessageFromFirestore(chatId: any, messageText: an
   const messageRef = await addDoc(parentChatRef, {
     createdAt: serverTimestamp(),
     messageText,
-    messageFromId: messageFrom.id,
-    messageFromName: messageFrom.name,
-    messageToId: messageTo.id,
-    messageToName: messageTo.name,
+    messageFromId: messageFrom.uid,
+    messageFromName: messageFrom.name || "",
+    messageToId: messageTo.uid,
+    messageToName: messageTo.name || "",
   });
-  return messageRef;
+  return messageRef.id;
 }
 
 export async function deleteMessageFromFirestore(chatId: any, messageId: any) {

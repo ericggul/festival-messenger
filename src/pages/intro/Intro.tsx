@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAppThunkDispatch } from "@R/common/hooks";
+import { useAppThunkDispatch, useAppSelector } from "@R/common/hooks";
 import { actions } from "@R/chats/state";
 import useAuth from "@U/hooks/useAuth";
 
@@ -10,17 +10,30 @@ export default function Intro() {
   const { signIn, user, isAuthorized } = useAuth();
   const dispatch = useAppThunkDispatch();
 
+  console.log(useAppSelector((state) => state.chats));
+
   useEffect(() => {
     const test = async () => {
       try {
-        const res = await dispatch(fetchChatsByMember(user.uid)).unwrap();
+        const res = await dispatch(
+          createNewMessage({
+            chatId: "8hToHR5FdtvLHInJoRWb",
+            messageText: "Hello Henry",
+            messageFrom: {
+              uid: user.uid,
+            },
+            messageTo: {
+              uid: "external",
+            },
+          })
+        ).unwrap();
         console.log(res);
       } catch (e) {
         console.log(e);
       }
     };
 
-    test();
+    // test();
   }, [isAuthorized]);
 
   return (

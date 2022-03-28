@@ -16,7 +16,14 @@ const initialState: SliceState = {
 const slice = createSlice({
   name: "chats",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.chatId = "";
+      state.members = [];
+      state.messages = [];
+      return state;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createNewChat.fulfilled, (state, action) => {
@@ -27,7 +34,12 @@ const slice = createSlice({
         state.members = action.payload;
       })
       .addCase(createNewMessage.fulfilled, (state, action) => {
-        console.log(action.payload);
+        let copiedMessages = state.messages || [];
+        let newMessage = action.meta.arg;
+        delete newMessage.chatId;
+        newMessage = { ...newMessage, messageId: action.payload };
+        copiedMessages = [...copiedMessages, newMessage];
+        state.messages = copiedMessages;
       })
       .addCase(deleteMessage.fulfilled, (state, action) => {
         console.log(action.payload);
