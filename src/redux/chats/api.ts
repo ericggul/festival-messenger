@@ -1,8 +1,9 @@
 import { chatsRef } from "@U/initalizer/firebase";
-import { doc, getDoc, getDocs, setDoc, query, where, addDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, setDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
 
-export async function fetchChatsFromFirestore(chat: any) {
-  const docRef = doc(chatsRef, chat.id);
+export async function fetchChatsFromFirestore(chatId: any) {
+  console.log(chatId);
+  const docRef = doc(chatsRef, chatId);
   const docSnap = await getDoc(docRef);
 
   return docSnap.exists() ? docSnap.data() : null;
@@ -16,12 +17,21 @@ export async function fetchChatsByMemberFromFirestore(member: any) {
   querySnapshot.forEach((doc: any) => {
     result.push(doc.id);
   });
+
   return result;
 }
 
-export async function createNewChat(members: any) {
+export async function createNewChatFromFirestore(members: any) {
   const docRef = await addDoc(chatsRef, {
     members,
+    createdAt: serverTimestamp(),
   });
   return docRef.id;
+}
+
+export async function addMemberToChatFromFirestore(chatId: any, member: any) {
+  const docRef = doc(chatsRef, chatId);
+  await updateDoc(docRef, {
+    members: arrayUnion(member),
+  });
 }

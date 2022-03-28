@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useAppSelector, useAppDispatch } from "@R/common/hooks";
+import { useAppThunkDispatch } from "@R/common/hooks";
 import { actions } from "@R/chats/state";
 import useAuth from "@U/hooks/useAuth";
 
-import { fetchChatsFromFirestore, fetchChatsByMemberFromFirestore, createNewChat } from "@R/chats/api";
+import { fetchChatsById, fetchChatsByMember, createNewChat, addMemberToChat } from "@R/chats/middleware";
 
 export default function Intro() {
   const { signIn, user, isAuthorized } = useAuth();
-  const dispatch = useAppDispatch();
+  const dispatch = useAppThunkDispatch();
 
   const [chatId, setChatId] = useState("");
 
   useEffect(() => {
     dispatch(actions.createNewChat({ members: "hey" }));
 
-    fetchChatsByMemberFromFirestore(user.uid)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(() => {
-        console.log("error");
-      });
+    const test = async () => {
+      try {
+        await dispatch(addMemberToChat({ chatId: "8hToHR5FdtvLHInJoRWb", member: "testMemeber" })).unwrap();
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
-    // createNewChat([user.uid])
-    //   .then((res) => {
-    //     setChatId(res);
-    //   })
-    //   .catch(() => {
-    //     console.log("error");
-    //   });
+    test();
   }, [isAuthorized]);
 
   return (

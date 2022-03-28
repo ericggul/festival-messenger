@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchChatsById, fetchChatsByMember, createNewChat, addMemberToChat } from "@R/chats/middleware";
 
 //members only include users who are registered priorly: updateMembers used to update
-type SliceState = { createdAt: any; memebers: any; chatId: any };
+type SliceState = { members: any; chatId: any };
 const initialState: SliceState = {
-  createdAt: null,
   chatId: null,
-  memebers: null,
+  members: null,
 };
 
 const slice = createSlice({
@@ -18,6 +18,22 @@ const slice = createSlice({
     updateMembers: (state, action: any) => {
       console.log(state, action);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchChatsById.fulfilled, (state, action: any) => {
+        console.log("here!");
+      })
+      .addCase(fetchChatsByMember.fulfilled, (state, action: any) => {
+        console.log("here!");
+      })
+      .addCase(createNewChat.fulfilled, (state, action: any) => {
+        state.members = action.meta.arg;
+        state.chatId = action.payload;
+      })
+      .addCase(addMemberToChat.fulfilled, (state, action: any) => {
+        console.log(action);
+      });
   },
 });
 export default slice.reducer;
