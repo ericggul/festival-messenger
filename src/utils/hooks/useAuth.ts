@@ -7,8 +7,11 @@ import { functions, auth } from "@U/initalizer/firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { useNavigate } from "react-router-dom";
 
+//https://festival-messenger-4df40.web.app
+//http://localhost:3000
+
 const useAuth = () => {
-  const redirectUri = "http://localhost:3000";
+  const redirectUri = "https://festival-messenger-4df40.web.app";
 
   const dispatch = useAppDispatch();
 

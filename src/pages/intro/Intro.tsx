@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAppThunkDispatch, useAppSelector } from "@R/common/hooks";
-import { actions as chatActions } from "@R/chats/state";
-import { actions as messageActions } from "@R/messages/state";
 import useAuth from "@U/hooks/useAuth";
 
 import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
 import { fetchAllMessages, fetchMessage, createNewMessage, deleteMessage, addMemberToChat } from "@R/messages/middleware";
+
+import geoLocation from "@U/functions/geoLocation";
+import useGeoLocation from "@U/hooks/useGeoLocation";
 
 export default function Intro() {
   const { signIn, user, isAuthorized } = useAuth();
@@ -13,6 +14,8 @@ export default function Intro() {
 
   console.log(useAppSelector((state) => state.chats));
 
+  const hey = useGeoLocation();
+  console.log(hey);
   useEffect(() => {
     const test = async () => {
       try {
