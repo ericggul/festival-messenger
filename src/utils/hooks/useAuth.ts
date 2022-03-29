@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 //http://localhost:3000
 
 const useAuth = () => {
-  const redirectUri = "https://festival-messenger-4df40.web.app";
+  const redirectUri = "http://localhost:3000";
 
   const dispatch = useAppDispatch();
 
@@ -19,6 +19,8 @@ const useAuth = () => {
     uid: state.users.uid,
     email: state.users.email,
     isLoading: state.users.isLoading,
+    name: state.users.name || null,
+    profileImage: state.users.profileImage || null,
   }));
 
   console.log(user);
@@ -51,16 +53,6 @@ const useAuth = () => {
               dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
               dispatch(actions.setLoading(false));
 
-              window.Kakao.API.request({
-                url: "/v1/api/talk/friends",
-                success: (res: any) => {
-                  console.log(res);
-                },
-                fail: (err: any) => {
-                  console.log(err);
-                },
-              });
-
               navigate("/");
             })
             .catch((error: any) => {
@@ -74,6 +66,28 @@ const useAuth = () => {
       navigate("/");
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user.uid && !user.name) {
+      console.log("here");
+
+      window.Kakao.API.request({
+        url: "/v2/user/me",
+        data: {
+          property_keys: ["kakao_account.profile"],
+        },
+        success: (res: any) => {
+          let output = res.kakao_account.profile;
+          console.log(output);
+          //Nickname
+          dispatch(actions.setValue({ name: output.nickname }));
+        },
+        fail: (err: any) => {
+          console.log(err);
+        },
+      });
+    }
+  }, [user]);
 
   const signIn = useCallback(() => {
     dispatch(actions.setLoading(true));

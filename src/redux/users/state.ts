@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type SliceState = { uid: any; email: any; isLoading: any };
+type SliceState = { uid: any; email: any; isLoading: any; name?: any; profileImage?: any };
 const initialState: SliceState = {
   uid: null,
   email: null,

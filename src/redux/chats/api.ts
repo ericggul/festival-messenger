@@ -14,6 +14,7 @@ export async function fetchChatsByMemberFromFirestore(member: any) {
 
   let result: any[] = [];
   querySnapshot.forEach((doc: any) => {
+    console.log(doc.data());
     result.push(doc.id);
   });
 
