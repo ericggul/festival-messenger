@@ -4,6 +4,7 @@ import useAuth from "@U/hooks/useAuth";
 import { createNewChat, fetchAllMessages, fetchMessage, createNewMessage, alterMessageReadState, deleteMessage, addMemberToChat } from "@R/messages/middleware";
 import * as S from "./styles";
 
+import { createUserInformation } from "@R/users/middleware";
 import useGeoLocation from "@U/hooks/useGeoLocation";
 
 function CreateChat() {
@@ -14,6 +15,20 @@ function CreateChat() {
 
   const dispatch = useAppThunkDispatch();
   console.log(chats);
+
+  async function createUserInfo() {
+    const userInfo = {
+      id: user.uid,
+      email: user.email,
+      name: "최정윤",
+      //To add: profile
+    };
+    try {
+      const res = await dispatch(createUserInformation(userInfo)).unwrap();
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   async function createChat() {
     const membersArray = [
@@ -82,6 +97,6 @@ function CreateChat() {
     }
   }
 
-  return <S.Container onClick={fetchMessages}>CreateChat</S.Container>;
+  return <S.Container onClick={createUserInfo}>CreateChat</S.Container>;
 }
 export default CreateChat;

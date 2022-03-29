@@ -17,6 +17,9 @@ export const storage = getStorage(app);
 
 //Refs
 export const chatsRef = collection(firestore, "chats");
+export const usersRef = collection(firestore, "users");
+
+export const userStorageRef = ref(storage, "users");
 export const messageStorageRef = ref(storage, "messages");
 
 export const auth = getAuth();
