@@ -8,7 +8,6 @@ export default function useGeoLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log(position);
           setPos({ lat: position.coords.latitude, lng: position.coords.longitude });
           setPermittedStatus(true);
         },

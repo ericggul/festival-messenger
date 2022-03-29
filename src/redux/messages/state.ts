@@ -29,10 +29,12 @@ const slice = createSlice({
       .addCase(createNewChat.fulfilled, (state, action) => {
         state.members = action.meta.arg;
         state.chatId = action.payload;
+        state.messages = [];
       })
       .addCase(addMemberToChat.fulfilled, (state, action) => {
         state.members = action.payload;
       })
+
       .addCase(fetchAllMessages.fulfilled, (state, action) => {
         state.messages = action.payload;
       })
@@ -40,7 +42,7 @@ const slice = createSlice({
         let copiedMessages = state.messages || [];
         let newMessage = action.meta.arg;
         delete newMessage.chatId;
-        newMessage = { ...newMessage, messageId: action.payload };
+        newMessage = { ...newMessage, messageId: action.payload, read: false };
         copiedMessages = [...copiedMessages, newMessage];
         state.messages = copiedMessages;
       })

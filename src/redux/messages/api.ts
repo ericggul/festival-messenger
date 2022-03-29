@@ -10,10 +10,10 @@ export async function createNewChatFromFirestore(members: any) {
   return docRef.id;
 }
 
-export async function addMemberToChatFromFirestore(chatId: any, member: any) {
+export async function addMemberToChatFromFirestore(chatId: any, members: any) {
   const docRef = doc(chatsRef, chatId);
   await updateDoc(docRef, {
-    members: arrayUnion(member),
+    members,
   });
   const docSnap = await getDoc(docRef);
   return docSnap.exists() ? docSnap.data().members : [];
@@ -23,13 +23,15 @@ export async function addMemberToChatFromFirestore(chatId: any, member: any) {
 
 export async function fetchAllMessagesFromFirestore(chatId: any) {
   const parentChatRef = collection(chatsRef, chatId, "messages");
+
   const q = query(parentChatRef);
   const querySnapShot = await getDocs(q);
 
   let result: any[] = [];
   querySnapShot.forEach((doc: any) => {
-    console.log(doc);
-    result.push(doc.id);
+    let data = doc.data();
+    delete data["createdAt"];
+    result.push(data);
   });
 
   return result;
@@ -48,10 +50,8 @@ export async function createNewMessageFromFirestore(chatId: any, messageText: an
   const messageRef = await addDoc(parentChatRef, {
     createdAt: serverTimestamp(),
     messageText,
-    messageFromId: messageFrom.uid,
-    messageFromName: messageFrom.name || "",
-    messageToId: messageTo.uid,
-    messageToName: messageTo.name || "",
+    messageFrom: messageFrom,
+    messageTo: messageTo,
     latLngPos: latLngPos,
     read: false,
   });

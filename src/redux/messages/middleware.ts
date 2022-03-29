@@ -16,7 +16,7 @@ export const createNewChat = createAsyncThunk("messages/createNewChat", async (m
 });
 
 export const addMemberToChat = createAsyncThunk("messages/addMemberToChat", async (params: any) => {
-  const response = await addMemberToChatFromFirestore(params.chatId, params.member);
+  const response = await addMemberToChatFromFirestore(params.chatId, params.members);
   return response;
 });
 
