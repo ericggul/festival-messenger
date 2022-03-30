@@ -8,5 +8,6 @@ export const fetchUserInformation = createAsyncThunk("messages/fetchUserInformat
 });
 
 export const createUserInformation = createAsyncThunk("messages/createUserInformation", async (user: any) => {
-  await createUserInformationFromFirestore(user);
+  const response: any = await createUserInformationFromFirestore(user);
+  return response;
 });

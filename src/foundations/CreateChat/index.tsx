@@ -104,11 +104,6 @@ function CreateChat() {
     }
   }
 
-  return (
-    <S.Container onClick={createUserInfo}>
-      CreateChat
-      <input type="file" accept="image/png, image/jpeg, image/svg" onChange={createUserInfo} />
-    </S.Container>
-  );
+  return <S.Container>CreateChat</S.Container>;
 }
 export default CreateChat;

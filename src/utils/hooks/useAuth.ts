@@ -23,8 +23,6 @@ const useAuth = () => {
     profileImage: state.users.profileImage || null,
   }));
 
-  console.log(user);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,9 +49,26 @@ const useAuth = () => {
               }
 
               dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
-              dispatch(actions.setLoading(false));
 
-              navigate("/");
+              window.Kakao.API.request({
+                url: "/v2/user/me",
+                data: {
+                  property_keys: ["kakao_account.profile"],
+                },
+                success: (res: any) => {
+                  let output = res.kakao_account.profile;
+
+                  //Nickname
+                  dispatch(actions.setValue({ name: output.nickname }));
+                  dispatch(actions.setValue({ profileImage: output.profile_image_url }));
+                },
+                fail: (err: any) => {
+                  console.log(err);
+                },
+              });
+              console.log("here");
+              dispatch(actions.setLoading(false));
+              navigate("/login");
             })
             .catch((error: any) => {
               console.log(error.code, error.message, error.details);
@@ -66,28 +81,6 @@ const useAuth = () => {
       navigate("/");
     }
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (user.uid && !user.name) {
-  //     console.log("here");
-
-  //     window.Kakao.API.request({
-  //       url: "/v2/user/me",
-  //       data: {
-  //         property_keys: ["kakao_account.profile"],
-  //       },
-  //       success: (res: any) => {
-  //         let output = res.kakao_account.profile;
-  //         console.log(output);
-  //         //Nickname
-  //         dispatch(actions.setValue({ name: output.nickname }));
-  //       },
-  //       fail: (err: any) => {
-  //         console.log(err);
-  //       },
-  //     });
-  //   }
-  // }, [user]);
 
   const signIn = useCallback(() => {
     dispatch(actions.setLoading(true));
