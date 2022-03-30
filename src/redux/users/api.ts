@@ -1,6 +1,6 @@
 import { usersRef, userStorageRef } from "@U/initalizer/firebase";
 import { doc, getDoc, getDocs, setDoc, deleteDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 
 import TestImg from "@S/assets/test.png";
 
@@ -11,6 +11,7 @@ export async function fetchUserInformationFromFirestore(userId: any) {
   return docSnap.exists() ? docSnap.data() : null;
 }
 //Create User information
+//Editing is also allowd
 export async function createUserInformationFromFirestore(user: any) {
   await setDoc(
     doc(usersRef, user.id),
@@ -21,18 +22,9 @@ export async function createUserInformationFromFirestore(user: any) {
     { merge: true }
   );
 
-  const idRef = ref(userStorageRef, `${user.id}_profile.png`);
-  await uploadBytes(idRef, TestImg, {
-    contentType: "image/png",
-  });
-  console.log("hey");
-}
-//Alter User Information
-export async function changeUserInformationFromFirestore(user: any) {
-  const docRef = doc(usersRef, user.id);
-  await updateDoc(docRef, {
-    email: user.email,
-    name: user.name || "",
+  const idRef = ref(userStorageRef, `${user.id}_profile.${user.profileImage.type.split("/").pop()}`);
+  await uploadBytesResumable(idRef, user.profileImage, {
+    contentType: user.profileImage.type,
   });
 }
 

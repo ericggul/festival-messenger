@@ -67,27 +67,27 @@ const useAuth = () => {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    if (user.uid && !user.name) {
-      console.log("here");
+  // useEffect(() => {
+  //   if (user.uid && !user.name) {
+  //     console.log("here");
 
-      window.Kakao.API.request({
-        url: "/v2/user/me",
-        data: {
-          property_keys: ["kakao_account.profile"],
-        },
-        success: (res: any) => {
-          let output = res.kakao_account.profile;
-          console.log(output);
-          //Nickname
-          dispatch(actions.setValue({ name: output.nickname }));
-        },
-        fail: (err: any) => {
-          console.log(err);
-        },
-      });
-    }
-  }, [user]);
+  //     window.Kakao.API.request({
+  //       url: "/v2/user/me",
+  //       data: {
+  //         property_keys: ["kakao_account.profile"],
+  //       },
+  //       success: (res: any) => {
+  //         let output = res.kakao_account.profile;
+  //         console.log(output);
+  //         //Nickname
+  //         dispatch(actions.setValue({ name: output.nickname }));
+  //       },
+  //       fail: (err: any) => {
+  //         console.log(err);
+  //       },
+  //     });
+  //   }
+  // }, [user]);
 
   const signIn = useCallback(() => {
     dispatch(actions.setLoading(true));

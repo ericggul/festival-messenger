@@ -16,17 +16,24 @@ function CreateChat() {
   const dispatch = useAppThunkDispatch();
   console.log(chats);
 
-  async function createUserInfo() {
-    const userInfo = {
-      id: user.uid,
-      email: user.email,
-      name: "최정윤",
-      //To add: profile
-    };
-    try {
-      const res = await dispatch(createUserInformation(userInfo)).unwrap();
-    } catch (e) {
-      console.log(e);
+  async function createUserInfo(e: any) {
+    console.log(e.target.files);
+
+    if (e.target.files.length !== 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+
+      const userInfo = {
+        id: user.uid,
+        email: user.email,
+        name: user.name || "",
+        profileImage: e.target.files[0],
+      };
+      try {
+        const res = await dispatch(createUserInformation(userInfo)).unwrap();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -97,6 +104,11 @@ function CreateChat() {
     }
   }
 
-  return <S.Container onClick={createUserInfo}>CreateChat</S.Container>;
+  return (
+    <S.Container onClick={createUserInfo}>
+      CreateChat
+      <input type="file" accept="image/png, image/jpeg, image/svg" onChange={createUserInfo} />
+    </S.Container>
+  );
 }
 export default CreateChat;
