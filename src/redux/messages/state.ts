@@ -4,7 +4,7 @@ import { createNewChat, addMemberToChat, fetchAllMessages, fetchMessage, createN
 
 //members only include users who are registered priorly: updateMembers used to update
 export type User = { uid: String; name?: String };
-export type Message = { messageId: String; messageFrom: User; messageTo: User; messageText: String; latLngPos: any; read: any };
+export type Message = { messageId: String; messageFrom: User; messageTo: User; messageText: String; latLngPos: any; read: any; imageUrl?: any };
 export type Chat = { members: User[]; chatId: String; messages: Message[] };
 
 const initialState: Chat = {
@@ -34,7 +34,6 @@ const slice = createSlice({
       .addCase(addMemberToChat.fulfilled, (state, action) => {
         state.members = action.payload;
       })
-
       .addCase(fetchAllMessages.fulfilled, (state, action) => {
         state.messages = action.payload;
       })
@@ -42,7 +41,12 @@ const slice = createSlice({
         let copiedMessages = state.messages || [];
         let newMessage = action.meta.arg;
         delete newMessage.chatId;
-        newMessage = { ...newMessage, messageId: action.payload, read: false };
+        if (newMessage.image) {
+          delete newMessage.image;
+          newMessage = { ...newMessage, messageId: action.payload.id, imageUrl: action.payload.imageUrl, read: false };
+        } else {
+          newMessage = { ...newMessage, messageId: action.payload, read: false };
+        }
         copiedMessages = [...copiedMessages, newMessage];
         state.messages = copiedMessages;
       })

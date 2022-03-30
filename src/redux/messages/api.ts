@@ -1,5 +1,6 @@
 import { chatsRef, messageStorageRef } from "@U/initalizer/firebase";
 import { doc, collection, getDoc, getDocs, deleteDoc, query, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 //Altering Chat Information(Add New Chat, Add Member)
 export async function createNewChatFromFirestore(members: any) {
@@ -45,30 +46,44 @@ export async function fetchMessageFromFirestore(chatId: any, messageId: any) {
 }
 
 //Creating New Messages
-export async function createNewMessageFromFirestore(chatId: any, messageText: any, messageFrom: any, messageTo: any, latLngPos: any) {
-  const parentChatRef = collection(chatsRef, chatId, "messages");
+export async function createNewMessageFromFirestore(props: any) {
+  const parentChatRef = collection(chatsRef, props.chatId, "messages");
   const messageRef = await addDoc(parentChatRef, {
     createdAt: serverTimestamp(),
-    messageText,
-    messageFrom: messageFrom,
-    messageTo: messageTo,
-    latLngPos: latLngPos,
+    messageText: props.messageText,
+    messageFrom: props.messageFrom,
+    messageTo: props.messageTo,
+    latLngPos: props.latLngPos,
     read: false,
   });
+
+  if (props.image) {
+    const idRef = ref(messageStorageRef, `${messageRef.id}_profile.${props.image.type.split("/").pop()}`);
+    await uploadBytesResumable(idRef, props.image, {
+      contentType: props.image.type,
+    });
+
+    let imageUrl = await getDownloadURL(idRef);
+    const parentChatRef = doc(chatsRef, props.chatId, "messages", messageRef.id);
+    await updateDoc(parentChatRef, {
+      imageUrl: imageUrl,
+    });
+    return { id: messageRef.id, imageUrl: imageUrl };
+  }
   return messageRef.id;
 }
 
 //Altering Message Information
 export async function alterMessageReadStateFromFirestore(chatId: any, messageId: any, newReadState: any) {
-  const parentChatRef = doc(chatsRef, chatId, "messages", messageId);
-  await updateDoc(parentChatRef, {
+  const messageRef = doc(chatsRef, chatId, "messages", messageId);
+  await updateDoc(messageRef, {
     read: newReadState,
   });
 }
 
 export async function alterMessageToFromFireStore(chatId: any, messageId: any, newMessageTo: any) {
-  const parentChatRef = doc(chatsRef, chatId, "messages", messageId);
-  await updateDoc(parentChatRef, {
+  const messageRef = doc(chatsRef, chatId, "messages", messageId);
+  await updateDoc(messageRef, {
     messageToId: newMessageTo.uid,
     messageToName: newMessageTo.name || "",
   });

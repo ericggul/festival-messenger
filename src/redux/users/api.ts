@@ -17,13 +17,11 @@ export async function createUserInformationFromFirestore(user: any) {
   if (user.profileImage) {
     const idRef = ref(userStorageRef, `${user.id}_profile.${user.profileImage.type.split("/").pop()}`);
     await uploadBytesResumable(idRef, user.profileImage, {
-      contentType: "image/jpg",
+      contentType: user.profileImage.type,
     });
 
     imageUrl = await getDownloadURL(idRef);
   }
-
-  console.log(imageUrl);
 
   await setDoc(
     doc(usersRef, user.id),

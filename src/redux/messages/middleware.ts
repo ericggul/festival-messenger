@@ -31,7 +31,7 @@ export const fetchMessage = createAsyncThunk("messages/fetchMessage", async (pro
 });
 
 export const createNewMessage = createAsyncThunk("messages/createNewMessage", async (props: any) => {
-  const response: any = await createNewMessageFromFirestore(props.chatId, props.messageText, props.messageFrom, props.messageTo, props.latLngPos);
+  const response: any = await createNewMessageFromFirestore(props);
   return response;
 });
 
