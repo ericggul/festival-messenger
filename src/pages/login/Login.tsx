@@ -8,9 +8,9 @@ import LoginContainer from "@C/Login";
 function Login() {
   return (
     <>
-      <Header name="Login" />
       <LoginContainer />
-      <Footer currentLoc="Login" />
+      <Header name="Login" color="rgba(0, 0, 0, 0)" />
+      <Footer currentLoc="Login" color="rgba(0, 0, 0, 0)" />
     </>
   );
 }

@@ -32,7 +32,7 @@ export const IconContainer = styled.div`
 
   ${FlexCenterStyle};
   flex-direction: column;
-  width: 7rem;
+  width: 84px;
   margin: ${({ theme }) => (theme.windowWidth < 768 ? "1.5rem" : ".8rem")} ${({ theme }) => (theme.windowWidth < 768 ? ".7rem" : "3rem")};
   margin-bottom: auto;
   zindex: ${({ theme }) => theme.headerText};
@@ -43,7 +43,7 @@ interface IconProps {
 }
 
 export const Icon = styled.img<IconProps>`
-  width: ${({ selected }) => (selected ? "3.5rem" : "3rem")};
+  width: ${({ selected }) => (selected ? "42px" : "36px")};
   transition: width 0.5s;
   height: auto;
 `;

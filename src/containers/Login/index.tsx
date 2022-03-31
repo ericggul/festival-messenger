@@ -1,12 +1,19 @@
-import React from 'react';
-import * as S from './styles';
+import React, { useMemo } from "react";
+import * as S from "./styles";
+import useResize from "@U/hooks/useResize";
+import LoginBackground from "@F/background/LoginBackground";
+import useAuth from "@U/hooks/useAuth";
 
-function Login() {
+function LoginContainer() {
+  const { signIn } = useAuth();
+
   return (
     <S.Container>
-      Login
+      <LoginBackground />
+
+      <S.Button onClick={signIn}>카카오톡으로 로그인</S.Button>
     </S.Container>
   );
 }
-export default Login;
 
+export default LoginContainer;

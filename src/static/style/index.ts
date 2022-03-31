@@ -1,7 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 import media from "styled-media-query";
 
-export const palette = {};
+export const palette = {
+  YELLOW: "#ecd458",
+};
 
 export const zIndex = {
   base: 1,

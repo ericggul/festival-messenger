@@ -25,6 +25,10 @@ function MapBox() {
         style: "mapbox://styles/ericggul/cl0nx2gmt000a14sdee853joe",
         attributionControl: false,
       });
+
+      return () => {
+        mapRef.current = null;
+      };
     }
   }, [mapContainerRef]);
 

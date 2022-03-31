@@ -68,7 +68,7 @@ const useAuth = () => {
               });
               console.log("here");
               dispatch(actions.setLoading(false));
-              navigate("/login");
+              navigate("/settings");
             })
             .catch((error: any) => {
               console.log(error.code, error.message, error.details);
