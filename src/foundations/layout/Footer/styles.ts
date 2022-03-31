@@ -1,0 +1,54 @@
+import styled from "styled-components";
+import { FlexCenterStyle } from "@S/style/responsive/display";
+
+interface HeaderContainerProps {
+  color: any;
+}
+export const FooterContainer = styled.div<HeaderContainerProps>`
+  width: ${({ theme }) => theme.windowWidth}px;
+  height: 95px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: ${({ color }) => color};
+  zindex: ${({ theme }) => theme.headerColor};
+
+  ${FlexCenterStyle};
+
+  animation: appear 0.5s;
+  animation-delay: 0.5;
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`;
+
+export const IconContainer = styled.div`
+  top: 0;
+
+  ${FlexCenterStyle};
+  flex-direction: column;
+  width: 7rem;
+  margin: 1.5rem ${({ theme }) => (theme.windowWidth < 768 ? ".7rem" : "3rem")};
+  margin-bottom: auto;
+  zindex: ${({ theme }) => theme.headerText};
+`;
+
+interface IconProps {
+  selected: boolean;
+}
+
+export const Icon = styled.img<IconProps>`
+  width: ${({ selected }) => (selected ? "3.5rem" : "3rem")};
+  transition: width 0.5s;
+  height: auto;
+`;
+
+export const IconText = styled.div`
+  margin-top: 0.5rem;
+  font-weight: light;
+`;

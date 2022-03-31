@@ -57,20 +57,34 @@ export async function createNewMessageFromFirestore(props: any) {
     read: false,
   });
 
+  let imageUrl = "";
+  let musicUrl = "";
   if (props.image) {
-    const idRef = ref(messageStorageRef, `${messageRef.id}_profile.${props.image.type.split("/").pop()}`);
+    const idRef = ref(messageStorageRef, `${messageRef.id}_image.${props.image.type.split("/").pop()}`);
     await uploadBytesResumable(idRef, props.image, {
       contentType: props.image.type,
     });
 
-    let imageUrl = await getDownloadURL(idRef);
+    imageUrl = await getDownloadURL(idRef);
     const parentChatRef = doc(chatsRef, props.chatId, "messages", messageRef.id);
     await updateDoc(parentChatRef, {
       imageUrl: imageUrl,
     });
-    return { id: messageRef.id, imageUrl: imageUrl };
   }
-  return messageRef.id;
+
+  if (props.music) {
+    const idRef = ref(messageStorageRef, `${messageRef.id}_music.mp3`);
+    await uploadBytesResumable(idRef, props.music, {
+      contentType: "audio/mpeg",
+    });
+
+    musicUrl = await getDownloadURL(idRef);
+    const parentChatRef = doc(chatsRef, props.chatId, "messages", messageRef.id);
+    await updateDoc(parentChatRef, {
+      musicUrl: musicUrl,
+    });
+  }
+  return { id: messageRef.id, imageUrl, musicUrl };
 }
 
 //Altering Message Information

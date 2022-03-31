@@ -41,12 +41,7 @@ const slice = createSlice({
         let copiedMessages = state.messages || [];
         let newMessage = action.meta.arg;
         delete newMessage.chatId;
-        if (newMessage.image) {
-          delete newMessage.image;
-          newMessage = { ...newMessage, messageId: action.payload.id, imageUrl: action.payload.imageUrl, read: false };
-        } else {
-          newMessage = { ...newMessage, messageId: action.payload, read: false };
-        }
+        newMessage = { ...newMessage, messageId: action.payload.id, imageUrl: action.payload.imageUrl, muiscUrl: action.payload.muiscUrl, read: false };
         copiedMessages = [...copiedMessages, newMessage];
         state.messages = copiedMessages;
       })

@@ -3,7 +3,11 @@ import media from "styled-media-query";
 
 export const palette = {};
 
-export const zIndex = {};
+export const zIndex = {
+  base: 1,
+  headerColor: 10,
+  headerText: 150,
+};
 
 export const theme = {
   palette,

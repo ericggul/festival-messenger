@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: ${({ theme }) => theme.windowHeight}px;
+`;
 
 export const CompleteButton = styled.div``;
 

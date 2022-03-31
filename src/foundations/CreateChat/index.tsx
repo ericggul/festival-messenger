@@ -3,8 +3,6 @@ import { useAppThunkDispatch, useAppSelector } from "@R/common/hooks";
 import useAuth from "@U/hooks/useAuth";
 import { createNewChat, fetchAllMessages, fetchMessage, createNewMessage, alterMessageReadState, deleteMessage, addMemberToChat } from "@R/messages/middleware";
 import * as S from "./styles";
-
-import { createUserInformation } from "@R/users/middleware";
 import useGeoLocation from "@U/hooks/useGeoLocation";
 
 function CreateChat() {
@@ -15,27 +13,6 @@ function CreateChat() {
 
   const dispatch = useAppThunkDispatch();
   console.log(chats);
-
-  async function createUserInfo(e: any) {
-    console.log(e.target.files);
-
-    if (e.target.files.length !== 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-
-      const userInfo = {
-        id: user.uid,
-        email: user.email,
-        name: user.name || "",
-        profileImage: e.target.files[0],
-      };
-      try {
-        const res = await dispatch(createUserInformation(userInfo)).unwrap();
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
 
   async function createChat() {
     const membersArray = [
