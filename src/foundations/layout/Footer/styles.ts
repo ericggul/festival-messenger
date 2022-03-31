@@ -8,7 +8,7 @@ export const FooterContainer = styled.div<HeaderContainerProps>`
   width: ${({ theme }) => theme.windowWidth}px;
   height: 95px;
   position: fixed;
-  bottom: 0;
+  top: ${({ theme }) => theme.windowHeight - 95}px;
   left: 0;
   background: ${({ color }) => color};
   zindex: ${({ theme }) => theme.headerColor};
@@ -33,7 +33,7 @@ export const IconContainer = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
   width: 7rem;
-  margin: 1.5rem ${({ theme }) => (theme.windowWidth < 768 ? ".7rem" : "3rem")};
+  margin: ${({ theme }) => (theme.windowWidth < 768 ? "1.5rem" : ".8rem")} ${({ theme }) => (theme.windowWidth < 768 ? ".7rem" : "3rem")};
   margin-bottom: auto;
   zindex: ${({ theme }) => theme.headerText};
 `;

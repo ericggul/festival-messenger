@@ -6,7 +6,7 @@ interface HeaderContainerProps {
 }
 export const HeaderContainer = styled.div<HeaderContainerProps>`
   width: ${({ theme }) => theme.windowWidth}px;
-  height: 96px;
+  height: ${({ theme }) => (theme.windowWidth < 768 ? 75 : 100)}px;
   position: fixed;
   top: 0;
   left: 0;
