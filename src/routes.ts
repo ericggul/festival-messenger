@@ -6,6 +6,7 @@ const Login = lazy(() => import("@/pages/login/Login"));
 const Map = lazy(() => import("@/pages/map"));
 const Settings = lazy(() => import("@/pages/settings"));
 const Messenger = lazy(() => import("@/pages/messenger"));
+const Message = lazy(() => import("@/pages/message"));
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
   {
     path: "/messenger",
     component: Messenger,
+  },
+  {
+    path: "/message/:id",
+    component: Message,
   },
 ];
 

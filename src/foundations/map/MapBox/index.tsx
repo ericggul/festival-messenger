@@ -3,16 +3,71 @@ import { useEffect, useRef, useState } from "react";
 // @ts-ignore
 import mapboxgl from "!mapbox-gl"; /* eslint import/no-webpack-loader-syntax: off */
 import "mapbox-gl/dist/mapbox-gl.css";
+import "./marker.css";
 import SunCalc from "suncalc";
 
-function MapBox() {
+const GEOJSON = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.94597, 37.45843],
+      },
+      properties: {
+        id: "x1",
+        title: "Mapbox",
+        description: "Washington, D.C.",
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.95497, 37.45643],
+      },
+      properties: {
+        id: "x2",
+        title: "Mapbox",
+        description: "Washington, D.C.",
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.95427, 37.45653],
+      },
+      properties: {
+        id: "x3",
+        title: "Mapbox",
+        description: "Washington, D.C.",
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.95447, 37.45643],
+      },
+      properties: {
+        id: "x4",
+        title: "Mapbox",
+        description: "Washington, D.C.",
+      },
+    },
+  ],
+};
+
+function MapBox({ zoomIn = false }: any) {
   mapboxgl.accessToken = "pk.eyJ1IjoiZXJpY2dndWwiLCJhIjoiY2wwMmkyYTRkMTRhczNobHNsMnBxb3BkMyJ9.DLFELyGRBinEC75rdCGBBQ";
   const mapRef = useRef<any>(!null);
   const mapContainerRef = useRef<any>(!null);
 
   const [displayMap, setDisplayMap] = useState(false);
   const [pos, setPos] = useState({ lat: 37.45843, lng: 126.95597 });
-  const [zoom, setZoom] = useState(12);
+  const [zoom, setZoom] = useState(zoomIn ? 12 : 18);
 
   useEffect(() => {
     if (mapContainerRef && mapContainerRef.current) {
@@ -118,25 +173,42 @@ function MapBox() {
         setZoom(mapRef.current.getZoom().toFixed(2));
       });
     }
-    mapZoom();
+
+    mapZoom(zoomIn);
+
+    addMarker();
   }, [mapRef]);
 
-  async function mapZoom() {
+  function addMarker() {
+    if (mapRef.current && typeof mapRef.current == "object" && pos.lat && pos.lng) {
+      console.log(pos);
+
+      GEOJSON.features.map((feature, i) => {
+        let el = document.createElement("div");
+        el.className = "marker";
+
+        new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
+      });
+    }
+  }
+
+  async function mapZoom(zoomIn: any) {
     if (mapRef.current && typeof mapRef.current == "object") {
       await mapRef.current.once("idle");
       setDisplayMap(true);
-      console.log(pos.lat, pos.lng);
-      mapRef.current.flyTo({
-        center: [pos.lng, pos.lat],
-        zoom: 18,
-        bearing: 120,
-        speed: 0.7,
-        curve: 1,
-        easing: (t: any) => t,
+      if (zoomIn) {
+        mapRef.current.flyTo({
+          center: [pos.lng, pos.lat],
+          zoom: 18,
+          bearing: 120,
+          speed: 0.7,
+          curve: 1,
+          easing: (t: any) => t,
 
-        // this animation is considered essential with respect to prefers-reduced-motion
-        essential: true,
-      });
+          // this animation is considered essential with respect to prefers-reduced-motion
+          essential: true,
+        });
+      }
     }
   }
 

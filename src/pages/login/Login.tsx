@@ -9,7 +9,7 @@ function Login() {
   return (
     <>
       <LoginContainer />
-      <Header name="Login" color="rgba(0, 0, 0, 0)" />
+
       <Footer currentLoc="Login" color="rgba(0, 0, 0, 0)" />
     </>
   );

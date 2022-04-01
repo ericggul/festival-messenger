@@ -13,6 +13,24 @@ export const HeaderContainer = styled.div<HeaderContainerProps>`
   background: ${({ color }) => color};
   zindex: ${({ theme }) => theme.headerColor};
   ${FlexCenterStyle};
+
+  opacity: 0;
+  animation-delay: 0.5s;
+  animation: appearAndDisappear 10s forwards;
+  @keyframes appearAndDisappear {
+    0% {
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 `;
 
 export const TextContainer = styled.div`
