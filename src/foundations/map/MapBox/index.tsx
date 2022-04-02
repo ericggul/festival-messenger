@@ -257,6 +257,9 @@ function MapBox({ handleMessageClick, handleAddNewMessage, messageSendMode, zoom
 
       let el = document.createElement("div");
       el.className = "new-message";
+      el.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 300,
+      });
 
       let img = document.createElement("img");
       img.src = AddMessage;

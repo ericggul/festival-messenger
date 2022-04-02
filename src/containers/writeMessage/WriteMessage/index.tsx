@@ -1,39 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 
 import { useNavigate } from "react-router-dom";
 
-//icons
-import BackIcon from "@I/icons/writeMessage/back.svg";
-import FontIcon from "@I/icons/writeMessage/font.svg";
-import ColorIcon from "@I/icons/writeMessage/color.svg";
-import MusicIcon from "@I/icons/writeMessage/music.svg";
+//Foundations
+import Utils from "@F/writeMessage/Utils";
+
+const Reality = require("../../../static/assets/audio/Reality.mp3");
 
 function WriteMessage(props: any) {
   console.log(props?.id, props?.latLng);
   const navigate = useNavigate();
+
+  const [color, setColor] = useState("white");
+  const [music, setMusic] = useState(Reality);
+  const [font, setFont] = useState(null);
+
   return (
     <S.Container>
-      <S.Utils>
-        <S.Back onClick={() => navigate("/map")}>
-          <S.Icon src={BackIcon} />
-          <S.Text>Back</S.Text>
-        </S.Back>
-        <S.Settings>
-          <S.Setting>
-            <S.Icon src={FontIcon} />
-            <S.Text>Color</S.Text>
-          </S.Setting>
-          <S.Setting>
-            <S.Icon src={ColorIcon} />
-            <S.Text>Music</S.Text>
-          </S.Setting>
-          <S.Setting>
-            <S.Icon src={MusicIcon} />
-            <S.Text>Font</S.Text>
-          </S.Setting>
-        </S.Settings>
-      </S.Utils>
+      <Utils onColorChange={(cl: any) => setColor(cl)} onMusicChange={(mz: any) => setMusic(mz)} onFontChange={(ft: any) => setFont(ft)} />
     </S.Container>
   );
 }
