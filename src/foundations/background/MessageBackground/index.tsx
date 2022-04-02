@@ -3,6 +3,7 @@ import { useCallback, useState, useEffect, useRef } from "react";
 
 import ReactAudioPlayer from "react-audio-player";
 
+
 const Reality = require("../../../static/assets/audio/Reality.mp3");
 
 function getRandom(a: number, b: number) {
@@ -21,7 +22,9 @@ declare global {
   }
 }
 
-export default function MessageBackground({ color = { h: 184, s: 20, l: 46 }, audio = Reality }: MessageBackgroundType) {
+// { h: 184, s: 20, l: 46 }
+
+export default function MessageBackground({ color = { h: 43, s: 15, l: 48 }, audio = Reality }: MessageBackgroundType) {
   const [rap, setRap] = useState<any>(!null);
   const [wave, setWave] = useState<any>(!null);
 
@@ -30,7 +33,6 @@ export default function MessageBackground({ color = { h: 184, s: 20, l: 46 }, au
 
   useEffect(() => {
     if (rap && rap.audioEl) {
-      console.log(rap.audioEl.current);
       let canvasEl = new App(rap.audioEl.current, color);
       canvasEl.audioCtx.resume();
       setWave(canvasEl);
@@ -38,17 +40,15 @@ export default function MessageBackground({ color = { h: 184, s: 20, l: 46 }, au
   }, [rap]);
 
   const handleClick = () => {
-    console.log("click");
-
     setButtonClicked(true);
   };
 
   return (
     <>
-      <div id="CanvasWrapper" style={{ width: "100vw", height: "100vh" }} />
       {!buttonClicked && <S.Button onClick={handleClick}>Play the Song</S.Button>}
       {buttonClicked && <ReactAudioPlayer src={Reality} autoPlay ref={(el) => setRap(el)} />}
-      {buttonClicked && <S.Container color={color} />}
+      {/* {buttonClicked && <S.Container color={color} />} */}
+      <div id="CanvasWrapper" style={{ width: "100vw", height: "100vh", zIndex: 5 }} />
     </>
   );
 }
@@ -81,7 +81,10 @@ class App {
   color: any;
 
   constructor(audioElement: any, color: any) {
+    this.color = color;
+
     this.canvas = document.createElement("canvas");
+
     this.ctx = this.canvas.getContext("2d");
     this.wrapper = document.getElementById("CanvasWrapper");
     this.wrapper.appendChild(this.canvas);
@@ -100,7 +103,6 @@ class App {
 
     this.source.connect(this.analyser);
     this.source.connect(this.audioCtx.destination);
-    this.color = color;
 
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
@@ -119,6 +121,9 @@ class App {
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
     this.ctx.scale(1, 1);
+
+    this.ctx.fillStyle = `rgb(140, 159, 173)`;
+    this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
   }
 
   sizeCalculator() {
@@ -149,7 +154,7 @@ class App {
         new Point(
           getRandom(0, this.stageWidth),
           getRandom(0, this.stageHeight),
-          `hsla(${this.color.h},  ${getRandom(this.color.s - 10, this.color.s + 10)}%, ${getRandom(50, 100)}%, 0.07)`,
+          `hsla(${this.color.h},  ${getRandom(this.color.s - 10, this.color.s + 10)}%, ${getRandom(0, 100)}%, 0.2)`,
           this.cellSize * 10
         )
       );
@@ -195,7 +200,7 @@ class Point {
     gradient.addColorStop(1, `transparent`);
 
     // Set the fill style and draw a rectangle
-    ctx.fillStyle = gradient;
+    ctx.fillStyle = "black";
     // ctx.arc(this.x, this.y, size, 0, Math.PI * 2, false);
     ctx.fillRect(this.x - size / 2, this.y - size / 2, size, size);
     ctx.fill();

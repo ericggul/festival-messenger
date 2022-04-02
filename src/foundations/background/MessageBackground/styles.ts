@@ -6,13 +6,18 @@ interface ContainerType {
 
 export const Container = styled.div<ContainerType>`
   height: ${({ theme }) => theme.windowHeight + 120}px;
-  width: ${({ theme }) => theme.windowHeight + 120}px;
-  position: absolute;
+  width: ${({ theme }) => theme.windowWidth + 120}px;
+  position: fixed;
   top: -60px;
   left: -60px;
-  background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
-  opacity: 0.8;
-  filter: blur(60px);
+
+  background: pink;
+  opacity: 0.4;
+  z-index: 0;
+
+  // background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
+  // opacity: 0.8;
+  // filter: blur(60px);
 `;
 
 export const Button = styled.div`

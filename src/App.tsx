@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo } from "react";
+import React, { lazy, Suspense, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import styled, { ThemeProvider } from "styled-components";
@@ -9,6 +9,8 @@ import { FlexCenterStyle } from "@S/style/responsive/display";
 import { GlobalStyle, theme } from "@S/style/index";
 import routes from "@/routes";
 import PageLoading from "@F/loading/PageLoading";
+
+const Message = lazy(() => import("@/pages/message"));
 
 function App() {
   const [windowWidth, windowHeight] = useResize();
@@ -36,7 +38,8 @@ function App() {
               }
             />
           ))}
-          <Route element={NotFound} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </ThemeProvider>

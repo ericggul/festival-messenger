@@ -2,15 +2,17 @@ import React, { useMemo } from "react";
 import Header from "@F/layout/Header";
 import withMountEvent from "@U/hoc/withMountEvent";
 import MessageConatiner from "@/containers/message/Message";
+import { useParams } from "react-router-dom";
 
-function Map(props: any) {
-  const id = useMemo(() => (props.match.params ? parseInt(props.match.params.id) : 0), []);
+function Message() {
+  const params = useParams();
+
   return (
     <>
       <Header name="Map" />
-      <MessageConatiner id={id} />
+      <MessageConatiner id={params.id} />
     </>
   );
 }
 
-export default withMountEvent(Map);
+export default withMountEvent(Message);
