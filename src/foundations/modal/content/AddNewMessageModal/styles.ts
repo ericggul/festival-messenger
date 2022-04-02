@@ -67,8 +67,10 @@ export const Upper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1.75rem;
-  max-height: ${({ theme }) => (theme.windowWidth < 768 ? theme.windowHeight * 0.7 - 150 : theme.windowHeight * 0.9 - 150)}px;
+
+  max-height: ${({ theme }) => (theme.windowWidth < 768 ? theme.windowHeight * 0.7 - 150 : theme.windowHeight * 0.9 - 100)}px;
   overflow: scroll;
+  position: relative;
 `;
 
 export const Header = styled.div`
@@ -83,15 +85,33 @@ export const FriendsList = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 3.25rem;
+  margin-right: 1rem;
 `;
 
-export const FriendRow = styled.div`
+interface FriendRowInterface {
+  selected: boolean;
+}
+
+export const FriendRow = styled.div<FriendRowInterface>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0.25rem 0;
   margin-right: 0.75rem;
   width: 100%;
+
+  ${({ selected }) => selected && "background: white"};
+  border-radius: 1.75rem;
+  transition: background 0.5s;
+`;
+
+export const SendText = styled.div`
+  height: 3.5rem;
+  border-radius: 1.75rem;
+  width: 3.5rem;
+  font-size: 1rem;
+  background: #aaa;
+  ${FlexCenterStyle};
 `;
 
 export const Left = styled.div`
@@ -113,33 +133,44 @@ export const FriendText = styled.div`
 
 export const Right = styled.div``;
 
+export const ScrollGuide = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2rem;
+  font-size: 0.7rem;
+  color: white;
+  ${FlexCenterStyle};
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+`;
+
 export const SendIcon = styled.img`
   width: 2.5rem;
   height: 2.5rem;
+  cursor: pointer;
 `;
 export const OtherFriendsList = styled.div`
   margin: 1.75rem;
   display: flex;
   flex-direction: column;
+  margin-bottom: 2.5rem;
 `;
 
 export const ExplText = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
 `;
 
 export const OtherFriendsListHeader = styled.div`
   display: flex;
-
-  &:p {
-    margin: 0;
-    padding: 0;
-    font-size: 0.8rem;
-    font-weight: light;
-  }
+  justify-content: space-between;
+  margin-right: 1rem;
 `;
 
 export const OtherFriendsListHeaderText = styled.div`
+  margin-top: 0.7rem;
   font-size: 1.2rem;
   font-weight: 800;
 `;
