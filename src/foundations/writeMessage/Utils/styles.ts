@@ -19,6 +19,7 @@ export const Settings = styled.div`
   ${FlexCenterStyle};
 `;
 export const Setting = styled.div`
+  position: relative;
   cursor: pointer;
   ${FlexCenterStyle};
   flex-direction: column;

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import * as S from "./styles";
 
 import { useNavigate } from "react-router-dom";
 
 //modals
-import useModal from "@U/hooks/useModal";
 import ColorModal from "@F/modal/content/writeMessage/ColorModal";
 import MusicModal from "@F/modal/content/writeMessage/MusicModal";
 import FontModal from "@F/modal/content/writeMessage/FontModal";
@@ -18,9 +17,15 @@ import MusicIcon from "@I/icons/writeMessage/music.svg";
 function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
   const navigate = useNavigate();
 
-  const { modalComponent: colorModal, isModalOpen: isColorModalOpen, setIsModalOpen: setIsColorModalOpen } = useModal(ColorModal, true, {}, () => console.log("color modal closed"));
-  const { modalComponent: musicModal, isModalOpen: isMusicModalOpen, setIsModalOpen: setIsMusicModalOpen } = useModal(MusicModal, true, {}, () => console.log("color modal closed"));
-  const { modalComponent: fontModal, isModalOpen: isFontModalOpen, setIsModalOpen: setIsFontModalOpen } = useModal(FontModal, true, {}, () => console.log("color modal closed"));
+  const [semiModalOpen, setSemiModalOpen] = useState("");
+
+  const modalToggler = useCallback((commandText: any) => {
+    if (commandText === semiModalOpen) {
+      setSemiModalOpen("");
+    } else {
+      setSemiModalOpen(commandText);
+    }
+  }, []);
 
   return (
     <S.Utils>
@@ -29,20 +34,20 @@ function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
         <S.Text>Back</S.Text>
       </S.Back>
       <S.Settings>
-        <S.Setting onClick={() => setIsColorModalOpen((st) => !st)}>
+        <S.Setting onClick={() => modalToggler("color")}>
           <S.Icon src={ColorIcon} />
           <S.Text>Color</S.Text>
-          {colorModal}
+          {semiModalOpen === "color" && <ColorModal />}
         </S.Setting>
-        <S.Setting onClick={() => setIsMusicModalOpen((st) => !st)}>
+        <S.Setting onClick={() => modalToggler("music")}>
           <S.Icon src={MusicIcon} />
           <S.Text>Music</S.Text>
-          {musicModal}
+          {semiModalOpen === "music" && <MusicModal />}
         </S.Setting>
-        <S.Setting onClick={() => setIsFontModalOpen((st) => !st)}>
+        <S.Setting onClick={() => modalToggler("font")}>
           <S.Icon src={FontIcon} />
           <S.Text>Font</S.Text>
-          {fontModal}
+          {semiModalOpen === "font" && <FontModal />}
         </S.Setting>
       </S.Settings>
     </S.Utils>
