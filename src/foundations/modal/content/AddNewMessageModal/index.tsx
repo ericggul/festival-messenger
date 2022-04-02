@@ -45,7 +45,7 @@ function AddNewMessageModal({ setIsModalOpen }: any) {
           <S.OtherFriendsList>
             <S.ExplText>
               <p>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</p>
-              <p>친구 목록에 게시되지 않습니다.</p>
+              <p>위 친구 목록에 게시되지 않습니다.</p>
             </S.ExplText>
             <S.OtherFriendsListHeader>
               <S.OtherFriendsListHeaderText>위 리스트에 없는 친구</S.OtherFriendsListHeaderText>

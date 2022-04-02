@@ -12,7 +12,7 @@ export default function useResize() {
     setWindowWidth(documentClientWidth);
   }, []);
 
-  const handleResize = useMemo(() => debounce(onResize, 100), [onResize]);
+  const handleResize = useMemo(() => debounce(onResize, 300), [onResize]);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

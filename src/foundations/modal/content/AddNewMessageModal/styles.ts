@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Background = styled.div`
+  pointer-events: none;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   position: fixed;
@@ -27,8 +28,8 @@ export const Box = styled.div`
   border-radius: 0.75rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.16);
 
-  height: ${({ theme }) => theme.windowHeight * 0.7}px;
-  width: ${({ theme }) => Math.min(theme.windowWidth, 800) * 0.9}px;
+  height: ${({ theme }) => (theme.windowWidth < 768 ? theme.windowHeight * 0.7 : theme.windowHeight * 0.9)}px;
+  width: ${({ theme }) => Math.min(theme.windowWidth, 768) * 0.9}px;
   z-index: ${({ theme }) => theme.zIndex.modalContent};
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(4rem);
@@ -66,6 +67,8 @@ export const Upper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1.75rem;
+  max-height: ${({ theme }) => (theme.windowWidth < 768 ? theme.windowHeight * 0.7 - 150 : theme.windowHeight * 0.9 - 150)}px;
+  overflow: scroll;
 `;
 
 export const Header = styled.div`

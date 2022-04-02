@@ -1,5 +1,6 @@
 import * as S from "./styles";
 import { useEffect, useRef, useState, useCallback } from "react";
+import useResize from "@/utils/hooks/useResize";
 // @ts-ignore
 import mapboxgl from "!mapbox-gl"; /* eslint import/no-webpack-loader-syntax: off */
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -109,6 +110,8 @@ function MapBox({ handleMessageClick, handleAddNewMessage, messageSendMode, zoom
   const [pos, setPos] = useState({ lat: 37.45843, lng: 126.95597 });
   const [zoom, setZoom] = useState(zoomIn ? 12 : 18);
 
+  const [windowWidth, windowHeight] = useResize();
+
   useEffect(() => {
     if (mapContainerRef && mapContainerRef.current) {
       mapRef.current = new mapboxgl.Map({
@@ -126,6 +129,13 @@ function MapBox({ handleMessageClick, handleAddNewMessage, messageSendMode, zoom
       };
     }
   }, [mapContainerRef]);
+
+  //Resize Map
+  useEffect(() => {
+    if (mapRef && mapRef.current) {
+      mapRef.current.resize();
+    }
+  }, [mapRef, windowWidth, windowHeight]);
 
   useEffect(() => {
     if (mapRef.current && typeof mapRef.current == "object") {
