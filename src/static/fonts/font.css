@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "Seoul Namsan";
+  src: url("./SeoulNamsanM.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Seoul Namsan";
+  src: url("./SeoulNamsanB.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Seoul Namsan";
+  src: url("./SeoulNamsanL.ttf") format("truetype");
+  font-weight: light;
+}
+@font-face {
+  font-family: "Seoul Namsan";
+  src: url("./SeoulNamsanEB.ttf") format("truetype");
+  font-weight: 800;
+}

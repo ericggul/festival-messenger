@@ -9,6 +9,8 @@ export const palette = {
 export const zIndex = {
   base: 1,
   headerColor: 10,
+  modalBackground: 50,
+  modalContent: 51,
   headerText: 150,
 };
 
@@ -29,21 +31,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
 
-    @font-face{
-      font-family: 'Seoul Namsan';
-      src: url('/assets/fonts/SeoulNamsanM.ttf') format('truetype');
-    }
-    @font-face{
-      font-family: 'Seoul Namsan';
-      src: url('/assets/fonts/SeoulNamsanB.ttf') format('truetype');
-      font-weight: bold;
-    }
-    @font-face{
-      font-family: 'Seoul Namsan';
-      src: url('/assets/fonts/SeoulNamsanL.ttf') format('truetype');
-      font-weight: light;
-    }
-
+ 
 
     font-family: 'Seoul Namsan', 'sans-serif';
     user-select: none;

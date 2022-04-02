@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import "@/static/fonts/font.css";
 import styled, { ThemeProvider } from "styled-components";
 import NotFound from "@P/NotFound";
 

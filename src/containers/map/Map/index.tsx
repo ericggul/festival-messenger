@@ -4,7 +4,7 @@ import * as S from "./styles";
 //Mapbox
 import MapBox from "@F/map/MapBox";
 import useModal from "@U/hooks/useModal";
-import SignInModal from "@F/modal/content/SignInModal";
+import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
 
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
@@ -13,7 +13,7 @@ function Map() {
   const [messageSendMode, setMessageSendMode] = useState(false);
   const [messagePopupId, setMessagePopupId] = useState(null);
 
-  const { modalComponent: signInModal, isModalOpen, setIsModalOpen } = useModal(SignInModal, true, true, () => setMessageSendMode(false));
+  const { modalComponent: addNewMessageModal, isModalOpen, setIsModalOpen } = useModal(AddNewMessageModal, true, true, () => setMessageSendMode(false));
 
   //cursor change on message send mode
   const containerRef = useRef<any>(!null);
@@ -35,7 +35,7 @@ function Map() {
         <MapBox handleMessageClick={(id: any) => setMessagePopupId(id)} handleAddNewMessage={handleAddNewMessage} messageSendMode={messageSendMode} />
         <S.AddMessageButton onClick={() => setMessageSendMode(true)}>{messageSendMode ? "지도 상에 핀을 꽂아보세요" : " + 새로운 메시지 보내기"}</S.AddMessageButton>
       </S.Container>
-      {signInModal}
+      {addNewMessageModal}
     </>
   );
 }
