@@ -9,13 +9,7 @@ function WriteMessage() {
 
   const state = location.state as any;
 
-  return (
-    <>
-      <Header name={`Send Message`} />
-
-      {state ? <WriteMessageContainer {...state} /> : <div>Wrong Access!</div>}
-    </>
-  );
+  return <>{state ? <WriteMessageContainer {...state} /> : <div>Wrong Access!</div>}</>;
 }
 
 export default withMountEvent(WriteMessage);
