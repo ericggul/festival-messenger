@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import * as S from "./styles";
 
 import { useNavigate } from "react-router-dom";
@@ -19,33 +19,42 @@ function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
 
   const [semiModalOpen, setSemiModalOpen] = useState("");
 
-  const modalToggler = useCallback((commandText: any) => {
-    if (commandText === semiModalOpen) {
-      setSemiModalOpen("");
-    } else {
-      setSemiModalOpen(commandText);
-    }
-  }, []);
+  const eventHandler = useCallback(
+    (ev: any, commandText: any) => {
+      ev.stopPropagation();
+      if (commandText === semiModalOpen) {
+        setSemiModalOpen("");
+      } else {
+        setSemiModalOpen(commandText);
+      }
+    },
+    [semiModalOpen]
+  );
 
   return (
-    <S.Utils>
+    <S.Utils
+      onClick={() => {
+        console.log("ev!");
+        setSemiModalOpen("");
+      }}
+    >
       <S.Back onClick={() => navigate("/map")}>
-        <S.Icon src={BackIcon} />
+        <S.Icon src={BackIcon} highlight={false} />
         <S.Text>Back</S.Text>
       </S.Back>
       <S.Settings>
-        <S.Setting onClick={() => modalToggler("color")}>
-          <S.Icon src={ColorIcon} />
+        <S.Setting onClick={(ev: any) => eventHandler(ev, "color")}>
+          <S.Icon src={ColorIcon} highlight={semiModalOpen === "color"} />
           <S.Text>Color</S.Text>
           {semiModalOpen === "color" && <ColorModal />}
         </S.Setting>
-        <S.Setting onClick={() => modalToggler("music")}>
-          <S.Icon src={MusicIcon} />
+        <S.Setting onClick={(ev: any) => eventHandler(ev, "music")}>
+          <S.Icon src={MusicIcon} highlight={semiModalOpen === "music"} />
           <S.Text>Music</S.Text>
           {semiModalOpen === "music" && <MusicModal />}
         </S.Setting>
-        <S.Setting onClick={() => modalToggler("font")}>
-          <S.Icon src={FontIcon} />
+        <S.Setting onClick={(ev: any) => eventHandler(ev, "font")}>
+          <S.Icon src={FontIcon} highlight={semiModalOpen === "font"} />
           <S.Text>Font</S.Text>
           {semiModalOpen === "font" && <FontModal />}
         </S.Setting>
