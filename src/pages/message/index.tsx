@@ -9,7 +9,7 @@ function Message() {
 
   return (
     <>
-      <Header name="Map" />
+      <Header name="Message" />
       <MessageConatiner id={params.id} />
     </>
   );

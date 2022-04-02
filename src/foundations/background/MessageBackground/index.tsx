@@ -3,7 +3,6 @@ import { useCallback, useState, useEffect, useRef } from "react";
 
 import ReactAudioPlayer from "react-audio-player";
 
-
 const Reality = require("../../../static/assets/audio/Reality.mp3");
 
 function getRandom(a: number, b: number) {
@@ -24,7 +23,7 @@ declare global {
 
 // { h: 184, s: 20, l: 46 }
 
-export default function MessageBackground({ color = { h: 43, s: 15, l: 48 }, audio = Reality }: MessageBackgroundType) {
+export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, audio = Reality }: MessageBackgroundType) {
   const [rap, setRap] = useState<any>(!null);
   const [wave, setWave] = useState<any>(!null);
 
@@ -47,8 +46,9 @@ export default function MessageBackground({ color = { h: 43, s: 15, l: 48 }, aud
     <>
       {!buttonClicked && <S.Button onClick={handleClick}>Play the Song</S.Button>}
       {buttonClicked && <ReactAudioPlayer src={Reality} autoPlay ref={(el) => setRap(el)} />}
-      {/* {buttonClicked && <S.Container color={color} />} */}
+
       <div id="CanvasWrapper" style={{ width: "100vw", height: "100vh", zIndex: 5 }} />
+      {buttonClicked && <S.Container color={color} />}
     </>
   );
 }
@@ -95,8 +95,8 @@ class App {
     this.audioCtx = new AudioContext();
     this.analyser = this.audioCtx.createAnalyser();
 
-    this.analyser.fftSize = 256;
-    this.analyser.smoothingTimeConstant = 0.95;
+    this.analyser.fftSize = 512;
+    // this.analyser.smoothingTimeConstant = 0.95;
 
     this.source = this.audioCtx.createMediaElementSource(this.audioElement);
     this.data = new Uint8Array(this.analyser.frequencyBinCount);
@@ -106,7 +106,6 @@ class App {
 
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
-    this.init();
   }
 
   resize() {
@@ -122,8 +121,7 @@ class App {
     this.canvas.height = this.stageHeight;
     this.ctx.scale(1, 1);
 
-    this.ctx.fillStyle = `rgb(140, 159, 173)`;
-    this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
+    this.init();
   }
 
   sizeCalculator() {
@@ -149,15 +147,8 @@ class App {
   }
 
   init() {
-    for (let i = 0; i < 129; i++) {
-      this.pointArray.push(
-        new Point(
-          getRandom(0, this.stageWidth),
-          getRandom(0, this.stageHeight),
-          `hsla(${this.color.h},  ${getRandom(this.color.s - 10, this.color.s + 10)}%, ${getRandom(0, 100)}%, 0.2)`,
-          this.cellSize * 10
-        )
-      );
+    for (let i = 0; i < 257; i++) {
+      this.pointArray.push(new Point(getRandom(0, this.stageWidth), getRandom(0, this.stageHeight), this.color, this.cellSize * 10));
     }
 
     this.loopingFunction();
@@ -183,26 +174,32 @@ class Point {
   x: any;
   y: any;
   color: any;
+  baseColor: any;
+  fillColor: any;
+
   cellSize: any;
   constructor(x: any, y: any, color: any, cellSize: any) {
     this.x = x;
     this.y = y;
     this.color = color;
+    this.baseColor = `hsla(${color.h}, ${color.s}%, ${color.l}%, 0.6)`;
+    this.fillColor = `hsla(${color.h},  ${getRandom(color.s - 5, color.s + 5)}%, ${getRandom(70, 100)}%, 1)`;
     this.cellSize = cellSize;
   }
+  //`hsla(${this.color.h},  ${getRandom(this.color.s - 5, this.color.s + 5)}%, ${getRandom(90, 100)}%, 1)`;
 
   draw(ctx: any, value: any) {
-    const size = (value / 255) * this.cellSize;
+    const size = (value / 255) * 1.5;
     ctx.beginPath();
     var gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, size * 1);
     // Add three color stops
-    gradient.addColorStop(0, this.color);
-    gradient.addColorStop(1, `transparent`);
+    gradient.addColorStop(0, this.fillColor);
+    gradient.addColorStop(1, this.baseColor);
 
     // Set the fill style and draw a rectangle
-    ctx.fillStyle = "black";
-    // ctx.arc(this.x, this.y, size, 0, Math.PI * 2, false);
-    ctx.fillRect(this.x - size / 2, this.y - size / 2, size, size);
+    ctx.fillStyle = this.fillColor;
+    ctx.arc(this.x, this.y, size, 0, Math.PI * 2, false);
+    // ctx.fillRect(this.x - size / 2, this.y - size / 2, size, size);
     ctx.fill();
     ctx.closePath();
   }

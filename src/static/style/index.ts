@@ -3,6 +3,7 @@ import media from "styled-media-query";
 
 export const palette = {
   YELLOW: "#ecd458",
+  TRANSPARENT_WHITE: `rgba(255, 255, 255, .7)`,
 };
 
 export const zIndex = {
@@ -42,11 +43,7 @@ export const GlobalStyle = createGlobalStyle`
       src: url('/assets/fonts/SeoulNamsanL.ttf') format('truetype');
       font-weight: light;
     }
-    @font-face{
-      font-family: 'Seoul Namsan';
-      src: url('/assets/fonts/SeoulNamsanVert.ttf') format('truetype');
-      font-weight: medium;
-    }
+
 
     font-family: 'Seoul Namsan', 'sans-serif';
     user-select: none;

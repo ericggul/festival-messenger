@@ -11,13 +11,11 @@ export const Container = styled.div<ContainerType>`
   top: -60px;
   left: -60px;
 
-  background: pink;
-  opacity: 0.4;
-  z-index: 0;
+  z-index: -3;
 
-  // background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
-  // opacity: 0.8;
-  // filter: blur(60px);
+  background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
+  opacity: 0.8;
+  filter: blur(60px);
 `;
 
 export const Button = styled.div`

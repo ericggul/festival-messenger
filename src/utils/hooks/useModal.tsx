@@ -3,11 +3,11 @@ import PopupModal from "@F/modal/PopupModal";
 
 const useModal = (ContentComponent: any, listenOpenChange: any = true, props?: any, onModalChange?: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // useEffect(() => {
-  //   if (listenOpenChange && !isModalOpen) {
-  //     onModalChange();
-  //   }
-  // }, [listenOpenChange, isModalOpen]);
+  useEffect(() => {
+    if (listenOpenChange && !isModalOpen) {
+      onModalChange();
+    }
+  }, [listenOpenChange, isModalOpen]);
 
   const modalComponent = (
     <PopupModal width={props?.width} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} closeOnDocumentClick>

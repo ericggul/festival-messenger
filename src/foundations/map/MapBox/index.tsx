@@ -1,66 +1,106 @@
 import * as S from "./styles";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 // @ts-ignore
 import mapboxgl from "!mapbox-gl"; /* eslint import/no-webpack-loader-syntax: off */
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./marker.css";
 import SunCalc from "suncalc";
 
-const GEOJSON = {
+//Icons
+import AddMessage from "@I/icons/map/add-message.svg";
+
+const RECEIVED = {
   type: "FeatureCollection",
   features: [
     {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [126.94597, 37.45843],
+        coordinates: [126.95603, 37.45879],
       },
       properties: {
-        id: "x1",
-        title: "Mapbox",
-        description: "Washington, D.C.",
+        id: "messageId",
+        profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png",
       },
     },
     {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [126.95497, 37.45643],
+        coordinates: [126.95646, 37.45919],
       },
       properties: {
-        id: "x2",
-        title: "Mapbox",
-        description: "Washington, D.C.",
+        id: "messageId",
+        profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png",
       },
     },
     {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [126.95427, 37.45653],
+        coordinates: [126.95604, 37.45809],
       },
       properties: {
-        id: "x3",
-        title: "Mapbox",
-        description: "Washington, D.C.",
-      },
-    },
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95447, 37.45643],
-      },
-      properties: {
-        id: "x4",
-        title: "Mapbox",
-        description: "Washington, D.C.",
+        id: "messageId",
+        profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png",
       },
     },
   ],
 };
 
-function MapBox({ zoomIn = false }: any) {
+const SENT = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.95545, 37.45878],
+      },
+      properties: {
+        id: "messageId",
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.95568, 37.45898],
+      },
+      properties: {
+        id: "messageId",
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.95541, 37.45864],
+      },
+      properties: {
+        id: "messageId",
+      },
+    },
+  ],
+};
+
+const AD = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [126.95653, 37.45822],
+      },
+      properties: {
+        id: "messageId",
+      },
+    },
+  ],
+};
+
+function MapBox({ handleMessageClick, handleAddNewMessage, messageSendMode, zoomIn = false }: any) {
   mapboxgl.accessToken = "pk.eyJ1IjoiZXJpY2dndWwiLCJhIjoiY2wwMmkyYTRkMTRhczNobHNsMnBxb3BkMyJ9.DLFELyGRBinEC75rdCGBBQ";
   const mapRef = useRef<any>(!null);
   const mapContainerRef = useRef<any>(!null);
@@ -91,6 +131,7 @@ function MapBox({ zoomIn = false }: any) {
     if (mapRef.current && typeof mapRef.current == "object") {
       mapRef.current.on("load", () => {
         //Building
+
         const layers = mapRef.current.getStyle().layers;
         const labelLayerId = layers.find((layer: any) => layer.type === "symbol" && layer.layout["text-field"]).id;
 
@@ -137,11 +178,11 @@ function MapBox({ zoomIn = false }: any) {
         mapRef.current.setTerrain({ source: "mapbox-dem2", exaggeration: 2 });
 
         //Fog
-        mapRef.current.setFog({
-          range: [-1, 1.5],
-          color: getFog(),
-          "horizon-blend": 0.1,
-        });
+        // mapRef.current.setFog({
+        //   range: [-1, 1.5],
+        //   color: getFog(),
+        //   "horizon-blend": 0.1,
+        // });
 
         //Sky
         mapRef.current.addLayer({
@@ -160,6 +201,7 @@ function MapBox({ zoomIn = false }: any) {
       //Error Handling
       mapRef.current.on("error", (e: any) => {
         if (e && e.error !== "Error: Not Found") {
+          console.log(e.error);
           console.log(e);
         }
       });
@@ -176,16 +218,90 @@ function MapBox({ zoomIn = false }: any) {
 
     mapZoom(zoomIn);
 
-    addMarker();
-  }, [mapRef]);
+    addMessagesMarker();
+  }, [mapRef, zoomIn]);
 
-  function addMarker() {
-    if (mapRef.current && typeof mapRef.current == "object" && pos.lat && pos.lng) {
-      console.log(pos);
+  //New Marker on message Click
+  const [newMarkerLatLng, setNewMarkerLatLng] = useState<any>(null);
+  const [newMarker, setNewMarker] = useState<any>(null);
 
-      GEOJSON.features.map((feature, i) => {
+  //Add new marker on click
+  useEffect(() => {
+    if (messageSendMode) {
+      if (mapRef.current && typeof mapRef.current == "object") {
+        //Click event
+        mapRef.current.on("click", (e: any) => {
+          console.log("clicked");
+          setNewMarkerLatLng(e.lngLat);
+        });
+      }
+    }
+  }, [mapRef, messageSendMode]);
+
+  //on new marker change, set new marker
+  useEffect(() => {
+    if (newMarkerLatLng !== null) {
+      if (newMarker !== null) {
+        newMarker.remove();
+      }
+
+      let el = document.createElement("div");
+      el.className = "new-message";
+
+      let img = document.createElement("img");
+      img.src = AddMessage;
+      let guider = document.createElement("div");
+      guider.innerText = "여기에 메시지 보내기";
+      el.appendChild(img);
+      el.appendChild(guider);
+
+      el.addEventListener("click", (ev: any) => {
+        ev.stopPropagation();
+        handleAddNewMessage(newMarkerLatLng);
+      });
+
+      setNewMarker(new mapboxgl.Marker(el).setLngLat(newMarkerLatLng).addTo(mapRef.current));
+    }
+  }, [newMarkerLatLng]);
+
+  //Delete New Marker if messagesendmode is false
+  useEffect(() => {
+    if (!messageSendMode && newMarker !== null) {
+      newMarker.remove();
+    }
+  }, [messageSendMode, newMarker]);
+
+  function addMessagesMarker() {
+    if (mapRef.current && typeof mapRef.current == "object") {
+      SENT.features.map((feature, i) => {
         let el = document.createElement("div");
-        el.className = "marker";
+        el.className = "marker sent";
+        new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
+      });
+
+      RECEIVED.features.map((feature, i) => {
+        let el = document.createElement("div");
+        el.className = "marker received";
+
+        if (feature.properties.profileImg) {
+          let img = document.createElement("img");
+          img.src = feature.properties.profileImg;
+          el.appendChild(img);
+        } else {
+          el.className += "no-img";
+        }
+
+        el.addEventListener("click", (ev: any) => {
+          handleMessageClick(feature.properties.id);
+          ev.stopPropagation();
+        });
+
+        new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
+      });
+
+      AD.features.map((feature, i) => {
+        let el = document.createElement("div");
+        el.className = "marker ad";
 
         new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
       });

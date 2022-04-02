@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@R/common/hooks";
 
 //Images Import
-import OutlineLocation from "@I/icons/outline/location.svg";
-import OutlineLogin from "@I/icons/outline/login.svg";
-import OutlineSend from "@I/icons/outline/send.svg";
-import OutlineSettings from "@I/icons/outline/settings.svg";
+import OutlineLocation from "@I/icons/footer/outline/location.svg";
+import OutlineLogin from "@I/icons/footer/outline/login.svg";
+import OutlineSend from "@I/icons/footer/outline/send.svg";
+import OutlineSettings from "@I/icons/footer/outline/settings.svg";
 
-import DuoToneLocation from "@I/icons/duotone/location.svg";
-import DuoToneSend from "@I/icons/duotone/send.svg";
-import DuoToneSettings from "@I/icons/duotone/settings.svg";
+import DuoToneLocation from "@I/icons/footer/duotone/location.svg";
+import DuoToneSend from "@I/icons/footer/duotone/send.svg";
+import DuoToneSettings from "@I/icons/footer/duotone/settings.svg";
 
 interface FooterProps {
   currentLoc: String;
