@@ -1,15 +1,21 @@
 import Header from "@F/layout/Header";
+import WriteMessageContainer from "@C/writeMessage/WriteMessage";
 import withMountEvent from "@U/hoc/withMountEvent";
-import { useParams } from "react-router-dom";
 
-function writeMessage() {
-  // const params = useParams();
+import { useLocation } from "react-router-dom";
+
+function WriteMessage() {
+  const location = useLocation();
+
+  const state = location.state as any;
 
   return (
     <>
-      <Header name="Messenger" />
+      <Header name={`Send Message`} />
+
+      {state ? <WriteMessageContainer {...state} /> : <div>Wrong Access!</div>}
     </>
   );
 }
 
-export default withMountEvent(writeMessage);
+export default withMountEvent(WriteMessage);

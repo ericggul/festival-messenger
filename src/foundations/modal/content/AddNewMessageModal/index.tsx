@@ -16,7 +16,7 @@ const TEST_DATA = [
   { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
 ];
 
-function AddNewMessageModal({ setIsModalOpen }: any) {
+function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const [clickedFriend, setClickedFriend] = useState<number>(-1);
 
   const [scrolled, setScrolled] = useState(false);
@@ -25,18 +25,22 @@ function AddNewMessageModal({ setIsModalOpen }: any) {
   useEffect(() => {
     if (upperRef && upperRef.current && !scrolled) {
       upperRef.current.addEventListener("scroll", () => setScrolled(true));
-      return () => {
-        upperRef.current.removeEventListener("scroll", () => setScrolled(true));
-      };
     }
   }, [scrolled, upperRef]);
 
   const navigate = useNavigate();
 
   const handleIconClick = (i: any, ev: any) => {
-    console.log(i);
+    //To implement: Uid
+    const id = i;
+
     ev.stopPropagation();
-    navigate(`/writeMessage`);
+    navigate(`/writeMessage`, {
+      state: {
+        id,
+        latLng,
+      },
+    });
   };
 
   return (
@@ -52,7 +56,7 @@ function AddNewMessageModal({ setIsModalOpen }: any) {
             <S.Header>친구 선택</S.Header>
             <S.FriendsList>
               {TEST_DATA.map((data: any, i: number) => (
-                <S.FriendRow onClick={() => setClickedFriend(i)} selected={clickedFriend === i}>
+                <S.FriendRow onClick={() => setClickedFriend(i)} selected={clickedFriend === i} key={i}>
                   <S.Left>
                     <S.ProfileImg src={data.profileImg} />
                     <S.FriendText>{data.name}</S.FriendText>
@@ -69,7 +73,7 @@ function AddNewMessageModal({ setIsModalOpen }: any) {
               <div>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</div>
               <div>위 친구 목록에 게시되지 않습니다.</div>
             </S.ExplText>
-            <S.OtherFriendsListHeader>
+            <S.OtherFriendsListHeader onClick={(e: any) => handleIconClick(-1, e)}>
               <S.OtherFriendsListHeaderText>리스트에 없는 친구에게 보내기</S.OtherFriendsListHeaderText>
               <S.SendIcon src={Send} />
             </S.OtherFriendsListHeader>

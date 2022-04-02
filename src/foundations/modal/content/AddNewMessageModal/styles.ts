@@ -102,9 +102,10 @@ export const FriendRow = styled.div<FriendRowInterface>`
 
   cursor: pointer;
 
-  ${({ selected }) => selected && "background: white"};
+  ${({ selected }) => selected && "background: rgba(255, 255, 255, .6)"};
+  ${({ selected }) => selected && "box-shadow: 0 0 .5rem white"};
   border-radius: 1.75rem;
-  transition: background 0.5s;
+  transition: all 0.5s;
 `;
 
 export const SendText = styled.div`
@@ -112,7 +113,7 @@ export const SendText = styled.div`
   border-radius: 1.75rem;
   width: 3.5rem;
   font-size: 1rem;
-  background: #aaa;
+  background: #ccc;
   ${FlexCenterStyle};
 `;
 
@@ -166,6 +167,7 @@ export const ExplText = styled.div`
 `;
 
 export const OtherFriendsListHeader = styled.div`
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   margin-right: 1rem;

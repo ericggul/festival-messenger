@@ -10,12 +10,11 @@ import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
 import AddMessage from "@I/icons/map/add-message.svg";
 
 function Map() {
+  //Message Popup
   const [messageSendMode, setMessageSendMode] = useState(false);
   const [messagePopupId, setMessagePopupId] = useState(null);
 
-  const { modalComponent: addNewMessageModal, isModalOpen, setIsModalOpen } = useModal(AddNewMessageModal, true, true, () => setMessageSendMode(false));
-
-  //cursor change on message send mode
+  //Cursor change on message send mode
   const containerRef = useRef<any>(!null);
   useEffect(() => {
     if (containerRef && containerRef.current) {
@@ -25,7 +24,23 @@ function Map() {
     }
   }, [messageSendMode, containerRef]);
 
-  const handleAddNewMessage = () => {
+  //New Message Add Popup
+  const [latLng, setLatLng] = useState<any>(!null);
+  const {
+    modalComponent: addNewMessageModal,
+    isModalOpen,
+    setIsModalOpen,
+  } = useModal(
+    AddNewMessageModal,
+    true,
+    {
+      latLng: latLng,
+    },
+    () => setMessageSendMode(false)
+  );
+
+  const handleAddNewMessage = (latLng: any) => {
+    setLatLng(latLng);
     setIsModalOpen(true);
   };
 
@@ -33,7 +48,7 @@ function Map() {
     <>
       <S.Container ref={containerRef}>
         <MapBox handleMessageClick={(id: any) => setMessagePopupId(id)} handleAddNewMessage={handleAddNewMessage} messageSendMode={messageSendMode} />
-        <S.AddMessageButton onClick={() => setMessageSendMode(true)}>{messageSendMode ? "지도 상에 핀을 꽂아보세요" : " + 새로운 메시지 보내기"}</S.AddMessageButton>
+        <S.AddMessageButton onClick={() => setMessageSendMode((mode) => !mode)}>{messageSendMode ? "지도 상에 핀을 꽂아보세요" : " + 새로운 메시지 보내기"}</S.AddMessageButton>
       </S.Container>
       {addNewMessageModal}
     </>
