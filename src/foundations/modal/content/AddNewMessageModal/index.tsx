@@ -2,31 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import useAuth from "@U/hooks/useAuth";
 import * as S from "./styles";
 
+import { useNavigate } from "react-router-dom";
+
 //icons
 import Cancel from "@I/icons/modal/cancel.svg";
 import Send from "@I/icons/footer/outline/send.svg";
 
 const TEST_DATA = [
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
   { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
   { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
   { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
@@ -49,6 +31,14 @@ function AddNewMessageModal({ setIsModalOpen }: any) {
     }
   }, [scrolled, upperRef]);
 
+  const navigate = useNavigate();
+
+  const handleIconClick = (i: any, ev: any) => {
+    console.log(i);
+    ev.stopPropagation();
+    navigate(`/writeMessage`);
+  };
+
   return (
     <>
       <S.Background />
@@ -62,12 +52,12 @@ function AddNewMessageModal({ setIsModalOpen }: any) {
             <S.Header>친구 선택</S.Header>
             <S.FriendsList>
               {TEST_DATA.map((data: any, i: number) => (
-                <S.FriendRow selected={clickedFriend === i}>
-                  <S.Left onClick={() => setClickedFriend(i)}>
+                <S.FriendRow onClick={() => setClickedFriend(i)} selected={clickedFriend === i}>
+                  <S.Left>
                     <S.ProfileImg src={data.profileImg} />
                     <S.FriendText>{data.name}</S.FriendText>
                   </S.Left>
-                  {clickedFriend === i ? <S.SendText>Next</S.SendText> : <S.SendIcon src={Send} />}
+                  {clickedFriend === i ? <S.SendText onClick={(e: any) => handleIconClick(i, e)}>Next</S.SendText> : <S.SendIcon onClick={(e: any) => handleIconClick(i, e)} src={Send} />}
                 </S.FriendRow>
               ))}
             </S.FriendsList>

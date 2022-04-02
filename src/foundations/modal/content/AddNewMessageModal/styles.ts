@@ -100,6 +100,8 @@ export const FriendRow = styled.div<FriendRowInterface>`
   margin-right: 0.75rem;
   width: 100%;
 
+  cursor: pointer;
+
   ${({ selected }) => selected && "background: white"};
   border-radius: 1.75rem;
   transition: background 0.5s;
