@@ -7,6 +7,10 @@ interface UtilsProps {
 }
 
 export const UtilContainer = styled.div<UtilsProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   width: ${({ theme }) => theme.windowWidth}px;
   ${FlexCenterStyle};
   flex-direction: column;
@@ -52,7 +56,6 @@ interface IconProps {
 export const Icon = styled.img<IconProps>`
   height: 2rem;
   width: auto;
-  ${({ highlight }) => highlight && `filter: drop-shadow(0 0 0.5rem yellow); -webkit-filter: drop-shadow(0 0 0.5rem yellow);`}
 `;
 
 export const Text = styled.div`

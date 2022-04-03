@@ -13,10 +13,11 @@ import BackIcon from "@I/icons/writeMessage/back.svg";
 import FontIcon from "@I/icons/writeMessage/font.svg";
 import ColorIcon from "@I/icons/writeMessage/color.svg";
 import MusicIcon from "@I/icons/writeMessage/music.svg";
+import ImageIcon from "@I/icons/writeMessage/image-1.svg";
 import Up from "@I/icons/writeMessage/up.svg";
 import Down from "@I/icons/writeMessage/down.svg";
 
-function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
+function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOption, onAddImageCommand }: any) {
   const navigate = useNavigate();
 
   const [showUtils, setShowUtils] = useState(true);
@@ -68,6 +69,13 @@ function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
             <S.Text>Font</S.Text>
             {semiModalOpen === "font" && <FontModal />}
           </S.Setting>
+
+          {displayAddImageOption && (
+            <S.Setting onClick={onAddImageCommand}>
+              <S.Icon src={ImageIcon} highlight={false} />
+              <S.Text>Image</S.Text>
+            </S.Setting>
+          )}
         </S.Settings>
       </S.Utils>
       <S.UtilsToggler draggable={false} onClick={() => setShowUtils((bol) => !bol)}>

@@ -4,6 +4,7 @@ import media from "styled-media-query";
 export const palette = {
   YELLOW: "#ecd458",
   TRANSPARENT_WHITE: `rgba(255, 255, 255, .7)`,
+  CANCEL_RED: "#c58c8c",
 };
 
 export const zIndex = {
