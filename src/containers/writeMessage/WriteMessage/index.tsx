@@ -31,7 +31,7 @@ function WriteMessage(props: any) {
       />
       <MessageBackground color={color} audio={null} />
 
-      {displayAddImage && <AddImage deleteAddImage={() => setDisplayAddImage(false)} />}
+      {displayAddImage && <AddImage deleteAddImageContainer={() => setDisplayAddImage(false)} />}
     </S.Container>
   );
 }

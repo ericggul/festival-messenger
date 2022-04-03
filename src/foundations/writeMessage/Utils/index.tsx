@@ -21,7 +21,6 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
   const navigate = useNavigate();
 
   const [showUtils, setShowUtils] = useState(true);
-  // const [utilsTogglerOpacity, setUtilsTogglerOpacity] = useState(1);
   const [semiModalOpen, setSemiModalOpen] = useState("");
 
   useEffect(() => {
@@ -83,7 +82,10 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
           draggable={true}
           onDragStart={(ev: any) => {
             ev.preventDefault();
-            setShowUtils((bol) => !bol);
+            //Set time out setted to prevent unexpected consecutive behavior
+            setTimeout(() => {
+              setShowUtils((bol) => !bol);
+            }, 100);
           }}
         />
         <S.Icon src={showUtils ? Up : Down} highlight={false} />

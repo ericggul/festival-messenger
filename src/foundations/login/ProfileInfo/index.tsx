@@ -13,7 +13,7 @@ function ProfileInfo() {
   console.log(user);
   const [image, setImage] = useState(user.profileImage || "");
   //Image to be uploaded to firestore
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState<any>(!null);
   const { value: name, onChange: onNameChange, setValue: setName } = useInput(user.name || "");
 
   useEffect(() => {
