@@ -101,13 +101,22 @@ const AD = {
   ],
 };
 
-function MapBox({ handleMessageClick, handleAddNewMessage, messageSendMode, zoomIn = false }: any) {
+function MapBox({
+  handleMessageClick,
+  handleAddNewMessage,
+  messageSendMode,
+
+  resetState,
+  resetCompleted,
+  zoomIn = false,
+}: any) {
   mapboxgl.accessToken = "pk.eyJ1IjoiZXJpY2dndWwiLCJhIjoiY2wwMmkyYTRkMTRhczNobHNsMnBxb3BkMyJ9.DLFELyGRBinEC75rdCGBBQ";
   const mapRef = useRef<any>(!null);
   const mapContainerRef = useRef<any>(!null);
 
+  const INITIAL_POS = { lat: 37.45843, lng: 126.95597 };
   const [displayMap, setDisplayMap] = useState(false);
-  const [pos, setPos] = useState({ lat: 37.45843, lng: 126.95597 });
+  const [pos, setPos] = useState(INITIAL_POS);
   const [zoom, setZoom] = useState(zoomIn ? 12 : 18);
 
   const [windowWidth, windowHeight] = useResize();
@@ -226,7 +235,7 @@ function MapBox({ handleMessageClick, handleAddNewMessage, messageSendMode, zoom
       });
     }
 
-    mapZoom(zoomIn);
+    mapZoomOnceIdle(zoomIn);
 
     addMessagesMarker();
   }, [mapRef, zoomIn]);
@@ -321,15 +330,33 @@ function MapBox({ handleMessageClick, handleAddNewMessage, messageSendMode, zoom
     }
   }
 
-  async function mapZoom(zoomIn: any) {
+  //On reset state change, zoom map back to initial
+  useEffect(() => {
+    async function execute() {
+      if (resetState && mapRef.current && typeof mapRef.current == "object") {
+        mapZoom(true);
+        resetCompleted();
+      }
+    }
+    execute();
+  }, [resetState, mapRef]);
+
+  async function mapZoomOnceIdle(zoomBoolean: any) {
     if (mapRef.current && typeof mapRef.current == "object") {
       await mapRef.current.once("idle");
       setDisplayMap(true);
-      if (zoomIn) {
+      mapZoom(zoomBoolean);
+    }
+  }
+
+  async function mapZoom(zoomBoolean: any) {
+    if (mapRef.current && typeof mapRef.current == "object") {
+      if (zoomBoolean) {
+        console.log(zoomBoolean);
         mapRef.current.flyTo({
-          center: [pos.lng, pos.lat],
+          center: [INITIAL_POS.lng, INITIAL_POS.lat],
           zoom: 18,
-          bearing: 120,
+          bearing: 180,
           speed: 0.7,
           curve: 1,
           easing: (t: any) => t,

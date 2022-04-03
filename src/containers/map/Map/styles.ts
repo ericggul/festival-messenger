@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
 
 export const Container = styled.div`
@@ -8,22 +8,47 @@ export const Container = styled.div`
   top: 0;
   z-index: 0;
   left: 0;
+
+  overflow: hidden;
 `;
 
-export const AddMessageButton = styled.div`
+const ButtonCommon = css`
   cursor: pointer;
 
   position: absolute;
   font-weight: light;
   z-index: 2;
-  top: 8.2rem;
-  right: 0px;
-  margin-right: 1rem;
-  padding: 0 1rem;
-  height: 2rem;
-  font-size: 0.92rem;
-
-  border-radius: 1rem;
+  padding: 0 1.2rem;
+  height: 2.2rem;
+  font-size: 1rem;
+  border-radius: 1.1rem;
   ${FlexCenterStyle};
   background: ${({ theme }) => theme.palette.TRANSPARENT_WHITE};
 `;
+
+export const AddMessageButton = styled.div`
+  margin-right: 1rem;
+  top: 7.5rem;
+  right: 0px;
+  ${ButtonCommon};
+`;
+
+export const Button = styled.div`
+  right: 0;
+  margin-right: 1rem;
+  top: 10.2rem;
+  ${ButtonCommon};
+`;
+
+export const ButtonLeft = styled.div`
+  left: 0;
+  margin-left: 1rem;
+  top: 7.5rem;
+  ${ButtonCommon};
+`;
+
+export const ButtonImg = styled.img`
+  margin-right: 0.2rem;
+  margin-left: -0.2rem;
+`;
+export const ButtonText = styled.div``;

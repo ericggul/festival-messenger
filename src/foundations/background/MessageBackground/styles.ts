@@ -5,17 +5,19 @@ interface ContainerType {
 }
 
 export const Container = styled.div<ContainerType>`
-  height: ${({ theme }) => theme.windowHeight + 120}px;
-  width: ${({ theme }) => theme.windowWidth + 120}px;
+  height: ${({ theme }) => theme.windowHeight * 1.1}px;
+  width: ${({ theme }) => theme.windowWidth * 1.1}px;
   position: fixed;
-  top: -60px;
-  left: -60px;
+
+  top: -${({ theme }) => theme.windowHeight * 0.05}px;
+  left: -${({ theme }) => theme.windowWidth * 0.05}px;
 
   z-index: -3;
 
   background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
   opacity: 0.8;
-  filter: blur(60px);
+  filter: blur(${({ theme }) => theme.windowWidth * 0.1}px);
+  -webkit-filter: blur(${({ theme }) => theme.windowWidth * 0.1}px);
 `;
 
 export const Button = styled.div`
