@@ -27,9 +27,6 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   const [rap, setRap] = useState<any>(!null);
   const [wave, setWave] = useState<any>(!null);
 
-  //Initial Play Button
-  const [buttonClicked, setButtonClicked] = useState(false);
-
   useEffect(() => {
     if (rap && rap.audioEl) {
       let canvasEl = new App(rap.audioEl.current, color);
@@ -38,16 +35,11 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
     }
   }, [rap]);
 
-  const handleClick = () => {
-    setButtonClicked(true);
-  };
-
   return (
     <>
-      {!buttonClicked && <S.Button onClick={handleClick}>Play the Song</S.Button>}
-      {buttonClicked && audio && <ReactAudioPlayer src={Reality} autoPlay ref={(el) => setRap(el)} />}
+      <S.Container color={color} />
+      {audio && <ReactAudioPlayer src={Reality} autoPlay ref={(el) => setRap(el)} />}
       {audio && <div id="CanvasWrapper" style={{ width: "100vw", height: "100vh", zIndex: 5 }} />}
-      {buttonClicked && <S.Container color={color} />}
     </>
   );
 }

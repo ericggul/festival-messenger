@@ -16,8 +16,8 @@ export const Container = styled.div<ContainerType>`
 
   background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
   opacity: 0.8;
-  filter: blur(${({ theme }) => theme.windowWidth * 0.1}px);
-  -webkit-filter: blur(${({ theme }) => theme.windowWidth * 0.1}px);
+  filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.03}px);
+  -webkit-filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.03}px);
 `;
 
 export const Button = styled.div`

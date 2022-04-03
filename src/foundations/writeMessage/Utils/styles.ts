@@ -68,4 +68,11 @@ export const UtilsToggler = styled.div`
   ${FlexCenterStyle};
   cursor: pointer;
   border-radius: 0 0 0.5rem 0.5rem;
+  position: relative;
+`;
+
+export const GhostDragger = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
 `;

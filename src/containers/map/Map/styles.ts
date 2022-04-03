@@ -27,16 +27,16 @@ const ButtonCommon = css`
 `;
 
 export const AddMessageButton = styled.div`
-  margin-right: 1rem;
-  top: 7.5rem;
-  right: 0px;
+  margin-left: 1rem;
+  bottom: 110px;
+  left: 0px;
   ${ButtonCommon};
 `;
 
 export const Button = styled.div`
   right: 0;
   margin-right: 1rem;
-  top: 10.2rem;
+  top: 7.5rem;
   ${ButtonCommon};
 `;
 

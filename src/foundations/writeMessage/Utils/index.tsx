@@ -20,6 +20,7 @@ function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
   const navigate = useNavigate();
 
   const [showUtils, setShowUtils] = useState(true);
+  // const [utilsTogglerOpacity, setUtilsTogglerOpacity] = useState(1);
   const [semiModalOpen, setSemiModalOpen] = useState("");
 
   useEffect(() => {
@@ -44,7 +45,6 @@ function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
     <S.UtilContainer showUtils={showUtils}>
       <S.Utils
         onClick={() => {
-          console.log("ev!");
           setSemiModalOpen("");
         }}
       >
@@ -70,7 +70,14 @@ function Utils({ onColorChange, onMusicChange, onFontChange }: any) {
           </S.Setting>
         </S.Settings>
       </S.Utils>
-      <S.UtilsToggler onClick={() => setShowUtils((bol) => !bol)}>
+      <S.UtilsToggler draggable={false} onClick={() => setShowUtils((bol) => !bol)}>
+        <S.GhostDragger
+          draggable={true}
+          onDragStart={(ev: any) => {
+            ev.preventDefault();
+            setShowUtils((bol) => !bol);
+          }}
+        />
         <S.Icon src={showUtils ? Up : Down} highlight={false} />
       </S.UtilsToggler>
     </S.UtilContainer>
