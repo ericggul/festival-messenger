@@ -7,7 +7,7 @@ function Map() {
   return (
     <>
       <MapContainer />
-      <Header name="Map" />
+      {/* <Header name="Map" /> */}
 
       <Footer currentLoc="Map" />
     </>

@@ -1,31 +1,15 @@
 import styled from "styled-components";
 import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
-interface ContainerProps {
-  showBorder: boolean;
-}
-
 export const FatherContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
 `;
 
-export const Container = styled.div<ContainerProps>`
-  ${FlexCenterStyle};
-  width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
-  height: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.5}px;
-  position: relative;
-
-  ${({ showBorder }) => showBorder && `border: dashed 1px #ddd;`}
-  border-radius: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.01}px;
-
-  animation: ${AppearAnimation} 0.3s;
-`;
-
 export const Image = styled.img`
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.01}px;
   animation: ${AppearAnimation} 0.5s;
 `;
@@ -35,8 +19,7 @@ export const Image = styled.img`
 export const ImageEditContainer = styled.div`
   ${FlexCenterStyle};
   flex-direction: row;
-  margin-left: auto;
-  right: 0;
+  margin-top: 1rem;
 `;
 
 export const Setting = styled.div`

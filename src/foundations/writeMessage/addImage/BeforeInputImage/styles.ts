@@ -1,5 +1,17 @@
 import styled from "styled-components";
-import { FlexCenterStyle } from "@S/style/responsive/display";
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
+
+export const Container = styled.div`
+  ${FlexCenterStyle};
+  width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
+  height: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.5}px;
+  position: relative;
+
+  border: dashed 1px #ddd;
+  border-radius: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.01}px;
+
+  animation: ${AppearAnimation} 0.3s;
+`;
 
 export const ImageInput = styled.input.attrs({
   type: "file",

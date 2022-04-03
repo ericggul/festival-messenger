@@ -67,18 +67,22 @@ function AddImage({ deleteAddImageContainer }: any) {
   useEffect(() => {
     if (image !== "") {
       setShowImageEditPanel(true);
-    } else if(image === ""){
+    } else if (image === "") {
       setShowImageEditPanel(false);
     }
   }, [image]);
 
   return (
-    <S.FatherContainer>
-      <S.Container showBorder={image === ""}>
-        {image === "" ? <BeforeInputImage onImageChange={onImageChange} deleteAddImageContainer={deleteAddImageContainer} /> : <S.Image src={image} />}
-      </S.Container>
-      {showImageEditPanel && <ImageEditPanel onChange={() => setImage("")} onComplete={() => setShowImageEditPanel(false)} />}
-    </S.FatherContainer>
+    <>
+      {image === "" ? (
+        <BeforeInputImage onImageChange={onImageChange} deleteAddImageContainer={deleteAddImageContainer} />
+      ) : (
+        <S.FatherContainer>
+          <S.Image src={image} />
+          {showImageEditPanel && <ImageEditPanel onChange={() => setImage("")} onComplete={() => setShowImageEditPanel(false)} />}
+        </S.FatherContainer>
+      )}
+    </>
   );
 }
 export default AddImage;

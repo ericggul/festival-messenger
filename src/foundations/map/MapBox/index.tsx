@@ -7,6 +7,9 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./marker.css";
 import SunCalc from "suncalc";
 
+//hooks
+import useGeoLocation from "@U/hooks/useGeoLocation";
+
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
 
@@ -120,6 +123,7 @@ function MapBox({
   const [zoom, setZoom] = useState(zoomIn ? 12 : 18);
 
   const [windowWidth, windowHeight] = useResize();
+  const { pos: currentGeoPos, permittedStatus } = useGeoLocation();
 
   useEffect(() => {
     if (mapContainerRef && mapContainerRef.current) {
@@ -233,6 +237,17 @@ function MapBox({
         });
         setZoom(mapRef.current.getZoom().toFixed(2));
       });
+
+      mapRef.current.addControl(
+        new mapboxgl.GeolocateControl({
+          fitBoundsOptions: { maxZoom: 19 },
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+          showUserHeading: true,
+        })
+      );
     }
 
     mapZoomOnceIdle(zoomIn);

@@ -67,7 +67,7 @@ function Map() {
         </S.Button>
         <S.ButtonLeft onClick={() => setReset(true)}>
           <S.ButtonImg src={Pin} />
-          <S.ButtonText>원위치로</S.ButtonText>
+          <S.ButtonText>버들골</S.ButtonText>
         </S.ButtonLeft>
       </S.Container>
       {addNewMessageModal}

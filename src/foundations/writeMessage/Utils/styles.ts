@@ -16,14 +16,14 @@ export const UtilContainer = styled.div<UtilsProps>`
   flex-direction: column;
 
   ${({ showUtils }) => (showUtils ? "transform: 0;" : "transform: translateY(-80%);")};
-
+  z-index: ${({ theme }) => theme.zIndex.modalBackground};
   transition: transform 0.3s;
 `;
 
 export const Utils = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.palette.TRANSPARENT_WHITE};
-  z-index: ${({ theme }) => theme.zIndex.modalBackground};
+
   display: flex;
   padding: 1.5rem 0;
   padding-top: 2.5rem;
