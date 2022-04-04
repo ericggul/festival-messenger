@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as S from "./styles";
 
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,52 @@ import Utils from "@F/writeMessage/Utils";
 import MessageBackground from "@F/background/MessageBackground";
 import AddImage from "@F/writeMessage/addImage/AddImage";
 
+//hooks
+import useInput from "@U/hooks/useInput";
+
 const Reality = require("../../../static/assets/audio/Reality.mp3");
+
+const ToText = ({ defaultName, getTextState, onTextRespond }: any) => {
+  //Message To Text
+  const { value: senderName, onChange: onSenderNameChange, setValue: setSenderName } = useInput(defaultName || "");
+  useEffect(() => {
+    if (getTextState) {
+      onTextRespond(senderName);
+    }
+  }, [getTextState]);
+
+  return (
+    <S.ToText>
+      Message To. <S.ToTextInput value={senderName} onChange={onSenderNameChange} placeholder="이름을 입력하세요" />
+    </S.ToText>
+  );
+};
+
+const MainText = ({ getTextState, onTextRespond }: any) => {
+  const { value: mainText, onChange: onMainTextChange, setValue: setMainText } = useInput("");
+  const textAreaEl = useRef<any>(!null);
+
+  const handleHeightAdjust = (e: any) => {
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
+
+  useEffect(() => {
+    if (getTextState) {
+      onTextRespond(mainText);
+    }
+  }, [getTextState]);
+
+  return (
+    <S.MainText>
+      <S.MainTextInput value={mainText} ref={textAreaEl} onKeyDown={handleHeightAdjust} onChange={onMainTextChange} placeholder="내용을 입력하세요" />
+    </S.MainText>
+  );
+};
+
+const Complete = ({ completeCommand }: any) => {
+  return <S.CompletePanel onClick={completeCommand}>작성 완료</S.CompletePanel>;
+};
 
 function WriteMessage(props: any) {
   console.log(props?.id, props?.latLng);
@@ -18,7 +63,43 @@ function WriteMessage(props: any) {
   const [music, setMusic] = useState(Reality);
   const [font, setFont] = useState(null);
 
+  //Display Image Container
   const [displayAddImage, setDisplayAddImage] = useState(true);
+
+  //Get Name, Text and Image States on Complete Button Click
+  const [getNameState, setGetNameState] = useState(false);
+  const [getTextState, setGetTextState] = useState(false);
+  const [getImageState, setGetImageState] = useState(false);
+  const [name, setName] = useState("");
+  const [mainText, setMainText] = useState("");
+  const [image, setImage] = useState<any>(!null);
+  const [dataRetrivedStatus, setDataRetrivedStatus] = useState(0);
+  const handleComplete = () => {
+    setDataRetrivedStatus(0);
+    setGetNameState(true);
+    setGetTextState(true);
+    if (displayAddImage) {
+      setGetImageState(true);
+    } else {
+      setImage(null);
+    }
+  };
+
+  //Preview State
+  const [previewing, setPreviewing] = useState(false);
+
+  useEffect(() => {
+    if (dataRetrivedStatus === 3) {
+      if (name === "" || mainText === "") {
+        alert("이름이나 내용이 불충분합니다.");
+        return;
+      }
+      setPreviewing(true);
+      alert("Preview!");
+    }
+  }, [dataRetrivedStatus, name, mainText, image]);
+
+  console.log(previewing);
 
   return (
     <S.Container>
@@ -31,7 +112,38 @@ function WriteMessage(props: any) {
       />
       <MessageBackground color={color} audio={null} />
 
-      {displayAddImage && <AddImage deleteAddImageContainer={() => setDisplayAddImage(false)} />}
+      <S.MessagePanel>
+        <ToText
+          defaultName={null}
+          getTextState={getNameState}
+          onTextRespond={(text: any) => {
+            setName(text);
+            setGetNameState(false);
+            setDataRetrivedStatus((st) => st + 1);
+          }}
+        />
+        {displayAddImage && (
+          <AddImage
+            deleteAddImageContainer={() => setDisplayAddImage(false)}
+            getImageState={getImageState}
+            onImageRespond={(img: any) => {
+              setImage(img);
+              setGetImageState(false);
+              setDataRetrivedStatus((st) => st + 1);
+            }}
+          />
+        )}
+
+        <MainText
+          getTextState={getTextState}
+          onTextRespond={(text: any) => {
+            setMainText(text);
+            setGetTextState(false);
+            setDataRetrivedStatus((st) => st + 1);
+          }}
+        />
+        <Complete completeCommand={handleComplete} />
+      </S.MessagePanel>
     </S.Container>
   );
 }

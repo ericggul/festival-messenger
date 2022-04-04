@@ -4,7 +4,7 @@ import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 export const Container = styled.div`
   ${FlexCenterStyle};
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
-  height: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.5}px;
+  min-height: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.5}px;
   position: relative;
 
   border: dashed 1px #ddd;

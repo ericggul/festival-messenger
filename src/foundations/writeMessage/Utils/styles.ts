@@ -25,8 +25,7 @@ export const Utils = styled.div`
   background: ${({ theme }) => theme.palette.TRANSPARENT_WHITE};
 
   display: flex;
-  padding: 1.5rem 0;
-  padding-top: 2.5rem;
+  height: ${({ theme }) => 100}px;
   justify-content: space-between;
 `;
 
