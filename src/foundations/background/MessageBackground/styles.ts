@@ -18,6 +18,8 @@ export const Container = styled.div<ContainerType>`
   opacity: 0.8;
   filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.03}px);
   -webkit-filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.03}px);
+
+  animation: background 0.3s;
 `;
 
 export const Button = styled.div`

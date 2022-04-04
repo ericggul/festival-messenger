@@ -176,5 +176,5 @@ export const OtherFriendsListHeader = styled.div`
 export const OtherFriendsListHeaderText = styled.div`
   margin-top: 0.7rem;
   font-size: 1.2rem;
-  font-weight: 800;
+  font-weight: 900;
 `;

@@ -251,7 +251,6 @@ function MapBox({
     }
 
     mapZoomOnceIdle(zoomIn);
-
     addMessagesMarker();
   }, [mapRef, zoomIn]);
 

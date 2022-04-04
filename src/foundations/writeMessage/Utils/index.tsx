@@ -54,19 +54,28 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
         </S.Back>
         <S.Settings>
           <S.Setting onClick={(ev: any) => eventHandler(ev, "color")}>
-            <S.Icon src={ColorIcon} highlight={semiModalOpen === "color"} />
-            <S.Text>Color</S.Text>
-            {semiModalOpen === "color" && <ColorModal />}
+            <S.SettingSets>
+              <S.Icon src={ColorIcon} highlight={semiModalOpen === "color"} />
+              <S.Text>Color</S.Text>
+            </S.SettingSets>
+
+            {semiModalOpen === "color" && <ColorModal initialColor={{ h: 144, s: 17, l: 42 }} onColorClick={onColorChange} />}
           </S.Setting>
           <S.Setting onClick={(ev: any) => eventHandler(ev, "music")}>
-            <S.Icon src={MusicIcon} highlight={semiModalOpen === "music"} />
-            <S.Text>Music</S.Text>
+            <S.SettingSets>
+              <S.Icon src={MusicIcon} highlight={semiModalOpen === "music"} />
+              <S.Text>Music</S.Text>
+            </S.SettingSets>
+
             {semiModalOpen === "music" && <MusicModal />}
           </S.Setting>
           <S.Setting onClick={(ev: any) => eventHandler(ev, "font")}>
-            <S.Icon src={FontIcon} highlight={semiModalOpen === "font"} />
-            <S.Text>Font</S.Text>
-            {semiModalOpen === "font" && <FontModal />}
+            <S.SettingSets>
+              <S.Icon src={FontIcon} highlight={semiModalOpen === "font"} />
+              <S.Text>Font</S.Text>
+            </S.SettingSets>
+
+            {semiModalOpen === "font" && <FontModal onFontClick={onFontChange} />}
           </S.Setting>
 
           {displayAddImageOption && (

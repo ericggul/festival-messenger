@@ -16,7 +16,7 @@ const ButtonCommon = css`
   cursor: pointer;
 
   position: absolute;
-  font-weight: light;
+  font-weight: 300;
   z-index: 2;
   padding: 0 1.2rem;
   height: 2.2rem;

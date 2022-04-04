@@ -50,5 +50,5 @@ export const Icon = styled.img<IconProps>`
 
 export const IconText = styled.div`
   margin-top: 0.5rem;
-  font-weight: light;
+  font-weight: 300;
 `;

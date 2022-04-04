@@ -30,9 +30,9 @@ export const ImageInput = styled.input.attrs({
 
 export const GuideText = styled.div`
   ${FlexCenterStyle};
-  color: #ddd;
+  color: #ddd !important;
   font-size: 1.33rem;
-  font-weight: 800;
+  font-weight: 900;
 `;
 
 export const DeleteBox = styled.div`

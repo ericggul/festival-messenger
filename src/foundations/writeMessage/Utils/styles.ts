@@ -15,6 +15,8 @@ export const UtilContainer = styled.div<UtilsProps>`
   ${FlexCenterStyle};
   flex-direction: column;
 
+  color: black !important;
+
   ${({ showUtils }) => (showUtils ? "transform: 0;" : "transform: translateY(-80%);")};
   z-index: ${({ theme }) => theme.zIndex.modalBackground};
   transition: transform 0.3s;
@@ -25,8 +27,9 @@ export const Utils = styled.div`
   background: ${({ theme }) => theme.palette.TRANSPARENT_WHITE};
 
   display: flex;
-  height: ${({ theme }) => 100}px;
+  height: 100px;
   justify-content: space-between;
+  color: black;
 `;
 
 export const Back = styled.div`
@@ -44,6 +47,11 @@ export const Setting = styled.div`
   position: relative;
   cursor: pointer;
   ${FlexCenterStyle};
+  margin: 0 0.6rem;
+`;
+
+export const SettingSets = styled.div`
+  ${FlexCenterStyle};
   flex-direction: column;
   margin: 0 0.6rem;
 `;
@@ -60,7 +68,8 @@ export const Icon = styled.img<IconProps>`
 export const Text = styled.div`
   margin-top: 0.3rem;
   font-size: 0.9rem;
-  font-weight: light;
+  font-weight: 300;
+  color: black !important;
 `;
 
 export const UtilsToggler = styled.div`

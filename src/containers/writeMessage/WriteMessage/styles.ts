@@ -7,9 +7,15 @@ export const Container = styled.div`
   height: ${({ theme }) => theme.windowHeight}px;
   display: flex;
   overflow: hidden;
+  user-select: all;
+  -webkit-user-select: all;
 `;
 
-export const MessagePanel = styled.div`
+interface FontInterface {
+  font: any;
+}
+
+export const MessagePanel = styled.div<FontInterface>`
   width: ${({ theme }) => theme.windowWidth}px;
   min-height: ${({ theme }) => theme.windowHeight}px;
 
@@ -19,7 +25,9 @@ export const MessagePanel = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   z-index: 2;
-  color: white;
+  color: white !important;
+
+  font-family: ${({ font }) => font};
 `;
 
 export const ToText = styled.div`
@@ -30,7 +38,11 @@ export const ToText = styled.div`
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
 `;
 
-export const ToTextInput = styled.input`
+export const ToTextInput = styled.input.attrs({
+  type: "text",
+  spellcheck: "false",
+})`
+  color: white;
   outline: 0;
   width: 15rem;
   text-size-adjust: auto;
@@ -38,15 +50,11 @@ export const ToTextInput = styled.input`
   background: transparent;
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  border-bottom: 1px solid transparent;
 
   &::placeholder {
     color: white;
     opacity: 0.3;
-    border-bottom: 1px solid white;
-  }
-
-  &::placeholder-shown {
     border-bottom: 1px solid white;
   }
 `;
@@ -58,7 +66,9 @@ export const MainText = styled.div`
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
 `;
 
-export const MainTextInput = styled.textarea`
+export const MainTextInput = styled.textarea.attrs({
+  spellcheck: "false",
+})`
   outline: 0;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
 
@@ -66,9 +76,10 @@ export const MainTextInput = styled.textarea`
   border: none;
   background: transparent;
   font-size: 1rem;
-  color: white;
 
   border-bottom: 1px solid transparent;
+
+  color: white;
 
   transition: all 0.3s;
   &:focus {
@@ -88,7 +99,7 @@ export const CompletePanel = styled.div`
   border-radius: 1.75rem;
   background: #f7fdea;
   font-size: 1.3rem;
-  color: black;
+  color: black !important;
   font-weight: bold;
   ${FlexCenterStyle};
   box-shadow: 0 0 4rem #fff;

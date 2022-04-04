@@ -99,8 +99,7 @@ function WriteMessage(props: any) {
     }
   }, [dataRetrivedStatus, name, mainText, image]);
 
-  console.log(previewing);
-
+  console.log(color);
   return (
     <S.Container>
       <Utils
@@ -112,7 +111,7 @@ function WriteMessage(props: any) {
       />
       <MessageBackground color={color} audio={null} />
 
-      <S.MessagePanel>
+      <S.MessagePanel font={font}>
         <ToText
           defaultName={null}
           getTextState={getNameState}

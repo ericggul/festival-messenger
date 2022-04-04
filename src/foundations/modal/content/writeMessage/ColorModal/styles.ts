@@ -3,11 +3,26 @@ import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
   ${FlexCenterStyle};
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: auto;
-  top: 3.7rem;
+  height: 100px;
+  margin-left: 1rem;
 
   animation: ${AppearAnimation} 0.3s;
+`;
+
+export const ColorContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(9, 1.5rem);
+  grid-template-rows: repeat(2, 1.5rem);
+`;
+
+interface ColorSelector {
+  color: any;
+}
+
+export const Color = styled.div<ColorSelector>`
+  cursor: pointer;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 20%;
+  background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
 `;

@@ -3,72 +3,14 @@ import * as S from "./styles";
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import { imgPreview } from "@F/writeMessage/addImage/cropImage/imgPreview";
+import { imgPreview } from "@/foundations/writeMessage/addImage/ImageEditPanel/cropImage/imgPreview";
 
 //hooks
 import useResize from "@U/hooks/useResize";
 
 //components
 import BeforeInputImage from "@F/writeMessage/addImage/BeforeInputImage";
-
-//icons
-import ChangeIcon from "@I/icons/writeMessage/imageEdit/change.svg";
-import ResizeIcon from "@I/icons/writeMessage/imageEdit/resize.svg";
-import DeleteIcon from "@I/icons/writeMessage/imageEdit/delete.svg";
-import CompleteIcon from "@I/icons/writeMessage/imageEdit/complete.svg";
-import UndoIcon from "@I/icons/writeMessage/imageEdit/undo.svg";
-import LaBoum from "@I/message_test/laboum.png";
-
-const ImageEditPanel = ({
-  onResize,
-  onChange,
-  onDelete,
-  onComplete,
-  resizing,
-
-  resizeReset,
-  resizeComplete,
-}: any) => {
-  return (
-    <>
-      {resizing ? (
-        <S.ImageEditContainer>
-          <S.Setting onClick={resizeReset}>
-            <S.Icon src={UndoIcon} />
-            <S.Text>초기화 </S.Text>
-          </S.Setting>
-
-          <S.Setting onClick={resizeComplete}>
-            <S.Icon src={CompleteIcon} />
-            <S.Text bold={true}>리사이즈 완료</S.Text>
-          </S.Setting>
-        </S.ImageEditContainer>
-      ) : (
-        <S.ImageEditContainer>
-          <S.Setting onClick={onResize}>
-            <S.Icon src={ResizeIcon} />
-            <S.Text>사진 자르기</S.Text>
-          </S.Setting>
-
-          <S.Setting onClick={onChange}>
-            <S.Icon src={ChangeIcon} />
-            <S.Text>사진 변경</S.Text>
-          </S.Setting>
-
-          <S.Setting onClick={onDelete}>
-            <S.Icon src={DeleteIcon} />
-            <S.Text>사진 제거</S.Text>
-          </S.Setting>
-
-          <S.Setting onClick={onComplete}>
-            <S.Icon src={CompleteIcon} />
-            <S.Text bold={true}>사진 설정 완료</S.Text>
-          </S.Setting>
-        </S.ImageEditContainer>
-      )}
-    </>
-  );
-};
+import ImageEditPanel from "@F/writeMessage/addImage/ImageEditPanel";
 
 function AddImage({ deleteAddImageContainer, getImageState, onImageRespond }: any) {
   //Initial Image to save for reset

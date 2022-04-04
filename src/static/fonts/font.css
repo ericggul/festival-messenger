@@ -10,10 +10,64 @@
 @font-face {
   font-family: "Seoul Namsan";
   src: url("./SeoulNamsanL.ttf") format("truetype");
-  font-weight: light;
+  font-weight: 300;
 }
 @font-face {
   font-family: "Seoul Namsan";
   src: url("./SeoulNamsanEB.ttf") format("truetype");
-  font-weight: 800;
+  font-weight: 900;
+}
+
+/* Other Fonts */
+@font-face {
+  font-family: "Black Han Sans";
+  src: url("./Black_Han_Sans/BlackHanSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("./IBM_Plex_Sans_KR/IBMPlexSansKR-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("./IBM_Plex_Sans_KR/IBMPlexSansKR-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Jua";
+  src: url("./Jua/Jua-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Kirang Haerang";
+  src: url("./Kirang_Haerang/KirangHaerang-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nanum Pen Script";
+  src: url("./Nanum_Pen_Script/NanumPenScript-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./Noto_Sans_KR/NotoSansKR-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./Noto_Sans_KR/NotoSansKR-Bold.otf") format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("./Noto_Serif_KR/NotoSerifKR-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("./Noto_Serif_KR/NotoSerifKR-Bold.otf") format("opentype");
+  font-weight: bold;
 }
