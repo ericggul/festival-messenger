@@ -85,6 +85,8 @@ function WriteMessage(props: any) {
     }
   };
 
+  console.log(music);
+
   //Preview State
   const [previewing, setPreviewing] = useState(false);
 

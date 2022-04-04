@@ -260,6 +260,7 @@ function MapBox({
 
   //Add new marker on click
   useEffect(() => {
+    console.log(messageSendMode);
     if (messageSendMode) {
       if (mapRef.current && typeof mapRef.current == "object") {
         //Click event

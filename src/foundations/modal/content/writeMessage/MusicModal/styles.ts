@@ -30,4 +30,8 @@ export const AudioElement = styled.div<AudioProps>`
 
 export const CustomAudio = styled.div<AudioProps>`
   ${FlexCenterStyle};
+
+  &::div {
+    ${FlexCenterStyle};
+  }
 `;

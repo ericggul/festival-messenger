@@ -38,7 +38,9 @@ function Map() {
     {
       latLng: latLng,
     },
-    () => setMessageSendMode(false)
+    () => {
+      setMessageSendMode(false);
+    }
   );
 
   const handleAddNewMessage = (latLng: any) => {

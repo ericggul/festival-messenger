@@ -4,7 +4,7 @@ import PopupModal from "@F/modal/PopupModal";
 const useModal = (ContentComponent: any, listenOpenChange: any = true, props?: any, onModalChange?: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
-    if (listenOpenChange && !isModalOpen) {
+    if (listenOpenChange && !isModalOpen && onModalChange) {
       onModalChange();
     }
   }, [listenOpenChange, isModalOpen]);

@@ -24,7 +24,7 @@ declare global {
 
 // { h: 184, s: 20, l: 46 }
 
-export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, audio = Reality }: MessageBackgroundType) {
+export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, audio }: MessageBackgroundType) {
   const [rap, setRap] = useState<any>(!null);
   const [wave, setWave] = useState<any>(!null);
 
@@ -37,6 +37,17 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
       setWave(canvasEl);
     }
   }, [rap]);
+
+  //To Do: Handle when audio is changed!!
+  useEffect(() => {
+    if (audio) {
+    }
+    if (wave && wave.audioCtx) {
+      let canvasEl = new App(rap.audioEl.current, color);
+      canvasEl.audioCtx.resume();
+      setWave(canvasEl);
+    }
+  }, [audio]);
 
   console.log(audio);
 
