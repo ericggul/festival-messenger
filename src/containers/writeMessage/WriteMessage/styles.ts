@@ -9,6 +9,7 @@ export const Container = styled.div`
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
+  zindex: 10;
 `;
 
 interface FontInterface {
@@ -24,7 +25,7 @@ export const MessagePanel = styled.div<FontInterface>`
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
-  z-index: 2;
+  z-index: 15;
   color: white !important;
 
   font-family: ${({ font }) => font};

@@ -2,6 +2,7 @@ import * as S from "./styles";
 import { useCallback, useState, useEffect, useRef } from "react";
 
 import ReactAudioPlayer from "react-audio-player";
+import useResize from "@/utils/hooks/useResize";
 
 const Reality = require("../../../static/assets/audio/Reality.mp3");
 
@@ -27,6 +28,8 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   const [rap, setRap] = useState<any>(!null);
   const [wave, setWave] = useState<any>(!null);
 
+  const [windowWidth, windowHeight] = useResize();
+
   useEffect(() => {
     if (rap && rap.audioEl) {
       let canvasEl = new App(rap.audioEl.current, color);
@@ -35,11 +38,25 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
     }
   }, [rap]);
 
+  console.log(audio);
+
   return (
     <>
       <S.Container color={color} />
       {audio && <ReactAudioPlayer src={Reality} autoPlay ref={(el) => setRap(el)} />}
-      {audio && <div id="CanvasWrapper" style={{ width: "100vw", height: "100vh", zIndex: 5 }} />}
+      {audio && (
+        <div
+          id="CanvasWrapper"
+          style={{
+            position: "absolute",
+            top: "0",
+            left: "0",
+            width: `${windowWidth}px`,
+            height: `${windowHeight}px`,
+            zIndex: 5,
+          }}
+        />
+      )}
     </>
   );
 }

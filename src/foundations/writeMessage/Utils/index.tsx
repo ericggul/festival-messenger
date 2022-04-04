@@ -41,6 +41,27 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
     [semiModalOpen]
   );
 
+  //Intermediate state listener for color, etc.
+  const [color, setColor] = useState({ h: 144, s: 17, l: 42 });
+  const [music, setMusic] = useState({
+    name: "No Music",
+    file: null,
+  });
+  const [font, setFont] = useState("Seoul Namsan");
+
+  const onColorClick = (cl: any) => {
+    setColor(cl);
+    onColorChange(cl);
+  };
+  const onMusicClick = (mz: any) => {
+    setMusic(mz);
+    onMusicChange(mz);
+  };
+  const onFontClick = (ft: any) => {
+    setFont(ft);
+    onFontChange(ft);
+  };
+
   return (
     <S.UtilContainer showUtils={showUtils}>
       <S.Utils
@@ -59,7 +80,7 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
               <S.Text>Color</S.Text>
             </S.SettingSets>
 
-            {semiModalOpen === "color" && <ColorModal initialColor={{ h: 144, s: 17, l: 42 }} onColorClick={onColorChange} />}
+            {semiModalOpen === "color" && <ColorModal initialColor={font} onColorClick={onColorClick} />}
           </S.Setting>
           <S.Setting onClick={(ev: any) => eventHandler(ev, "music")}>
             <S.SettingSets>
@@ -67,7 +88,7 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
               <S.Text>Music</S.Text>
             </S.SettingSets>
 
-            {semiModalOpen === "music" && <MusicModal />}
+            {semiModalOpen === "music" && <MusicModal initialMusic={music} onMusicClick={onMusicClick} />}
           </S.Setting>
           <S.Setting onClick={(ev: any) => eventHandler(ev, "font")}>
             <S.SettingSets>
@@ -75,7 +96,7 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
               <S.Text>Font</S.Text>
             </S.SettingSets>
 
-            {semiModalOpen === "font" && <FontModal onFontClick={onFontChange} />}
+            {semiModalOpen === "font" && <FontModal initialFont={font} onFontClick={onFontClick} />}
           </S.Setting>
 
           {displayAddImageOption && (

@@ -60,7 +60,7 @@ function WriteMessage(props: any) {
   const navigate = useNavigate();
 
   const [color, setColor] = useState({ h: 144, s: 17, l: 42 });
-  const [music, setMusic] = useState(Reality);
+  const [music, setMusic] = useState<any>(!null);
   const [font, setFont] = useState(null);
 
   //Display Image Container
@@ -99,7 +99,6 @@ function WriteMessage(props: any) {
     }
   }, [dataRetrivedStatus, name, mainText, image]);
 
-  console.log(color);
   return (
     <S.Container>
       <Utils
@@ -109,7 +108,7 @@ function WriteMessage(props: any) {
         displayAddImageOption={!displayAddImage}
         onAddImageCommand={() => setDisplayAddImage(true)}
       />
-      <MessageBackground color={color} audio={null} />
+      <MessageBackground color={color} audio={music.file} />
 
       <S.MessagePanel font={font}>
         <ToText

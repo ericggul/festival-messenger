@@ -18,12 +18,16 @@ export const FontContainer = styled.div`
 
 interface FontInterface {
   font: any;
+  selected: boolean;
 }
 
 export const Font = styled.div<FontInterface>`
+  border-radius: 10%;
+  ${({ selected }) => selected && `box-shadow: 0 0 .3rem #aaa`};
+
   ${FlexCenterStyle};
-  width: 4.5rem;
-  margin: 0 0.1rem;
+  width: 4.7rem;
+
   font-family: ${({ font }) => font};
   text-align: center;
   font-size: 0.7rem;
