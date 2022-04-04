@@ -7,6 +7,7 @@ export const FatherContainer = styled.div`
   position: relative;
   ${FlexCenterStyle};
   color: black;
+  font-family: Seoul Namsan;
 `;
 interface ImgContainer {
   width: any;

@@ -36,10 +36,9 @@ export const GlobalStyle = createGlobalStyle`
 
     font-family: 'Seoul Namsan', 'sans-serif';
     user-select: none;
+    color: black;
     
-    & ::selection {
-      color: white;
-    }
+ 
     
     &::-webkit-scrollbar {
       display: none; /* Chrome, Safari, Opera*/

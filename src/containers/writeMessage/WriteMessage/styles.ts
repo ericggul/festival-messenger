@@ -7,8 +7,8 @@ export const Container = styled.div`
   height: ${({ theme }) => theme.windowHeight}px;
   display: flex;
   overflow: hidden;
-  user-select: all;
-  -webkit-user-select: all;
+  user-select: none;
+  -webkit-user-select: none;
 `;
 
 interface FontInterface {
@@ -93,6 +93,7 @@ export const MainTextInput = styled.textarea.attrs({
 `;
 
 export const CompletePanel = styled.div`
+  font-family: Seoul Namsan;
   width: 10rem;
   min-height: 2.7rem;
   cursor: pointer;

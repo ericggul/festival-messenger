@@ -11,6 +11,7 @@ export const Container = styled.div`
   border-radius: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.01}px;
 
   animation: ${AppearAnimation} 0.3s;
+  font-family: Seoul Namsan;
 `;
 
 export const ImageInput = styled.input.attrs({

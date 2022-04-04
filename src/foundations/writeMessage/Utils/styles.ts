@@ -15,7 +15,9 @@ export const UtilContainer = styled.div<UtilsProps>`
   ${FlexCenterStyle};
   flex-direction: column;
 
-  color: black !important;
+  user-select: none;
+
+  color: #000 !important;
 
   ${({ showUtils }) => (showUtils ? "transform: 0;" : "transform: translateY(-80%);")};
   z-index: ${({ theme }) => theme.zIndex.modalBackground};
@@ -53,7 +55,7 @@ export const Setting = styled.div`
 export const SettingSets = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  margin: 0 0.6rem;
+  margin: 0;
 `;
 
 interface IconProps {
@@ -69,7 +71,6 @@ export const Text = styled.div`
   margin-top: 0.3rem;
   font-size: 0.9rem;
   font-weight: 300;
-  color: black !important;
 `;
 
 export const UtilsToggler = styled.div`

@@ -15,7 +15,7 @@ function FontModal({ onFontClick }: any) {
     <S.Container>
       <S.FontContainer>
         {FONT_LIST.map((font: any, i: number) => (
-          <S.Font font={font} onClick={(e) => handleClick(e, font)}>
+          <S.Font key={i} font={font} onClick={(e) => handleClick(e, font)}>
             {font}
           </S.Font>
         ))}

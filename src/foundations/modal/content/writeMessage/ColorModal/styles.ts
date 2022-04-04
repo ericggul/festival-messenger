@@ -11,8 +11,8 @@ export const Container = styled.div`
 
 export const ColorContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(9, 1.5rem);
-  grid-template-rows: repeat(2, 1.5rem);
+  grid-template-columns: repeat(9, 1.3rem);
+  grid-template-rows: repeat(2, 1.3rem);
 `;
 
 interface ColorSelector {
@@ -21,8 +21,8 @@ interface ColorSelector {
 
 export const Color = styled.div<ColorSelector>`
   cursor: pointer;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.2rem;
+  height: 1.2rem;
   border-radius: 20%;
   background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
 `;
