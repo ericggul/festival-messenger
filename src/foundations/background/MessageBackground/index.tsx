@@ -167,7 +167,7 @@ class App {
 
   init() {
     for (let i = 0; i < 257; i++) {
-      this.pointArray.push(new Point(getRandom(0, this.stageWidth), getRandom(0, this.stageHeight), this.color, this.cellSize * 10));
+      this.pointArray.push(new Point(this.stageWidth, this.stageHeight, this.color, this.cellSize * 10));
     }
 
     this.loopingFunction();
@@ -196,10 +196,27 @@ class Point {
   baseColor: any;
   fillColor: any;
 
+  centerX: any;
+  centerY: any;
+
+  radius: any;
+  angle: any;
+  angleSpeed: any;
+
   cellSize: any;
-  constructor(x: any, y: any, color: any, cellSize: any) {
-    this.x = x;
-    this.y = y;
+  constructor(width: any, height: any, color: any, cellSize: any) {
+    this.x = getRandom(width * 0.15, width * 0.85);
+    this.y = getRandom(height * 0.15, height * 0.85);
+
+    this.centerX = width * 0.5;
+    this.centerY = height * 0.5;
+
+    //get distance from this.x, this.y to this.centerX, this.centerY
+
+    this.radius = Math.sqrt((this.x - this.centerX) ** 2 + (this.y - this.centerY) ** 2);
+    this.angle = Math.atan2(this.y - this.centerY, this.x - this.centerX);
+    this.angleSpeed = getRandom(-0.001, 0.001);
+
     this.color = color;
     this.baseColor = `hsla(${color.h}, ${color.s}%, ${color.l}%, 0.6)`;
     this.fillColor = `hsla(${color.h},  ${getRandom(color.s - 5, color.s + 5)}%, ${getRandom(70, 100)}%, 1)`;
@@ -208,17 +225,17 @@ class Point {
   //`hsla(${this.color.h},  ${getRandom(this.color.s - 5, this.color.s + 5)}%, ${getRandom(90, 100)}%, 1)`;
 
   draw(ctx: any, value: any) {
+    this.angle += (this.angleSpeed * value) / 255;
+
+    let xPos = this.centerX + this.radius * Math.cos(this.angle);
+    let yPos = this.centerY + this.radius * Math.sin(this.angle);
     const size = (value / 255) * 1.5;
     ctx.beginPath();
-    var gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, size * 1);
-    // Add three color stops
-    gradient.addColorStop(0, this.fillColor);
-    gradient.addColorStop(1, this.baseColor);
 
     // Set the fill style and draw a rectangle
     ctx.fillStyle = this.fillColor;
-    ctx.arc(this.x, this.y, size, 0, Math.PI * 2, false);
-    // ctx.fillRect(this.x - size / 2, this.y - size / 2, size, size);
+    ctx.arc(xPos, yPos, size, 0, Math.PI * 2, false);
+
     ctx.fill();
     ctx.closePath();
   }
