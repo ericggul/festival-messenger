@@ -3,6 +3,10 @@ import * as S from "./styles";
 
 import { useNavigate } from "react-router-dom";
 
+//containers
+import MainTextInput from "@C/writeMessage/textInputs/MainTextInput";
+import ToTextInput from "@C/writeMessage/textInputs/ToTextInput";
+
 //Foundations
 import Utils from "@F/writeMessage/Utils";
 import MessageBackground from "@F/background/MessageBackground";
@@ -12,44 +16,6 @@ import AddImage from "@F/writeMessage/addImage/AddImage";
 import useInput from "@U/hooks/useInput";
 
 const Reality = require("../../../static/assets/audio/Reality.mp3");
-
-const ToText = ({ defaultName, getTextState, onTextRespond, isTextBlack }: any) => {
-  //Message To Text
-  const { value: senderName, onChange: onSenderNameChange, setValue: setSenderName } = useInput(defaultName || "");
-  useEffect(() => {
-    if (getTextState) {
-      onTextRespond(senderName);
-    }
-  }, [getTextState]);
-
-  return (
-    <S.ToText>
-      Message To. <S.ToTextInput isTextBlack={isTextBlack} value={senderName} onChange={onSenderNameChange} placeholder="이름을 입력하세요" />
-    </S.ToText>
-  );
-};
-
-const MainText = ({ getTextState, onTextRespond, isTextBlack }: any) => {
-  const { value: mainText, onChange: onMainTextChange, setValue: setMainText } = useInput("");
-  const textAreaEl = useRef<any>(!null);
-
-  const handleHeightAdjust = (e: any) => {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-  };
-
-  useEffect(() => {
-    if (getTextState) {
-      onTextRespond(mainText);
-    }
-  }, [getTextState]);
-
-  return (
-    <S.MainText>
-      <S.MainTextInput isTextBlack={isTextBlack} value={mainText} ref={textAreaEl} onKeyDown={handleHeightAdjust} onChange={onMainTextChange} placeholder="내용을 입력하세요" />
-    </S.MainText>
-  );
-};
 
 const Complete = ({ completeCommand }: any) => {
   return <S.CompletePanel onClick={completeCommand}>작성 완료</S.CompletePanel>;
@@ -122,7 +88,7 @@ function WriteMessage(props: any) {
       <MessageBackground color={color} audio={music.file} />
 
       <S.MessagePanel font={font} isTextBlack={isTextBlack}>
-        <ToText
+        <ToTextInput
           defaultName={null}
           getTextState={getNameState}
           onTextRespond={(text: any) => {
@@ -144,7 +110,7 @@ function WriteMessage(props: any) {
           />
         )}
 
-        <MainText
+        <MainTextInput
           getTextState={getTextState}
           onTextRespond={(text: any) => {
             setMainText(text);
