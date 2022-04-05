@@ -32,6 +32,7 @@ export const Upper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1.75rem;
+  margin-bottom: 0;
 
   max-height: ${({ theme }) => (theme.windowWidth < 768 ? theme.windowHeight * 0.7 - 150 : theme.windowHeight * 0.9 - 100)}px;
   overflow: scroll;
@@ -99,8 +100,6 @@ export const FriendText = styled.div`
   height: 3.5rem;
 `;
 
-export const Right = styled.div``;
-
 export const ScrollGuide = styled.div`
   position: absolute;
   bottom: 0;
@@ -117,8 +116,17 @@ export const SendIcon = styled.img`
   height: 2.5rem;
   cursor: pointer;
 `;
+
+export const Ziptoss = styled.div`
+  width: 100%;
+  height: 4rem;
+  background: #ecd458;
+  ${FlexCenterStyle};
+`;
+
 export const OtherFriendsList = styled.div`
   margin: 1.75rem;
+
   display: flex;
   flex-direction: column;
   margin-bottom: 2.5rem;

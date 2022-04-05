@@ -4,6 +4,9 @@ import * as S from "./styles";
 
 import { useNavigate } from "react-router-dom";
 
+//foundations
+import BlinkText from "@F/text/BlinkText";
+
 //icons
 import Cancel from "@I/icons/modal/cancel.svg";
 import Send from "@I/icons/footer/outline/send.svg";
@@ -19,14 +22,14 @@ const TEST_DATA = [
 function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const [clickedFriend, setClickedFriend] = useState<number>(-1);
 
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
   const upperRef = useRef<any>(!null);
 
-  useEffect(() => {
-    if (upperRef && upperRef.current && !scrolled) {
-      upperRef.current.addEventListener("scroll", () => setScrolled(true));
-    }
-  }, [scrolled, upperRef]);
+  // useEffect(() => {
+  //   if (upperRef && upperRef.current && !scrolled) {
+  //     upperRef.current.addEventListener("scroll", () => setScrolled(true));
+  //   }
+  // }, [scrolled, upperRef]);
 
   const navigate = useNavigate();
 
@@ -65,9 +68,9 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
                 </S.FriendRow>
               ))}
             </S.FriendsList>
-            {!scrolled && <S.ScrollGuide>스크롤해서 더 보기</S.ScrollGuide>}
           </S.Upper>
 
+          <BlinkText />
           <S.OtherFriendsList>
             <S.ExplText>
               <div>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</div>

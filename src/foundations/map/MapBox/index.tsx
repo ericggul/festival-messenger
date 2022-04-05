@@ -260,7 +260,6 @@ function MapBox({
 
   //Add new marker on click
   useEffect(() => {
-    console.log(messageSendMode);
     if (messageSendMode) {
       if (mapRef.current && typeof mapRef.current == "object") {
         //Click event
@@ -357,10 +356,12 @@ function MapBox({
   }, [resetState, mapRef]);
 
   async function mapZoomOnceIdle(zoomBoolean: any) {
+    console.log("here", mapRef.current);
     if (mapRef.current && typeof mapRef.current == "object") {
-      await mapRef.current.once("idle");
-      setDisplayMap(true);
-      mapZoom(zoomBoolean);
+      window.setTimeout(() => {
+        setDisplayMap(true);
+        mapZoom(zoomBoolean);
+      }, 2500);
     }
   }
 

@@ -33,17 +33,25 @@ export const AddMessageButton = styled.div`
   ${ButtonCommon};
 `;
 
-export const Button = styled.div`
+export const GhostButton = styled.div`
   right: 0;
   margin-right: 1rem;
-  top: 7.5rem;
+  top: 10px;
+  pointer-events: none;
+  ${ButtonCommon};
+`;
+
+export const Button = styled.div`
+  bottom: 110px;
+  margin-right: 1rem;
+  right: 0;
   ${ButtonCommon};
 `;
 
 export const ButtonLeft = styled.div`
-  left: 0;
-  margin-left: 1rem;
-  top: 7.5rem;
+  right: 0;
+  margin-right: 1rem;
+  top: 3.5rem;
   ${ButtonCommon};
 `;
 

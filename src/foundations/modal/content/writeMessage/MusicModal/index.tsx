@@ -41,7 +41,9 @@ function MusicModal({ initialMusic, onMusicClick }: any) {
   };
 
   //Add Music Modal
-  const { modalComponent, isModalOpen, setIsModalOpen } = useModal(AddMusicModal);
+  const { modalComponent, isModalOpen, setIsModalOpen } = useModal(AddMusicModal, true, {}, () => {
+    console.log("hey");
+  });
 
   return (
     <>

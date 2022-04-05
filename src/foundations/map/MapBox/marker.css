@@ -50,3 +50,19 @@
   align-items: center;
   text-align: center;
 }
+.mapboxgl-ctrl-top-right {
+}
+
+.mapboxgl-ctrl {
+  opacity: 0 !important;
+}
+
+.mapboxgl-ctrl-geolocate {
+  opacity: 0 !important;
+  width: 100px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mapboxgl-ctrl-icon {
+  opacity: 0 !important;
+}

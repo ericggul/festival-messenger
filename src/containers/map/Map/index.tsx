@@ -8,8 +8,13 @@ import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
 
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
+import Explore from "@I/icons/map/explore.svg";
+import Location2 from "@I/icons/map/location-2.svg";
 import Update from "@I/icons/map/rotate-small-right.svg";
 import Pin from "@I/icons/map/pin-1.svg";
+
+//utils
+import speak from "@U/functions/speak";
 
 function Map() {
   //Message Popup
@@ -22,6 +27,7 @@ function Map() {
     if (containerRef && containerRef.current) {
       if (messageSendMode) {
         containerRef.current.style.cursor = "pointer";
+        speak("새로운 메시지는 페메에서. 새로운 실매물은 어디서? 집 토스에서!");
       }
     }
   }, [messageSendMode, containerRef]);
@@ -63,12 +69,16 @@ function Map() {
           resetCompleted={() => setReset(false)}
         />
         <S.AddMessageButton onClick={() => setMessageSendMode((mode) => !mode)}>{messageSendMode ? "지도 상에 핀을 꽂아보세요" : " + 새로운 메시지 보내기"}</S.AddMessageButton>
+        <S.GhostButton>
+          <S.ButtonImg src={Location2} />
+          <S.ButtonText>내위치</S.ButtonText>
+        </S.GhostButton>
         <S.Button>
           <S.ButtonImg src={Update} />
           <S.ButtonText>업데이트</S.ButtonText>
         </S.Button>
         <S.ButtonLeft onClick={() => setReset(true)}>
-          <S.ButtonImg src={Pin} />
+          <S.ButtonImg src={Explore} />
           <S.ButtonText>버들골</S.ButtonText>
         </S.ButtonLeft>
       </S.Container>
