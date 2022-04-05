@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./styles";
 
-const FONT_LIST = ["Seoul Namsan", "Black Han Sans", "IBM Plex Sans", "Jua", "Kirang Haerang", "Nanum Pen Script", "Noto Sans KR", "Noto Serif KR"];
+const FONT_LIST = ["Seoul Namsan", "Noto Sans KR", "Nanum Gothic", "Jua", "Kirang Haerang", "Nanum Pen Script", "Gamja Flower", "Single Day", "Stylish"];
 
 function FontModal({ initialFont, onFontClick }: any) {
   const [font, setFont] = useState(initialFont);

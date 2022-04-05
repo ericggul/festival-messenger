@@ -71,3 +71,45 @@
   src: url("./Noto_Serif_KR/NotoSerifKR-Bold.otf") format("opentype");
   font-weight: bold;
 }
+
+@font-face {
+  font-family: "East Sea Dokdo";
+  src: url("./East_Sea_Dokdo/EastSeaDokdo-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Gaegu";
+  src: url("./Gaegu/Gaegu-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Gaegu";
+  src: url("./Gaegu/Gaegu-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Gamja Flower";
+  src: url("./Gamja_Flower/GamjaFlower-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Single Day";
+  src: url("./Single_Day/SingleDay-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Stylish";
+  src: url("./Stylish/Stylish-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nanum Gothic";
+  src: url("./Nanum_Gothic/NanumGothic-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nanum Gothic";
+  src: url("./Nanum_Gothic/NanumGothic-Bold.ttf") format("truetype");
+  font-weight: bold;
+}

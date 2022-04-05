@@ -8,8 +8,10 @@ export const Background = styled.div`
 
 export const Box = styled.div`
   ${CS.Box};
-  height: ${({ theme }) => (theme.windowWidth < 768 ? theme.windowHeight * 0.7 : theme.windowHeight * 0.9)}px;
-  width: ${({ theme }) => Math.min(theme.windowWidth, 768) * 0.9}px;
+  height: 20rem;
+  ${FlexCenterStyle};
+
+  width: 25rem;
 `;
 
 export const CloseButton = styled.div`

@@ -16,7 +16,11 @@ function AddMusicModal({ setIsModalOpen }: any) {
         >
           <S.CloseIcon src={Cancel} />
         </S.CloseButton>
-        AddMusicModal
+
+        {/* <S.Container>
+            <S.Title>추가할 음악을 선택하세요</S.Title>
+
+          </S.Container> */}
       </S.Box>
     </>
   );
