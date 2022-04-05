@@ -14,6 +14,7 @@ export const Container = styled.div`
 
 interface FontInterface {
   font: any;
+  isTextBlack: boolean;
 }
 
 export const MessagePanel = styled.div<FontInterface>`
@@ -26,8 +27,9 @@ export const MessagePanel = styled.div<FontInterface>`
   flex-direction: column;
   overflow-y: scroll;
   z-index: 15;
-  color: white !important;
+  color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
 
+  transition: all 0.3s;
   font-family: ${({ font }) => font};
 `;
 
@@ -39,11 +41,14 @@ export const ToText = styled.div`
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
 `;
 
+interface IsTextBlack {
+  isTextBlack: boolean;
+}
 export const ToTextInput = styled.input.attrs({
   type: "text",
   spellcheck: "false",
-})`
-  color: white;
+})<IsTextBlack>`
+  color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
   outline: 0;
   width: 15rem;
   text-size-adjust: auto;
@@ -53,8 +58,9 @@ export const ToTextInput = styled.input.attrs({
   font-weight: bold;
   border-bottom: 1px solid transparent;
 
+  transition: all 0.3s;
   &::placeholder {
-    color: white;
+    color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
     opacity: 0.3;
     border-bottom: 1px solid white;
   }
@@ -69,7 +75,7 @@ export const MainText = styled.div`
 
 export const MainTextInput = styled.textarea.attrs({
   spellcheck: "false",
-})`
+})<IsTextBlack>`
   outline: 0;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
 
@@ -80,7 +86,7 @@ export const MainTextInput = styled.textarea.attrs({
 
   border-bottom: 1px solid transparent;
 
-  color: white;
+  color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
 
   transition: all 0.3s;
   &:focus {
@@ -88,7 +94,7 @@ export const MainTextInput = styled.textarea.attrs({
   }
 
   &::placeholder {
-    color: white;
+    color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
     opacity: 0.3;
   }
 `;
@@ -101,7 +107,7 @@ export const CompletePanel = styled.div`
   border-radius: 1.75rem;
   background: #f7fdea;
   font-size: 1.3rem;
-  color: black !important;
+  color: black;
   font-weight: bold;
   ${FlexCenterStyle};
   box-shadow: 0 0 4rem #fff;

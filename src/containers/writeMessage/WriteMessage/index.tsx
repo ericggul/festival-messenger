@@ -13,7 +13,7 @@ import useInput from "@U/hooks/useInput";
 
 const Reality = require("../../../static/assets/audio/Reality.mp3");
 
-const ToText = ({ defaultName, getTextState, onTextRespond }: any) => {
+const ToText = ({ defaultName, getTextState, onTextRespond, isTextBlack }: any) => {
   //Message To Text
   const { value: senderName, onChange: onSenderNameChange, setValue: setSenderName } = useInput(defaultName || "");
   useEffect(() => {
@@ -24,12 +24,12 @@ const ToText = ({ defaultName, getTextState, onTextRespond }: any) => {
 
   return (
     <S.ToText>
-      Message To. <S.ToTextInput value={senderName} onChange={onSenderNameChange} placeholder="이름을 입력하세요" />
+      Message To. <S.ToTextInput isTextBlack={isTextBlack} value={senderName} onChange={onSenderNameChange} placeholder="이름을 입력하세요" />
     </S.ToText>
   );
 };
 
-const MainText = ({ getTextState, onTextRespond }: any) => {
+const MainText = ({ getTextState, onTextRespond, isTextBlack }: any) => {
   const { value: mainText, onChange: onMainTextChange, setValue: setMainText } = useInput("");
   const textAreaEl = useRef<any>(!null);
 
@@ -46,7 +46,7 @@ const MainText = ({ getTextState, onTextRespond }: any) => {
 
   return (
     <S.MainText>
-      <S.MainTextInput value={mainText} ref={textAreaEl} onKeyDown={handleHeightAdjust} onChange={onMainTextChange} placeholder="내용을 입력하세요" />
+      <S.MainTextInput isTextBlack={isTextBlack} value={mainText} ref={textAreaEl} onKeyDown={handleHeightAdjust} onChange={onMainTextChange} placeholder="내용을 입력하세요" />
     </S.MainText>
   );
 };
@@ -59,9 +59,18 @@ function WriteMessage(props: any) {
   console.log(props?.id, props?.latLng);
   const navigate = useNavigate();
 
-  const [color, setColor] = useState({ h: 144, s: 17, l: 42 });
+  const [color, setColor] = useState({ h: 144, s: 17, l: 42, black: false });
+  const [isTextBlack, setIsTextBlack] = useState(false);
   const [music, setMusic] = useState<any>(!null);
   const [font, setFont] = useState(null);
+
+  useEffect(() => {
+    if (color?.black) {
+      setIsTextBlack(true);
+    } else {
+      setIsTextBlack(false);
+    }
+  }, [color]);
 
   //Display Image Container
   const [displayAddImage, setDisplayAddImage] = useState(true);
@@ -112,7 +121,7 @@ function WriteMessage(props: any) {
       />
       <MessageBackground color={color} audio={music.file} />
 
-      <S.MessagePanel font={font}>
+      <S.MessagePanel font={font} isTextBlack={isTextBlack}>
         <ToText
           defaultName={null}
           getTextState={getNameState}
@@ -121,6 +130,7 @@ function WriteMessage(props: any) {
             setGetNameState(false);
             setDataRetrivedStatus((st) => st + 1);
           }}
+          isTextBlack={isTextBlack}
         />
         {displayAddImage && (
           <AddImage
@@ -141,6 +151,7 @@ function WriteMessage(props: any) {
             setGetTextState(false);
             setDataRetrivedStatus((st) => st + 1);
           }}
+          isTextBlack={isTextBlack}
         />
         <Complete completeCommand={handleComplete} />
       </S.MessagePanel>

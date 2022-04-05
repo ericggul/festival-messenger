@@ -205,8 +205,8 @@ class Point {
 
   cellSize: any;
   constructor(width: any, height: any, color: any, cellSize: any) {
-    this.x = getRandom(width * 0.15, width * 0.85);
-    this.y = getRandom(height * 0.15, height * 0.85);
+    this.x = getRandom(width * 0.1, width * 0.9);
+    this.y = getRandom(height * 0.1, height * 0.9);
 
     this.centerX = width * 0.5;
     this.centerY = height * 0.5;

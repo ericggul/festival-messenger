@@ -93,7 +93,7 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
           <S.Setting onClick={(ev: any) => eventHandler(ev, "font")}>
             <S.SettingSets>
               <S.Icon src={FontIcon} highlight={semiModalOpen === "font"} />
-              <S.Text>Font</S.Text>
+              <S.Text>{semiModalOpen === "font" ? "집토스" : "Font"}</S.Text>
             </S.SettingSets>
 
             {semiModalOpen === "font" && <FontModal initialFont={font} onFontClick={onFontClick} />}

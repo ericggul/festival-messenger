@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const FontContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 4.7rem);
+  grid-template-columns: repeat(3, 3.7rem);
   grid-template-rows: repeat(3, 2rem);
 `;
 
@@ -26,10 +26,10 @@ export const Font = styled.div<FontInterface>`
   ${({ selected }) => selected && `box-shadow: 0 0 .3rem #aaa`};
 
   ${FlexCenterStyle};
-  width: 4.7rem;
+  width: 3.5rem;
 
   font-family: ${({ font }) => font};
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: black;
 `;
