@@ -101,8 +101,10 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
 
           {displayAddImageOption && (
             <S.Setting onClick={onAddImageCommand}>
-              <S.Icon src={ImageIcon} highlight={false} />
-              <S.Text>Image</S.Text>
+              <S.SettingSets>
+                <S.Icon src={ImageIcon} highlight={false} />
+                <S.Text>Image</S.Text>
+              </S.SettingSets>
             </S.Setting>
           )}
         </S.Settings>

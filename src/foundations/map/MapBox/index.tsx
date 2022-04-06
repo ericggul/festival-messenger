@@ -361,7 +361,7 @@ function MapBox({
       window.setTimeout(() => {
         setDisplayMap(true);
         mapZoom(zoomBoolean);
-      }, 2500);
+      }, 3000);
     }
   }
 

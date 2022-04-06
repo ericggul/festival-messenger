@@ -45,6 +45,7 @@ export const Settings = styled.div`
   margin-right: 2rem;
   ${FlexCenterStyle};
 `;
+
 export const Setting = styled.div`
   position: relative;
   cursor: pointer;

@@ -31,30 +31,23 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   const [windowWidth, windowHeight] = useResize();
 
   useEffect(() => {
+    let wave: any;
     if (rap && rap.audioEl) {
       let canvasEl = new App(rap.audioEl.current, color);
       canvasEl.audioCtx.resume();
-      setWave(canvasEl);
+      wave = canvasEl;
     }
+    return () => {
+      if (wave) {
+        wave.destroy();
+      }
+    };
   }, [rap]);
-
-  //To Do: Handle when audio is changed!!
-  useEffect(() => {
-    if (audio) {
-    }
-    if (wave && wave.audioCtx) {
-      let canvasEl = new App(rap.audioEl.current, color);
-      canvasEl.audioCtx.resume();
-      setWave(canvasEl);
-    }
-  }, [audio]);
-
-  console.log(audio);
 
   return (
     <>
       <S.Container color={color} />
-      {audio && <ReactAudioPlayer src={Reality} autoPlay ref={(el) => setRap(el)} />}
+      {audio && <ReactAudioPlayer src={audio} autoPlay ref={(el) => setRap(el)} />}
       {audio && (
         <div
           id="CanvasWrapper"
@@ -96,8 +89,10 @@ class App {
   pointArray: any;
 
   time: any;
-
   color: any;
+
+  //animation controller
+  animationRequest: any;
 
   constructor(audioElement: any, color: any) {
     this.color = color;
@@ -125,6 +120,13 @@ class App {
 
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
+  }
+
+  destroy() {
+    cancelAnimationFrame(this.animationRequest);
+    window.removeEventListener("resize", this.resize.bind(this));
+    // this.analyser.disconnect();
+    // this.audioCtx.close();
   }
 
   resize() {
@@ -175,12 +177,13 @@ class App {
 
   loopingFunction() {
     this.time++;
-    requestAnimationFrame(this.loopingFunction.bind(this));
+    this.animationRequest = requestAnimationFrame(this.loopingFunction.bind(this));
     this.analyser.getByteFrequencyData(this.data);
     this.draw(this.data);
   }
 
   draw(data: any) {
+    console.log("drawing");
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
     data.forEach((value: any, i: number) => {

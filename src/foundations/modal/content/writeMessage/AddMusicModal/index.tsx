@@ -3,9 +3,9 @@ import * as S from "./styles";
 
 import Cancel from "@I/icons/modal/cancel.svg";
 
-function AddMusicModal({ setIsModalOpen }: any) {
-  const [audioFile, setAudioFile] = useState<any>(!null);
-  const [audio, setAudio] = useState<any>("");
+function AddMusicModal({ setIsModalOpen, setAudioFile, setAudio }: any) {
+  const [audioFileLocally, setAudioFileLocally] = useState<any>(!null);
+  const [audioLocally, setAudioLocally] = useState<any>("");
 
   //0: Before Upload
   //1: Uploading
@@ -17,10 +17,10 @@ function AddMusicModal({ setIsModalOpen }: any) {
     if (e.target.files.length !== 0) {
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
-      setAudioFile(e.target.files[0]);
+      setAudioFileLocally(e.target.files[0]);
 
       reader.addEventListener("load", () => {
-        setAudio(reader.result);
+        setAudioLocally(reader.result);
         setUploadState(2);
       });
     }
@@ -30,9 +30,12 @@ function AddMusicModal({ setIsModalOpen }: any) {
     if (uploadState === 2) {
       setTimeout(() => {
         setIsModalOpen(false);
+
+        setAudioFile(audioFileLocally);
+        setAudio(audioLocally);
       }, 1000);
     }
-  }, [uploadState]);
+  }, [uploadState, audioFileLocally, audioLocally]);
 
   return (
     <>

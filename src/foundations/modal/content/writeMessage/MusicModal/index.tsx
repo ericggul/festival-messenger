@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 
 //use Modal
-import useModal from "@U/hooks/useModal";
+import { useAddMusicModal } from "@U/hooks/useModal";
 import AddMusicModal from "@F/modal/content/writeMessage/AddMusicModal";
 
 const Reality = require("../../../../../static/assets/audio/Reality.mp3");
@@ -41,9 +41,16 @@ function MusicModal({ initialMusic, onMusicClick }: any) {
   };
 
   //Add Music Modal
-  const { modalComponent, isModalOpen, setIsModalOpen } = useModal(AddMusicModal, true, {}, () => {
-    console.log("hey");
-  });
+  const { modalComponent, isModalOpen, setIsModalOpen, audioFile, setAudioFile, audio, setAudio } = useAddMusicModal(AddMusicModal, true, {});
+
+  useEffect(() => {
+    console.log(typeof audioFile);
+    if (audioFile && typeof audioFile === "object") {
+      setMusic(audioFile);
+    }
+  }, [audioFile]);
+  console.log(audio, audioFile);
+  console.log(music);
 
   return (
     <>
