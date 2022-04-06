@@ -36,39 +36,47 @@ function MusicModal({ initialMusic, onMusicClick }: any) {
 
   const handleClick = (e: any, selectedMusic: any) => {
     e.stopPropagation();
-    setMusic(selectedMusic);
-    onMusicClick(selectedMusic);
+    setMusic(selectedMusic.file);
+    onMusicClick(selectedMusic.file, selectedMusic);
   };
 
   //Add Music Modal
-  const { modalComponent, isModalOpen, setIsModalOpen, audioFile, setAudioFile, audio, setAudio } = useAddMusicModal(AddMusicModal, true, {});
+  const { modalComponent, setIsModalOpen, audioFile, audio } = useAddMusicModal(AddMusicModal, true, {});
+  const [customAudioAddMode, setCustomAudioAddMode] = useState(false);
 
   useEffect(() => {
-    console.log(typeof audioFile);
     if (audioFile && typeof audioFile === "object") {
-      setMusic(audioFile);
+      setMusic(audio);
+      setCustomAudioAddMode(true);
+      onMusicClick(audio, audioFile);
     }
-  }, [audioFile]);
-  console.log(audio, audioFile);
-  console.log(music);
+  }, [audioFile, audio]);
 
   return (
     <>
       <S.Container>
         <S.InnerContainer>
-          {AUDIO_LIST.map((audio: any, i: number) => (
-            <S.AudioElement selected={audio === music} onClick={(e) => handleClick(e, audio)} key={i}>
-              {audio.file ? `${audio.name}.mp3` : "No Music"}
+          {AUDIO_LIST.map((audioEl: any, i: number) => (
+            <S.AudioElement selected={audioEl.file === music} onClick={(e) => handleClick(e, audioEl)} key={i}>
+              {audioEl.file ? `${audioEl.name}.mp3` : "No Music"}
             </S.AudioElement>
           ))}
           <S.CustomAudio
             onClick={(e) => {
               e.stopPropagation();
+              setCustomAudioAddMode(false);
               setIsModalOpen(true);
             }}
+            selected={customAudioAddMode && music === audio}
           >
-            <div>+</div>
-            <div>직접 추가하기</div>
+            {customAudioAddMode ? (
+              <div>{audioFile.name}</div>
+            ) : (
+              <>
+                <div>+</div>
+                <div>직접 추가하기</div>
+              </>
+            )}
           </S.CustomAudio>
         </S.InnerContainer>
       </S.Container>

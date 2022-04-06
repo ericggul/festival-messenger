@@ -1,10 +1,8 @@
 import * as S from "./styles";
-import { useCallback, useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import ReactAudioPlayer from "react-audio-player";
 import useResize from "@/utils/hooks/useResize";
-
-const Reality = require("../../../static/assets/audio/Reality.mp3");
 
 function getRandom(a: number, b: number) {
   return Math.random() * (b - a) + a;
@@ -26,8 +24,6 @@ declare global {
 
 export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, audio }: MessageBackgroundType) {
   const [rap, setRap] = useState<any>(!null);
-  const [wave, setWave] = useState<any>(!null);
-
   const [windowWidth, windowHeight] = useResize();
 
   useEffect(() => {

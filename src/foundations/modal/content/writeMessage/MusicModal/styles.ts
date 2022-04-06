@@ -30,6 +30,7 @@ export const AudioElement = styled.div<AudioProps>`
 
 export const CustomAudio = styled.div<AudioProps>`
   ${FlexCenterStyle};
+  ${({ selected }) => selected && `box-shadow: 0 0 .3rem #aaa`};
 
   &::div {
     ${FlexCenterStyle};

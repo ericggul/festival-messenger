@@ -53,9 +53,9 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
     setColor(cl);
     onColorChange(cl);
   };
-  const onMusicClick = (mz: any) => {
+  const onMusicClick = (mz: any, mzFile: any) => {
     setMusic(mz);
-    onMusicChange(mz);
+    onMusicChange(mz, mzFile);
   };
   const onFontClick = (ft: any) => {
     setFont(ft);
