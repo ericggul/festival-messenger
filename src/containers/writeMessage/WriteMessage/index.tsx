@@ -28,7 +28,7 @@ function WriteMessage(props: any) {
   const [music, setMusic] = useState<any>(undefined);
   //music File to be uploaded to firebase
   const [musicFile, setMusicFile] = useState();
-  const [font, setFont] = useState(null);
+  const [font, setFont] = useState("Seoul Namsan");
 
   useEffect(() => {
     if (color?.black) {
@@ -49,7 +49,7 @@ function WriteMessage(props: any) {
   //name, mainText and Image
   const [name, setName] = useState("");
   const [mainText, setMainText] = useState("");
-  const [imageFile, setImageFile] = useState<any>(!null);
+  const [imageFile, setImageFile] = useState<any>(undefined);
   const [dataRetrivedStatus, setDataRetrivedStatus] = useState(0);
 
   //We do this to get data from the child components (name, text, image)
@@ -80,7 +80,6 @@ function WriteMessage(props: any) {
     }
   }, [dataRetrivedStatus, name, mainText, imageFile]);
 
-  console.log(imageFile);
   //send main data:
   //Contents: name, mainText, imageFile
   //Styles & Utils: color, music. font

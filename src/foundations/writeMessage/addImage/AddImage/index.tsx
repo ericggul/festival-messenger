@@ -17,7 +17,7 @@ function AddImage({ deleteAddImageContainer, getImageState, onImageRespond }: an
   const [initialImageFile, setInitialImageFile] = useState<any>(!null);
   const [initialImage, setInitialImage] = useState<any>("");
 
-  const [imageFile, setImageFile] = useState<any>(!null);
+  const [imageFile, setImageFile] = useState<any>(undefined);
   const [image, setImage] = useState<any>("");
 
   useEffect(() => {

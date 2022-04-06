@@ -37,7 +37,16 @@ function MusicModal({ initialMusic, onMusicClick }: any) {
   const handleClick = (e: any, selectedMusic: any) => {
     e.stopPropagation();
     setMusic(selectedMusic.file);
-    onMusicClick(selectedMusic.file, selectedMusic);
+    if (selectedMusic.file != null) {
+      let reader = new FileReader();
+      let musicFile = new File([selectedMusic.file], `${selectedMusic.name}.mp3`, {
+        type: "audio/mp3",
+      });
+      console.log(musicFile);
+      onMusicClick(selectedMusic.file, musicFile);
+    } else {
+      onMusicClick(selectedMusic.file, null);
+    }
   };
 
   //Add Music Modal
