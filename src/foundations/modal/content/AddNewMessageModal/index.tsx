@@ -22,14 +22,7 @@ const TEST_DATA = [
 function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const [clickedFriend, setClickedFriend] = useState<number>(-1);
 
-  // const [scrolled, setScrolled] = useState(false);
   const upperRef = useRef<any>(!null);
-
-  // useEffect(() => {
-  //   if (upperRef && upperRef.current && !scrolled) {
-  //     upperRef.current.addEventListener("scroll", () => setScrolled(true));
-  //   }
-  // }, [scrolled, upperRef]);
 
   const navigate = useNavigate();
 

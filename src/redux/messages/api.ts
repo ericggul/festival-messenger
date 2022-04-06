@@ -50,7 +50,7 @@ export async function createNewMessageFromFirestore(props: any) {
   const parentChatRef = collection(chatsRef, props.chatId, "messages");
   const messageRef = await addDoc(parentChatRef, {
     createdAt: serverTimestamp(),
-    messageText: props.messageText,
+    mainText: props.mainText,
     messageFrom: props.messageFrom,
     messageTo: props.messageTo,
     latLngPos: props.latLngPos,

@@ -12,15 +12,15 @@ import Utils from "@F/writeMessage/Utils";
 import MessageBackground from "@F/background/MessageBackground";
 import AddImage from "@F/writeMessage/addImage/AddImage";
 
-//hooks
-import useInput from "@U/hooks/useInput";
+//Redux
+import { useAppDispatch } from "@R/common/hooks";
+import { actions } from "@R/singleMessage/messagePreview/state";
 
 const Complete = ({ completeCommand }: any) => {
   return <S.CompletePanel onClick={completeCommand}>작성 완료</S.CompletePanel>;
 };
 
 function WriteMessage(props: any) {
-  console.log(props?.id, props?.latLng);
   const navigate = useNavigate();
 
   const [color, setColor] = useState({ h: 144, s: 17, l: 42, black: false });
@@ -66,7 +66,6 @@ function WriteMessage(props: any) {
 
   //Preview State
   //move when 'dataretrivedstatus' is 3, ig., recieved all name, mainText and image data
-  const [previewing, setPreviewing] = useState(false);
 
   useEffect(() => {
     if (dataRetrivedStatus === 3) {
@@ -74,19 +73,38 @@ function WriteMessage(props: any) {
         alert("이름이나 내용이 불충분합니다.");
         return;
       }
-      setPreviewing(true);
       handlePreviewingSendData();
-      alert("Preview!");
     }
   }, [dataRetrivedStatus, name, mainText, imageFile]);
 
   //send main data:
   //Contents: name, mainText, imageFile
   //Styles & Utils: color, music. font
-  const handlePreviewingSendData = useCallback(() => {
-    console.log(name, mainText, imageFile, color, musicFile, font);
+  //imageFile and musicFile will be possibly 'undefined'
+  const dispatch = useAppDispatch();
+
+  const handlePreviewingSendData = useCallback(async () => {
+    try {
+      await dispatch(
+        actions.setValues({
+          toId: props?.id && props?.id === -1 ? props?.id : "unassigned",
+          toName: name,
+          latLngPos: props?.latLng || null,
+          mainText,
+          color,
+          font,
+          imageFile,
+          musicFile,
+        })
+      );
+      alert("Preview!");
+      props.moveToPreview();
+    } catch (error) {
+      console.log(error);
+    }
+
     //To do : Redux Code
-  }, [name, mainText, imageFile, color, musicFile, font]);
+  }, [name, mainText, imageFile, color, musicFile, font, dispatch, props]);
 
   return (
     <S.Container>

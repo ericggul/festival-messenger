@@ -4,7 +4,7 @@ import { createNewChat, addMemberToChat, fetchAllMessages, fetchMessage, createN
 
 //members only include users who are registered priorly: updateMembers used to update
 export type User = { uid: String; name?: String };
-export type Message = { messageId: String; messageFrom: User; messageTo: User; messageText: String; latLngPos: any; read: any; imageUrl?: any };
+export type Message = { messageId: String; messageFrom: User; messageTo: User; mainText: String; latLngPos: any; read: any; imageUrl?: any };
 export type Chat = { members: User[]; chatId: String; messages: Message[] };
 
 const initialState: Chat = {
