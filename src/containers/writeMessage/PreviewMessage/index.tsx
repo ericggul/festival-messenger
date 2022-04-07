@@ -20,16 +20,17 @@ import { useAppSelector } from "@R/common/hooks";
 import EditIcon from "@I/icons/writeMessage/previewControl/edit-1.svg";
 import SendIcon from "@I/icons/writeMessage/previewControl/send-2.svg";
 
+//audio assets
+import AUDIO_LIST from "@S/assets/audio/audioList";
+
 function PreviewMessage({ moveBackToWriteMode }: any) {
   const preview = useAppSelector((state) => state.singleMessagePreview);
 
-  console.log(typeof preview.musicFile);
   const [image, setImage] = useState<any>(null);
   const [music, setMusic] = useState<any>(null);
   const isTextBlack = useMemo(() => preview.color?.black || false, [preview.color]);
 
   useEffect(() => {
-    speak("배우진 닥쳐!");
     if (preview.imageFile) {
       const reader = new FileReader();
       reader.readAsDataURL(preview.imageFile);
@@ -45,12 +46,16 @@ function PreviewMessage({ moveBackToWriteMode }: any) {
     }
 
     if (preview.musicFile) {
-      const reader = new FileReader();
-      reader.readAsDataURL(preview.musicFile);
+      if (typeof preview.musicFile === "number") {
+        setMusic(AUDIO_LIST[preview.musicFile].file);
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(preview.musicFile);
 
-      reader.addEventListener("load", () => {
-        setMusic(reader.result);
-      });
+        reader.addEventListener("load", () => {
+          setMusic(reader.result);
+        });
+      }
     }
   }, [preview.imageFile, preview.musicFile]);
 
@@ -85,10 +90,7 @@ function PreviewMessage({ moveBackToWriteMode }: any) {
     }
   }, [imageSize, windowWidth, windowHeight]);
 
-  console.log(image, music);
-
   function handleEdit() {
-    console.log("hey");
     moveBackToWriteMode();
   }
 

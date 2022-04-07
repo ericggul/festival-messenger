@@ -12,6 +12,8 @@ function AddMusicModal({ setIsModalOpen, setAudioFile, setAudio }: any) {
   //2: Upload Completed
   const [uploadState, setUploadState] = useState(0);
 
+  //8126221
+
   const onMusicChange = (e: any) => {
     setUploadState(1);
     if (e.target.files.length !== 0) {
@@ -25,6 +27,8 @@ function AddMusicModal({ setIsModalOpen, setAudioFile, setAudio }: any) {
       });
     }
   };
+
+  console.log(audioFileLocally);
 
   useEffect(() => {
     if (uploadState === 2) {
