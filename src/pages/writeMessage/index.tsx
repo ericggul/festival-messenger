@@ -10,7 +10,15 @@ function WriteMessage() {
   const location = useLocation();
   const state = location.state as any;
   const [previewState, setPreviewState] = useState(false);
-  return <>{state ? <>{previewState ? <PreviewMessageContainer /> : <WriteMessageContainer {...state} moveToPreview={() => setPreviewState(true)} />}</> : <div>Wrong Access!</div>}</>;
+  return (
+    <>
+      {state ? (
+        <>{previewState ? <PreviewMessageContainer moveBackToWriteMode={() => setPreviewState(false)} /> : <WriteMessageContainer {...state} moveToPreview={() => setPreviewState(true)} />}</>
+      ) : (
+        <div>Wrong Access!</div>
+      )}
+    </>
+  );
 }
 
 export default withMountEvent(WriteMessage);

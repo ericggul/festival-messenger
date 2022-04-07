@@ -28,8 +28,8 @@ const slice = createSlice({
       state.latLngPos = action.payload.latLngPos;
       state.color = action.payload.color;
       state.font = action.payload.font;
-      state.imageFile = action.payload.imageUrl || undefined;
-      state.musicFile = action.payload.musicUrl || undefined;
+      state.imageFile = action.payload.imageFile || null;
+      state.musicFile = action.payload.musicFile || null;
     },
   },
 });

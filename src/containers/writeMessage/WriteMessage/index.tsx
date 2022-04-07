@@ -13,7 +13,7 @@ import MessageBackground from "@F/background/MessageBackground";
 import AddImage from "@F/writeMessage/addImage/AddImage";
 
 //Redux
-import { useAppDispatch } from "@R/common/hooks";
+import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { actions } from "@R/singleMessage/messagePreview/state";
 
 const Complete = ({ completeCommand }: any) => {
@@ -21,11 +21,9 @@ const Complete = ({ completeCommand }: any) => {
 };
 
 function WriteMessage(props: any) {
-  const navigate = useNavigate();
-
   const [color, setColor] = useState({ h: 144, s: 17, l: 42, black: false });
   const [isTextBlack, setIsTextBlack] = useState(false);
-  const [music, setMusic] = useState<any>(undefined);
+  const [music, setMusic] = useState<any>(null);
   //music File to be uploaded to firebase
   const [musicFile, setMusicFile] = useState();
   const [font, setFont] = useState("Seoul Namsan");
@@ -49,7 +47,7 @@ function WriteMessage(props: any) {
   //name, mainText and Image
   const [name, setName] = useState("");
   const [mainText, setMainText] = useState("");
-  const [imageFile, setImageFile] = useState<any>(undefined);
+  const [imageFile, setImageFile] = useState<any>(null);
   const [dataRetrivedStatus, setDataRetrivedStatus] = useState(0);
 
   //We do this to get data from the child components (name, text, image)
@@ -84,17 +82,19 @@ function WriteMessage(props: any) {
   const dispatch = useAppDispatch();
 
   const handlePreviewingSendData = useCallback(async () => {
+    console.log(props?.id);
+    console.log(musicFile);
     try {
       await dispatch(
         actions.setValues({
-          toId: props?.id && props?.id === -1 ? props?.id : "unassigned",
+          toId: props?.id && props?.id !== -1 ? props?.id : "unassigned",
           toName: name,
           latLngPos: props?.latLng || null,
           mainText,
           color,
           font,
-          imageFile,
-          musicFile,
+          imageFile: imageFile || null,
+          musicFile: musicFile || null,
         })
       );
       alert("Preview!");
@@ -102,8 +102,6 @@ function WriteMessage(props: any) {
     } catch (error) {
       console.log(error);
     }
-
-    //To do : Redux Code
   }, [name, mainText, imageFile, color, musicFile, font, dispatch, props]);
 
   return (
@@ -122,7 +120,7 @@ function WriteMessage(props: any) {
 
       <S.MessagePanel font={font} isTextBlack={isTextBlack}>
         <ToTextInput
-          defaultName={null}
+          defaultName={props?.name || null}
           getTextState={getNameState}
           onTextRespond={(text: any) => {
             setName(text);

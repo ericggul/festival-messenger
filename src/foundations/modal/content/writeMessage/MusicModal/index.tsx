@@ -42,7 +42,7 @@ function MusicModal({ initialMusic, onMusicClick }: any) {
       let musicFile = new File([selectedMusic.file], `${selectedMusic.name}.mp3`, {
         type: "audio/mp3",
       });
-      console.log(musicFile);
+
       onMusicClick(selectedMusic.file, musicFile);
     } else {
       onMusicClick(selectedMusic.file, null);

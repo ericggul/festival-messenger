@@ -26,7 +26,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
 
   const navigate = useNavigate();
 
-  const handleIconClick = (i: any, ev: any) => {
+  const handleIconClick = (i: any, name: any, ev: any) => {
     //To implement: Uid
     const id = i;
 
@@ -34,6 +34,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
     navigate(`/writeMessage`, {
       state: {
         id,
+        name,
         latLng,
       },
     });
@@ -57,7 +58,11 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
                     <S.ProfileImg src={data.profileImg} />
                     <S.FriendText>{data.name}</S.FriendText>
                   </S.Left>
-                  {clickedFriend === i ? <S.SendText onClick={(e: any) => handleIconClick(i, e)}>Next</S.SendText> : <S.SendIcon onClick={(e: any) => handleIconClick(i, e)} src={Send} />}
+                  {clickedFriend === i ? (
+                    <S.SendText onClick={(e: any) => handleIconClick(i, data.name, e)}>Next</S.SendText>
+                  ) : (
+                    <S.SendIcon onClick={(e: any) => handleIconClick(i, data.name, e)} src={Send} />
+                  )}
                 </S.FriendRow>
               ))}
             </S.FriendsList>
@@ -69,7 +74,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
               <div>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</div>
               <div>위 친구 목록에 게시되지 않습니다.</div>
             </S.ExplText>
-            <S.OtherFriendsListHeader onClick={(e: any) => handleIconClick(-1, e)}>
+            <S.OtherFriendsListHeader onClick={(e: any) => handleIconClick(-1, null, e)}>
               <S.OtherFriendsListHeaderText>리스트에 없는 친구에게 보내기</S.OtherFriendsListHeaderText>
               <S.SendIcon src={Send} />
             </S.OtherFriendsListHeader>

@@ -14,7 +14,7 @@ const ToTextInput = ({ defaultName, getTextState, onTextRespond, isTextBlack }: 
   }, [getTextState]);
 
   return (
-    <S.ToText>
+    <S.ToText isTextBlack={isTextBlack}>
       Message To. <S.ToTextInput isTextBlack={isTextBlack} value={senderName} onChange={onSenderNameChange} placeholder="이름을 입력하세요" />
     </S.ToText>
   );

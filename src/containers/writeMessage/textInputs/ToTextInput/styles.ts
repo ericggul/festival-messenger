@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
-export const ToText = styled.div`
+interface IsTextBlack {
+  isTextBlack: boolean;
+}
+
+export const ToText = styled.div<IsTextBlack>`
+  color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
   margin-top: 130px;
   margin-bottom: 2rem;
   font-size: 1.5rem;
   font-weight: bold;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
+
+  transition: all 0.3s;
 `;
 
-interface IsTextBlack {
-  isTextBlack: boolean;
-}
 export const ToTextInput = styled.input.attrs({
   type: "text",
   spellcheck: "false",
@@ -24,7 +28,6 @@ export const ToTextInput = styled.input.attrs({
   font-size: 1.5rem;
   font-weight: bold;
   border-bottom: 1px solid transparent;
-
   transition: all 0.3s;
   &::placeholder {
     color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};

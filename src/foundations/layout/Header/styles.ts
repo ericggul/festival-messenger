@@ -11,7 +11,7 @@ export const HeaderContainer = styled.div<HeaderContainerProps>`
   top: 0;
   left: 0;
   background: ${({ color }) => color};
-  zindex: ${({ theme }) => theme.headerColor};
+  z-index: ${({ theme }) => theme.zIndex.headerColor};
   ${FlexCenterStyle};
 `;
 
@@ -24,7 +24,7 @@ export const TextContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   bottom: 0;
-  zindex: ${({ theme }) => theme.headerText};
+  z-index: ${({ theme }) => theme.zIndex.headerText};
 `;
 
 export const Text = styled.div`

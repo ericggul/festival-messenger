@@ -27,7 +27,7 @@ function Map() {
     if (containerRef && containerRef.current) {
       if (messageSendMode) {
         containerRef.current.style.cursor = "pointer";
-        speak("새로운 메시지는 페메에서. 새로운 실매물은 어디서? 집 토스에서!");
+        speak("새로운 메시지 추가하기!");
       }
     }
   }, [messageSendMode, containerRef]);
