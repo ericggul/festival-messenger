@@ -1,4 +1,4 @@
-import { chatsRef, messageStorageRef } from "@U/initalizer/firebase";
+import { chatsRef, messageStorageRef, HOSTED_URL } from "@U/initalizer/firebase";
 import { doc, collection, getDoc, getDocs, deleteDoc, query, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
@@ -45,15 +45,19 @@ export async function fetchMessageFromFirestore(chatId: any, messageId: any) {
   return docSnap.exists() ? docSnap.data() : null;
 }
 
+//messageId: String; messageFrom: String; messageTo: String; toName: String; mainText: String; latLngPos: any; read: any; color: any; font: any; imageUrl?: any; musicUrl?: any
 //Creating New Messages
 export async function createNewMessageFromFirestore(props: any) {
   const parentChatRef = collection(chatsRef, props.chatId, "messages");
   const messageRef = await addDoc(parentChatRef, {
     createdAt: serverTimestamp(),
-    mainText: props.mainText,
     messageFrom: props.messageFrom,
     messageTo: props.messageTo,
+    toName: props.toName,
+    mainText: props.mainText,
     latLngPos: props.latLngPos,
+    color: props.color,
+    font: props.font,
     read: false,
   });
 
@@ -73,12 +77,18 @@ export async function createNewMessageFromFirestore(props: any) {
   }
 
   if (props.music) {
-    const idRef = ref(messageStorageRef, `${messageRef.id}_music.mp3`);
-    await uploadBytesResumable(idRef, props.music, {
-      contentType: "audio/mpeg",
-    });
+    //Exception when props.music is just idx
+    if (typeof props.music === "number") {
+      musicUrl = `${HOSTED_URL}/assets/audio/${props.music}.mp3`;
+    } else {
+      const idRef = ref(messageStorageRef, `${messageRef.id}_music.mp3`);
+      await uploadBytesResumable(idRef, props.music, {
+        contentType: "audio/mpeg",
+      });
 
-    musicUrl = await getDownloadURL(idRef);
+      musicUrl = await getDownloadURL(idRef);
+    }
+
     const parentChatRef = doc(chatsRef, props.chatId, "messages", messageRef.id);
     await updateDoc(parentChatRef, {
       musicUrl: musicUrl,

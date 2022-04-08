@@ -32,9 +32,6 @@ const slice = createSlice({
       .addCase(fetchUserInformation.fulfilled, (state, action) => {
         state.uid = action.meta.arg;
         console.log(action.payload);
-        // state.email = action.payload;
-        // state.name = ;
-        // state.profileImage =
       })
       .addCase(createUserInformation.fulfilled, (state, action) => {
         state.email = action.meta.arg.email;

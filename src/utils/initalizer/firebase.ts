@@ -20,8 +20,9 @@ export const chatsRef = collection(firestore, "chats");
 export const usersRef = collection(firestore, "users");
 
 export const userStorageRef = ref(storage, "users");
-export const imageStorageRef = ref(storage, "image");
 export const musicStorageRef = ref(storage, "music");
 export const messageStorageRef = ref(storage, "messages");
 
 export const auth = getAuth();
+
+export const HOSTED_URL = "https://festival-messenger-4df40.web.app";

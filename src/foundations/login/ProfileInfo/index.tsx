@@ -10,7 +10,6 @@ function ProfileInfo() {
   const dispatch = useAppThunkDispatch();
 
   //Image to be displayed
-  console.log(user);
   const [image, setImage] = useState(user.profileImage || "");
   //Image to be uploaded to firestore
   const [imageFile, setImageFile] = useState<any>(!null);

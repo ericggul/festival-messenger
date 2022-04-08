@@ -23,14 +23,13 @@ export async function fetchChatsByMemberFromFirestore(member: any) {
   return result;
 }
 
-//check if both two members exist?
+//check if both two members exist
 export async function fetchChatsByMembersFromFirestore(members: any) {
-  const q = query(chatsRef, where("members", "array-contains-any", members));
+  const q = query(chatsRef, where("members", "==", members));
   const querySnapshot = await getDocs(q);
 
   let result: any[] = [];
   querySnapshot.forEach((doc: any) => {
-    console.log(doc.data());
     result.push(doc.id);
   });
 

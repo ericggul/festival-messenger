@@ -48,7 +48,7 @@ export const ToText = styled.div<IsTextBlack>`
 
 export const MainText = styled.div<IsTextBlack>`
   margin-top: 3rem;
-  margin-bottom: 5rem;
+  margin-bottom: 10rem;
   font-size: 1rem;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
 

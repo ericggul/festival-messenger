@@ -10,19 +10,24 @@ import speak from "@U/functions/speak";
 //foundations
 import MessageBackground from "@F/background/MessageBackground";
 import ControlPanel from "@F/writeMessage/preview/ControlPanel";
+import LoadingModal from "@F/modal/content/LoadingModal";
+
+//function
+import handleSend from "./handleSend";
 
 //hooks
+import useModal from "@U/hooks/useModal";
 import useResize from "@U/hooks/useResize";
 
 //redux
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-import { actions } from "@R/singleMessage/messagePreview/state";
 
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
 
 function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   const preview = useAppSelector((state) => state.singleMessagePreview);
+  const user = useAppSelector((state) => state.users);
 
   const [image, setImage] = useState<any>(null);
   const [music, setMusic] = useState<any>(null);
@@ -92,24 +97,9 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
     moveBackToWriteMode();
   }
 
+  const { modalComponent, isModalOpen, setIsModalOpen } = useModal(LoadingModal);
+
   const dispatch = useAppDispatch();
-
-  function handleSend() {
-    console.log(preview.toId);
-
-    //1. Check if props.id exist
-
-    //2. Check if chat exists
-
-    //3. If no props.id exists, give new temp id
-
-    //4. If no chat exists, create new chat
-
-    //5. Create new Message
-
-    //make sure to clear redux singlemessagepreview state, not to be messed with further user's new message actions
-    dispatch(actions.reset());
-  }
 
   return (
     <>
@@ -126,12 +116,13 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
 
           <CS.MainText isTextBlack={isTextBlack}>
             {preview.mainText.split("\n").map((e, i) => (
-              <div key={i}>{e}</div>
+              <div key={i}>{e} </div>
             ))}
           </CS.MainText>
         </CS.MessagePanel>
       </CS.Container>
-      <ControlPanel handleEdit={handleEdit} handleSend={handleSend} />
+      <ControlPanel handleEdit={handleEdit} handleSend={() => handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen)} />
+      {modalComponent}
     </>
   );
 }

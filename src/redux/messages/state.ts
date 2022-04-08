@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
-import { createNewChat, addMemberToChat, fetchAllMessages, fetchMessage, createNewMessage, alterMessageReadState, alterMessageTo, deleteMessage } from "@/redux/messages/middleware";
+import { addMemberToChat, fetchAllMessages, fetchMessage, createNewMessage, alterMessageReadState, alterMessageTo, deleteMessage } from "@/redux/messages/middleware";
 
 //members only include users who are registered priorly: updateMembers used to update
-export type User = { uid: String; name?: String };
-export type Message = { messageId: String; messageFrom: User; messageTo: User; mainText: String; latLngPos: any; read: any; color: any; font: any; imageUrl?: any; musicUrl?: any };
-export type Chat = { members: User[]; chatId: String; messages: Message[] };
+// export type User = { uid: String; name?: String };
+export type Message = { messageId: String; messageFrom: String; messageTo: String; toName: String; mainText: String; latLngPos: any; read: any; color: any; font: any; imageUrl?: any; musicUrl?: any };
+export type Chat = { members: String[]; chatId: String; messages: Message[] };
 
 const initialState: Chat = {
   chatId: "",
@@ -26,11 +26,7 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createNewChat.fulfilled, (state, action) => {
-        state.members = action.meta.arg;
-        state.chatId = action.payload;
-        state.messages = [];
-      })
+
       .addCase(addMemberToChat.fulfilled, (state, action) => {
         state.members = action.payload;
       })

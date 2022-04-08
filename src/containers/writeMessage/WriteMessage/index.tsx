@@ -114,10 +114,9 @@ function WriteMessage(props: any) {
           mainText,
           color,
           font,
-  
         })
       );
-      alert("Preview!");
+      // alert("Preview!");
       props.moveToPreview(imageFile, musicFile);
     } catch (error) {
       console.log(error);
