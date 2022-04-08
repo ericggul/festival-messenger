@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import * as S from "./styles";
 
-import { useNavigate } from "react-router-dom";
-
 //containers
 import MainTextInput from "@C/writeMessage/textInputs/MainTextInput";
 import ToTextInput from "@C/writeMessage/textInputs/ToTextInput";
@@ -21,13 +19,12 @@ const Complete = ({ completeCommand }: any) => {
 };
 
 function WriteMessage(props: any) {
-  const [color, setColor] = useState({ h: 144, s: 17, l: 42, black: false });
-  const [isTextBlack, setIsTextBlack] = useState(false);
-  const [music, setMusic] = useState<any>(null);
-  //music File to be uploaded to firebase
-  const [musicFile, setMusicFile] = useState();
-  const [font, setFont] = useState("Seoul Namsan");
+  //check if there's stored data
+  const preview = useAppSelector((state) => state.singleMessagePreview);
 
+  //Color State
+  const [color, setColor] = useState(preview.color || { h: 144, s: 17, l: 42, black: false });
+  const [isTextBlack, setIsTextBlack] = useState(preview.color?.black || false);
   useEffect(() => {
     if (color?.black) {
       setIsTextBlack(true);
@@ -35,6 +32,13 @@ function WriteMessage(props: any) {
       setIsTextBlack(false);
     }
   }, [color]);
+
+  //Music State
+  const [music, setMusic] = useState<any>(null);
+  const [musicFile, setMusicFile] = useState(preview.musicFile || null);
+
+  //Font State
+  const [font, setFont] = useState(preview.font || "Seoul Namsan");
 
   //Display Image Container
   const [displayAddImage, setDisplayAddImage] = useState(true);
@@ -45,9 +49,9 @@ function WriteMessage(props: any) {
   const [getImageState, setGetImageState] = useState(false);
 
   //name, mainText and Image
-  const [name, setName] = useState("");
-  const [mainText, setMainText] = useState("");
-  const [imageFile, setImageFile] = useState<any>(null);
+  const [name, setName] = useState(preview.toName || props?.name || "");
+  const [mainText, setMainText] = useState(preview.mainText || "");
+  const [imageFile, setImageFile] = useState<any>(preview.imageFile || null);
   const [dataRetrivedStatus, setDataRetrivedStatus] = useState(0);
 
   //We do this to get data from the child components (name, text, image)
@@ -120,7 +124,7 @@ function WriteMessage(props: any) {
 
       <S.MessagePanel font={font} isTextBlack={isTextBlack}>
         <ToTextInput
-          defaultName={props?.name || null}
+          defaultName={name}
           getTextState={getNameState}
           onTextRespond={(text: any) => {
             setName(text);
@@ -131,6 +135,7 @@ function WriteMessage(props: any) {
         />
         {displayAddImage && (
           <AddImage
+            defaultImage={imageFile}
             deleteAddImageContainer={() => setDisplayAddImage(false)}
             getImageState={getImageState}
             onImageRespond={(img: any) => {
@@ -142,6 +147,7 @@ function WriteMessage(props: any) {
         )}
 
         <MainTextInput
+          defaultText={mainText}
           getTextState={getTextState}
           onTextRespond={(text: any) => {
             setMainText(text);

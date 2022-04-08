@@ -4,8 +4,8 @@ import * as S from "./styles";
 //hooks
 import useInput from "@U/hooks/useInput";
 
-const MainTextInput = ({ getTextState, onTextRespond, isTextBlack }: any) => {
-  const { value: mainText, onChange: onMainTextChange, setValue: setMainText } = useInput("");
+const MainTextInput = ({ defaultText, getTextState, onTextRespond, isTextBlack }: any) => {
+  const { value: mainText, onChange: onMainTextChange, setValue: setMainText } = useInput(defaultText || "");
   const textAreaEl = useRef<any>(!null);
 
   const handleHeightAdjust = (e: any) => {

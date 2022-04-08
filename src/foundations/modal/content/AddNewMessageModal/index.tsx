@@ -2,10 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import useAuth from "@U/hooks/useAuth";
 import * as S from "./styles";
 
+import useResize from "@U/hooks/useResize";
 import { useNavigate } from "react-router-dom";
-
-//foundations
-import BlinkText from "@F/text/BlinkText";
 
 //icons
 import Cancel from "@I/icons/modal/cancel.svg";
@@ -17,19 +15,24 @@ const TEST_DATA = [
   { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
   { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
   { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
+  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
+  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
+  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
+  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
+  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
 ];
 
 function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const [clickedFriend, setClickedFriend] = useState<number>(-1);
 
   const upperRef = useRef<any>(!null);
+  const [windowWidth, windowHeight] = useResize();
 
   const navigate = useNavigate();
 
   const handleIconClick = (i: any, name: any, ev: any) => {
     //To implement: Uid
     const id = i;
-
     ev.stopPropagation();
     navigate(`/writeMessage`, {
       state: {
@@ -68,7 +71,6 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
             </S.FriendsList>
           </S.Upper>
 
-          <BlinkText />
           <S.OtherFriendsList>
             <S.ExplText>
               <div>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</div>

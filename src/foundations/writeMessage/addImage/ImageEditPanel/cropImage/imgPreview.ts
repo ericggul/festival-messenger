@@ -18,6 +18,10 @@ export async function imgPreview(image: HTMLImageElement, crop: PixelCrop) {
     URL.revokeObjectURL(previewUrl);
   }
 
-  previewUrl = URL.createObjectURL(blob);
-  return { previewUrl };
+  console.log(blob);
+
+  return blob;
+
+  // previewUrl = URL.createObjectURL(blob);
+  // return { previewUrl };
 }

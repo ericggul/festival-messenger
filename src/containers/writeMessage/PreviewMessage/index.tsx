@@ -9,16 +9,14 @@ import speak from "@U/functions/speak";
 
 //foundations
 import MessageBackground from "@F/background/MessageBackground";
+import ControlPanel from "@F/writeMessage/preview/ControlPanel";
 
 //hooks
 import useResize from "@U/hooks/useResize";
 
 //redux
-import { useAppSelector } from "@R/common/hooks";
-
-//Icons
-import EditIcon from "@I/icons/writeMessage/previewControl/edit-1.svg";
-import SendIcon from "@I/icons/writeMessage/previewControl/send-2.svg";
+import { useAppDispatch, useAppSelector } from "@R/common/hooks";
+import { actions } from "@R/singleMessage/messagePreview/state";
 
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
@@ -94,6 +92,12 @@ function PreviewMessage({ moveBackToWriteMode }: any) {
     moveBackToWriteMode();
   }
 
+  const dispatch = useAppDispatch();
+  function handleSend() {
+    //make sure to clear redux singlemessagepreview state, not to be messed with further user's new message actions
+    dispatch(actions.reset());
+  }
+
   return (
     <>
       <CS.Container>
@@ -114,16 +118,7 @@ function PreviewMessage({ moveBackToWriteMode }: any) {
           </CS.MainText>
         </CS.MessagePanel>
       </CS.Container>
-      <S.ControlPanel>
-        <S.Button onClick={handleEdit}>
-          <S.Img src={EditIcon} />
-          <S.Text>수정하기</S.Text>
-        </S.Button>
-        <S.Button>
-          <S.Img src={SendIcon} />
-          <S.Text>전송하기</S.Text>
-        </S.Button>
-      </S.ControlPanel>
+      <ControlPanel handleEdit={handleEdit} handleSend={handleSend} />
     </>
   );
 }

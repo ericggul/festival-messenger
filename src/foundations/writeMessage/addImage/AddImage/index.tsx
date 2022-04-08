@@ -3,7 +3,7 @@ import * as S from "./styles";
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import { imgPreview } from "@/foundations/writeMessage/addImage/ImageEditPanel/cropImage/imgPreview";
+import { imgPreview } from "@F/writeMessage/addImage/ImageEditPanel/cropImage/imgPreview";
 
 //hooks
 import useResize from "@U/hooks/useResize";
@@ -12,19 +12,41 @@ import useResize from "@U/hooks/useResize";
 import BeforeInputImage from "@F/writeMessage/addImage/BeforeInputImage";
 import ImageEditPanel from "@F/writeMessage/addImage/ImageEditPanel";
 
-function AddImage({ deleteAddImageContainer, getImageState, onImageRespond }: any) {
+function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImageRespond }: any) {
   //Initial Image to save for reset
-  const [initialImageFile, setInitialImageFile] = useState<any>(!null);
+  const [initialImageFile, setInitialImageFile] = useState<any>(defaultImage || null);
   const [initialImage, setInitialImage] = useState<any>("");
 
-  const [imageFile, setImageFile] = useState<any>(undefined);
+  const [imageFile, setImageFile] = useState<any>(defaultImage || null);
   const [image, setImage] = useState<any>("");
 
+  //check if there is any stored imageFile
+  useEffect(() => {
+    console.log(imageFile, typeof imageFile);
+    if (imageFile != null) {
+      const reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      setInitialImageFile(imageFile);
+
+      reader.addEventListener("load", () => {
+        setInitialImage(reader.result);
+        setImage(reader.result);
+
+        let img: any = new Image();
+        img.onload = () => {
+          setImageSize({ width: img.width, height: img.height });
+        };
+        img.src = reader.result;
+      });
+    }
+  }, [imageFile]);
+
+  //Toss imageFile to the parent component
   useEffect(() => {
     if (getImageState) {
       onImageRespond(imageFile);
     }
-  }, [getImageState]);
+  }, [getImageState, imageFile]);
 
   //Dimensions
   const [windowWidth, windowHeight] = useResize();
@@ -93,10 +115,11 @@ function AddImage({ deleteAddImageContainer, getImageState, onImageRespond }: an
   const [crop, setCrop] = useState<any>(!null);
 
   async function onResizeComplete() {
-    let { previewUrl } = await imgPreview(imgRef.current, crop);
-    const file = new File([previewUrl], "new_cropped.png");
+    let blob = await imgPreview(imgRef.current, crop);
+
+    const file = new File([blob], "new_cropped.png");
     setImageFile(file);
-    setImage(previewUrl);
+
     setResizeModeOn(false);
   }
 

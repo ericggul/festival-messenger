@@ -9,6 +9,8 @@ const Messenger = lazy(() => import("@/pages/messenger"));
 const Message = lazy(() => import("@/pages/message"));
 const WriteMessage = lazy(() => import("@/pages/writeMessage"));
 
+const Loading = lazy(() => import("@/pages/loading"));
+
 const routes = [
   {
     path: "/",
@@ -37,6 +39,12 @@ const routes = [
   {
     path: "/writeMessage",
     component: WriteMessage,
+  },
+
+  //
+  {
+    path: "/loading",
+    component: Loading,
   },
 ];
 

@@ -31,6 +31,16 @@ const slice = createSlice({
       state.imageFile = action.payload.imageFile || null;
       state.musicFile = action.payload.musicFile || null;
     },
+    reset: (state) => {
+      state.toId = "";
+      state.toName = "";
+      state.mainText = "";
+      state.latLngPos = null;
+      state.color = null;
+      state.font = null;
+      state.imageFile = null;
+      state.musicFile = null;
+    },
   },
 });
 export default slice.reducer;

@@ -3,6 +3,7 @@ import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
   ${FlexCenterStyle};
+  cursor: pointer;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
   min-height: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.5}px;
   position: relative;
@@ -31,6 +32,7 @@ export const ImageInput = styled.input.attrs({
 
 export const GuideText = styled.div`
   ${FlexCenterStyle};
+  pointer-events: none;
   color: #ddd !important;
   font-size: 1.33rem;
   font-weight: 900;
