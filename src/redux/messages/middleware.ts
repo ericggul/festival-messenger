@@ -8,7 +8,7 @@ import {
   alterMessageReadStateFromFirestore,
   alterMessageToFromFireStore,
   deleteMessageFromFirestore,
-} from "@R/messages/api";
+} from "@/redux/messages/api";
 
 export const createNewChat = createAsyncThunk("messages/createNewChat", async (members: any) => {
   const response: any = await createNewChatFromFirestore(members);

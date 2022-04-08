@@ -21,7 +21,7 @@ import { actions } from "@R/singleMessage/messagePreview/state";
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
 
-function PreviewMessage({ moveBackToWriteMode }: any) {
+function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   const preview = useAppSelector((state) => state.singleMessagePreview);
 
   const [image, setImage] = useState<any>(null);
@@ -29,9 +29,9 @@ function PreviewMessage({ moveBackToWriteMode }: any) {
   const isTextBlack = useMemo(() => preview.color?.black || false, [preview.color]);
 
   useEffect(() => {
-    if (preview.imageFile) {
+    if (imageFile) {
       const reader = new FileReader();
-      reader.readAsDataURL(preview.imageFile);
+      reader.readAsDataURL(imageFile);
       reader.addEventListener("load", () => {
         setImage(reader.result);
 
@@ -43,19 +43,19 @@ function PreviewMessage({ moveBackToWriteMode }: any) {
       });
     }
 
-    if (preview.musicFile) {
-      if (typeof preview.musicFile === "number") {
-        setMusic(AUDIO_LIST[preview.musicFile].file);
+    if (musicFile) {
+      if (typeof musicFile === "number") {
+        setMusic(AUDIO_LIST[musicFile].file);
       } else {
         const reader = new FileReader();
-        reader.readAsDataURL(preview.musicFile);
+        reader.readAsDataURL(musicFile);
 
         reader.addEventListener("load", () => {
           setMusic(reader.result);
         });
       }
     }
-  }, [preview.imageFile, preview.musicFile]);
+  }, [imageFile, musicFile]);
 
   //Image Dimensions
   const [windowWidth, windowHeight] = useResize();
@@ -93,7 +93,20 @@ function PreviewMessage({ moveBackToWriteMode }: any) {
   }
 
   const dispatch = useAppDispatch();
+
   function handleSend() {
+    console.log(preview.toId);
+
+    //1. Check if props.id exist
+
+    //2. Check if chat exists
+
+    //3. If no props.id exists, give new temp id
+
+    //4. If no chat exists, create new chat
+
+    //5. Create new Message
+
     //make sure to clear redux singlemessagepreview state, not to be messed with further user's new message actions
     dispatch(actions.reset());
   }

@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //members only include users who are registered priorly: updateMembers used to update
 export type User = { uid: any; name?: String };
-export type MessageLocal = { toId: String; toName: String; mainText: String; latLngPos: any; color: any; font: any; imageFile?: any; musicFile?: any };
+export type MessageLocal = { toId: String; toName: String; mainText: String; latLngPos: any; color: any; font: any };
 
 const initialState: MessageLocal = {
   toId: "",
@@ -13,8 +13,6 @@ const initialState: MessageLocal = {
   latLngPos: null,
   color: null,
   font: null,
-  imageFile: null,
-  musicFile: null,
 };
 
 const slice = createSlice({
@@ -28,8 +26,6 @@ const slice = createSlice({
       state.latLngPos = action.payload.latLngPos;
       state.color = action.payload.color;
       state.font = action.payload.font;
-      state.imageFile = action.payload.imageFile || null;
-      state.musicFile = action.payload.musicFile || null;
     },
     reset: (state) => {
       state.toId = "";
@@ -38,8 +34,6 @@ const slice = createSlice({
       state.latLngPos = null;
       state.color = null;
       state.font = null;
-      state.imageFile = null;
-      state.musicFile = null;
     },
   },
 });

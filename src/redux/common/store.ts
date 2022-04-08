@@ -1,8 +1,9 @@
 import userReducer from "@R/users/state";
 import chatReducer from "@R/chats/state";
-import messageReducer from "@R/messages/state";
+import messageReducer from "@/redux/messages/state";
+
 //Single Message
-import messagePreview from "@R/singleMessage/messagePreview/state";
+import messagePreviewReducer from "@R/singleMessage/messagePreview/state";
 
 import { configureStore, combineReducers, ThunkDispatch, Action } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
@@ -13,7 +14,7 @@ const reducers = combineReducers({
   users: userReducer,
   chats: chatReducer,
   messages: messageReducer,
-  singleMessagePreview: messagePreview,
+  singleMessagePreview: messagePreviewReducer,
 });
 
 const persistConfig = {

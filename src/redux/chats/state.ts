@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
 
-import type { Chat } from "@R/messages/state";
+import type { Chat } from "@/redux/messages/state";
 
 export type SliceState = { chats: Chat[] };
 

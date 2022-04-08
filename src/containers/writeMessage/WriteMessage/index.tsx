@@ -14,6 +14,9 @@ import AddImage from "@F/writeMessage/addImage/AddImage";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { actions } from "@R/singleMessage/messagePreview/state";
 
+//audio assets
+import AUDIO_LIST from "@S/assets/audio/audioList";
+
 const Complete = ({ completeCommand }: any) => {
   return <S.CompletePanel onClick={completeCommand}>작성 완료</S.CompletePanel>;
 };
@@ -35,7 +38,23 @@ function WriteMessage(props: any) {
 
   //Music State
   const [music, setMusic] = useState<any>(null);
-  const [musicFile, setMusicFile] = useState(preview.musicFile || null);
+  const [musicFile, setMusicFile] = useState(props.musicFile || null);
+
+  useEffect(() => {
+    if (musicFile) {
+      console.log("45", musicFile, typeof musicFile);
+      if (typeof musicFile === "number") {
+        setMusic(AUDIO_LIST[musicFile].file);
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(musicFile);
+
+        reader.addEventListener("load", () => {
+          setMusic(reader.result);
+        });
+      }
+    }
+  }, [musicFile]);
 
   //Font State
   const [font, setFont] = useState(preview.font || "Seoul Namsan");
@@ -51,7 +70,7 @@ function WriteMessage(props: any) {
   //name, mainText and Image
   const [name, setName] = useState(preview.toName || props?.name || "");
   const [mainText, setMainText] = useState(preview.mainText || "");
-  const [imageFile, setImageFile] = useState<any>(preview.imageFile || null);
+  const [imageFile, setImageFile] = useState<any>(props.imageFile || null);
   const [dataRetrivedStatus, setDataRetrivedStatus] = useState(0);
 
   //We do this to get data from the child components (name, text, image)
@@ -86,8 +105,6 @@ function WriteMessage(props: any) {
   const dispatch = useAppDispatch();
 
   const handlePreviewingSendData = useCallback(async () => {
-    console.log(props?.id);
-    console.log(musicFile);
     try {
       await dispatch(
         actions.setValues({
@@ -97,12 +114,11 @@ function WriteMessage(props: any) {
           mainText,
           color,
           font,
-          imageFile: imageFile || null,
-          musicFile: musicFile || null,
+  
         })
       );
       alert("Preview!");
-      props.moveToPreview();
+      props.moveToPreview(imageFile, musicFile);
     } catch (error) {
       console.log(error);
     }

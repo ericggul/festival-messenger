@@ -20,6 +20,8 @@ export const chatsRef = collection(firestore, "chats");
 export const usersRef = collection(firestore, "users");
 
 export const userStorageRef = ref(storage, "users");
+export const imageStorageRef = ref(storage, "image");
+export const musicStorageRef = ref(storage, "music");
 export const messageStorageRef = ref(storage, "messages");
 
 export const auth = getAuth();

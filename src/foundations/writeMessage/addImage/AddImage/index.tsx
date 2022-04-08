@@ -20,10 +20,11 @@ function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImag
   const [imageFile, setImageFile] = useState<any>(defaultImage || null);
   const [image, setImage] = useState<any>("");
 
+  console.log(defaultImage);
   //check if there is any stored imageFile
   useEffect(() => {
-    console.log(imageFile, typeof imageFile);
-    if (imageFile != null) {
+    console.log(imageFile, typeof imageFile, imageFile !== {});
+    if (imageFile != null && imageFile !== {}) {
       const reader = new FileReader();
       reader.readAsDataURL(imageFile);
       setInitialImageFile(imageFile);
