@@ -16,7 +16,6 @@ export const Container = styled.div<ContainerType>`
 
   z-index: -3;
 
-  background: ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`};
   background: linear-gradient(${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`}, ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l - 20}%)`});
   opacity: 0.8;
   filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.03}px);

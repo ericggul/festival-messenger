@@ -48,6 +48,7 @@ export const CloseButton = css`
   ${FlexCenterStyle};
   cursor: pointer;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  z-index: ${({ theme }) => theme.zIndex.modalCancel};
 `;
 
 export const CloseIcon = css`

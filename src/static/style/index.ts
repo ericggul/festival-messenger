@@ -14,6 +14,7 @@ export const zIndex = {
   headerColor: 10,
   modalBackground: 50,
   modalContent: 51,
+  modalCancel: 100,
   headerText: 150,
 };
 
