@@ -1,9 +1,5 @@
 //redux
-import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-import { actions } from "@R/singleMessage/messagePreview/state";
-import { actions as userActions } from "@R/users/state";
 
-import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { fetchChatsByMembers } from "@R/chats/middleware";
 import { createNewChat, createNewMessage } from "@R/messages/middleware";
 
@@ -66,5 +62,7 @@ export default async function handleSend(preview: any, imageFile: any, musicFile
   } catch (e) {
     console.log("cannot create chat!", e);
   }
+
+  alert("메시지 전송 완료!");
   setLoading(false);
 }

@@ -20,11 +20,11 @@ declare global {
   }
 }
 
-// { h: 184, s: 20, l: 46 }
-
 export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, audio }: MessageBackgroundType) {
   const [rap, setRap] = useState<any>(!null);
   const [windowWidth, windowHeight] = useResize();
+
+  console.log("message background 29", audio);
 
   useEffect(() => {
     let wave: any;
@@ -34,6 +34,7 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
       wave = canvasEl;
     }
     return () => {
+      console.log("37");
       if (wave) {
         wave.destroy();
       }
@@ -43,7 +44,7 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   return (
     <>
       <S.Container color={color} />
-      {audio && <ReactAudioPlayer src={"https://festival-messenger-4df40.web.app/assets/audio/1.mp3"} autoPlay ref={(el) => setRap(el)} />}
+      {audio && <ReactAudioPlayer src={audio} crossOrigin="anonymous" autoPlay ref={(el) => setRap(el)} />}
       {audio && (
         <div
           id="CanvasWrapper"

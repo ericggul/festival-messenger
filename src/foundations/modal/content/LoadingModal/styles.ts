@@ -7,8 +7,8 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.div`
-  width: 50vw;
   height: 15vh;
+  padding: 0 2rem;
   ${FlexCenterStyle};
   ${CS.Box};
   flex-direction: column;

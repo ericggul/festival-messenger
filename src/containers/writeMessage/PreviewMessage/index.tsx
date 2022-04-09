@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+//react router usenavigate
+import { useNavigate } from "react-router-dom";
+
 //containers
 import MessageContents from "@C/message/MessageContents";
 
@@ -15,6 +18,7 @@ import useModal from "@U/hooks/useModal";
 
 //redux
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
+import { actions } from "@R/singleMessage/messagePreview/state";
 
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
@@ -56,14 +60,32 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
     moveBackToWriteMode();
   }
 
-  const { modalComponent, isModalOpen, setIsModalOpen } = useModal(LoadingModal);
+  const [messageSendStarted, setMessageSendStarted] = useState(false);
+  const [messageSendFinished, setMessageSendFinished] = useState(false);
+  const navigate = useNavigate();
+  const { modalComponent, isModalOpen, setIsModalOpen } = useModal(LoadingModal, true, {}, () => {
+    console.log("66");
+    if (messageSendStarted) {
+      console.log("69");
+      setMessageSendFinished(true);
+      dispatch(actions.reset());
+      navigate("/map");
+    }
+  });
 
   const dispatch = useAppDispatch();
 
   return (
     <>
-      <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />
-      <ControlPanel handleEdit={handleEdit} handleSend={() => handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen)} />
+      {messageSendFinished ? <></> : <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />}
+
+      <ControlPanel
+        handleEdit={handleEdit}
+        handleSend={() => {
+          setMessageSendStarted(true);
+          handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen);
+        }}
+      />
       {modalComponent}
     </>
   );

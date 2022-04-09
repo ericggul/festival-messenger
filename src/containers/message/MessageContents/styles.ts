@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   display: flex;
