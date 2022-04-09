@@ -11,4 +11,10 @@ export const Box = styled.div`
   height: 15vh;
   ${FlexCenterStyle};
   ${CS.Box};
+  flex-direction: column;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 `;

@@ -10,6 +10,7 @@ import useResize from "@U/hooks/useResize";
 function MessageContents({ toName, mainText, color, font, image, music }: any) {
   const isTextBlack = useMemo(() => color?.black || false, [color]);
 
+  console.log(music);
   //Image Dimensions
   const [windowWidth, windowHeight] = useResize();
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
