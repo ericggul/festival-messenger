@@ -4,9 +4,12 @@ import WriteMessageContainer from "@C/writeMessage/WriteMessage";
 import PreviewMessageContainer from "@C/writeMessage/PreviewMessage";
 import withMountEvent from "@U/hoc/withMountEvent";
 
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import * as CS from "@S/style/common/errorPage";
 
 function WriteMessage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as any;
   const [imageFile, setImageFile] = useState<any>(null);
@@ -32,7 +35,10 @@ function WriteMessage() {
           )}
         </>
       ) : (
-        <div>Wrong Access!</div>
+        <CS.Container>
+          <CS.Text>Wrong Access!</CS.Text>
+          <CS.ToMainButton onClick={() => navigate("/map")}>Go back to main</CS.ToMainButton>
+        </CS.Container>
       )}
     </>
   );

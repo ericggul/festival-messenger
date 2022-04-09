@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
+
 export const Container = styled.div`
+  width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   ${FlexCenterStyle};
   flex-direction: column;
@@ -11,7 +13,8 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  margin: 0 2rem;
   text-align: center;
 `;
 

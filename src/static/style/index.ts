@@ -12,6 +12,7 @@ export const palette = {
 export const zIndex = {
   base: 1,
   headerColor: 10,
+  messageContent: 20,
   modalBackground: 50,
   modalContent: 51,
   modalCancel: 100,

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import * as S from "./styles";
+import * as S from "@S/style/common/errorPage";
 
 //React router usenavigate
 import { useNavigate } from "react-router-dom";

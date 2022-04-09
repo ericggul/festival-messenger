@@ -64,9 +64,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   const [messageSendFinished, setMessageSendFinished] = useState(false);
   const navigate = useNavigate();
   const { modalComponent, isModalOpen, setIsModalOpen } = useModal(LoadingModal, true, {}, () => {
-    console.log("66");
     if (messageSendStarted) {
-      console.log("69");
       setMessageSendFinished(true);
       dispatch(actions.reset());
       navigate("/map");
