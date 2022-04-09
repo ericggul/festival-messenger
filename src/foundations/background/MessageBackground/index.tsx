@@ -43,7 +43,7 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   return (
     <>
       <S.Container color={color} />
-      {audio && <ReactAudioPlayer src={audio} autoPlay ref={(el) => setRap(el)} />}
+      {audio && <ReactAudioPlayer src={"https://festival-messenger-4df40.web.app/assets/audio/1.mp3"} autoPlay ref={(el) => setRap(el)} />}
       {audio && (
         <div
           id="CanvasWrapper"

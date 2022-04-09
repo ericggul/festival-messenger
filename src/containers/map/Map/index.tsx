@@ -5,21 +5,24 @@ import * as S from "./styles";
 import MapBox from "@F/map/MapBox";
 import useModal from "@U/hooks/useModal";
 import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
+import OpenMessageModal from "@/foundations/modal/content/openMessage/OpenMessageModal";
 
 //Icons
-import AddMessage from "@I/icons/map/add-message.svg";
 import Explore from "@I/icons/map/explore.svg";
 import Location2 from "@I/icons/map/location-2.svg";
 import Update from "@I/icons/map/rotate-small-right.svg";
-import Pin from "@I/icons/map/pin-1.svg";
 
 //utils
 import speak from "@U/functions/speak";
 
 function Map() {
-  //Message Popup
+  //Message Send Popup
   const [messageSendMode, setMessageSendMode] = useState(false);
-  const [messagePopupId, setMessagePopupId] = useState(null);
+  const [latLng, setLatLng] = useState<any>(!null);
+
+  //Message Open Popup
+  const [chatPopupId, setChatPopupId] = useState<any>(null);
+  const [messagePopupId, setMessagePopupId] = useState<any>(null);
 
   //Cursor change on message send mode
   const containerRef = useRef<any>(!null);
@@ -33,9 +36,8 @@ function Map() {
   }, [messageSendMode, containerRef]);
 
   //New Message Add Popup
-  const [latLng, setLatLng] = useState<any>(!null);
   const {
-    modalComponent: addNewMessageModal,
+    modalComponent: addNewMessageModalComponent,
     isModalOpen,
     setIsModalOpen,
   } = useModal(
@@ -49,9 +51,25 @@ function Map() {
     }
   );
 
+  //Open Message Popup
+  const {
+    modalComponent: openMessageModalComponent,
+    isModalOpen: isOpenMessageModalOpen,
+    setIsModalOpen: setIsOpenMessageModalOpen,
+  } = useModal(OpenMessageModal, true, {
+    chatId: chatPopupId,
+    messageId: messagePopupId,
+  });
+
   const handleAddNewMessage = (latLng: any) => {
     setLatLng(latLng);
     setIsModalOpen(true);
+  };
+
+  const handleMessageClick = (chatId: any, messageId: any) => {
+    setChatPopupId(chatId);
+    setMessagePopupId(messageId);
+    setIsOpenMessageModalOpen(true);
   };
 
   //Reset Position
@@ -61,7 +79,7 @@ function Map() {
     <>
       <S.Container ref={containerRef}>
         <MapBox
-          handleMessageClick={(id: any) => setMessagePopupId(id)}
+          handleMessageClick={handleMessageClick}
           handleAddNewMessage={handleAddNewMessage}
           messageSendMode={messageSendMode}
           //Reset Button
@@ -82,7 +100,8 @@ function Map() {
           <S.ButtonText>버들골</S.ButtonText>
         </S.ButtonLeft>
       </S.Container>
-      {addNewMessageModal}
+      {addNewMessageModalComponent}
+      {openMessageModalComponent}
     </>
   );
 }

@@ -31,7 +31,6 @@ function Message({ chatId, messageId }: any) {
     }
   }
 
-  console.log(message);
   useEffect(() => {
     //get message by id
     getMessage();
@@ -39,7 +38,9 @@ function Message({ chatId, messageId }: any) {
 
   return (
     <S.Container>
-      {messageReady && <MessageContents toName={message.toName} mainText={message.mainText} color={message.color} font={message.font} image={message.imageUrl} music={message.musicUrl} />}
+      {messageReady && (
+        <MessageContents toName={message.toName} mainText={message.mainText.replaceAll("\\n", "\n")} color={message.color} font={message.font} image={message.imageUrl} music={message.musicUrl} />
+      )}
     </S.Container>
   );
 }

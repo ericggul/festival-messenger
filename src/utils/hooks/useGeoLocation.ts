@@ -12,6 +12,7 @@ export default function useGeoLocation() {
           setPermittedStatus(true);
         },
         (error) => {
+          alert("메시지 열람을 위해서는 위치 권한이 필요합니다.");
           console.log(error);
         }
       );

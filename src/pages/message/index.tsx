@@ -9,7 +9,6 @@ function Message() {
 
   return (
     <>
-      <Header name="Message" />
       <MessageConatiner chatId={params.chatId} messageId={params.messageId} />
     </>
   );

@@ -23,7 +23,8 @@ const RECEIVED = {
         coordinates: [126.95603, 37.45879],
       },
       properties: {
-        id: "messageId",
+        chatId: "BVFlCeV99yNcXfy6XVJJ",
+        messageId: "tpt8EF71hXt5udC0hpLP",
         profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png",
       },
     },
@@ -34,7 +35,8 @@ const RECEIVED = {
         coordinates: [126.95646, 37.45919],
       },
       properties: {
-        id: "messageId",
+        chatId: "FWf8NAji0t65xYqay2n3",
+        messageId: "3kh8eSRttdkjZSl1Iksn",
         profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png",
       },
     },
@@ -45,7 +47,8 @@ const RECEIVED = {
         coordinates: [126.95604, 37.45809],
       },
       properties: {
-        id: "messageId",
+        chatId: "Hqwr1MYuGfDDWG0zyfGm",
+        messageId: "9GYU9MACmzP1YSvWwoCm",
         profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png",
       },
     },
@@ -62,7 +65,8 @@ const SENT = {
         coordinates: [126.95545, 37.45878],
       },
       properties: {
-        id: "messageId",
+        chatId: "Hqwr1MYuGfDDWG0zyfGm",
+        messageId: "9GYU9MACmzP1YSvWwoCm",
       },
     },
     {
@@ -72,7 +76,8 @@ const SENT = {
         coordinates: [126.95568, 37.45898],
       },
       properties: {
-        id: "messageId",
+        chatId: "Hqwr1MYuGfDDWG0zyfGm",
+        messageId: "9GYU9MACmzP1YSvWwoCm",
       },
     },
     {
@@ -82,7 +87,8 @@ const SENT = {
         coordinates: [126.95541, 37.45864],
       },
       properties: {
-        id: "messageId",
+        chatId: "Hqwr1MYuGfDDWG0zyfGm",
+        messageId: "9GYU9MACmzP1YSvWwoCm",
       },
     },
   ],
@@ -312,6 +318,12 @@ function MapBox({
       SENT.features.map((feature, i) => {
         let el = document.createElement("div");
         el.className = "marker sent";
+
+        el.addEventListener("click", (ev: any) => {
+          handleMessageClick(feature.properties.chatId, feature.properties.messageId);
+          ev.stopPropagation();
+        });
+
         new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
       });
 
@@ -328,7 +340,7 @@ function MapBox({
         }
 
         el.addEventListener("click", (ev: any) => {
-          handleMessageClick(feature.properties.id);
+          handleMessageClick(feature.properties.chatId, feature.properties.messageId);
           ev.stopPropagation();
         });
 
