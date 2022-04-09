@@ -33,7 +33,7 @@ const routes = [
     component: Messenger,
   },
   {
-    path: "/message/:id",
+    path: "/message/:chatId/:messageId",
     component: Message,
   },
   {
