@@ -1,49 +1,90 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import * as S from "./styles";
+
+//navigator
+import { useNavigate } from "react-router-dom";
+
+//hooks
+import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
 //Functions
 import getDistance from "@U/functions/distance";
 
-//hooks
-import useResize from "@U/hooks/useResize";
+//middleware
+import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 
 //Images
 import ClockIcon from "@I/icons/openMessage/clock.svg";
 
-function OpenMessageModalContents({ message, pos }: any) {
-  console.log(message);
-
-  //Modal Width and height
-  const [windowWidth, windowHeight] = useResize();
-
+function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   //Message Availablity based on distance btw message and currentPos
   const [messageAvailable, setMessageAvailable] = useState(false);
   useEffect(() => {
     const distance = getDistance(message.latLngPos, pos);
-    setMessageAvailable(distance < 50 ? true : false);
+    setMessageAvailable(distance < 50 ? true : true);
   }, [message.latLngPos, pos]);
 
-  return (
-    <S.Container>
-      <S.Background color={message.color} />
-      <S.Header>
-        <S.HeaderText>메시지 열어보기</S.HeaderText>
-        <S.Time>
-          <S.TimeIcon src={ClockIcon} />
-          <S.TimeText>3시간전</S.TimeText>
-        </S.Time>
-      </S.Header>
-      <S.Profile src={"https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png"} />
-      <S.ContentsPreview>
-        <S.FromText>From. 홍길동</S.FromText>
-        <S.BodyText>이 편지를 쓰느라 얼마나 고민했는지...</S.BodyText>
-      </S.ContentsPreview>
+  //get delta time of message
+  const time = useMemo(() => {
+    const hours = Math.ceil((Date.now() / 1000 - message.createdAt.seconds) / (60 * 60));
+    return hours >= 24 ? `${Math.floor(hours / 24)}일전` : `${hours}시간전`;
+  }, [message.createdAt]);
 
-      <S.ButtonContainer>
-        <S.Button>열기</S.Button>
-        {!messageAvailable && <S.NotAccessible>핀이 찍힌 위치 가까이로 가주세요.</S.NotAccessible>}
-      </S.ButtonContainer>
-    </S.Container>
+  //get user from information
+  const [fromName, setFromName] = useState("");
+  const [fromProfile, setFromProfile] = useState("");
+  const dispatch = useAppDispatch();
+  async function getNameFromId() {
+    try {
+      const from = await dispatch(fetchUserInformationWithoutUpdatingRedux(message.messageFrom));
+      setFromName(from.payload.name);
+      setFromProfile(from.payload.profileImage);
+    } catch (e) {
+      alert("No matching user record!");
+    }
+  }
+  useEffect(() => {
+    getNameFromId();
+  }, [message.messageFrom]);
+
+  //Navigate on click
+  const navigate = useNavigate();
+  const handleClick = useCallback(() => {
+    if (messageAvailable) {
+      navigate(`/message/${chatId}/${messageId}`);
+    }
+  }, [messageAvailable, chatId, messageId]);
+
+  return (
+    <>
+      <S.Background color={message.color} />
+      <S.Container>
+        <S.Header>
+          <S.HeaderText>메시지 열어보기</S.HeaderText>
+          <S.Time>
+            <S.TimeIcon src={ClockIcon} />
+            <S.TimeText>{time}</S.TimeText>
+          </S.Time>
+        </S.Header>
+        <S.Profile src={fromProfile} />
+        <S.ContentsPreview>
+          <S.FromText>From. {fromName}</S.FromText>
+          <S.BodyText>{message.mainText.replaceAll("\\n", "\n").slice(0, Math.min(Math.floor(message.mainText.length * 0.3), 30))}...</S.BodyText>
+        </S.ContentsPreview>
+
+        <S.ButtonContainer>
+          <S.Button shine={messageAvailable} onClick={handleClick}>
+            열기
+          </S.Button>
+          {!messageAvailable && (
+            <S.NotAccessible>
+              <p>메시지는 버들골 내 핀 근처에서만 열람할 수 있습니다.</p>
+              <p>핀이 찍힌 위치 가까이로 가주세요.</p>
+            </S.NotAccessible>
+          )}
+        </S.ButtonContainer>
+      </S.Container>
+    </>
   );
 }
 export default OpenMessageModalContents;

@@ -6,7 +6,9 @@ interface ContainerColor {
 }
 
 export const Container = styled.div`
-  animation: ${AppearAnimation} 0.3s;
+  ${FlexCenterStyle};
+  flex-direction: column;
+  animation: ${AppearAnimation} 0.7s;
   border-radius: 0.75rem;
   width: 100%;
   height: 100%;
@@ -14,10 +16,11 @@ export const Container = styled.div`
   position: relative;
   opacity: 1;
   color: white;
-
+  z-index: 99;
 `;
 
 export const Background = styled.div<ContainerColor>`
+  border-radius: 0.75rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -31,28 +34,28 @@ export const Background = styled.div<ContainerColor>`
 export const Header = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-
+  margin: 1rem 0;
   opacity: 1;
 `;
 
 export const HeaderText = styled.h1`
-  margin: 0;
   padding: 0;
-  font-size: 1.67rem;
+  margin: 0.5rem 0;
+  font-size: 1.8rem;
+  font-weight: bold;
 `;
 
 export const Time = styled.div`
   position: relative;
+  margin-bottom: 0.8rem;
   ${FlexCenterStyle};
 `;
 export const TimeIcon = styled.img`
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-right: 5rem;
+  width: 1.3rem;
+  height: 1.3rem;
 `;
 export const TimeText = styled.p`
-  margin: 0;
+  margin: 0 1rem;
   padding: 0;
 `;
 
@@ -61,40 +64,54 @@ export const Profile = styled.img`
   height: 15rem;
   border-radius: 50%;
   object-fit: cover;
+  opacity: 1;
 `;
 
 export const ContentsPreview = styled.div`
   ${FlexCenterStyle};
+  flex-direction: column;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
 `;
-export const FromText = styled.div``;
-export const BodyText = styled.div``;
+export const FromText = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+export const BodyText = styled.div`
+  font-size: 1rem;
+  margin-top: 1.25rem;
+`;
 
 export const ButtonContainer = styled.div`
-  height: 4rem;
+  height: 5.5rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-export const Button = styled.div``;
+interface ButtonProps {
+  shine: boolean;
+}
 
-export const NotAccessible = styled.div``;
+export const Button = styled.div<ButtonProps>`
+  ${FlexCenterStyle};
+  font-weight: bold;
+  font-size: 1.67rem;
+  color: ${({ shine }) => (shine ? "black" : "#696969")};
+  width: 11rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  background: ${({ shine }) => (shine ? "#f7fdea" : "#b1afaf")};
+  box-shadow: ${({ shine }) => shine && "0 0 5rem #fff"};
+  cursor: ${({ shine }) => shine && "pointer"};
+`;
 
-// <S.Header>
-
-// <S.HeaderText>메시지 열어보기</S.HeaderText>
-// <S.Time>
-//   <S.TimeIcon />
-//   <S.TimeText>3시간전</S.TimeText>
-// </S.Time>
-// </S.Header>
-// <S.Profile />
-// <S.ContentsPreview>
-// <S.FromText>From. 홍길동</S.FromText>
-// <S.BodyText>이 편지를 쓰느라 얼마나 고민했는지...</S.BodyText>
-// </S.ContentsPreview>
-
-// <S.ButtonContainer>
-// <S.Button>열기</S.Button>
-// {!messageAvailable && <S.NotAccessible>핀이 찍힌 위치 가까이로 가주세요.</S.NotAccessible>}
-
-// </S.ButtonContainer>
+export const NotAccessible = styled.div`
+  color: #dfdfdf;
+  font-size: 0.8rem;
+  p {
+    margin: 0;
+    padding: 0;
+  }
+`;

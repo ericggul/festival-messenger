@@ -50,7 +50,19 @@ function OpenMessageModal({ setIsModalOpen, chatId, messageId }: any) {
           <S.CloseIcon src={Cancel} />
         </S.CloseButton>
         <S.Contents>
-          {messageReady ? permittedStatus ? <OpenMessageModalContents message={message} pos={pos} /> : <S.Text>메시지 열람을 위해서는 위치 권한이 필요합니다.</S.Text> : <S.Text>Loading...</S.Text>}
+          {messageReady ? (
+            permittedStatus ? (
+              <OpenMessageModalContents message={message} pos={pos} chatId={chatId} messageId={messageId} />
+            ) : (
+              <S.Text>
+                <p>잠시만 기다려주세요.</p>
+                <p>장시간 로딩이 되지 않을경우,</p>
+                <p>브라우저의 위치 접근 권한을 확인해주세요.</p>
+              </S.Text>
+            )
+          ) : (
+            <S.Text>Loading...</S.Text>
+          )}
         </S.Contents>
       </S.Box>
     </>

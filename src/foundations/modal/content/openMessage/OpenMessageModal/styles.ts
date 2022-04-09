@@ -4,19 +4,20 @@ import * as CS from "@F/modal/content/commonStyles/styles";
 
 export const Background = styled.div`
   ${CS.Background}
-  backdrop-filter: blur(.7rem);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(0.7rem);
   -webkit-backdrop-filter: blur(0.7rem);
 `;
 
 export const Box = styled.div`
   ${CS.Box}
-  border-radius: 0;
+  border-radius: 0.75rem;
   background: transparent;
   backdrop-filter: blur(3rem);
   -webkit-backdrop-filter: blur(3rem);
 
-  height: ${({ theme }) => (theme.windowWidth < 768 ? theme.windowHeight * 0.7 : theme.windowHeight * 0.9)}px;
-  width: ${({ theme }) => Math.min(theme.windowWidth, 768) * 0.9}px;
+  padding: 2rem 0;
+  width: ${({ theme }) => Math.min(theme.windowWidth, 550) * 0.9}px;
 `;
 
 export const CloseButton = styled.div`
@@ -34,6 +35,12 @@ export const Contents = styled.div`
 
 export const Text = styled.div`
   ${FlexCenterStyle};
+  flex-direction: column;
   font-size: 1.5rem;
   color: white;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 `;
