@@ -20,7 +20,7 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import getDistance from "@U/functions/distance";
 
 //middleware
-import { fetchMessage, addMemberToChat, alterMessageTo } from "@R/messages/middleware";
+import { fetchMessage, addMemberToChat, alterMessageTo, alterMessageReadState } from "@R/messages/middleware";
 import { fetchChatsById } from "@R/chats/middleware";
 import { actions } from "@R/users/state";
 
@@ -58,6 +58,7 @@ function Message({ chatId, messageId }: any) {
         if (members.includes(user.uid)) {
           setUserMessageAvailable(true);
         } else {
+          //Reject if user has no credential
           alert("접근 권한이 없습니다!");
         }
       } else {
@@ -78,7 +79,9 @@ function Message({ chatId, messageId }: any) {
   }, [userLoginned]);
 
   //get message information, check location accessibility
-
+  //geo location
+  const { pos, permittedStatus: geoPermittedStatus } = useGeoLocation();
+  const [distanceMessageAvailable, setDistanceMessageAvailable] = useState(false);
   const [messageReady, setMessageReady] = useState(false);
   const [message, setMessage] = useState<any>(null);
 
@@ -104,11 +107,6 @@ function Message({ chatId, messageId }: any) {
     }
   }, [chatId, messageId, userMessageAvailable]);
 
-  //geo location
-  const { pos, permittedStatus: geoPermittedStatus } = useGeoLocation();
-  //Message Availablity based on distance btw message and currentPos
-  const [distanceMessageAvailable, setDistanceMessageAvailable] = useState(false);
-
   useEffect(() => {
     //lat lng
     if (message && message.latLngPos) {
@@ -118,19 +116,21 @@ function Message({ chatId, messageId }: any) {
     }
   }, [message, pos]);
 
-  //edit the chat member && message messageTo,
-  //or reject if there is already message messageTo different from current user
-
   //change the read state of message to 'true'
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (messageReady && geoPermittedStatus && distanceMessageAvailable) {
+      if (message.messageFrom !== user.uid) {
+        dispatch(alterMessageReadState({ chatId, messageId, newReadState: true }));
+      }
+    }
+  }, [message, geoPermittedStatus, distanceMessageAvailable, userMessageAvailable]);
 
-  console.log(geoPermittedStatus, distanceMessageAvailable);
   return (
     <ES.Container>
       {geoPermittedStatus ? (
-        messageReady && distanceMessageAvailable ? (
+        messageReady && distanceMessageAvailable && userMessageAvailable ? (
           <>
-            <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} />
+            <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid} />
             <MessageContents toName={message.toName} mainText={message.mainText.replaceAll("\\n", "\n")} color={message.color} font={message.font} image={message.imageUrl} music={message.musicUrl} />
           </>
         ) : (
@@ -147,6 +147,7 @@ function Message({ chatId, messageId }: any) {
           <p>잠시만 기다려주세요.</p>
           <p>장시간 로딩이 되지 않을경우,</p>
           <p>브라우저의 위치 접근 권한을 확인해주세요.</p>
+          <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
         </ES.Text>
       )}
     </ES.Container>

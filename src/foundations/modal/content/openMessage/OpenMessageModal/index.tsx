@@ -23,7 +23,7 @@ function OpenMessageModal({ setIsModalOpen, chatId, messageId }: any) {
   const [messageReady, setMessageReady] = useState(false);
   const [message, setMessage] = useState<any>(null);
 
-  async function getMessage() {
+  async function getMessagePreview() {
     try {
       const res = await dispatch(fetchMessage({ chatId, messageId }));
       setMessage(res.payload);
@@ -38,8 +38,9 @@ function OpenMessageModal({ setIsModalOpen, chatId, messageId }: any) {
     }
   }
 
+  console.log(permittedStatus);
   useEffect(() => {
-    getMessage();
+    getMessagePreview();
   }, [chatId, messageId]);
 
   return (
