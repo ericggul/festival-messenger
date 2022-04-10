@@ -1,8 +1,8 @@
 import userReducer from "@R/users/state";
 import chatReducer from "@R/chats/state";
-import messageReducer from "@/redux/messages/state";
+import messageReducer from "@R/messages/state";
 
-//Single Message
+import geoLocationReducer from "@R/geoLocation/state";
 import messagePreviewReducer from "@R/singleMessage/messagePreview/state";
 
 import { configureStore, combineReducers, ThunkDispatch, Action } from "@reduxjs/toolkit";
@@ -14,6 +14,7 @@ const reducers = combineReducers({
   users: userReducer,
   chats: chatReducer,
   messages: messageReducer,
+  geoLocation: geoLocationReducer,
   singleMessagePreview: messagePreviewReducer,
 });
 

@@ -109,8 +109,7 @@ export async function alterMessageReadStateFromFirestore(chatId: any, messageId:
 export async function alterMessageToFromFireStore(chatId: any, messageId: any, newMessageTo: any) {
   const messageRef = doc(chatsRef, chatId, "messages", messageId);
   await updateDoc(messageRef, {
-    messageToId: newMessageTo.uid,
-    messageToName: newMessageTo.name || "",
+    messageTo: newMessageTo,
   });
 }
 

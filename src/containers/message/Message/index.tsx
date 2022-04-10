@@ -20,13 +20,18 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import getDistance from "@U/functions/distance";
 
 //middleware
-import { fetchMessage } from "@R/messages/middleware";
+import { fetchMessage, addMemberToChat, alterMessageTo } from "@R/messages/middleware";
 import { fetchChatsById } from "@R/chats/middleware";
 import { actions } from "@R/users/state";
 
 function Message({ chatId, messageId }: any) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  //login, if user is not log-inned
+  // useEffect(() => {
+  //   dispatch(actions.reset());
+  // }, []);
 
   const user = useAppSelector((state) => state.users);
   const [userLoginned, setUserLoginned] = useState(false);
@@ -41,11 +46,27 @@ function Message({ chatId, messageId }: any) {
   }, [user.uid]);
 
   // get chat information, check user accessibility
+  const [userMessageAvailable, setUserMessageAvailable] = useState(false);
 
   async function getChat() {
     try {
       const res = await dispatch(fetchChatsById(chatId));
-      console.log(res.payload);
+      let members = res.payload.members;
+
+      //If already more than two members are joined in chat
+      if (members.length >= 2) {
+        if (members.includes(user.uid)) {
+          setUserMessageAvailable(true);
+        } else {
+          alert("접근 권한이 없습니다!");
+        }
+      } else {
+        //If there is only one member, add current user to the chat
+        members.push(user.uid);
+        await dispatch(addMemberToChat({ chatId, members }));
+        await dispatch(alterMessageTo({ chatId, messageId, newMessageTo: user.uid }));
+        setUserMessageAvailable(true);
+      }
     } catch (e) {
       alert("대화내역이 존재하지 않습니다.");
     }
@@ -77,9 +98,11 @@ function Message({ chatId, messageId }: any) {
   }
 
   useEffect(() => {
-    //get message by id
-    getMessage();
-  }, [chatId, messageId]);
+    //get message by id if user message available
+    if (userMessageAvailable) {
+      getMessage();
+    }
+  }, [chatId, messageId, userMessageAvailable]);
 
   //geo location
   const { pos, permittedStatus: geoPermittedStatus } = useGeoLocation();

@@ -87,6 +87,8 @@ const useAuth = (navigateTo?: any) => {
   const signIn = useCallback(() => {
     if (navigateTo) {
       dispatch(actions.setLandingUrl(navigateTo));
+    } else {
+      dispatch(actions.setLandingUrl("/settings"));
     }
     dispatch(actions.setLoading(true));
     window.Kakao.Auth.authorize({

@@ -7,9 +7,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./marker.css";
 import SunCalc from "suncalc";
 
-//hooks
-import useGeoLocation from "@U/hooks/useGeoLocation";
-
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
 
@@ -129,7 +126,6 @@ function MapBox({
   const [zoom, setZoom] = useState(zoomIn ? 12 : 18);
 
   const [windowWidth, windowHeight] = useResize();
-  const { pos: currentGeoPos, permittedStatus } = useGeoLocation();
 
   useEffect(() => {
     if (mapContainerRef && mapContainerRef.current) {
