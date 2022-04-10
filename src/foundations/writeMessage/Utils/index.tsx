@@ -69,7 +69,7 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
           setSemiModalOpen("");
         }}
       >
-        <S.Back onClick={() => navigate("/map")}>
+        <S.Back onClick={() => navigate(-1)}>
           <S.Icon src={BackIcon} highlight={false} />
           <S.Text>Back</S.Text>
         </S.Back>

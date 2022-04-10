@@ -5,7 +5,7 @@ import * as S from "./styles";
 import { useNavigate } from "react-router-dom";
 
 //hooks
-import { useAppDispatch, useAppSelector } from "@R/common/hooks";
+import { useAppDispatch } from "@R/common/hooks";
 
 //Functions
 import getDistance from "@U/functions/distance";
@@ -14,6 +14,7 @@ import getDistance from "@U/functions/distance";
 import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 
 //Images
+import { NO_PROFILE } from "@U/hooks/useAuth";
 import ClockIcon from "@I/icons/openMessage/clock.svg";
 
 function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
@@ -38,7 +39,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
     try {
       const from = await dispatch(fetchUserInformationWithoutUpdatingRedux(message.messageFrom));
       setFromName(from.payload.name);
-      setFromProfile(from.payload.profileImage);
+      setFromProfile(from.payload.profileImage || NO_PROFILE);
     } catch (e) {
       alert("No matching user record!");
     }

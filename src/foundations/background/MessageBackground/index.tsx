@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import ReactAudioPlayer from "react-audio-player";
 import useResize from "@/utils/hooks/useResize";
@@ -26,17 +26,18 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
 
   console.log("message background 29", audio);
 
+  const waveRef = useRef<any>(null);
+
   useEffect(() => {
-    let wave: any;
     if (rap && rap.audioEl) {
       let canvasEl = new App(rap.audioEl.current, color);
       canvasEl.audioCtx.resume();
-      wave = canvasEl;
+      waveRef.current = canvasEl;
     }
     return () => {
       console.log("37");
-      if (wave) {
-        wave.destroy();
+      if (waveRef.current) {
+        waveRef.current.destroy();
       }
     };
   }, [rap]);

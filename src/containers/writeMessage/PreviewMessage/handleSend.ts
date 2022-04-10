@@ -3,6 +3,8 @@
 import { fetchChatsByMembers } from "@R/chats/middleware";
 import { createNewChat, createNewMessage } from "@R/messages/middleware";
 
+import { NO_PROFILE } from "@U/hooks/useAuth";
+
 async function createNewChatAssigned(dispatch: any, user: any, toId: any) {
   const chatId = await dispatch(createNewChat([user.uid, toId]));
   return chatId;
@@ -38,6 +40,7 @@ export default async function handleSend(preview: any, imageFile: any, musicFile
         chatId = res.payload[0];
       }
     } catch (e) {
+      alert(e);
       console.log("cannot retrive chat!", e);
     }
   }
@@ -48,6 +51,7 @@ export default async function handleSend(preview: any, imageFile: any, musicFile
       createNewMessage({
         chatId,
         messageFrom: user.uid,
+        messageFromProfile: user.profileImage || NO_PROFILE,
         messageTo: toId,
         toName: preview.toName,
         mainText: preview.mainText.replaceAll("\n", "\\n"),
@@ -60,6 +64,7 @@ export default async function handleSend(preview: any, imageFile: any, musicFile
     );
     console.log(res);
   } catch (e) {
+    alert(e);
     console.log("cannot create chat!", e);
   }
 

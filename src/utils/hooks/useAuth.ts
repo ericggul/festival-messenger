@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 //https://festival-messenger-4df40.web.app
 //http://localhost:3000
 
+export const NO_PROFILE = "https://firebasestorage.googleapis.com/v0/b/festival-messenger-4df40.appspot.com/o/users%2FNO_PROFILE.png?alt=media&token=78d7f5fa-7f31-4779-ac50-2c746d1fc2d4";
+
 const useAuth = () => {
   const redirectUri = "http://localhost:3000";
 

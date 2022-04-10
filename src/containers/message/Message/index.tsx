@@ -1,11 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
-import * as S from "@S/style/common/errorPage";
+import * as S from "./styles";
+import * as ES from "@S/style/common/errorPage";
 
 //React router usenavigate
 import { useNavigate } from "react-router-dom";
 
 //containers
 import MessageContents from "@C/message/MessageContents";
+
+//foundations
+import HeaderUtils from "@F/message/HeaderUtils";
 
 //hooks
 import useGeoLocation from "@U/hooks/useGeoLocation";
@@ -16,6 +20,9 @@ import getDistance from "@U/functions/distance";
 
 //middleware
 import { fetchMessage } from "@R/messages/middleware";
+
+//Icons
+import BackIcon from "@I/icons/writeMessage/back_white.svg";
 
 function Message({ chatId, messageId }: any) {
   const dispatch = useAppDispatch();
@@ -51,7 +58,9 @@ function Message({ chatId, messageId }: any) {
     console.log(message);
     if (message && message.latLngPos) {
       const distance = getDistance(message.latLngPos, pos);
-      setMessageAvailable(distance < 50 ? true : false);
+
+      //Temporarily True for testing
+      setMessageAvailable(distance < 50 ? true : true);
     }
   }, [message, pos]);
 
@@ -67,27 +76,30 @@ function Message({ chatId, messageId }: any) {
 
   console.log(permittedStatus, messageAvailable);
   return (
-    <S.Container>
+    <ES.Container>
       {permittedStatus ? (
         messageReady && messageAvailable ? (
-          <MessageContents toName={message.toName} mainText={message.mainText.replaceAll("\\n", "\n")} color={message.color} font={message.font} image={message.imageUrl} music={message.musicUrl} />
+          <>
+            <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} />
+            <MessageContents toName={message.toName} mainText={message.mainText.replaceAll("\\n", "\n")} color={message.color} font={message.font} image={message.imageUrl} music={message.musicUrl} />
+          </>
         ) : (
           <>
-            <S.Text>
+            <ES.Text>
               <p>메시지는 버들골 내 핀 근처에서만 열람할 수 있습니다.</p>
               <p>핀이 찍힌 위치로 가서 메시지를 다시 열람해주세요.</p>
-            </S.Text>
-            <S.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</S.ToMainButton>
+            </ES.Text>
+            <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
           </>
         )
       ) : (
-        <S.Text>
+        <ES.Text>
           <p>잠시만 기다려주세요.</p>
           <p>장시간 로딩이 되지 않을경우,</p>
           <p>브라우저의 위치 접근 권한을 확인해주세요.</p>
-        </S.Text>
+        </ES.Text>
       )}
-    </S.Container>
+    </ES.Container>
   );
 }
 export default Message;
