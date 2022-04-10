@@ -12,6 +12,7 @@ import MessageContents from "@C/message/MessageContents";
 import HeaderUtils from "@F/message/HeaderUtils";
 
 //hooks
+import useAuth from "@U/hooks/useAuth";
 import useGeoLocation from "@U/hooks/useGeoLocation";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
@@ -20,12 +21,42 @@ import getDistance from "@U/functions/distance";
 
 //middleware
 import { fetchMessage } from "@R/messages/middleware";
-
-//Icons
-import BackIcon from "@I/icons/writeMessage/back_white.svg";
+import { fetchChatsById } from "@R/chats/middleware";
+import { actions } from "@R/users/state";
 
 function Message({ chatId, messageId }: any) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.users);
+  const [userLoginned, setUserLoginned] = useState(false);
+  const { signIn } = useAuth(`/message/${chatId}/${messageId}`);
+
+  useEffect(() => {
+    if (user.uid == null) {
+      signIn();
+    } else {
+      setUserLoginned(true);
+    }
+  }, [user.uid]);
+
+  // get chat information, check user accessibility
+
+  async function getChat() {
+    try {
+      const res = await dispatch(fetchChatsById(chatId));
+      console.log(res.payload);
+    } catch (e) {
+      alert("대화내역이 존재하지 않습니다.");
+    }
+  }
+  useEffect(() => {
+    if (userLoginned) {
+      getChat();
+    }
+  }, [userLoginned]);
+
+  //get message information, check location accessibility
 
   const [messageReady, setMessageReady] = useState(false);
   const [message, setMessage] = useState<any>(null);
@@ -51,22 +82,18 @@ function Message({ chatId, messageId }: any) {
   }, [chatId, messageId]);
 
   //geo location
-  const { pos, permittedStatus } = useGeoLocation();
+  const { pos, permittedStatus: geoPermittedStatus } = useGeoLocation();
   //Message Availablity based on distance btw message and currentPos
-  const [messageAvailable, setMessageAvailable] = useState(false);
+  const [distanceMessageAvailable, setDistanceMessageAvailable] = useState(false);
+
   useEffect(() => {
-    console.log(message);
+    //lat lng
     if (message && message.latLngPos) {
       const distance = getDistance(message.latLngPos, pos);
-
       //Temporarily True for testing
-      setMessageAvailable(distance < 50 ? true : true);
+      setDistanceMessageAvailable(distance < 50 ? true : true);
     }
   }, [message, pos]);
-
-  const navigate = useNavigate();
-
-  //login, if user is not log-inned
 
   //edit the chat member && message messageTo,
   //or reject if there is already message messageTo different from current user
@@ -74,11 +101,11 @@ function Message({ chatId, messageId }: any) {
   //change the read state of message to 'true'
   useEffect(() => {}, []);
 
-  console.log(permittedStatus, messageAvailable);
+  console.log(geoPermittedStatus, distanceMessageAvailable);
   return (
     <ES.Container>
-      {permittedStatus ? (
-        messageReady && messageAvailable ? (
+      {geoPermittedStatus ? (
+        messageReady && distanceMessageAvailable ? (
           <>
             <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} />
             <MessageContents toName={message.toName} mainText={message.mainText.replaceAll("\\n", "\n")} color={message.color} font={message.font} image={message.imageUrl} music={message.musicUrl} />

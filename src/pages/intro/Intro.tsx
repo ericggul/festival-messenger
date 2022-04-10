@@ -8,10 +8,8 @@ import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
 import { fetchAllMessages, fetchMessage, createNewMessage, deleteMessage, addMemberToChat } from "@/redux/messages/middleware";
 
 export default function Intro() {
-  const { signIn, user, isAuthorized } = useAuth();
+  const { signIn, user, isAuthorized } = useAuth("/settings");
   const dispatch = useAppThunkDispatch();
-
-  console.log(useAppSelector((state) => state.messages));
 
   return (
     <div>

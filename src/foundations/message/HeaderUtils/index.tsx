@@ -34,7 +34,7 @@ function HeaderUtils({ messageToSend, latLng }: any) {
     alert("답장을 보내는 경우 메시지를 읽을 수 있는 위치는 변동될 수 없습니다.");
     navigate(`/writeMessage`, {
       state: {
-        messageToSend,
+        id: messageToSend,
         name,
         latLng,
       },

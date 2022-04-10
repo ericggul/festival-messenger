@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 export const NO_PROFILE = "https://firebasestorage.googleapis.com/v0/b/festival-messenger-4df40.appspot.com/o/users%2FNO_PROFILE.png?alt=media&token=78d7f5fa-7f31-4779-ac50-2c746d1fc2d4";
 
-const useAuth = () => {
+const useAuth = (navigateTo?: any) => {
   const redirectUri = "http://localhost:3000";
 
   const dispatch = useAppDispatch();
@@ -21,6 +21,7 @@ const useAuth = () => {
     uid: state.users.uid,
     email: state.users.email,
     isLoading: state.users.isLoading,
+    landingUrl: state.users.landingUrl || null,
     name: state.users.name || null,
     profileImage: state.users.profileImage || null,
   }));
@@ -30,7 +31,7 @@ const useAuth = () => {
   useEffect(() => {
     const authorizeCodeFromKakao = window.location.search.split("code=")[1];
 
-    if (authorizeCodeFromKakao !== undefined && user.uid == (null || undefined)) {
+    if (authorizeCodeFromKakao !== undefined) {
       dispatch(actions.setLoading(true));
       let kakaoAuth = httpsCallable(functions, "kakaoAuth");
       kakaoAuth({ code: authorizeCodeFromKakao })
@@ -68,9 +69,10 @@ const useAuth = () => {
                   console.log(err);
                 },
               });
-              console.log("here");
+
               dispatch(actions.setLoading(false));
-              navigate("/settings");
+              console.log(user.landingUrl);
+              navigate(user.landingUrl || "/settings");
             })
             .catch((error: any) => {
               console.log(error.code, error.message, error.details);
@@ -79,12 +81,13 @@ const useAuth = () => {
         .catch((error: any) => {
           console.log(error.message, error.details);
         });
-    } else if (authorizeCodeFromKakao !== undefined && user.uid) {
-      navigate("/");
     }
   }, [dispatch]);
 
   const signIn = useCallback(() => {
+    if (navigateTo) {
+      dispatch(actions.setLandingUrl(navigateTo));
+    }
     dispatch(actions.setLoading(true));
     window.Kakao.Auth.authorize({
       redirectUri: redirectUri,

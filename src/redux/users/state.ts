@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserInformation, createUserInformation } from "@R/users/middleware";
 
-type SliceState = { uid: any; email: any; isLoading: any; name?: any; profileImage?: any };
+type SliceState = { uid: any; email: any; isLoading: any; landingUrl?: any; name?: any; profileImage?: any };
 const initialState: SliceState = {
   uid: null,
   email: null,
@@ -19,7 +19,10 @@ const slice = createSlice({
       state.isLoading = action.payload;
       return state;
     },
-
+    setLandingUrl: (state, action: any) => {
+      state.landingUrl = action.payload;
+      return state;
+    },
     reset: (state) => {
       state.uid = null;
       state.email = null;
