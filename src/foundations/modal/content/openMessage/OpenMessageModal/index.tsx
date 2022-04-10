@@ -38,7 +38,6 @@ function OpenMessageModal({ setIsModalOpen, chatId, messageId }: any) {
     }
   }
 
-  console.log(permittedStatus);
   useEffect(() => {
     getMessagePreview();
   }, [chatId, messageId]);

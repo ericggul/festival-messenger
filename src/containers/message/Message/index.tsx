@@ -28,18 +28,24 @@ function Message({ chatId, messageId }: any) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  //login, if user is not log-inned
+  //Testing Code
   // useEffect(() => {
   //   dispatch(actions.reset());
   // }, []);
 
+  //login, if user is not log-inned
+
   const user = useAppSelector((state) => state.users);
   const [userLoginned, setUserLoginned] = useState(false);
-  const { signIn } = useAuth(`/message/${chatId}/${messageId}`);
 
   useEffect(() => {
     if (user.uid == null) {
-      signIn();
+      alert("로그인 후 메시지를 열람할 수 있습니다.");
+      navigate(`/login`, {
+        state: {
+          navigateTo: `/message/${chatId}/${messageId}`,
+        },
+      });
     } else {
       setUserLoginned(true);
     }
@@ -49,6 +55,7 @@ function Message({ chatId, messageId }: any) {
   const [userMessageAvailable, setUserMessageAvailable] = useState(false);
 
   async function getChat() {
+    console.log("Get Chat!");
     try {
       const res = await dispatch(fetchChatsById(chatId));
       let members = res.payload.members;
@@ -86,6 +93,7 @@ function Message({ chatId, messageId }: any) {
   const [message, setMessage] = useState<any>(null);
 
   async function getMessage() {
+    console.log("Get Message!");
     try {
       const res = await dispatch(fetchMessage({ chatId, messageId }));
       setMessage(res.payload);
@@ -108,6 +116,7 @@ function Message({ chatId, messageId }: any) {
   }, [chatId, messageId, userMessageAvailable]);
 
   useEffect(() => {
+    console.log("Get Lat Lng!");
     //lat lng
     if (message && message.latLngPos) {
       const distance = getDistance(message.latLngPos, pos);
@@ -127,27 +136,53 @@ function Message({ chatId, messageId }: any) {
 
   return (
     <ES.Container>
-      {geoPermittedStatus ? (
-        messageReady && distanceMessageAvailable && userMessageAvailable ? (
-          <>
-            <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid} />
-            <MessageContents toName={message.toName} mainText={message.mainText.replaceAll("\\n", "\n")} color={message.color} font={message.font} image={message.imageUrl} music={message.musicUrl} />
-          </>
+      {userMessageAvailable ? (
+        geoPermittedStatus ? (
+          messageReady && distanceMessageAvailable && userMessageAvailable ? (
+            <>
+              <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid} />
+              <MessageContents
+                toName={message.toName}
+                mainText={message.mainText.replaceAll("\\n", "\n")}
+                color={message.color}
+                font={message.font}
+                image={message.imageUrl}
+                music={message.musicUrl}
+              />
+            </>
+          ) : (
+            <>
+              <ES.Text>
+                <p>메시지는 버들골 내 핀 근처에서만 열람할 수 있습니다.</p>
+                <p>핀이 찍힌 위치로 가서 메시지를 다시 열람해주세요.</p>
+              </ES.Text>
+              <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
+            </>
+          )
         ) : (
-          <>
-            <ES.Text>
-              <p>메시지는 버들골 내 핀 근처에서만 열람할 수 있습니다.</p>
-              <p>핀이 찍힌 위치로 가서 메시지를 다시 열람해주세요.</p>
-            </ES.Text>
+          <ES.Text>
+            <p>잠시만 기다려주세요.</p>
+            <p>장시간 로딩이 되지 않을경우,</p>
+            <p>브라우저의 위치 접근 권한을 확인해주세요.</p>
             <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
-          </>
+          </ES.Text>
         )
       ) : (
         <ES.Text>
-          <p>잠시만 기다려주세요.</p>
-          <p>장시간 로딩이 되지 않을경우,</p>
-          <p>브라우저의 위치 접근 권한을 확인해주세요.</p>
-          <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
+          <p> 메시지 접근 권한이 없습니다.</p>
+          <p>로그인이 되지 않은 경우 로그인해주세요.</p>
+          <p>브라우저별 한 계정만 로그인 가능합니다.</p>
+          <ES.ToMainButton
+            onClick={() =>
+              navigate(`/login`, {
+                state: {
+                  navigateTo: `/message/${chatId}/${messageId}`,
+                },
+              })
+            }
+          >
+            로그인하러 가기
+          </ES.ToMainButton>
         </ES.Text>
       )}
     </ES.Container>

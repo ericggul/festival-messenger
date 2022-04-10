@@ -20,8 +20,8 @@ const RECEIVED = {
         coordinates: [126.95603, 37.45879],
       },
       properties: {
-        chatId: "BVFlCeV99yNcXfy6XVJJ",
-        messageId: "tpt8EF71hXt5udC0hpLP",
+        chatId: "0HiesFLloKBLU9qC1Jcq",
+        messageId: "8gFNyZMnJr69CpoDuUn2",
         profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png",
       },
     },
