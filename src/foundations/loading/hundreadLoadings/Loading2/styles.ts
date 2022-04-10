@@ -5,7 +5,7 @@ import { FlexCenterStyle } from "@S/style/responsive/display";
 export const Container = styled.div`
   ${ContainerStyles};
   position: relative;
-  background: black;
+  background: #444;
 
   font-size: 10vh;
   color: white;
@@ -78,5 +78,5 @@ export const Overlay = styled.div`
   height: 100%;
   background: radial-gradient(transparent, black);
 
-  background-size: 0.2rem 0.2rem;
+  background-size: 0.3rem 0.3rem;
 `;

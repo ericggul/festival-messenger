@@ -43,9 +43,9 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads }: any) {
 
   return (
     <S.HeaderUtils>
-      <S.Back onClick={() => navigate(-1)}>
+      <S.Back onClick={() => navigate("/map")}>
         <S.Icon src={BackIcon} />
-        <S.Text>Back</S.Text>
+        <S.Text>Back to map</S.Text>
       </S.Back>
       {messageFromReads ? <S.Reply>내가 보낸 메시지</S.Reply> : <S.Reply onClick={handleIconClick}>답장 보내기</S.Reply>}
     </S.HeaderUtils>
