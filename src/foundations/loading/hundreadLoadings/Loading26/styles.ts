@@ -6,7 +6,7 @@ export const Container = styled.div`
   font-family: Helvetica;
   ${ContainerStyles};
   position: relative;
-  background: black;
+  background: white;
 
   font-size: 20vh;
   color: white;
@@ -16,22 +16,6 @@ export const Container = styled.div`
 
   overflow: hidden;
   ${FlexCenterStyle};
-`;
-
-export const Rotate = styled.div`
-  width: 300px;
-  height: 300px;
-  position: relative;
-  animation: rotate 3s infinite;
-
-  @keyframes rotate {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
 `;
 
 interface SpinnerInterface {
@@ -54,7 +38,7 @@ export const Credit = styled.div`
   top: 0;
   right: 1rem;
   font-size: 0.7rem;
-  color: white;
+  color: black;
 `;
 interface ColorInterface {
   color: any;

@@ -27,7 +27,7 @@ import Loading22 from "@F/loading/hundreadLoadings/Loading22";
 import Loading23 from "@F/loading/hundreadLoadings/Loading23";
 import Loading24 from "@F/loading/hundreadLoadings/Loading24";
 import Loading25 from "@F/loading/hundreadLoadings/Loading25";
-// import Loading26 from "@F/loading/hundreadLoadings/Loading26";
+import Loading26 from "@F/loading/hundreadLoadings/Loading26";
 // import Loading27 from "@F/loading/hundreadLoadings/Loading27";
 // import Loading28 from "@F/loading/hundreadLoadings/Loading28";
 // import Loading29 from "@F/loading/hundreadLoadings/Loading29";
@@ -35,7 +35,7 @@ import Loading25 from "@F/loading/hundreadLoadings/Loading25";
 function Loading() {
   return (
     <S.Container>
-      <Loading25 />
+      <Loading26 />
     </S.Container>
   );
 }

@@ -27,6 +27,7 @@ function OpenMessageModal({ setIsModalOpen, chatId, messageId }: any) {
     try {
       const res = await dispatch(fetchMessage({ chatId, messageId }));
       setMessage(res.payload);
+      console.log(res.payload);
       if (res.payload) {
         setMessageReady(true);
       } else {

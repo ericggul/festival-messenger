@@ -30,6 +30,7 @@ export const FooterContainer = styled.div<HeaderContainerProps>`
 export const IconContainer = styled.div`
   top: 0;
 
+  cursor: pointer;
   ${FlexCenterStyle};
   flex-direction: column;
   width: 84px;

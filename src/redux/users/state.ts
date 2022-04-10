@@ -33,8 +33,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserInformation.fulfilled, (state, action) => {
-        state.uid = action.meta.arg;
-        console.log(action.payload);
+        state = action.payload;
       })
       .addCase(createUserInformation.fulfilled, (state, action) => {
         state.email = action.meta.arg.email;

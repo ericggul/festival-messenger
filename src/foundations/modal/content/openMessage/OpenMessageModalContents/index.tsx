@@ -5,7 +5,7 @@ import * as S from "./styles";
 import { useNavigate } from "react-router-dom";
 
 //hooks
-import { useAppDispatch } from "@R/common/hooks";
+import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
 //Functions
 import getDistance from "@U/functions/distance";
@@ -19,6 +19,8 @@ import ClockIcon from "@I/icons/openMessage/clock.svg";
 
 function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   //Message Availablity based on distance btw message and currentPos
+
+  const user = useAppSelector((state) => state.users);
   const [messageAvailable, setMessageAvailable] = useState(false);
   useEffect(() => {
     const distance = getDistance(message.latLngPos, pos);
@@ -63,13 +65,13 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
         <S.Header>
           <S.HeaderText>메시지 열어보기</S.HeaderText>
           <S.Time>
-            <S.TimeIcon src={ClockIcon} />
-            <S.TimeText>{time}</S.TimeText>
+            {message.messageFrom === user.uid && <S.TimeIcon src={ClockIcon} />}
+            <S.TimeText>{message.messageFrom === user.uid ? (message.read ? "상대가 읽음" : "상대가 읽지않음") : time}</S.TimeText>
           </S.Time>
         </S.Header>
         <S.Profile src={fromProfile} />
         <S.ContentsPreview>
-          <S.FromText>From. {fromName}</S.FromText>
+          <S.FromText>{message.messageFrom === user.uid ? `To. ${message.toName}` : `From. ${fromName}`}</S.FromText>
           <S.BodyText>{message.mainText.replaceAll("\\n", "\n").slice(0, Math.min(Math.floor(message.mainText.length * 0.3), 30))}...</S.BodyText>
         </S.ContentsPreview>
 

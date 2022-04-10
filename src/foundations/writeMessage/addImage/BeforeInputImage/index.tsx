@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./styles";
 
-const GuideText = ({ text }: any) => {
+export const GuideText = ({ text }: any) => {
   return (
     <S.GuideText>
       {text
