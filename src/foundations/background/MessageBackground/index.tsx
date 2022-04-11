@@ -36,6 +36,7 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
     }
     return () => {
       console.log("37");
+
       if (waveRef.current) {
         waveRef.current.destroy();
       }
@@ -121,7 +122,9 @@ class App {
   }
 
   destroy() {
-    cancelAnimationFrame(this.animationRequest);
+    console.log("destroy!");
+    console.log(this.animationRequest);
+    window.cancelAnimationFrame(this.animationRequest);
     window.removeEventListener("resize", this.resize.bind(this));
     // this.analyser.disconnect();
     // this.audioCtx.close();
@@ -175,17 +178,17 @@ class App {
 
   loopingFunction() {
     this.time++;
-    this.animationRequest = requestAnimationFrame(this.loopingFunction.bind(this));
+    console.log(this.animationRequest);
+    this.animationRequest = window.requestAnimationFrame(this.loopingFunction.bind(this));
     this.analyser.getByteFrequencyData(this.data);
     this.draw(this.data);
   }
 
   draw(data: any) {
-    console.log("drawing");
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
     data.forEach((value: any, i: number) => {
-      this.pointArray[i].draw(this.ctx, value);
+      value !== 0 && this.pointArray[i].draw(this.ctx, value);
     });
   }
 }

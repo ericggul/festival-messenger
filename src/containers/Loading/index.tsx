@@ -35,7 +35,7 @@ import Loading26 from "@F/loading/hundreadLoadings/Loading26";
 function Loading() {
   return (
     <S.Container>
-      <Loading26 />
+      <Loading21 />
     </S.Container>
   );
 }

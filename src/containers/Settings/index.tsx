@@ -59,7 +59,7 @@ function Settings() {
     };
     try {
       const res = await dispatch(createUserInformation(userInfo)).unwrap();
-      console.log(res);
+      alert("저장 완료!");
       setLoading(false);
     } catch (e) {
       alert("오류 발생!");

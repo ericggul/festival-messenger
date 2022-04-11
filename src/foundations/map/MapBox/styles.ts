@@ -8,6 +8,7 @@ export const MapContainer = styled.div<Props>`
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   ${(props) => (props.displayMap ? "opacity: .8" : "opacity : 0")};
+  transition: opacity 0.8s;
   z-index: 0;
 `;
 

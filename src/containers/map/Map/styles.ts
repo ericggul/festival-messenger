@@ -26,33 +26,53 @@ const ButtonCommon = css`
   background: ${({ theme }) => theme.palette.TRANSPARENT_WHITE};
 `;
 
-export const AddMessageButton = styled.div`
+interface ButtonProps {
+  show: boolean;
+}
+
+export const AddMessageButton = styled.div<ButtonProps>`
   margin-left: 1rem;
   bottom: 110px;
   left: 0px;
   ${ButtonCommon};
+
+  transition: opacity 0.8s;
+  transition-delay: 0.5s;
+  opacity: ${({ show }) => (show ? 1 : 0)};
 `;
 
-export const GhostButton = styled.div`
+export const GhostButton = styled.div<ButtonProps>`
   right: 0;
   margin-right: 1rem;
   top: 10px;
   pointer-events: none;
+
+  transition: opacity 0.8s;
+  transition-delay: 0.8s;
+  opacity: ${({ show }) => (show ? 1 : 0)};
   ${ButtonCommon};
 `;
 
-export const Button = styled.div`
+export const Button = styled.div<ButtonProps>`
   bottom: 110px;
   margin-right: 1rem;
   right: 0;
   ${ButtonCommon};
+
+  transition: opacity 0.8s;
+  transition-delay: 1.4s;
+  opacity: ${({ show }) => (show ? 1 : 0)};
 `;
 
-export const ButtonLeft = styled.div`
+export const ButtonLeft = styled.div<ButtonProps>`
   right: 0;
   margin-right: 1rem;
   top: 3.5rem;
   ${ButtonCommon};
+
+  transition: opacity 0.8s;
+  transition-delay: 1.1s;
+  opacity: ${({ show }) => (show ? 1 : 0)};
 `;
 
 export const ButtonImg = styled.img`

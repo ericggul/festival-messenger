@@ -38,10 +38,9 @@ const slice = createSlice({
       .addCase(createUserInformation.fulfilled, (state, action) => {
         state.email = action.meta.arg.email;
         state.name = action.meta.arg.name;
-        // if(action.payload){
-        //   state.profileImage = action.payload;
-        // }
-        console.log(action.payload);
+        if (action.payload) {
+          state.profileImage = action.payload;
+        }
       });
   },
 });

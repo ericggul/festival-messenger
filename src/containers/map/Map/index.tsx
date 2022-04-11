@@ -5,7 +5,9 @@ import * as S from "./styles";
 import MapBox from "@F/map/MapBox";
 import useModal from "@U/hooks/useModal";
 import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
-import OpenMessageModal from "@/foundations/modal/content/openMessage/OpenMessageModal";
+import OpenMessageModal from "@F/modal/content/openMessage/OpenMessageModal";
+
+import LoadingContainer from "@C/Loading";
 
 //Icons
 import Explore from "@I/icons/map/explore.svg";
@@ -30,7 +32,7 @@ function Map() {
     if (containerRef && containerRef.current) {
       if (messageSendMode) {
         containerRef.current.style.cursor = "pointer";
-        speak("새로운 메시지 추가하기!");
+        // speak("새로운 메시지 추가하기!");
       }
     }
   }, [messageSendMode, containerRef]);
@@ -74,6 +76,7 @@ function Map() {
 
   //Reset Position
   const [reset, setReset] = useState(false);
+  const [displayMap, setDisplayMap] = useState(false);
 
   return (
     <>
@@ -85,20 +88,24 @@ function Map() {
           //Reset Button
           resetState={reset}
           resetCompleted={() => setReset(false)}
+          onMapDisplayed={() => setDisplayMap(true)}
         />
-        <S.AddMessageButton onClick={() => setMessageSendMode((mode) => !mode)}>{messageSendMode ? "지도 상에 핀을 꽂아보세요" : " + 새로운 메시지 보내기"}</S.AddMessageButton>
-        <S.GhostButton>
+        <S.AddMessageButton show={displayMap} onClick={() => setMessageSendMode((mode) => !mode)}>
+          {messageSendMode ? "지도 상에 핀을 꽂아보세요" : " + 새로운 메시지 보내기"}
+        </S.AddMessageButton>
+        <S.GhostButton show={displayMap}>
           <S.ButtonImg src={Location2} />
           <S.ButtonText>내위치</S.ButtonText>
         </S.GhostButton>
-        <S.Button>
+        <S.Button show={displayMap}>
           <S.ButtonImg src={Update} />
           <S.ButtonText>업데이트</S.ButtonText>
         </S.Button>
-        <S.ButtonLeft onClick={() => setReset(true)}>
+        <S.ButtonLeft onClick={() => setReset(true)} show={displayMap}>
           <S.ButtonImg src={Explore} />
           <S.ButtonText>버들골</S.ButtonText>
         </S.ButtonLeft>
+        {!displayMap && <LoadingContainer />}
       </S.Container>
       {addNewMessageModalComponent}
       {openMessageModalComponent}

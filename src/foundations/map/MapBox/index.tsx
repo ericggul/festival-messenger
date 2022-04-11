@@ -114,6 +114,7 @@ function MapBox({
 
   resetState,
   resetCompleted,
+  onMapDisplayed,
   zoomIn = false,
 }: any) {
   mapboxgl.accessToken = "pk.eyJ1IjoiZXJpY2dndWwiLCJhIjoiY2wwMmkyYTRkMTRhczNobHNsMnBxb3BkMyJ9.DLFELyGRBinEC75rdCGBBQ";
@@ -368,8 +369,9 @@ function MapBox({
     if (mapRef.current && typeof mapRef.current == "object") {
       window.setTimeout(() => {
         setDisplayMap(true);
+        onMapDisplayed();
         mapZoom(zoomBoolean);
-      }, 3000);
+      }, 3500);
     }
   }
 

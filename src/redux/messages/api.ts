@@ -39,7 +39,6 @@ export async function fetchAllMessagesFromFirestore(chatId: any) {
 }
 
 export async function fetchMessageFromFirestore(chatId: any, messageId: any) {
-  console.log("42 api");
   const parentChatRef = doc(chatsRef, chatId, "messages", messageId);
   const docSnap = await getDoc(parentChatRef);
 
