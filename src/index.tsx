@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { initializeKakao } from "./utils/initalizer/kakao";
@@ -13,11 +14,12 @@ initializeKakao();
 
 let persistor = persistStore(store);
 
-ReactDOM.render(
+let root = createRoot(document.getElementById("root") as HTMLElement);
+
+root.render(
   <Provider store={store}>
     <PersistGate loading={<p>Redux 로딩중..</p>} persistor={persistor}>
       <App />
     </PersistGate>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
