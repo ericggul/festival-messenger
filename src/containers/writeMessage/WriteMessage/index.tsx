@@ -135,7 +135,7 @@ function WriteMessage(props: any) {
         displayAddImageOption={!displayAddImage}
         onAddImageCommand={() => setDisplayAddImage(true)}
       />
-      <MessageBackground color={color} audio={music} />
+      <MessageBackground color={color} audio={music} playAudioInitial />
 
       <S.MessagePanel font={font} isTextBlack={isTextBlack}>
         <ToTextInput

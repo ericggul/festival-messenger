@@ -33,6 +33,7 @@ function ProfileInfo() {
       reader.addEventListener("load", () => {
         setImage(reader.result);
       });
+      createUserInfo();
     }
   }
 
@@ -46,7 +47,6 @@ function ProfileInfo() {
     };
     try {
       const res = await dispatch(createUserInformation(userInfo)).unwrap();
-      console.log(res);
     } catch (e) {
       console.log(e);
     }

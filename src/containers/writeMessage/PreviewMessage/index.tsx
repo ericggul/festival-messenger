@@ -32,6 +32,8 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   const preview = useAppSelector((state) => state.singleMessagePreview);
   const user = useAppSelector((state) => state.users);
 
+  console.log(user);
+
   const [image, setImage] = useState<any>(null);
   const [music, setMusic] = useState<any>(null);
 
@@ -69,7 +71,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
     if (messageSendStarted) {
       setMessageSendFinished(true);
       dispatch(actions.reset());
-      alert("팝업을 허용해주세요!");
+      alert("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
       shareThroughKakao();
       navigate("/map");
     }

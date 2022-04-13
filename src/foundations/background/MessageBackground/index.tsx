@@ -11,6 +11,7 @@ function getRandom(a: number, b: number) {
 interface MessageBackgroundType {
   color?: any;
   audio?: any;
+  playAudioInitial?: any;
 }
 
 declare global {
@@ -20,7 +21,8 @@ declare global {
   }
 }
 
-export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, audio }: MessageBackgroundType) {
+export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, audio, playAudioInitial = false }: MessageBackgroundType) {
+  const [playAudio, setPlayAudio] = useState(playAudioInitial);
   const [rap, setRap] = useState<any>(!null);
   const [windowWidth, windowHeight] = useResize();
 
@@ -29,14 +31,15 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   const waveRef = useRef<any>(null);
 
   useEffect(() => {
+    document.addEventListener("click", () => setPlayAudio(true));
+
     if (rap && rap.audioEl) {
       let canvasEl = new App(rap.audioEl.current, color);
       canvasEl.audioCtx.resume();
       waveRef.current = canvasEl;
     }
     return () => {
-      console.log("37");
-
+      document.removeEventListener("click", () => setPlayAudio(false));
       if (waveRef.current) {
         waveRef.current.destroy();
       }
@@ -46,8 +49,8 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   return (
     <>
       <S.Container color={color} />
-      {audio && <ReactAudioPlayer src={audio} crossOrigin="anonymous" autoPlay ref={(el) => setRap(el)} />}
-      {audio && (
+      {audio && playAudio && <ReactAudioPlayer src={audio} crossOrigin="anonymous" autoPlay ref={(el) => setRap(el)} />}
+      {audio && playAudio && (
         <div
           id="CanvasWrapper"
           style={{
@@ -90,7 +93,9 @@ class App {
   color: any;
 
   //animation controller
+  resizeEvent: any;
   animationRequest: any;
+  drawState: any;
 
   //time
   now: any;
@@ -119,18 +124,8 @@ class App {
     this.source.connect(this.analyser);
     this.source.connect(this.audioCtx.destination);
 
-    window.addEventListener("resize", this.resize.bind(this), true);
+    this.resizeEvent = window.addEventListener("resize", this.resize.bind(this));
     this.resize();
-  }
-
-  destroy() {
-    console.log(this.animationRequest);
-    window.cancelAnimationFrame(this.animationRequest);
-
-    window.removeEventListener("resize", this.resize.bind(this), true);
-    console.log("destroy!");
-    // this.analyser.disconnect();
-    // this.audioCtx.close();
   }
 
   resize() {
@@ -177,12 +172,16 @@ class App {
       this.pointArray.push(new Point(this.stageWidth, this.stageHeight, this.color, this.cellSize * 10));
     }
     this.then = Date.now();
+
+    this.drawState = true;
     this.loopingFunction();
   }
 
   loopingFunction() {
-    console.log("drawing");
-    this.animationRequest = window.requestAnimationFrame(this.loopingFunction.bind(this));
+    console.log(this.drawState);
+    if (this.drawState) {
+      this.animationRequest = window.requestAnimationFrame(this.loopingFunction.bind(this));
+    }
 
     this.now = Date.now();
     const delta = this.now - this.then;
@@ -199,6 +198,17 @@ class App {
     data.forEach((value: any, i: number) => {
       value !== 0 && this.pointArray[i].draw(this.ctx, value);
     });
+  }
+
+  destroy() {
+    window.cancelAnimationFrame(this.animationRequest);
+    this.drawState = false;
+
+    window.removeEventListener("resize", this.resizeEvent);
+    this.ctx = null;
+    this.canvas = null;
+    // this.analyser.disconnect();
+    // this.audioCtx.close();
   }
 }
 
@@ -235,7 +245,6 @@ class Point {
     this.fillColor = `hsla(${color.h},  ${getRandom(color.s - 5, color.s + 5)}%, ${getRandom(70, 100)}%, 1)`;
     this.cellSize = cellSize;
   }
-  //`hsla(${this.color.h},  ${getRandom(this.color.s - 5, this.color.s + 5)}%, ${getRandom(90, 100)}%, 1)`;
 
   draw(ctx: any, value: any) {
     this.angle += (this.angleSpeed * value) / 255;

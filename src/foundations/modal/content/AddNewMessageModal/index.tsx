@@ -4,6 +4,7 @@ import * as S from "./styles";
 
 import useResize from "@U/hooks/useResize";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@R/common/hooks";
 
 //icons
 import Cancel from "@I/icons/modal/cancel.svg";
@@ -44,16 +45,28 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   };
 
   //Bring Friends from Kakao
+  const user = useAppSelector((state) => state.users);
+  const { signIn } = useAuth("/map");
+
   const bringFriends = () => {
-    window.Kakao.API.request({
-      url: "/v1/api/talk/friends",
-      success: (res: any) => {
-        console.log(res);
-      },
-      fail: (err: any) => {
-        console.log(err);
-      },
-    });
+    if (user.token) {
+      const token = window.Kakao.Auth.getAccessToken();
+      console.log(token, user.token);
+      window.Kakao.Auth.setAccessToken(token);
+
+      window.Kakao.API.request({
+        url: "/v1/api/talk/friends",
+        success: (res: any) => {
+          console.log(res);
+        },
+        fail: (err: any) => {
+          console.log(err);
+        },
+      });
+    } else {
+      alert(user.uid ? "재로그인이 필요합니다!" : "로그인이 필요합니다!");
+      signIn();
+    }
   };
 
   useEffect(() => {
