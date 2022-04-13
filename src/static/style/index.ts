@@ -5,8 +5,8 @@ export const palette = {
   YELLOW: "#ecd458",
   TRANSPARENT_WHITE: `rgba(255, 255, 255, .7)`,
   CANCEL_RED: "#c58c8c",
-  TIMELINE_GRAY: `rgba(0, 0, 73, .5)`,
-  TIMEBUBBLE_GRAY: `  rgba(0, 0, 73, 1)`,
+  TIMELINE_GRAY: `hsla(0, 0%, 73%, .5)`,
+  TIMEBUBBLE_GRAY: `hsla(0, 0%, 73%, 1)`,
 };
 
 export const zIndex = {

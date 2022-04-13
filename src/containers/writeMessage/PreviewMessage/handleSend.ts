@@ -15,7 +15,19 @@ async function createNewChatUnassigned(dispatch: any, user: any) {
   return chatId;
 }
 
-export default async function handleSend(preview: any, imageFile: any, musicFile: any, dispatch: any, user: any, setLoading: any) {
+export default async function handleSend(
+  preview: any,
+  imageFile: any,
+  musicFile: any,
+  dispatch: any,
+  user: any,
+  setLoading: any,
+
+  setChatId: any,
+  setMessageId: any,
+  setProfileName: any,
+  setProfileImg: any
+) {
   setLoading(true);
 
   let toId = preview.toId;
@@ -26,6 +38,7 @@ export default async function handleSend(preview: any, imageFile: any, musicFile
   //1. Check if props.id exist
 
   let chatId;
+  let messageId;
 
   if (toId === "unassigned") {
     const res = await createNewChatUnassigned(dispatch, user);
@@ -62,11 +75,17 @@ export default async function handleSend(preview: any, imageFile: any, musicFile
         music: musicFile,
       })
     );
-    console.log(res);
+    messageId = res.payload.id;
   } catch (e) {
     alert(e);
     console.log("cannot create chat!", e);
   }
+
+  setChatId(chatId);
+  setMessageId(messageId);
+
+  setProfileImg(user.profileImage || NO_PROFILE);
+  setProfileName(user.name || "NO NAME");
 
   alert("메시지 전송 완료!");
   setLoading(false);

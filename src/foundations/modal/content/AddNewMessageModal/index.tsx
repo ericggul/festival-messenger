@@ -43,6 +43,23 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
     });
   };
 
+  //Bring Friends from Kakao
+  const bringFriends = () => {
+    window.Kakao.API.request({
+      url: "/v1/api/talk/friends",
+      success: (res: any) => {
+        console.log(res);
+      },
+      fail: (err: any) => {
+        console.log(err);
+      },
+    });
+  };
+
+  useEffect(() => {
+    bringFriends();
+  }, []);
+
   return (
     <>
       <S.Background />

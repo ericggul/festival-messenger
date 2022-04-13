@@ -14,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const BackgroundImage = styled.img`
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
 

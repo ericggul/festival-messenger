@@ -87,11 +87,14 @@ class App {
 
   pointArray: any;
 
-  time: any;
   color: any;
 
   //animation controller
   animationRequest: any;
+
+  //time
+  now: any;
+  then: any;
 
   constructor(audioElement: any, color: any) {
     this.color = color;
@@ -101,7 +104,6 @@ class App {
     this.ctx = this.canvas.getContext("2d");
     this.wrapper = document.getElementById("CanvasWrapper");
     this.wrapper.appendChild(this.canvas);
-    this.time = 0;
 
     this.audioElement = audioElement;
     var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -117,20 +119,22 @@ class App {
     this.source.connect(this.analyser);
     this.source.connect(this.audioCtx.destination);
 
-    window.addEventListener("resize", this.resize.bind(this));
+    window.addEventListener("resize", this.resize.bind(this), true);
     this.resize();
   }
 
   destroy() {
-    console.log("destroy!");
     console.log(this.animationRequest);
     window.cancelAnimationFrame(this.animationRequest);
-    window.removeEventListener("resize", this.resize.bind(this));
+
+    window.removeEventListener("resize", this.resize.bind(this), true);
+    console.log("destroy!");
     // this.analyser.disconnect();
     // this.audioCtx.close();
   }
 
   resize() {
+    console.log("resize!");
     this.stageWidth = this.wrapper.clientWidth;
     this.stageHeight = this.wrapper.clientHeight;
     this.space = this.stageWidth / this.stageHeight;
@@ -172,16 +176,21 @@ class App {
     for (let i = 0; i < 257; i++) {
       this.pointArray.push(new Point(this.stageWidth, this.stageHeight, this.color, this.cellSize * 10));
     }
-
+    this.then = Date.now();
     this.loopingFunction();
   }
 
   loopingFunction() {
-    this.time++;
-    console.log(this.animationRequest);
+    console.log("drawing");
     this.animationRequest = window.requestAnimationFrame(this.loopingFunction.bind(this));
-    this.analyser.getByteFrequencyData(this.data);
-    this.draw(this.data);
+
+    this.now = Date.now();
+    const delta = this.now - this.then;
+    if (delta > 3) {
+      this.analyser.getByteFrequencyData(this.data);
+      this.draw(this.data);
+    }
+    this.then = this.now;
   }
 
   draw(data: any) {

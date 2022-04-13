@@ -7,7 +7,7 @@ function Texture() {
   useEffect(() => {
     const draw = new Canvas();
 
-    return () => draw.destroy();
+    return () => draw && draw.destroy();
   }, []);
 
   return <div id="CanvasWrapper" style={{ position: "absolute", top: 0, left: 0, width: windowWidth, height: windowHeight, zIndex: 0 }} />;
@@ -35,7 +35,7 @@ class Canvas {
   }
 
   destroy() {
-    this.canvas.removeChild(this.canvas);
+    this.wrapper.removeChild(this.canvas);
   }
 
   resize() {

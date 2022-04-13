@@ -141,7 +141,7 @@ function MapBox({
       });
 
       return () => {
-        mapRef.current = null;
+        mapRef.current.remove();
       };
     }
   }, [mapContainerRef]);
@@ -227,7 +227,6 @@ function MapBox({
       //Error Handling
       mapRef.current.on("error", (e: any) => {
         if (e && e.error !== "Error: Not Found") {
-          console.log(e.error);
           console.log(e);
         }
       });
@@ -267,7 +266,6 @@ function MapBox({
       if (mapRef.current && typeof mapRef.current == "object") {
         //Click event
         mapRef.current.on("click", (e: any) => {
-          console.log("clicked");
           setNewMarkerLatLng(e.lngLat);
         });
       }
@@ -365,7 +363,6 @@ function MapBox({
   }, [resetState, mapRef]);
 
   async function mapZoomOnceIdle(zoomBoolean: any) {
-    console.log("here", mapRef.current);
     if (mapRef.current && typeof mapRef.current == "object") {
       window.setTimeout(() => {
         setDisplayMap(true);
@@ -378,7 +375,6 @@ function MapBox({
   async function mapZoom(zoomBoolean: any) {
     if (mapRef.current && typeof mapRef.current == "object") {
       if (zoomBoolean) {
-        console.log(zoomBoolean);
         mapRef.current.flyTo({
           center: [INITIAL_POS.lng, INITIAL_POS.lat],
           zoom: 18,

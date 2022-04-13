@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+//styles
+import * as ES from "@S/style/common/errorPage";
 
 //react router usenavigate
 import { useNavigate } from "react-router-dom";
@@ -67,21 +69,52 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
     if (messageSendStarted) {
       setMessageSendFinished(true);
       dispatch(actions.reset());
+      alert("팝업을 허용해주세요!");
+      shareThroughKakao();
       navigate("/map");
     }
   });
+
+  //share through kakao
+  const [chatId, setChatId] = useState<any>(null);
+  const [messageId, setMessageId] = useState<any>(null);
+  const [profileName, setProfileName] = useState<any>(null);
+  const [profileImg, setProfileImg] = useState<any>(null);
+
+  const shareThroughKakao = () => {
+    window.Kakao.Link.sendCustom({
+      templateId: 74978,
+      templateArgs: {
+        imageURL: profileImg,
+        profileName,
+        chatId,
+        messageId,
+      },
+    });
+  };
 
   const dispatch = useAppDispatch();
 
   return (
     <>
-      {messageSendFinished ? <></> : <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />}
+      {messageSendFinished ? (
+        <ES.Container>
+          <ES.Text>
+            <p>메시지 전송 완료!</p>
+            <p>친구한테 카카오톡 메시지를 보내서 메시지 링크를 전송해주세요!</p>
+            <p>브라우저 팝업을 허용해야 합니다.</p>
+          </ES.Text>
+          <ES.ToMainButton onClick={() => navigate("/map")}>지도로 돌아가기</ES.ToMainButton>
+        </ES.Container>
+      ) : (
+        <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />
+      )}
 
       <ControlPanel
         handleEdit={handleEdit}
         handleSend={() => {
           setMessageSendStarted(true);
-          handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen);
+          handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen, setChatId, setMessageId, setProfileName, setProfileImg);
         }}
       />
       {modalComponent}
