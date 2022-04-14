@@ -19,10 +19,9 @@ import * as S from "./styles";
 function Settings() {
   const user = useAppSelector((state) => state.users);
   const dispatch = useAppThunkDispatch();
+  console.log(user.profileImage);
 
-  const [imageChanging, setImageChanging] = useState(false);
-
-  const { modalComponent, isModalOpen, setIsModalOpen, imageFile, image, setImage, setImageFile } = useAddImageModal(AddImageModal);
+  const { modalComponent, isModalOpen, setIsModalOpen, imageFile, image, setImage, setImageFile } = useAddImageModal(AddImageModal, true, {}, createUserInfo);
   const { value: name, onChange: onNameChange, setValue: setName } = useInput(user.name || "");
 
   async function fetchUserProfile() {
@@ -49,6 +48,7 @@ function Settings() {
   const { modalComponent: loadingModalComponent, isModalOpen: loading, setIsModalOpen: setLoading } = useModal(LoadingModal);
 
   async function createUserInfo() {
+    console.log("user info");
     setLoading(true);
     const userInfo = {
       id: user.uid,

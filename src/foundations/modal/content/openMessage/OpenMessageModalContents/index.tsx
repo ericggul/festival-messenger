@@ -37,11 +37,12 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   const [fromName, setFromName] = useState("");
   const [fromProfile, setFromProfile] = useState("");
   const dispatch = useAppDispatch();
+
   async function getNameFromId() {
     try {
       const from = await dispatch(fetchUserInformationWithoutUpdatingRedux(message.messageFrom));
       setFromName(from.payload.name);
-      setFromProfile(from.payload.profileImage || NO_PROFILE);
+      setFromProfile(message.messageFromProfile || from.payload.profileImage || NO_PROFILE);
     } catch (e) {
       alert("No matching user record!");
     }

@@ -46,7 +46,8 @@ export const useAddImageModal = (ContentComponent: any, listenOpenChange: any = 
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    if (listenOpenChange && !isModalOpen && onModalChange) {
+    if (listenOpenChange && !isModalOpen && image && onModalChange) {
+      console.log("on modal change");
       onModalChange();
     }
   }, [listenOpenChange, isModalOpen]);

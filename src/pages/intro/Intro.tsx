@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAppThunkDispatch, useAppSelector } from "@R/common/hooks";
 import useAuth from "@U/hooks/useAuth";
 
-import ProfileInfo from "@F/login/ProfileInfo";
 import { actions } from "@R/users/state";
 import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
 import { fetchAllMessages, fetchMessage, createNewMessage, deleteMessage, addMemberToChat } from "@/redux/messages/middleware";

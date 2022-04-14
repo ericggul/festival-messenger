@@ -26,9 +26,7 @@ function AddMusicModal({ setIsModalOpen, setImageFile, setImage }: any) {
         setImage(reader.result);
       });
       setUploadState(2);
-      setTimeout(() => {
-        setIsModalOpen(false);
-      }, 1000);
+      setIsModalOpen(false);
     }
   };
 
@@ -56,7 +54,7 @@ function AddMusicModal({ setIsModalOpen, setImageFile, setImage }: any) {
             </>
           )}
           {uploadState === 1 && <S.Title>업로드중...</S.Title>}
-          {uploadState === 2 && <S.Title>업로드 완료!</S.Title>}
+          {uploadState === 2 && <S.Title>업로드 중이에요!</S.Title>}
         </S.Container>
       </S.Box>
     </>

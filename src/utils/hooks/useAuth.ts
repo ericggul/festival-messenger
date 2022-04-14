@@ -67,8 +67,8 @@ const useAuth = (navigateTo?: any) => {
               }
 
               dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email, token: kakaoToken }));
-
               dispatch(actions.setLoading(false));
+              alert("로그인 완료!");
               navigate(user.landingUrl || "/settings");
             })
             .catch((error: any) => {

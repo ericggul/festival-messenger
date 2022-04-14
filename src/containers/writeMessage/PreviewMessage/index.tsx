@@ -32,8 +32,6 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   const preview = useAppSelector((state) => state.singleMessagePreview);
   const user = useAppSelector((state) => state.users);
 
-  console.log(user);
-
   const [image, setImage] = useState<any>(null);
   const [music, setMusic] = useState<any>(null);
 

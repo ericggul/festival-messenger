@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import * as S from "./styles";
 
-const FONT_LIST = ["Seoul Namsan", "Noto Sans KR", "Nanum Gothic", "Jua", "Kirang Haerang", "Nanum Pen Script", "Gamja Flower", "Single Day", "Stylish"];
-const AD_TEXT = ["광고에", "진심인", "개발자", "설입", "낙대", "녹두", "실매물은", "어디서?", "말해뭐해"];
+const FONT_LIST = ["Seoul Namsan", "Noto Sans KR", "Nanum Gothic", "Jua", "Kirang Haerang", "Stylish", "Gamja Flower", "Single Day", "Nanum Pen Script"];
+const TEXT = ["반듯한", "글씨체", "세가지", "특이한", "글씨체", "세가지", "귀여운", "글씨체", "세가지"];
 
 function FontModal({ initialFont, onFontClick }: any) {
   const [font, setFont] = useState(initialFont);
@@ -17,7 +17,7 @@ function FontModal({ initialFont, onFontClick }: any) {
       <S.FontContainer>
         {FONT_LIST.map((thisFont: any, i: number) => (
           <S.Font selected={font === thisFont} key={i} font={thisFont} onClick={(e) => handleClick(e, thisFont)}>
-            {AD_TEXT[i]}
+            {TEXT[i]}
           </S.Font>
         ))}
       </S.FontContainer>

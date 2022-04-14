@@ -78,13 +78,13 @@ export const InputBox = styled.input`
 
 export const SaveButton = styled.div`
   cursor: pointer;
-  margin-top: 5rem;
-  height: 3.5rem;
-  width: 11rem;
+  margin-top: 3rem;
+  height: 2rem;
+  width: 7rem;
   background: #f7fdea;
   box-shadow: 0 0 5rem #fff;
   ${FlexCenterStyle};
-  border-radius: 1.75rem;
-  font-size: 1.67rem;
+  border-radius: 1rem;
+  font-size: 1rem;
   font-weight: bold;
 `;

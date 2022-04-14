@@ -33,7 +33,9 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserInformation.fulfilled, (state, action) => {
+        console.log(action.payload);
         state = action.payload;
+        console.log(state);
       })
       .addCase(createUserInformation.fulfilled, (state, action) => {
         state.token = action.meta.arg.token;
