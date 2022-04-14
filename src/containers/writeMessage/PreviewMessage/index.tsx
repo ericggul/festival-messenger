@@ -25,9 +25,6 @@ import { actions } from "@R/singleMessage/messagePreview/state";
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
 
-//speak
-import speak from "@U/functions/speak";
-
 function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   const preview = useAppSelector((state) => state.singleMessagePreview);
   const user = useAppSelector((state) => state.users);
@@ -94,6 +91,8 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   };
 
   const dispatch = useAppDispatch();
+
+  console.log("message send finished", messageSendFinished);
 
   return (
     <>

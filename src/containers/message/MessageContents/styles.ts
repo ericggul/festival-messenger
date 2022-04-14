@@ -12,6 +12,7 @@ export const Container = styled.div`
   user-select: none;
   -webkit-user-select: none;
   zindex: 10;
+  cursor: default;
 `;
 
 interface FontInterface {
@@ -49,6 +50,7 @@ export const ToText = styled.div<IsTextBlack>`
 `;
 
 export const MainText = styled.div<IsTextBlack>`
+  cursor: default;
   margin-top: 3rem;
   margin-bottom: 10rem;
   font-size: 1rem;

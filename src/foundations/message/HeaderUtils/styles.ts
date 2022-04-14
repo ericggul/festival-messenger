@@ -28,7 +28,11 @@ export const Icon = styled.img`
 
 export const Text = styled.div``;
 
-export const Reply = styled.div`
+interface ReplyProps {
+  cursor: boolean;
+}
+
+export const Reply = styled.div<ReplyProps>`
   margin-right: 1.5rem;
-  cursor: pointer;
+  cursor: ${({ cursor }) => (cursor ? "pointer" : "default")};
 `;

@@ -47,7 +47,13 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads }: any) {
         <S.Icon src={BackIcon} />
         <S.Text>Back to map</S.Text>
       </S.Back>
-      {messageFromReads ? <S.Reply>내가 보낸 메시지</S.Reply> : <S.Reply onClick={handleIconClick}>답장 보내기</S.Reply>}
+      {messageFromReads ? (
+        <S.Reply cursor={false}>내가 보낸 메시지</S.Reply>
+      ) : (
+        <S.Reply cursor={true} onClick={handleIconClick}>
+          답장 보내기
+        </S.Reply>
+      )}
     </S.HeaderUtils>
   );
 }
