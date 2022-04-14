@@ -6,9 +6,19 @@ import mapboxgl from "!mapbox-gl"; /* eslint import/no-webpack-loader-syntax: of
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./marker.css";
 import SunCalc from "suncalc";
+import pointInPolygon from "point-in-polygon";
 
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
+
+const POLYGON = [
+  [126.9567311, 37.4603392],
+  [126.9548643, 37.4583549],
+  [126.9555885, 37.4566431],
+  [126.9564629, 37.4575501],
+  [126.9571817, 37.459577],
+  [126.9567311, 37.4603392],
+];
 
 const RECEIVED = {
   type: "FeatureCollection",
@@ -266,6 +276,7 @@ function MapBox({
       if (mapRef.current && typeof mapRef.current == "object") {
         //Click event
         mapRef.current.on("click", (e: any) => {
+          //check if marker in POLYGON
           setNewMarkerLatLng(e.lngLat);
         });
       }
@@ -275,6 +286,11 @@ function MapBox({
   //on new marker change, set new marker
   useEffect(() => {
     if (newMarkerLatLng !== null) {
+      let pointInside = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], POLYGON);
+      if (!pointInside) {
+        alert("버들골 외부에는 메시지를 전송할수 없습니다!");
+        return;
+      }
       if (newMarker !== null) {
         newMarker.remove();
       }
