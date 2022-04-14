@@ -44,9 +44,9 @@ import Loading38 from "@F/loading/hundreadLoadings/Loading38";
 import Loading39 from "@F/loading/hundreadLoadings/Loading39";
 import Loading40 from "@F/loading/hundreadLoadings/Loading40";
 import Loading41 from "@F/loading/hundreadLoadings/Loading41";
-// import Loading42 from "@F/loading/hundreadLoadings/Loading42";
-// import Loading43 from "@F/loading/hundreadLoadings/Loading43";
-// import Loading44 from "@F/loading/hundreadLoadings/Loading44";
+import Loading42 from "@F/loading/hundreadLoadings/Loading42";
+import Loading43 from "@F/loading/hundreadLoadings/Loading43";
+import Loading44 from "@F/loading/hundreadLoadings/Loading44";
 // import Loading45 from "@F/loading/hundreadLoadings/Loading45";
 // import Loading46 from "@F/loading/hundreadLoadings/Loading46";
 // import Loading47 from "@F/loading/hundreadLoadings/Loading47";
@@ -67,7 +67,7 @@ import Loading41 from "@F/loading/hundreadLoadings/Loading41";
 function Loading() {
   return (
     <S.Container>
-      <Loading41 />
+      <Loading44 />
     </S.Container>
   );
 }
