@@ -9,22 +9,27 @@ export const Container = styled.div`
 
   flex-direction: column;
 
-  backdrop-filter: blur(4rem);
-  -webkit-backdrop-filter: blur(4rem);
+  backdrop-filter: blur(3rem);
+  -webkit-backdrop-filter: blur(3rem);
+`;
+
+export const BackgroundImageContainer = styled.div`
+  position: absolute;
+  width: ${({ theme }) => theme.windowWidth}px;
+  height: ${({ theme }) => theme.windowHeight}px;
+  overflow: hidden;
+  ${FlexCenterStyle};
+  z-index: -1;
 `;
 
 export const BackgroundImage = styled.img`
-  position: fixed;
-  left: 0;
-  right: 0;
-
-  top: -5px;
-  bottom: -5px;
-  margin: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   min-width: ${({ theme }) => theme.windowWidth}px;
   min-height: ${({ theme }) => theme.windowHeight}px;
 
-  filter: brightness(2);
+  // filter: brightness(2);
   z-index: -1;
 `;
 

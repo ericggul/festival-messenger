@@ -70,7 +70,10 @@ function Settings() {
 
   return (
     <>
-      <S.BackgroundImage src={image} />
+      <S.BackgroundImageContainer>
+        <S.BackgroundImage src={image} />
+      </S.BackgroundImageContainer>
+
       <S.Container>
         <S.ImageContainer>
           <S.Image src={image} />

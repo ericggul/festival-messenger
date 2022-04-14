@@ -3,7 +3,6 @@ import { ContainerStyles } from "@F/loading/common/styles";
 import { FlexCenterStyle } from "@S/style/responsive/display";
 
 export const Container = styled.div`
-  font-family: Helvetica;
   ${ContainerStyles};
   position: relative;
   background: radial-gradient(#222, black);
@@ -32,19 +31,19 @@ export const Square = styled.div<SquareProps>`
 
   @keyframes change {
     0% {
-      background: #ffaa3c;
+      background: #f7d2d2;
     }
     25% {
-      background: #e6447d;
+      background: #d2daf7;
     }
     50% {
-      background: #652e79;
+      background: #d2f7ec;
     }
     75% {
-      background: #4bd4d4;
+      background: #e7d2f7;
     }
     100% {
-      background: #ffaa3c;
+      background: #f7d2d2;
     }
   }
 `;

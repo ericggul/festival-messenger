@@ -39,22 +39,24 @@ function WriteMessage(props: any) {
   //Music State
   const [music, setMusic] = useState<any>(null);
   const [musicFile, setMusicFile] = useState(props.musicFile || null);
+  const [playAudioInitial, setPlayAudioInitial] = useState(props.musicFile ? false : true);
 
   useEffect(() => {
     if (musicFile) {
-      console.log("45", musicFile, typeof musicFile);
+      setPlayAudioInitial(true);
       if (typeof musicFile === "number") {
         setMusic(AUDIO_LIST[musicFile].file);
       } else {
         const reader = new FileReader();
         reader.readAsDataURL(musicFile);
-
         reader.addEventListener("load", () => {
           setMusic(reader.result);
         });
       }
     }
   }, [musicFile]);
+
+  console.log(playAudioInitial);
 
   //Font State
   const [font, setFont] = useState(preview.font || "Seoul Namsan");
@@ -135,7 +137,7 @@ function WriteMessage(props: any) {
         displayAddImageOption={!displayAddImage}
         onAddImageCommand={() => setDisplayAddImage(true)}
       />
-      <MessageBackground color={color} audio={music} playAudioInitial />
+      <MessageBackground color={color} audio={music} playAudioInitial={playAudioInitial} />
 
       <S.MessagePanel font={font} isTextBlack={isTextBlack}>
         <ToTextInput
