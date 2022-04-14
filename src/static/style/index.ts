@@ -6,6 +6,7 @@ export const palette = {
   TRANSPARENT_WHITE: `rgba(255, 255, 255, .7)`,
   CANCEL_RED: "#c58c8c",
   TIMELINE_GRAY: `hsla(0, 0%, 73%, .5)`,
+  TIMEBUBBLE_YELLOW: `hsla(58, 64%, 73%, 1)`,
   TIMEBUBBLE_GRAY: `hsla(0, 0%, 73%, 1)`,
 };
 
