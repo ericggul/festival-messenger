@@ -10,7 +10,6 @@ import { Stars } from "@react-three/drei";
 import * as S from "./styles";
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
-const getRandomColor = () => `hsl(${getRandom(330, 360)}, ${getRandom(90, 100)}%, ${getRandom(30, 40)}%)`;
 
 extend({ TextGeometry });
 
@@ -21,6 +20,8 @@ declare global {
     }
   }
 }
+
+//there used to be no Hero
 
 const Text = () => {
   const font = useLoader(FontLoader, "/assets/fonts/Roboto_Regular.json");
@@ -49,7 +50,7 @@ const Text = () => {
   return (
     <mesh ref={mesh}>
       <textGeometry attach="geometry" args={["LOADING", config]} />
-      <meshNormalMaterial />
+      <meshPhongMaterial attach="material" color="white" emissive="black" shininess={40} />
     </mesh>
   );
 };
