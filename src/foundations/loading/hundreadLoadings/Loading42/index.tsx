@@ -10,8 +10,14 @@ function Loading() {
   const [windowWidth, windowHeight] = useResize();
   return (
     <S.Container>
-      <S.Square idx={0}>Loading</S.Square>
-      <S.Square idx={1}>Loading</S.Square>
+      <S.Square idx={0}>
+        <p>Good things come to</p>
+        <p>기다리는 자에게</p>
+      </S.Square>
+      <S.Square idx={1}>
+        <p>Those who wait</p>
+        <p>복이 있나니</p>
+      </S.Square>
     </S.Container>
   );
 }

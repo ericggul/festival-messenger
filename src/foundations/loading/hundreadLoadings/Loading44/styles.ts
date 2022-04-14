@@ -12,6 +12,7 @@ export const Container = styled.div`
   overflow: hidden;
   ${FlexCenterStyle};
   flex-direction: column;
+  background: #f7d2d2;
 `;
 
 interface SquareProps {
@@ -22,7 +23,7 @@ export const Square = styled.div<SquareProps>`
   font-size: 5rem;
   font-weight: bold;
   width: 100%;
-  height: 6%;
+
   ${FlexCenterStyle};
   color: white;
 

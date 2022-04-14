@@ -23,41 +23,9 @@ export const Square = styled.div<SquareProps>`
   width: 50%;
   height: 100%;
   ${FlexCenterStyle};
-  color: white;
-
+  flex-direction: column;
+  color: ${({ idx }) => (idx === 1 ? "white" : "black")};
+  background: ${({ idx }) => (idx === 1 ? "black" : "white")};
   animation: change 3s infinite linear;
   animation-delay: ${({ idx }) => -(idx * 3) / 2}s;
-
-  @keyframes change {
-    0% {
-      background: white;
-    }
-    10% {
-      background: white;
-    }
-    11% {
-      background: black;
-    }
-    20% {
-      background: black;
-    }
-    21% {
-      background: white;
-    }
-    22% {
-      background: black;
-    }
-    31% {
-      background: black;
-    }
-    61% {
-      background: black;
-    }
-    62% {
-      background: white;
-    }
-    100% {
-      background: black;
-    }
-  }
 `;
