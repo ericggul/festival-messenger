@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useAppThunkDispatch, useAppSelector } from "@R/common/hooks";
 import useAuth from "@U/hooks/useAuth";
-
-import { actions } from "@R/users/state";
-import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
-import { fetchAllMessages, fetchMessage, createNewMessage, deleteMessage, addMemberToChat } from "@/redux/messages/middleware";
+import LoadingContainer from "@C/Loading";
+import * as ES from "@S/style/common/errorPage";
+import { useNavigate } from "react-router-dom";
 
 export default function Intro() {
   const { signIn, user, isAuthorized } = useAuth("/settings");
-  const dispatch = useAppThunkDispatch();
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.isLoading) {
+      navigate("/map");
+    }
+  }, [user.isLoading]);
   return (
     <div>
       {user.isLoading ? (
-        <div>Loading</div>
+        <LoadingContainer />
       ) : (
-        <>
-          {" "}
-          <>
-            <div onClick={signIn}>인트로</div>
-            <div>{isAuthorized ? "Hello" : "Log in"}</div>
-          </>
-        </>
+        <ES.Container>
+          <ES.Text>잘못된 접근입니다.</ES.Text>
+          <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
+        </ES.Container>
       )}
     </div>
   );

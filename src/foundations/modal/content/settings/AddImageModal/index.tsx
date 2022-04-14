@@ -5,11 +5,15 @@ import { GuideText } from "@F/writeMessage/addImage/BeforeInputImage";
 
 import Cancel from "@I/icons/modal/cancel.svg";
 
-function AddMusicModal({ setIsModalOpen, setImageFile, setImage }: any) {
+function AddImageModal({ setIsModalOpen, setImageFile, setImage, setSimpleModalChange }: any) {
   //0: Before Upload
   //1: Uploading
   //2: Upload Completed
   const [uploadState, setUploadState] = useState(0);
+
+  useEffect(() => {
+    setSimpleModalChange(false);
+  }, []);
 
   const onImageChange = (e: any) => {
     if (e.target.files.length !== 0) {
@@ -37,6 +41,7 @@ function AddMusicModal({ setIsModalOpen, setImageFile, setImage }: any) {
         <S.CloseButton
           onClick={(ev) => {
             ev.stopPropagation();
+            setSimpleModalChange(true);
             setIsModalOpen(false);
           }}
         >
@@ -60,4 +65,4 @@ function AddMusicModal({ setIsModalOpen, setImageFile, setImage }: any) {
     </>
   );
 }
-export default AddMusicModal;
+export default AddImageModal;

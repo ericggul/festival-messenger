@@ -45,16 +45,18 @@ export const useAddImageModal = (ContentComponent: any, listenOpenChange: any = 
   const [imageFile, setImageFile] = useState<any>(undefined);
   const [image, setImage] = useState("");
 
+  const [simpleModalChange, setSimpleModalChange] = useState(false);
+
   useEffect(() => {
-    if (listenOpenChange && !isModalOpen && image && onModalChange) {
+    if (listenOpenChange && !isModalOpen && image && onModalChange && !simpleModalChange) {
       console.log("on modal change");
       onModalChange();
     }
-  }, [listenOpenChange, isModalOpen]);
+  }, [listenOpenChange, isModalOpen, simpleModalChange]);
 
   const modalComponent = (
     <PopupModal width={props?.width} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} closeOnDocumentClick>
-      <ContentComponent setIsModalOpen={setIsModalOpen} setImage={setImage} setImageFile={setImageFile} {...props} />
+      <ContentComponent setIsModalOpen={setIsModalOpen} setImage={setImage} setImageFile={setImageFile} setSimpleModalChange={setSimpleModalChange} {...props} />
     </PopupModal>
   );
 
