@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import LoadingContainer from "@C/Loading";
 import App from "./App";
 import { initializeKakao } from "./utils/initalizer/kakao";
 import reduxRoot from "@R/common/store";
@@ -18,7 +19,7 @@ let root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <Provider store={store}>
-    <PersistGate loading={<p>Redux 로딩중..</p>} persistor={persistor}>
+    <PersistGate loading={<LoadingContainer />} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>

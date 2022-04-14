@@ -48,7 +48,7 @@ export const GhostButton = styled.div<ButtonProps>`
   pointer-events: none;
 
   transition: opacity 0.8s;
-  transition-delay: 0.8s;
+  transition-delay: 0.5s;
   opacity: ${({ show }) => (show ? 1 : 0)};
   ${ButtonCommon};
 `;
@@ -60,7 +60,7 @@ export const Button = styled.div<ButtonProps>`
   ${ButtonCommon};
 
   transition: opacity 0.8s;
-  transition-delay: 1.4s;
+  transition-delay: 0.5s;
   opacity: ${({ show }) => (show ? 1 : 0)};
 `;
 
@@ -71,7 +71,7 @@ export const ButtonLeft = styled.div<ButtonProps>`
   ${ButtonCommon};
 
   transition: opacity 0.8s;
-  transition-delay: 1.1s;
+  transition-delay: 0.5s;
   opacity: ${({ show }) => (show ? 1 : 0)};
 `;
 
