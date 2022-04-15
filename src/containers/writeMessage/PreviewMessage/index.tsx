@@ -61,17 +61,14 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
 
   const [messageSendStarted, setMessageSendStarted] = useState(false);
   const [messageSendFinished, setMessageSendFinished] = useState(false);
+  const [kakaoLinkClicked, setKakaoLinkClicked] = useState(false);
   const navigate = useNavigate();
   const { modalComponent, isModalOpen, setIsModalOpen } = useModal(LoadingModal, true, {}, () => {
     if (messageSendStarted) {
       setMessageSendFinished(true);
       dispatch(actions.reset());
 
-      if (window.confirm("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!")) {
-        shareThroughKakao();
-      }
-
-      navigate("/map");
+      alert("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
     }
   });
 
@@ -91,11 +88,16 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
         messageId,
       },
     });
+    setKakaoLinkClicked(true);
   };
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (kakaoLinkClicked) {
+      navigate("/map");
+    }
+  }, [kakaoLinkClicked]);
 
-  console.log("message send finished", messageSendFinished);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -106,7 +108,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
             <p>친구한테 카카오톡 메시지를 보내서 메시지 링크를 전송해주세요!</p>
             <p>브라우저 팝업을 허용해야 합니다.</p>
           </ES.Text>
-          <ES.ToMainButton onClick={() => navigate("/map")}>지도로 돌아가기</ES.ToMainButton>
+          <ES.ToMainButton onClick={shareThroughKakao}>카카오톡 보내기</ES.ToMainButton>
         </ES.Container>
       ) : (
         <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />
