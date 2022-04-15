@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "@R/common/hooks";
-import { actions } from "@/redux/users/state";
+import { fetchUserInformation } from "@R/users/middleware";
+import { actions } from "@R/users/state";
 import { signInWithCustomToken } from "firebase/auth";
 import { functions, auth } from "@U/initalizer/firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
@@ -53,10 +54,9 @@ const useAuth = (navigateTo?: any) => {
                   },
                   success: (res: any) => {
                     let output = res.kakao_account.profile;
-
                     //Nickname
                     dispatch(actions.setValue({ name: output.nickname }));
-                    dispatch(actions.setValue({ profileImage: output.profile_image_url }));
+                    dispatch(actions.setValue({ profileImage: output.profile_image_url || NO_PROFILE }));
                   },
                   fail: (err: any) => {
                     console.log(err);
@@ -64,6 +64,7 @@ const useAuth = (navigateTo?: any) => {
                 });
               } else {
                 console.log("existing user");
+                //fetch data: to do?
               }
 
               dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email, token: kakaoToken }));

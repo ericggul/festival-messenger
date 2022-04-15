@@ -31,12 +31,6 @@ export const ChatSection = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-`;
 
-export const SingleRow = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+  margin-top: 30px;
 `;
-
-export const SingleMessage = styled.div``;

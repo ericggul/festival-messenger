@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserInformation, createUserInformation } from "@R/users/middleware";
 
-type SliceState = { uid: any; email: any; isLoading: any; token?: any; landingUrl?: any; name?: any; profileImage?: any };
+type SliceState = { uid: any; email: any; isLoading: any; name?: any; profileImage?: any; token?: any; landingUrl?: any };
 const initialState: SliceState = {
   uid: null,
   email: null,
@@ -33,16 +33,16 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserInformation.fulfilled, (state, action) => {
+        state.profileImage = action.payload.profileImage;
+        state.name = action.payload.name;
+
         console.log(action.payload);
-        state = action.payload;
-        console.log(state);
       })
       .addCase(createUserInformation.fulfilled, (state, action) => {
         state.token = action.meta.arg.token;
         state.email = action.meta.arg.email;
         state.name = action.meta.arg.name;
 
-        console.log(action.payload);
         if (action.payload) {
           state.profileImage = action.payload;
         }

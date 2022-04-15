@@ -14,7 +14,8 @@ export const TimeLine = styled.div<LengthProps>`
 `;
 
 export const TimeSection = styled.div`
-  ${FlexCenterStyle};
+  display: flex;
+  margin-left: calc(6.5rem - 59px);
   flex-direction: row;
 `;
 

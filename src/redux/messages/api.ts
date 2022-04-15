@@ -38,7 +38,6 @@ export async function fetchAllMessagesFromFirestore(chatId: any) {
   let result: any[] = [];
   querySnapShot.forEach((doc: any) => {
     let data = doc.data();
-    delete data["createdAt"];
     result.push({ ...data, messageId: doc.id });
   });
 

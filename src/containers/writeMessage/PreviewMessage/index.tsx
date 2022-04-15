@@ -67,9 +67,10 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
       setMessageSendFinished(true);
       dispatch(actions.reset());
 
-      window.confirm("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
+      if (window.confirm("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!")) {
+        shareThroughKakao();
+      }
 
-      shareThroughKakao();
       navigate("/map");
     }
   });

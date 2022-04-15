@@ -9,6 +9,9 @@ import OpenMessageModal from "@F/modal/content/openMessage/OpenMessageModal";
 
 import LoadingContainer from "@C/Loading";
 
+////redux
+import { useAppDispatch, useAppSelector } from "@R/common/hooks";
+
 //Icons
 import Explore from "@I/icons/map/explore.svg";
 import Location2 from "@I/icons/map/location-2.svg";
@@ -18,6 +21,8 @@ import Update from "@I/icons/map/rotate-small-right.svg";
 import speak from "@U/functions/speak";
 
 function Map() {
+  const user = useAppSelector((state) => state.users);
+  console.log(user);
   //Message Send Popup
   const [messageSendMode, setMessageSendMode] = useState(false);
   const [latLng, setLatLng] = useState<any>(!null);

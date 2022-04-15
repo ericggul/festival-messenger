@@ -1,6 +1,6 @@
 import { usersRef, userStorageRef } from "@U/initalizer/firebase";
 import { doc, getDoc, getDocs, setDoc, deleteDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, listAll } from "firebase/storage";
 
 import TestImg from "@S/assets/test.png";
 
@@ -15,12 +15,27 @@ export async function fetchUserInformationFromFirestore(userId: any) {
 export async function createUserInformationFromFirestore(user: any) {
   let imageUrl = user.kakaoProfileImageUrl;
   if (user.profileImage) {
-    const idRef = ref(userStorageRef, `${user.id}_profile.${user.profileImage.type.split("/").pop()}`);
-    await uploadBytesResumable(idRef, user.profileImage, {
+    const userSpecificImageRef = ref(userStorageRef, user.id);
+    let preceedingIndexes = 0;
+
+    try {
+      let lists = await listAll(userSpecificImageRef);
+      lists.items.forEach((file) => {
+        preceedingIndexes++;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log(preceedingIndexes);
+    const thisRef = ref(userSpecificImageRef, `${preceedingIndexes}.${user.profileImage.type.split("/").pop()}`);
+
+    // const idRef = ref(userStorageRef, `${user.id}_profile.${user.profileImage.type.split("/").pop()}`);
+    await uploadBytesResumable(thisRef, user.profileImage, {
       contentType: user.profileImage.type,
     });
 
-    imageUrl = await getDownloadURL(idRef);
+    imageUrl = await getDownloadURL(thisRef);
   }
 
   await setDoc(

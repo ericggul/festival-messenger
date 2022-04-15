@@ -3,48 +3,13 @@ import * as S from "./styles";
 
 //containers
 import TimeSection from "@C/messenger/TimeSection";
-
+import SingleChatRow from "@C/messenger/SingleChatRow";
 //navigate
 import { useNavigate } from "react-router-dom";
 
 //redux
 import { fetchChatsByMember } from "@R/chats/middleware";
-import { fetchAllMessages } from "@R/messages/middleware";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-
-const SingleChatRow = ({ chatId }: any) => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [messages, setMessages] = useState([]);
-  const [messageReady, setMessageReady] = useState(false);
-
-  useEffect(() => {
-    retriveMessages();
-  }, [chatId]);
-
-  async function retriveMessages() {
-    try {
-      const fetchedMessages = await dispatch(fetchAllMessages(chatId));
-      setMessages(fetchedMessages.payload);
-      setMessageReady(true);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  console.log(messages);
-
-  return (
-    <S.SingleRow>
-      {messageReady &&
-        messages.map((message: any, i: number) => (
-          <S.SingleMessage onClick={() => navigate(`/message/${chatId}/${message.messageId}`)} key={i}>
-            {message.messageId}
-          </S.SingleMessage>
-        ))}
-    </S.SingleRow>
-  );
-};
 
 function Messenger() {
   //time Interval: Hours

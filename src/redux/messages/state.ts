@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchChatsById, fetchChatsByMember } from "@R/chats/middleware";
-import { addMemberToChat, fetchAllMessages, fetchMessage, createNewMessage, alterMessageReadState, alterMessageTo, deleteMessage } from "@/redux/messages/middleware";
+import { addMemberToChat, fetchMessage, createNewMessage, alterMessageReadState, alterMessageTo, deleteMessage } from "@/redux/messages/middleware";
 
 //members only include users who are registered priorly: updateMembers used to update
 // export type User = { uid: String; name?: String };
