@@ -1,7 +1,7 @@
 //redux
 
 import { fetchChatsByMembers } from "@R/chats/middleware";
-import { createNewChat, createNewMessage } from "@R/messages/middleware";
+import { createNewChat, createNewMessage, updateChatLastUpdatedAt } from "@R/messages/middleware";
 
 import { NO_PROFILE } from "@U/hooks/useAuth";
 
@@ -79,6 +79,13 @@ export default async function handleSend(
   } catch (e) {
     alert(e);
     console.log("cannot create chat!", e);
+  }
+
+  //3. Update Chat serverTimestamp
+  try {
+    await dispatch(updateChatLastUpdatedAt(chatId));
+  } catch (e) {
+    console.log(e);
   }
 
   setChatId(chatId);

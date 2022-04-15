@@ -20,6 +20,13 @@ export async function addMemberToChatFromFirestore(chatId: any, members: any) {
   return docSnap.exists() ? docSnap.data().members : [];
 }
 
+export async function updateChatLastUpdatedAtFromFirestore(chatId: any) {
+  const docRef = doc(chatsRef, chatId);
+  await updateDoc(docRef, {
+    lastUpdatedAt: serverTimestamp(),
+  });
+}
+
 ///Fetching Messages
 
 export async function fetchAllMessagesFromFirestore(chatId: any) {
@@ -32,7 +39,7 @@ export async function fetchAllMessagesFromFirestore(chatId: any) {
   querySnapShot.forEach((doc: any) => {
     let data = doc.data();
     delete data["createdAt"];
-    result.push(data);
+    result.push({ ...data, messageId: doc.id });
   });
 
   return result;

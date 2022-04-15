@@ -36,8 +36,14 @@ export const Box = styled.div<BoxInterface>`
   left: ${({ left }) => left}px;
   font-size: 3vw;
 
-  animation: ${AppearAnimation} 0.25s backwards;
-  animation-delay: ${({ idx }) => idx * 0.1}s;
+  animation: rotating 10s infinite linear;
 
-  transform: rotate(${({ angle }) => angle}deg);
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `;

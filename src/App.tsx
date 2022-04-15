@@ -5,10 +5,10 @@ import styled, { ThemeProvider } from "styled-components";
 import NotFound from "@P/NotFound";
 
 import useResize from "@U/hooks/useResize";
-import { FlexCenterStyle } from "@S/style/responsive/display";
+
 import { GlobalStyle, theme } from "@S/style/index";
 import routes from "@/routes";
-import PageLoading from "@F/loading/PageLoading";
+import LoadingContainer from "@C/Loading";
 
 const Message = lazy(() => import("@/pages/message"));
 
@@ -26,13 +26,7 @@ function App() {
               key={i}
               path={route.path}
               element={
-                <Suspense
-                  fallback={
-                    <LoadingWrapper height={windowHeight}>
-                      <PageLoading />
-                    </LoadingWrapper>
-                  }
-                >
+                <Suspense fallback={<LoadingContainer />}>
                   <route.component />
                 </Suspense>
               }
@@ -47,13 +41,3 @@ function App() {
 }
 
 export default App;
-
-interface LoadingWrapperEl {
-  height: number;
-}
-
-const LoadingWrapper = styled.div<LoadingWrapperEl>`
-  width: 100%;
-  height: ${({ height }) => height}px;
-  ${FlexCenterStyle};
-`;

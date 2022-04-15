@@ -41,7 +41,7 @@ function Loading() {
 
   return (
     <S.Container>
-      {Array.from({ length: 40 }, () => getRandom(windowWidth * 0.1, windowWidth * 0.35)).map((size, i) => (
+      {Array.from({ length: 40 }, () => getRandom(windowWidth * 0.2, windowWidth * 0.35)).map((size, i) => (
         <Component key={i} top={getRandom(0, windowHeight) - size / 2} left={getRandom(0, windowWidth) - size / 2} idx={i} angle={getRandom(0, 360)} size={size} color={getRandomColor()} />
       ))}
     </S.Container>

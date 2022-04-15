@@ -5,12 +5,13 @@ import { addMemberToChat, fetchAllMessages, fetchMessage, createNewMessage, alte
 //members only include users who are registered priorly: updateMembers used to update
 // export type User = { uid: String; name?: String };
 export type Message = { messageId: String; messageFrom: String; messageTo: String; toName: String; mainText: String; latLngPos: any; read: any; color: any; font: any; imageUrl?: any; musicUrl?: any };
-export type Chat = { members: String[]; chatId: String; messages: Message[] };
+export type Chat = { members: String[]; chatId: String; messages: Message[]; lastUpdatedAt: any };
 
 const initialState: Chat = {
   chatId: "",
   members: [],
   messages: [],
+  lastUpdatedAt: null,
 };
 
 const slice = createSlice({
@@ -30,9 +31,7 @@ const slice = createSlice({
       .addCase(addMemberToChat.fulfilled, (state, action) => {
         state.members = action.payload;
       })
-      .addCase(fetchAllMessages.fulfilled, (state, action) => {
-        state.messages = action.payload;
-      })
+
       .addCase(createNewMessage.fulfilled, (state, action) => {
         let copiedMessages = state.messages || [];
         let newMessage = action.meta.arg;

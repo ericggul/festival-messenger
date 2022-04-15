@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   createNewChatFromFirestore,
   addMemberToChatFromFirestore,
+  updateChatLastUpdatedAtFromFirestore,
   fetchAllMessagesFromFirestore,
   fetchMessageFromFirestore,
   createNewMessageFromFirestore,
@@ -18,6 +19,10 @@ export const createNewChat = createAsyncThunk("messages/createNewChat", async (m
 export const addMemberToChat = createAsyncThunk("messages/addMemberToChat", async (params: any) => {
   const response = await addMemberToChatFromFirestore(params.chatId, params.members);
   return response;
+});
+
+export const updateChatLastUpdatedAt = createAsyncThunk("messages/updateChatLastUpdatedAt", async (chatId: any) => {
+  await updateChatLastUpdatedAtFromFirestore(chatId);
 });
 
 export const fetchAllMessages = createAsyncThunk("messages/fetchAllMessages", async (chatId: String) => {

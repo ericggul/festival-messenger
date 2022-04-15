@@ -1,22 +1,48 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as S from "./styles";
 
-const TimeSection = ({ maxTimeBefore, timeInterval }: any) => {
-  return (
-    <>
-      <S.TimeLine length={Math.floor(maxTimeBefore / timeInterval) * 128} />
+//containers
+import TimeSection from "@C/messenger/TimeSection";
 
-      <S.TimeSection>
-        {new Array(Math.ceil(maxTimeBefore / timeInterval)).fill(0).map((_, i) => (
-          <S.TimeContainer key={i}>
-            <S.TimeText>{`${i * timeInterval}시간전`}</S.TimeText>
-            <S.TimeBubble>
-              <S.InnerTimeBubble />
-            </S.TimeBubble>
-          </S.TimeContainer>
+//navigate
+import { useNavigate } from "react-router-dom";
+
+//redux
+import { fetchChatsByMember } from "@R/chats/middleware";
+import { fetchAllMessages } from "@R/messages/middleware";
+import { useAppDispatch, useAppSelector } from "@R/common/hooks";
+
+const SingleChatRow = ({ chatId }: any) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [messages, setMessages] = useState([]);
+  const [messageReady, setMessageReady] = useState(false);
+
+  useEffect(() => {
+    retriveMessages();
+  }, [chatId]);
+
+  async function retriveMessages() {
+    try {
+      const fetchedMessages = await dispatch(fetchAllMessages(chatId));
+      setMessages(fetchedMessages.payload);
+      setMessageReady(true);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  console.log(messages);
+
+  return (
+    <S.SingleRow>
+      {messageReady &&
+        messages.map((message: any, i: number) => (
+          <S.SingleMessage onClick={() => navigate(`/message/${chatId}/${message.messageId}`)} key={i}>
+            {message.messageId}
+          </S.SingleMessage>
         ))}
-      </S.TimeSection>
-    </>
+    </S.SingleRow>
   );
 };
 
@@ -27,10 +53,45 @@ function Messenger() {
 
   const innerContainerRef = useRef<any>(null);
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.users);
+  const chatsReduxState = useAppSelector((state) => state.chats);
+  const [currentChats, setCurrentChats] = useState(chatsReduxState.chats);
+  const [chatLoaded, setChatLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!user.uid) {
+      navigate("/login");
+      return;
+    }
+    retriveChat();
+  }, [user]);
+
+  async function retriveChat() {
+    try {
+      await dispatch(fetchChatsByMember(user.uid));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    let reduxChats = [...chatsReduxState.chats];
+    setCurrentChats(
+      reduxChats.sort((a, b) => {
+        return b.lastUpdatedAt.seconds - a.lastUpdatedAt.seconds;
+      })
+    );
+    setChatLoaded(true);
+  }, [chatsReduxState]);
+
   return (
     <S.Container>
       <S.InnerContainer ref={innerContainerRef}>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} />
+        <S.ChatSection>{chatLoaded && currentChats.map((chat, i) => <SingleChatRow key={i} chatId={chat.chatId} />)}</S.ChatSection>
       </S.InnerContainer>
     </S.Container>
   );
