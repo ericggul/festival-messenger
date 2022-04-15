@@ -14,4 +14,5 @@ export const ProfileImg = styled.img`
   height: 45px;
   object-fit: cover;
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 `;

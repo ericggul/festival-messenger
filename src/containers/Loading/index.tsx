@@ -68,26 +68,26 @@ import Loading62 from "@F/loading/hundreadLoadings/Loading62";
 import Loading63 from "@F/loading/hundreadLoadings/Loading63";
 import Loading64 from "@F/loading/hundreadLoadings/Loading64";
 import Loading65 from "@F/loading/hundreadLoadings/Loading65";
-// import Loading66 from "@F/loading/hundreadLoadings/Loading66";
-// import Loading67 from "@F/loading/hundreadLoadings/Loading67";
-// import Loading68 from "@F/loading/hundreadLoadings/Loading68";
-// import Loading69 from "@F/loading/hundreadLoadings/Loading69";
-// import Loading70 from "@F/loading/hundreadLoadings/Loading70";
-// import Loading71 from "@F/loading/hundreadLoadings/Loading71";
-// import Loading72 from "@F/loading/hundreadLoadings/Loading72";
-// import Loading73 from "@F/loading/hundreadLoadings/Loading73";
-// import Loading74 from "@F/loading/hundreadLoadings/Loading74";
-// import Loading75 from "@F/loading/hundreadLoadings/Loading75";
-// import Loading76 from "@F/loading/hundreadLoadings/Loading76";
-// import Loading77 from "@F/loading/hundreadLoadings/Loading77";
-// import Loading78 from "@F/loading/hundreadLoadings/Loading78";
-// import Loading79 from "@F/loading/hundreadLoadings/Loading79";
-// import Loading80 from "@F/loading/hundreadLoadings/Loading80";
+import Loading66 from "@F/loading/hundreadLoadings/Loading66";
+import Loading67 from "@F/loading/hundreadLoadings/Loading67";
+import Loading68 from "@F/loading/hundreadLoadings/Loading68";
+import Loading69 from "@F/loading/hundreadLoadings/Loading69";
+import Loading70 from "@F/loading/hundreadLoadings/Loading70";
+import Loading71 from "@F/loading/hundreadLoadings/Loading71";
+import Loading72 from "@F/loading/hundreadLoadings/Loading72";
+import Loading73 from "@F/loading/hundreadLoadings/Loading73";
+import Loading74 from "@F/loading/hundreadLoadings/Loading74";
+import Loading75 from "@F/loading/hundreadLoadings/Loading75";
+import Loading76 from "@F/loading/hundreadLoadings/Loading76";
+import Loading77 from "@F/loading/hundreadLoadings/Loading77";
+import Loading78 from "@F/loading/hundreadLoadings/Loading78";
+import Loading79 from "@F/loading/hundreadLoadings/Loading79";
+import Loading80 from "@F/loading/hundreadLoadings/Loading80";
 
 function Loading() {
   return (
     <S.Container>
-      <Loading63 />
+      <Loading80 />
     </S.Container>
   );
 }
