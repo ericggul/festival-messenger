@@ -21,8 +21,6 @@ import Update from "@I/icons/map/rotate-small-right.svg";
 import speak from "@U/functions/speak";
 
 function Map() {
-  const user = useAppSelector((state) => state.users);
-  console.log(user);
   //Message Send Popup
   const [messageSendMode, setMessageSendMode] = useState(false);
   const [latLng, setLatLng] = useState<any>(!null);

@@ -65,7 +65,10 @@ function MessageContents({ toName, mainText, color, font, image, music }: any) {
 
         <S.MainText isTextBlack={isTextBlack}>
           {mainText.split("\n").map((e: any, i: number) => (
-            <div key={i}>{e} </div>
+            <React.Fragment key={i}>
+              {e}
+              <br />
+            </React.Fragment>
           ))}
         </S.MainText>
       </S.MessagePanel>

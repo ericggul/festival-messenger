@@ -58,14 +58,8 @@ export const MainText = styled.div<IsTextBlack>`
 
   color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
 
-  display: flex;
-  flex-direction: column;
   line-break: normal;
   word-break: break-all;
-
-  &::div {
-    max-width: 100%;
-  }
 `;
 
 interface ImgContainer {

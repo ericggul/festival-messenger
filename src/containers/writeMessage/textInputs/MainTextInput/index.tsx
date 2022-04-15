@@ -8,10 +8,14 @@ const MainTextInput = ({ defaultText, getTextState, onTextRespond, isTextBlack }
   const { value: mainText, onChange: onMainTextChange, setValue: setMainText } = useInput(defaultText || "");
   const textAreaEl = useRef<any>(!null);
 
-  const handleHeightAdjust = (e: any) => {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
+  const handleHeightAdjust = () => {
+    textAreaEl.current.style.height = "inherit";
+    textAreaEl.current.style.height = `${textAreaEl.current.scrollHeight}px`;
   };
+
+  useEffect(() => {
+    handleHeightAdjust();
+  }, []);
 
   useEffect(() => {
     if (getTextState) {

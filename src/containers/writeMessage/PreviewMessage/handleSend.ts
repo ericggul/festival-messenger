@@ -91,7 +91,6 @@ export default async function handleSend(
   setChatId(chatId);
   setMessageId(messageId);
 
-  console.log(user);
   setProfileImg(user.profileImage || NO_PROFILE);
   setProfileName(user.name || "NO NAME");
 

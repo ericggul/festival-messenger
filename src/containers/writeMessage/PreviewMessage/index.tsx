@@ -104,9 +104,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
       {messageSendFinished ? (
         <ES.Container>
           <ES.Text>
-            <p>메시지 전송 완료!</p>
-            <p>친구한테 카카오톡 메시지를 보내서 메시지 링크를 전송해주세요!</p>
-            <p>브라우저 팝업을 허용해야 합니다.</p>
+            <p>친구한테 카카오톡을 보내서 메시지 링크를 전송해주세요!</p>
           </ES.Text>
           <ES.ToMainButton onClick={shareThroughKakao}>카카오톡 보내기</ES.ToMainButton>
         </ES.Container>
@@ -114,13 +112,16 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
         <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />
       )}
 
-      <ControlPanel
-        handleEdit={handleEdit}
-        handleSend={() => {
-          setMessageSendStarted(true);
-          handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen, setChatId, setMessageId, setProfileName, setProfileImg);
-        }}
-      />
+      {!messageSendFinished && (
+        <ControlPanel
+          handleEdit={handleEdit}
+          handleSend={() => {
+            setMessageSendStarted(true);
+            handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen, setChatId, setMessageId, setProfileName, setProfileImg);
+          }}
+        />
+      )}
+
       {modalComponent}
     </>
   );
