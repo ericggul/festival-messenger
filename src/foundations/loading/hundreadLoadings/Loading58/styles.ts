@@ -13,24 +13,26 @@ export const Container = styled.div`
   flex-direction: column;
   background: linear-gradient(white, black, white);
 `;
+interface CircleInterface {
+  top: number;
+  left: number;
+  size: number;
+}
 
-export const Rectangle = styled.div`
-  width: 100%;
-  height: 33.33%;
-  ${FlexCenterStyle};
-
-  background: rgba(255, 255, 255, 0.7);
-`;
-
-export const Circle = styled.div`
+export const Circle = styled.div<CircleInterface>`
+  mix-blend-mode: difference;
   font-family: Times New Roman;
+  position: absolute;
   width: 10vh;
   height: 10vh;
   border-radius: 50%;
-  background: black;
+
+  top: ${({ top }) => top}px;
+  left: ${({ left }) => left}px;
+
   ${FlexCenterStyle};
   text-align: center;
   color: white;
-  font-size: 7vh;
+  font-size: ${({ size }) => size}vh;
   font-weight: 800;
 `;

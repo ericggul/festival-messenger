@@ -4,6 +4,7 @@ import { FlexCenterStyle } from "@S/style/responsive/display";
 
 export const Container = styled.div`
   ${ContainerStyles};
+  font-family: Times New Roman;
   position: relative;
 
   width: ${({ theme }) => theme.windowWidth}px;
@@ -11,26 +12,29 @@ export const Container = styled.div`
 
   text-align: center;
   flex-direction: column;
-  background: linear-gradient(white, black, white);
+  background: radial-gradient(rgb(250, 250, 100), rgb(100, 150, 250));
 `;
+interface CircleInterface {
+  top: number;
+  left: number;
+  size: number;
+  rotate: number;
+}
 
-export const Rectangle = styled.div`
-  width: 100%;
-  height: 33.33%;
-  ${FlexCenterStyle};
-
-  background: rgba(255, 255, 255, 0.7);
-`;
-
-export const Circle = styled.div`
-  font-family: Times New Roman;
+export const Circle = styled.div<CircleInterface>`
+  mix-blend-mode: difference;
+  position: absolute;
   width: 10vh;
   height: 10vh;
   border-radius: 50%;
-  background: black;
+
+  top: ${({ top }) => top}px;
+  left: ${({ left }) => left}px;
+
   ${FlexCenterStyle};
   text-align: center;
   color: white;
-  font-size: 7vh;
+  font-size: ${({ size }) => size}vh;
+  transform: rotate(${({ rotate }) => rotate}deg);
   font-weight: 800;
 `;

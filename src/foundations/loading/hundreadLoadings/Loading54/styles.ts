@@ -11,7 +11,7 @@ export const Container = styled.div`
 
   text-align: center;
   flex-direction: column;
-  background: linear-gradient(white, black, white);
+  background: linear-gradient(rgb(170, 250, 200), rgb(100, 0, 100), rgb(200, 250, 170));
 `;
 
 export const Rectangle = styled.div`
@@ -19,7 +19,7 @@ export const Rectangle = styled.div`
   height: 33.33%;
   ${FlexCenterStyle};
 
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 250, 255, 0.7);
 `;
 
 export const Circle = styled.div`
@@ -27,7 +27,7 @@ export const Circle = styled.div`
   width: 10vh;
   height: 10vh;
   border-radius: 50%;
-  background: black;
+  background: rgb(70, 0, 70);
   ${FlexCenterStyle};
   text-align: center;
   color: white;

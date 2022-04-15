@@ -10,4 +10,5 @@ export const ContainerStyles = css`
   height: ${({ theme }) => theme.windowHeight}px;
   ${FlexCenterStyle};
   animation: ${AppearAnimation} 0.3s;
+  overflow: hidden;
 `;
