@@ -5,6 +5,7 @@ interface HeaderContainerProps {
   color: any;
 }
 export const HeaderContainer = styled.div<HeaderContainerProps>`
+  touch-action: pan-x pan-y;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => (theme.windowWidth < 768 ? 75 : 100)}px;
   position: fixed;

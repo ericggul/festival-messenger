@@ -11,6 +11,7 @@ import { GlobalStyle, theme } from "@S/style/index";
 import routes from "@/routes";
 import LoadingContainer from "@C/Loading";
 
+
 const Message = lazy(() => import("@/pages/message"));
 
 function App() {

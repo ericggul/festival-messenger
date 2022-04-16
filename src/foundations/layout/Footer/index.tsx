@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 //Redux hooks
 import { useAppSelector } from "@R/common/hooks";
 
+//helment
+import { Helmet } from "react-helmet";
+
 //Images Import
 import OutlineLocation from "@I/icons/footer/outline/location.svg";
 import OutlineLogin from "@I/icons/footer/outline/login.svg";
@@ -62,6 +65,9 @@ function Footer({ currentLoc, color = `rgba(255, 255, 255, .6)` }: FooterProps) 
 
   return (
     <S.FooterContainer color={color}>
+      <Helmet>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+      </Helmet>
       <IconContainer iconText="Messenger" currentLoc={currentLoc} />
       <IconContainer iconText="Map" currentLoc={currentLoc} />
       {user.uid ? <IconContainer currentLoc={currentLoc} iconText="Settings" /> : <IconContainer currentLoc={currentLoc} iconText="Login" />}

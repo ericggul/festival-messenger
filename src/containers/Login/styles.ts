@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
 
 export const Container = styled.div`
+  touch-action: pan-x pan-y;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   ${FlexCenterStyle};

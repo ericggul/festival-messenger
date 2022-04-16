@@ -30,17 +30,17 @@ function MessageContents({ toName, mainText, color, font, image, music }: any) {
   useEffect(() => {
     if (imageSize.width !== 0 && imageSize.height !== 0) {
       let ratio = imageSize.height / imageSize.width;
-      if (windowWidth * ratio > windowHeight * 0.4) {
+      if (windowWidth * ratio > windowHeight * 0.5) {
         let standardWidth = Math.min(windowHeight, windowWidth) * 0.8;
-        if ((windowHeight * 0.4) / ratio < standardWidth * 1.2 && (windowHeight * 0.4) / ratio > standardWidth * 0.8) {
+        if ((windowHeight * 0.5) / ratio < standardWidth * 1.2 && (windowHeight * 0.5) / ratio > standardWidth * 0.8) {
           setImgDim({
             width: standardWidth,
             height: standardWidth * ratio,
           });
         } else {
           setImgDim({
-            width: (windowHeight * 0.4) / ratio,
-            height: windowHeight * 0.4,
+            width: (windowHeight * 0.5) / ratio,
+            height: windowHeight * 0.5,
           });
         }
       } else {

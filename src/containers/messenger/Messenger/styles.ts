@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
-  touch-action: pan-x pan-y;
   position: fixed;
   top: 0;
   left: 0;
@@ -20,6 +19,7 @@ export const Container = styled.div`
 
 export const InnerContainer = styled.div`
   position: absolute;
+  touch-action: pan-x pan-y;
 
   left: 0;
   top: 0;

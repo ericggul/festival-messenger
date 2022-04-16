@@ -5,10 +5,10 @@ interface HeaderContainerProps {
   color: any;
 }
 export const FooterContainer = styled.div<HeaderContainerProps>`
+  touch-action: pan-x pan-y;
   width: ${({ theme }) => theme.windowWidth}px;
   height: 95px;
   position: fixed;
-  // top: ${({ theme }) => theme.windowHeight - 95}px;
   bottom: 0;
   left: 0;
   background: ${({ color }) => color};

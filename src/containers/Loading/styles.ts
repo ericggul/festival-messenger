@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  touch-action: pan-x pan-y;
   position: fixed;
   top: 0;
   left: 0;

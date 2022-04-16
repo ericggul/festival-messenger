@@ -40,15 +40,12 @@ export default function usePinchGestures() {
         break;
       }
     }
-
-    // if(evCache.length < 2){
-    //    setDistance(-1);
-    // }
   }
 
   useEffect(() => {
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("touchmove", handlePointerMove);
     document.addEventListener("pointerup", handlePointerUp);
     document.addEventListener("poinetercancel", handlePointerUp);
     document.addEventListener("pointerout", handlePointerUp);
@@ -57,6 +54,7 @@ export default function usePinchGestures() {
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("touchmove", handlePointerMove);
       document.removeEventListener("pointerup", handlePointerUp);
       document.removeEventListener("poinetercancel", handlePointerUp);
       document.removeEventListener("pointerout", handlePointerUp);
