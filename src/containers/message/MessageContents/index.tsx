@@ -3,6 +3,7 @@ import * as S from "./styles";
 
 //foundations
 import MessageBackground from "@F/background/MessageBackground";
+import MouseTrail from "@F/animations/MouseTrail";
 
 //hooks
 import useResize from "@U/hooks/useResize";
@@ -72,6 +73,7 @@ function MessageContents({ toName, mainText, color, font, image, music }: any) {
           ))}
         </S.MainText>
       </S.MessagePanel>
+      <MouseTrail color={color} />
     </S.Container>
   );
 }
