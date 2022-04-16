@@ -14,9 +14,10 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 function Messenger() {
   //time Interval: Hours
   //How long 1 hour is in display
-  const [distancePerTime, setDistanceInterval] = useState(10);
+  const [distancePerTime, setDistanceInterval] = useState(1);
   //How much time interval is setted in a Time Section
   const [timeInterval, setTimeInterval] = useState(6);
+  //Display Recent 72 hours result
   const [maxTimeBefore, setMaxTimeBefore] = useState(72);
 
   const innerContainerRef = useRef<any>(null);

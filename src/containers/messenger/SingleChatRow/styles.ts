@@ -6,7 +6,7 @@ export const SingleRow = styled.div`
   align-items: center;
   flex-direction: row;
 
-  height: 75px;
+  height: 6.3rem;
 
   position: relative;
 `;
@@ -20,23 +20,23 @@ export const SingleMessage = styled.div<AbsolutePos>`
   flex-direction: column;
 
   position: absolute;
-  left: ${({ left }) => left}px;
+  left: ${({ left }) => left}rem;
 `;
 
 export const ProfileImg = styled.img`
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 4rem;
+  height: 4rem;
   object-fit: cover;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
 `;
 
 export const Time = styled.p`
   margin: 0;
   padding: 0;
-  font-size: 8px;
+  font-size: 0.67rem;
   font-weight: light;
   color: #666;
-  margin-top: 4px;
+  margin-top: 0.33rem;
 `;
