@@ -26,8 +26,8 @@ interface BoxInterface {
 export const Box = styled.div<BoxInterface>`
   position: absolute;
   ${FlexCenterStyle};
-  width: 10vw;
-  height: 10vw;
+  width: 100px;
+  height: 100px;
   color: white;
 
   top: ${({ top }) => top}px;

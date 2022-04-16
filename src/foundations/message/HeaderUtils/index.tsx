@@ -13,7 +13,7 @@ import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 //Icons
 import BackIcon from "@I/icons/writeMessage/back_white.svg";
 
-function HeaderUtils({ messageToSend, latLng, messageFromReads }: any) {
+function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComingFrom }: any) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -43,14 +43,14 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads }: any) {
 
   return (
     <S.HeaderUtils>
-      <S.Back onClick={() => navigate("/map")}>
+      <S.Back onClick={() => navigate(`/${navigationComingFrom}`)}>
         <S.Icon src={BackIcon} />
-        <S.Text>Back to map</S.Text>
+        <S.Text>Back to {navigationComingFrom}</S.Text>
       </S.Back>
       {messageFromReads ? (
-        <S.Reply cursor={false}>내가 보낸 메시지</S.Reply>
+        <S.Reply cursor={"default"}>내가 보낸 메시지</S.Reply>
       ) : (
-        <S.Reply cursor={true} onClick={handleIconClick}>
+        <S.Reply cursor={"pointer"} onClick={handleIconClick}>
           답장 보내기
         </S.Reply>
       )}

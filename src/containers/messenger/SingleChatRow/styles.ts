@@ -29,7 +29,7 @@ export const ProfileImg = styled.img`
   height: 4rem;
   object-fit: cover;
   cursor: pointer;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 `;
 
 export const Time = styled.p`

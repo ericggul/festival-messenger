@@ -9,7 +9,7 @@ function Message() {
 
   return (
     <>
-      <MessageConatiner chatId={params.chatId} messageId={params.messageId} />
+      <MessageConatiner chatId={params.chatId} messageId={params.messageId} navigationComingFrom={params.navigationComingFrom && params.navigationComingFrom} />
     </>
   );
 }

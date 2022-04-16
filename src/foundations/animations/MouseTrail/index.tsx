@@ -11,8 +11,10 @@ function MouseTrail({ color }: any) {
 }
 
 function removeMouseTrail() {
-  const removeElements = (elements: any) => elements.forEach((element: any) => element.remove());
-  removeElements(document.querySelectorAll(".mouseTrailElement"));
+  console.log("remove");
+  console.log(document.querySelectorAll(".mouseTrailElement"));
+
+  document.querySelectorAll(".mouseTrailElement").forEach((e: any) => e.remove());
 }
 
 function triggerMouseTrail(color: any) {
@@ -53,7 +55,6 @@ function triggerMouseTrail(color: any) {
   }
 
   function draw() {
-    console.log("drawing");
     let { x, y } = mouse;
     dots.forEach((dot: any, i: number) => {
       const nextDot = dots[i + 1] || dots[0];
@@ -65,10 +66,7 @@ function triggerMouseTrail(color: any) {
     });
   }
 
-  console.log("trigerred");
-  console.log(mouse);
   document.addEventListener("mousemove", (ev) => {
-    console.log(ev);
     mouse.x = ev.pageX;
     mouse.y = ev.pageY;
   });

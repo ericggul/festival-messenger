@@ -6,6 +6,8 @@ import useResize from "@U/hooks/useResize";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@R/common/hooks";
 
+import LoadingContainer from "@C/Loading";
+
 //icons
 import Cancel from "@I/icons/modal/cancel.svg";
 import Send from "@I/icons/footer/outline/send.svg";
@@ -48,6 +50,8 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const user = useAppSelector((state) => state.users);
   const { signIn } = useAuth("/map");
 
+  const [loadingForLogin, setLoadingForLogin] = useState(false);
+
   const bringFriends = () => {
     if (user.token) {
       const token = window.Kakao.Auth.getAccessToken();
@@ -65,6 +69,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
       });
     } else {
       alert(user.uid ? "재로그인이 필요합니다!" : "로그인이 필요합니다!");
+      setLoadingForLogin(true);
       signIn();
     }
   };
@@ -113,6 +118,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
           </S.OtherFriendsList>
         </S.Contents>
       </S.Box>
+      {loadingForLogin && <LoadingContainer />}
     </>
   );
 }

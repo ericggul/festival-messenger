@@ -41,7 +41,14 @@ const SingleChatRow = ({ distancePerTime, chatId }: any) => {
     <S.SingleRow>
       {messageReady &&
         messages.map((message: any, i: number) => (
-          <S.SingleMessage onClick={() => navigate(`/message/${chatId}/${message.messageId}`)} key={i} left={deltaTime(message.createdAt) * distancePerTime}>
+          <S.SingleMessage
+            onClick={(ev) => {
+              ev.stopPropagation();
+              navigate(`/message/${chatId}/${message.messageId}/messenger`);
+            }}
+            key={i}
+            left={deltaTime(message.createdAt) * distancePerTime}
+          >
             <S.ProfileImg src={message.messageFromProfile || NO_PROFILE} />
             <S.Time>{timeConverter(message.createdAt)}</S.Time>
           </S.SingleMessage>

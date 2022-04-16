@@ -11,7 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { fetchChatsByMember } from "@R/chats/middleware";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
+//hooks
+import usePinchGestures from "@U/hooks/usePinchGestures";
+
 function Messenger() {
+  const distance = usePinchGestures();
+
   //time Interval: Hours
   //How long 1 hour is in display
   const [distancePerTime, setDistanceInterval] = useState(1);
@@ -30,13 +35,13 @@ function Messenger() {
   const [currentChats, setCurrentChats] = useState(chatsReduxState.chats);
   const [chatLoaded, setChatLoaded] = useState(false);
 
-  useEffect(() => {
-    if (!user.uid) {
-      navigate("/login");
-      return;
-    }
-    retriveChat();
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user.uid) {
+  //     navigate("/login");
+  //     return;
+  //   }
+  //   retriveChat();
+  // }, [user]);
 
   async function retriveChat() {
     try {
@@ -58,6 +63,7 @@ function Messenger() {
 
   return (
     <S.Container>
+      {distance}
       <S.InnerContainer ref={innerContainerRef}>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
         <S.ChatSection>{chatLoaded && currentChats.map((chat, i) => <SingleChatRow distancePerTime={distancePerTime} key={i} chatId={chat.chatId} />)}</S.ChatSection>

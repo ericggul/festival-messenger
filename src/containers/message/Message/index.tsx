@@ -24,7 +24,7 @@ import { fetchMessage, addMemberToChat, alterMessageTo, alterMessageReadState } 
 import { fetchChatsById } from "@R/chats/middleware";
 import { actions } from "@R/users/state";
 
-function Message({ chatId, messageId }: any) {
+function Message({ chatId, messageId, navigationComingFrom = 'map' }: any) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -140,7 +140,9 @@ function Message({ chatId, messageId }: any) {
         geoPermittedStatus ? (
           messageReady && distanceMessageAvailable && userMessageAvailable ? (
             <>
-              <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid} />
+              <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid}
+              navigationComingFrom={navigationComingFrom}
+              />
               <MessageContents
                 toName={message.toName}
                 mainText={message.mainText.replaceAll("\\n", "\n")}

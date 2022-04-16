@@ -29,10 +29,10 @@ export const Icon = styled.img`
 export const Text = styled.div``;
 
 interface ReplyProps {
-  cursor: boolean;
+  cursor: any;
 }
 
 export const Reply = styled.div<ReplyProps>`
   margin-right: 1.5rem;
-  cursor: ${({ cursor }) => (cursor ? "pointer" : "default")};
+  cursor: ${({ cursor }) => cursor};
 `;

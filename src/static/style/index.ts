@@ -44,8 +44,6 @@ export const GlobalStyle = createGlobalStyle`
     user-select: none;
     color: black;
     
- 
-    
     &::-webkit-scrollbar {
       display: none; /* Chrome, Safari, Opera*/
     }
@@ -54,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     overscroll-behavior-y: none;
+ 
   }
   
   input, textarea, button {

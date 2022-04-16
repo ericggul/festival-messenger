@@ -8,7 +8,8 @@ export const FooterContainer = styled.div<HeaderContainerProps>`
   width: ${({ theme }) => theme.windowWidth}px;
   height: 95px;
   position: fixed;
-  top: ${({ theme }) => theme.windowHeight - 95}px;
+  // top: ${({ theme }) => theme.windowHeight - 95}px;
+  bottom: 0;
   left: 0;
   background: ${({ color }) => color};
   zindex: ${({ theme }) => theme.headerColor};

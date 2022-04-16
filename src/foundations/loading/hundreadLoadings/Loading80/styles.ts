@@ -51,6 +51,6 @@ export const Box = styled.div<BoxProps>`
   margin-left: ${({ idx, size }) => idx % 2 === 1 && -size * 0.07333}vw;
   font-size: ${({ idx, size }) => idx === 1 && size * 1.52}vw;
 
-  animation: ${AppearAnimation} 1s linear backwards;
+  animation: ${AppearAnimation} 0.5s linear backwards;
   animation-delay: ${({ idx }) => 3 - idx}s;
 `;

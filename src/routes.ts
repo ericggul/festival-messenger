@@ -37,6 +37,10 @@ const routes = [
     component: Message,
   },
   {
+    path: "/message/:chatId/:messageId/:navigationComingFrom",
+    component: Message,
+  },
+  {
     path: "/writeMessage",
     component: WriteMessage,
   },
