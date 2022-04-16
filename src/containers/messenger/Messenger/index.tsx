@@ -13,8 +13,11 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
 function Messenger() {
   //time Interval: Hours
-  const [timeInterval, setTimeInterval] = useState(3);
-  const [maxTimeBefore, setMaxTimeBefore] = useState(31);
+  //How long 1 hour is in display
+  const [distancePerTime, setDistanceInterval] = useState(10);
+  //How much time interval is setted in a Time Section
+  const [timeInterval, setTimeInterval] = useState(6);
+  const [maxTimeBefore, setMaxTimeBefore] = useState(72);
 
   const innerContainerRef = useRef<any>(null);
 
@@ -55,8 +58,8 @@ function Messenger() {
   return (
     <S.Container>
       <S.InnerContainer ref={innerContainerRef}>
-        <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} />
-        <S.ChatSection>{chatLoaded && currentChats.map((chat, i) => <SingleChatRow key={i} chatId={chat.chatId} />)}</S.ChatSection>
+        <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
+        <S.ChatSection>{chatLoaded && currentChats.map((chat, i) => <SingleChatRow distancePerTime={distancePerTime} key={i} chatId={chat.chatId} />)}</S.ChatSection>
       </S.InnerContainer>
     </S.Container>
   );

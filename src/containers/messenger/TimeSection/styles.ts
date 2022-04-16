@@ -13,19 +13,23 @@ export const TimeLine = styled.div<LengthProps>`
   background: ${({ theme }) => theme.palette.TIMELINE_GRAY};
 `;
 
-export const TimeSection = styled.div`
+interface DistanceProps {
+  distance: number;
+}
+
+export const TimeSection = styled.div<DistanceProps>`
   display: flex;
-  margin-left: calc(6.5rem - 59px);
+  margin-left: calc(6.5rem - ${({ distance }) => distance / 2 - 5}px);
   flex-direction: row;
 `;
 
-export const TimeContainer = styled.div`
+export const TimeContainer = styled.div<DistanceProps>`
   top: -6px;
   position: relative;
   ${FlexCenterStyle};
   flex-direction: column;
   width: 10px;
-  margin: 0 59px;
+  margin: 0 ${({ distance }) => distance / 2 - 5}px;
 `;
 
 export const TimeText = styled.div`

@@ -9,9 +9,12 @@ import { fetchChatsByMember } from "@R/chats/middleware";
 import { fetchAllMessages } from "@R/messages/middleware";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
+//Functions
+import { timeConverter, deltaTime } from "@U/functions/timeConverter";
+
 import { NO_PROFILE } from "@U/hooks/useAuth";
 
-const SingleChatRow = ({ chatId }: any) => {
+const SingleChatRow = ({ distancePerTime, chatId }: any) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [messages, setMessages] = useState([]);
@@ -24,21 +27,23 @@ const SingleChatRow = ({ chatId }: any) => {
   async function retriveMessages() {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chatId));
-      setMessages(fetchedMessages.payload.sort((a: any, b: any) => b.createdAt - a.createdAt));
+      setMessages(fetchedMessages.payload.sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds));
       setMessageReady(true);
     } catch (e) {
       console.log(e);
     }
   }
-
-  console.log(messages);
+  messages.map((msg: any) => {
+    timeConverter(msg.createdAt);
+  });
 
   return (
     <S.SingleRow>
       {messageReady &&
         messages.map((message: any, i: number) => (
-          <S.SingleMessage onClick={() => navigate(`/message/${chatId}/${message.messageId}`)} key={i}>
+          <S.SingleMessage onClick={() => navigate(`/message/${chatId}/${message.messageId}`)} key={i} left={deltaTime(message.createdAt) * distancePerTime}>
             <S.ProfileImg src={message.messageFromProfile || NO_PROFILE} />
+            <S.Time>{timeConverter(message.createdAt)}</S.Time>
           </S.SingleMessage>
         ))}
     </S.SingleRow>
