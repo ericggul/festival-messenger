@@ -11,16 +11,18 @@ export const SingleRow = styled.div`
   position: relative;
 `;
 
-interface AbsolutePos {
+interface LeftProps {
   left: number;
 }
 
-export const SingleMessage = styled.div<AbsolutePos>`
+export const SingleMessage = styled.div.attrs<LeftProps>((props) => ({
+  style: {
+    left: `${props.left}rem`,
+  },
+}))<LeftProps>`
   ${FlexCenterStyle};
   flex-direction: column;
-
   position: absolute;
-  left: ${({ left }) => left}rem;
 `;
 
 export const ProfileImg = styled.img`
