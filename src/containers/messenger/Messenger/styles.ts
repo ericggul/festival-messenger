@@ -29,6 +29,7 @@ export const InnerContainer = styled.div`
 `;
 
 export const ChatSection = styled.div`
+  margin-left: 6.5rem;
   display: flex;
   justify-content: center;
   flex-direction: column;

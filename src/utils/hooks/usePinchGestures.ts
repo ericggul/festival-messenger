@@ -71,7 +71,7 @@ export default function usePinchGestures() {
         endGesture(gesture);
         setGesture(null);
       }
-    }, 200);
+    }, 50);
     setTimer(tempTimer);
   }
 

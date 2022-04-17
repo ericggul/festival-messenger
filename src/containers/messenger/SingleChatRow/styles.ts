@@ -17,7 +17,7 @@ interface LeftProps {
 
 export const SingleMessage = styled.div.attrs<LeftProps>((props) => ({
   style: {
-    left: `${props.left}rem`,
+    left: `${props.left - 1.6}rem`,
   },
 }))<LeftProps>`
   ${FlexCenterStyle};

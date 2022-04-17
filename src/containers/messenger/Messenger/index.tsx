@@ -26,9 +26,11 @@ function Messenger() {
   const [maxTimeBefore, setMaxTimeBefore] = useState(72);
 
   useEffect(() => {
-    setDistancePerTimeInterval(distance);
+    setDistancePerTimeInterval((itv) => Math.max(Math.min(distance ** 0.1 * itv, 40), 0.1));
+  }, [distance]);
 
-    let inverseDistance = 6 / distance;
+  useEffect(() => {
+    let inverseDistance = 6 / distancePerTime;
     if (inverseDistance < 0.7) {
       setTimeInterval(0.5);
     } else if (inverseDistance < 2) {
@@ -44,7 +46,7 @@ function Messenger() {
     } else {
       setTimeInterval(72);
     }
-  }, [distance]);
+  }, [distancePerTime]);
 
   const innerContainerRef = useRef<any>(null);
 
@@ -84,7 +86,6 @@ function Messenger() {
 
   return (
     <S.Container>
-      {distance}
       <S.InnerContainer ref={innerContainerRef}>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
         <S.ChatSection>{chatLoaded && currentChats.map((chat, i) => <SingleChatRow distancePerTime={distancePerTime} key={i} chatId={chat.chatId} />)}</S.ChatSection>
