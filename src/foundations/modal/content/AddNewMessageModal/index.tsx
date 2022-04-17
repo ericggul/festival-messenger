@@ -55,7 +55,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const bringFriends = () => {
     if (user.token) {
       const token = window.Kakao.Auth.getAccessToken();
-      console.log(token, user.token);
+
       window.Kakao.Auth.setAccessToken(token);
 
       window.Kakao.API.request({
@@ -64,6 +64,9 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
           console.log(res);
         },
         fail: (err: any) => {
+          alert("재로그인이 필요합니다!");
+          setLoadingForLogin(true);
+          signIn();
           console.log(err);
         },
       });

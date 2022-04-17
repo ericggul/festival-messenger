@@ -9,7 +9,8 @@ const Messenger = lazy(() => import("@/pages/messenger"));
 const Message = lazy(() => import("@/pages/message"));
 const WriteMessage = lazy(() => import("@/pages/writeMessage"));
 
-const Loading = lazy(() => import("@/pages/loading"));
+const ShareViaKakao = lazy(() => import("@/pages/tempTesting/shareViaKakao"));
+const Loading = lazy(() => import("@/pages/tempTesting/loading"));
 
 const routes = [
   {
@@ -48,6 +49,10 @@ const routes = [
   {
     path: "/loading",
     component: Loading,
+  },
+  {
+    path: "/shareViaKakao",
+    component: ShareViaKakao,
   },
 ];
 

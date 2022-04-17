@@ -11,9 +11,6 @@ function MouseTrail({ color }: any) {
 }
 
 function removeMouseTrail() {
-  console.log("remove");
-  console.log(document.querySelectorAll(".mouseTrailElement"));
-
   document.querySelectorAll(".mouseTrailElement").forEach((e: any) => e.remove());
 }
 
