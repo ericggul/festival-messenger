@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 
-import { GuideText } from "@F/writeMessage/addImage/BeforeInputImage";
-
 import Cancel from "@I/icons/modal/cancel.svg";
 
 function AddImageModal({ setIsModalOpen, setImageFile, setImage, setSimpleModalChange }: any) {

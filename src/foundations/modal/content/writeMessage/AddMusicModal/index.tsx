@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 
 import Cancel from "@I/icons/modal/cancel.svg";
-import { GuideText } from "@F/writeMessage/addImage/BeforeInputImage";
 
 function AddMusicModal({ setIsModalOpen, setAudioFile, setAudio }: any) {
   const [audioFileLocally, setAudioFileLocally] = useState<any>(!null);

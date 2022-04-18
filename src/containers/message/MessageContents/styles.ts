@@ -49,6 +49,35 @@ export const ToText = styled.div<IsTextBlack>`
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
 `;
 
+interface SpanIdx {
+  idx: number;
+}
+
+export const Span = styled.span<SpanIdx>`
+  padding: 0;
+  margin: 0;
+
+  animation: flip-text 7s infinite linear;
+  animation-delay: ${({ idx }) => idx * 0.15}s;
+
+  @keyframes flip-text {
+    0% {
+      transform: rotateY(0deg);
+      opacity: 0;
+    }
+    20% {
+      transform: rotateY(360deg);
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+`;
+
 export const MainText = styled.div<IsTextBlack>`
   cursor: default;
   margin-top: 3rem;

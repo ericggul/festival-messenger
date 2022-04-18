@@ -4,7 +4,27 @@ interface ContainerType {
   color: any;
 }
 
-const getColor = (hsl: any) => `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+export const HiddenContainer = styled.div<ContainerType>`
+  position: fixed;
+  height: ${({ theme }) => theme.windowHeight}px;
+  width: ${({ theme }) => theme.windowWidth}px;
+  top: 0;
+  left: 0;
+  background: black;
+  opacity: 0.7;
+  z-index: -10;
+
+  animation: changeBackground 10s infinite alternate;
+
+  @keyframes changeBackground {
+    from {
+      background: white;
+    }
+    to {
+      background: black;
+    }
+  }
+`;
 
 export const Container = styled.div<ContainerType>`
   height: ${({ theme }) => theme.windowHeight * 1.1}px;

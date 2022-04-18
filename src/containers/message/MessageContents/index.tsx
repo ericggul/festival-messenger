@@ -2,8 +2,9 @@ import React, { useMemo, useState, useEffect } from "react";
 import * as S from "./styles";
 
 //foundations
-import MessageBackground from "@F/background/MessageBackground";
+import MessageBackground from "@/foundations/background/messageBackground/MessageBackground";
 import MouseTrail from "@F/animations/MouseTrail";
+import RotateText from "@F/text/RotateText";
 
 //hooks
 import useResize from "@U/hooks/useResize";
@@ -56,7 +57,17 @@ function MessageContents({ toName, mainText, color, font, image, music }: any) {
     <S.Container>
       <MessageBackground color={color} audio={music} />
       <S.MessagePanel font={font} isTextBlack={isTextBlack}>
-        <S.ToText isTextBlack={isTextBlack}>Message To. {toName}</S.ToText>
+        <S.ToText isTextBlack={isTextBlack}>
+          Message To.{" "}
+          {toName
+            .trim()
+            .split("")
+            .map((t: String, i: number, array: any) => (
+              <S.Span key={i} idx={i}>
+                {t === " " ? "\u00A0" : t}
+              </S.Span>
+            ))}
+        </S.ToText>
 
         {image && (
           <S.ImageContainer width={imgDim.width} height={imgDim.height}>

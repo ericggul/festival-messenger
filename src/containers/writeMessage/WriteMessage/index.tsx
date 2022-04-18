@@ -7,7 +7,7 @@ import ToTextInput from "@C/writeMessage/textInputs/ToTextInput";
 
 //Foundations
 import Utils from "@F/writeMessage/Utils";
-import MessageBackground from "@F/background/MessageBackground";
+import MessageBackground from "@/foundations/background/messageBackground/MessageBackground";
 import AddImage from "@F/writeMessage/addImage/AddImage";
 
 //Redux

@@ -48,6 +48,7 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
 
   return (
     <>
+      <S.HiddenContainer color={color} />
       <S.Container color={color} />
       {audio && playAudio && <ReactAudioPlayer src={audio} crossOrigin="anonymous" autoPlay ref={(el) => setRap(el)} />}
       {audio && playAudio && (

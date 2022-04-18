@@ -30,38 +30,6 @@ export const ImageInput = styled.input.attrs({
   opacity: 0;
 `;
 
-export const GuideText = styled.div`
-  ${FlexCenterStyle};
-  pointer-events: none;
-  color: #ddd !important;
-  font-size: 1.33rem;
-  font-weight: 900;
-`;
-
-interface SpanIdx {
-  idx: number;
-}
-
-export const Span = styled.span<SpanIdx>`
-  padding: 0;
-  margin: 0;
-
-  animation: flip-text 9s infinite linear;
-  animation-delay: ${({ idx }) => idx * 0.1}s;
-
-  @keyframes flip-text {
-    0% {
-      transform: rotateY(0deg);
-    }
-    50% {
-      transform: rotateY(360deg);
-    }
-    100% {
-      transform: rotateY(360deg);
-    }
-  }
-`;
-
 export const DeleteBox = styled.div`
   position: absolute;
   top: -0.75rem;
