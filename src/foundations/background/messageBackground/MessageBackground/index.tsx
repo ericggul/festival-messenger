@@ -1,6 +1,8 @@
 import * as S from "./styles";
 import { useState, useEffect, useRef } from "react";
 
+import HiddenBackground from "@F/background/messageBackground/HiddenBackground";
+
 import ReactAudioPlayer from "react-audio-player";
 import useResize from "@/utils/hooks/useResize";
 
@@ -48,7 +50,7 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
 
   return (
     <>
-      <S.HiddenContainer color={color} />
+      <HiddenBackground color={color} windowHeight={windowHeight} windowWidth={windowWidth} />
       <S.Container color={color} />
       {audio && playAudio && <ReactAudioPlayer src={audio} crossOrigin="anonymous" autoPlay ref={(el) => setRap(el)} />}
       {audio && playAudio && (
@@ -236,7 +238,6 @@ class Point {
     this.centerY = height * 0.5;
 
     //get distance from this.x, this.y to this.centerX, this.centerY
-
     this.radius = Math.sqrt((this.x - this.centerX) ** 2 + (this.y - this.centerY) ** 2);
     this.angle = Math.atan2(this.y - this.centerY, this.x - this.centerX);
     this.angleSpeed = getRandom(-0.001, 0.001);

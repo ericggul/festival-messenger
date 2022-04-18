@@ -3,7 +3,7 @@ import * as S from "./styles";
 
 //foundations
 import MessageBackground from "@/foundations/background/messageBackground/MessageBackground";
-import MouseTrail from "@F/animations/MouseTrail";
+
 import RotateText from "@F/text/RotateText";
 
 //hooks
@@ -84,7 +84,6 @@ function MessageContents({ toName, mainText, color, font, image, music }: any) {
           ))}
         </S.MainText>
       </S.MessagePanel>
-      <MouseTrail color={color} />
     </S.Container>
   );
 }
