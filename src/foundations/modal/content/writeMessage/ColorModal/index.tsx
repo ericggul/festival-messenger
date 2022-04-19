@@ -3,7 +3,7 @@ import * as S from "./styles";
 
 const COLOR_SETS = [
   { h: 68, s: 0, l: 0 },
-  { h: 0, s: 100, l: 60 },
+
   { h: 10, s: 46, l: 61 },
   { h: 46, s: 100, l: 53, ziptoss: true, black: true },
   { h: 68, s: 66, l: 71, black: true },
@@ -15,7 +15,6 @@ const COLOR_SETS = [
   { h: 173, s: 40, l: 41 },
 
   { h: 194, s: 80, l: 36 },
-  { h: 200, s: 80, l: 97, black: true },
   { h: 205, s: 36, l: 61, black: true },
   { h: 205, s: 80, l: 19 },
   { h: 210, s: 46, l: 43 },
@@ -27,11 +26,10 @@ const COLOR_SETS = [
   { h: 274, s: 46, l: 25 },
 
   { h: 299, s: 50, l: 47 },
-  { h: 324, s: 35, l: 91, black: true },
+
   { h: 331, s: 62, l: 69, black: true },
-  { h: 337, s: 100, l: 44 },
+  { h: 337, s: 80, l: 44 },
   { h: 360, s: 80, l: 67 },
-  { h: 360, s: 80, l: 97, black: true },
 ];
 
 function ColorModal({ initialColor, onColorClick }: any) {

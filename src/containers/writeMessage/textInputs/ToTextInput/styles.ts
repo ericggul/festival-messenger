@@ -21,7 +21,7 @@ export const ToTextInput = styled.input.attrs({
 })<IsTextBlack>`
   color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
   outline: 0;
-  width: 15rem;
+  width: 10rem;
   text-size-adjust: auto;
   border: none;
   background: transparent;

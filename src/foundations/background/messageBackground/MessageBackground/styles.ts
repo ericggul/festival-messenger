@@ -37,7 +37,7 @@ export const Container = styled.div<ContainerType>`
   z-index: -3;
 
   background: linear-gradient(${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`}, ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l - 20}%)`});
-  opacity: 0.8;
+  opacity: 0.6;
   filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
   -webkit-filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
 

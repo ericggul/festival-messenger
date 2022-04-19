@@ -65,6 +65,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
         },
         fail: (err: any) => {
           alert("재로그인이 필요합니다!");
+
           setLoadingForLogin(true);
           signIn();
           console.log(err);
@@ -84,43 +85,45 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   return (
     <>
       <S.Background />
-      <S.Box>
-        <S.CloseButton onClick={() => setIsModalOpen(false)}>
-          <S.CloseIcon src={Cancel} />
-        </S.CloseButton>
+      {!loadingForLogin && (
+        <S.Box>
+          <S.CloseButton onClick={() => setIsModalOpen(false)}>
+            <S.CloseIcon src={Cancel} />
+          </S.CloseButton>
 
-        <S.Contents>
-          <S.Upper ref={upperRef}>
-            <S.Header>친구 선택</S.Header>
-            <S.FriendsList>
-              {TEST_DATA.map((data: any, i: number) => (
-                <S.FriendRow onClick={() => setClickedFriend(i)} selected={clickedFriend === i} key={i}>
-                  <S.Left>
-                    <S.ProfileImg src={data.profileImg} />
-                    <S.FriendText>{data.name}</S.FriendText>
-                  </S.Left>
-                  {clickedFriend === i ? (
-                    <S.SendText onClick={(e: any) => handleIconClick(i, data.name, e)}>Next</S.SendText>
-                  ) : (
-                    <S.SendIcon onClick={(e: any) => handleIconClick(i, data.name, e)} src={Send} />
-                  )}
-                </S.FriendRow>
-              ))}
-            </S.FriendsList>
-          </S.Upper>
+          <S.Contents>
+            <S.Upper ref={upperRef}>
+              <S.Header>친구 선택</S.Header>
+              <S.FriendsList>
+                {TEST_DATA.map((data: any, i: number) => (
+                  <S.FriendRow onClick={() => setClickedFriend(i)} selected={clickedFriend === i} key={i}>
+                    <S.Left>
+                      <S.ProfileImg src={data.profileImg} />
+                      <S.FriendText>{data.name}</S.FriendText>
+                    </S.Left>
+                    {clickedFriend === i ? (
+                      <S.SendText onClick={(e: any) => handleIconClick(i, data.name, e)}>Next</S.SendText>
+                    ) : (
+                      <S.SendIcon onClick={(e: any) => handleIconClick(i, data.name, e)} src={Send} />
+                    )}
+                  </S.FriendRow>
+                ))}
+              </S.FriendsList>
+            </S.Upper>
 
-          <S.OtherFriendsList>
-            <S.ExplText>
-              <div>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</div>
-              <div>위 친구 목록에 게시되지 않습니다.</div>
-            </S.ExplText>
-            <S.OtherFriendsListHeader onClick={(e: any) => handleIconClick(-1, null, e)}>
-              <S.OtherFriendsListHeaderText>리스트에 없는 친구에게 보내기</S.OtherFriendsListHeaderText>
-              <S.SendIcon src={Send} />
-            </S.OtherFriendsListHeader>
-          </S.OtherFriendsList>
-        </S.Contents>
-      </S.Box>
+            <S.OtherFriendsList>
+              <S.ExplText>
+                <div>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</div>
+                <div>위 친구 목록에 게시되지 않습니다.</div>
+              </S.ExplText>
+              <S.OtherFriendsListHeader onClick={(e: any) => handleIconClick(-1, null, e)}>
+                <S.OtherFriendsListHeaderText>리스트에 없는 친구에게 보내기</S.OtherFriendsListHeaderText>
+                <S.SendIcon src={Send} />
+              </S.OtherFriendsListHeader>
+            </S.OtherFriendsList>
+          </S.Contents>
+        </S.Box>
+      )}
       {loadingForLogin && <LoadingContainer />}
     </>
   );

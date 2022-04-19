@@ -25,7 +25,7 @@ const hsl2hex = (h: number, s: number, l: number) => {
 
 const generateColor = (color: any) => {
   const { h, s, l } = color;
-  return hsl2hex(h + getRandom(-10, 10), s, l + getRandom(0, -20));
+  return hsl2hex((h + getRandom(-40, 40)) % 360, Math.min(Math.max(s + getRandom(-10, 10), 0), 100), Math.min(Math.max(l + getRandom(0, 10), 0), 100));
 };
 
 export default function HiddenBackground({ color, windowWidth, windowHeight }: any) {
@@ -36,7 +36,7 @@ export default function HiddenBackground({ color, windowWidth, windowHeight }: a
     return () => {
       app.destroy();
     };
-  }, []);
+  }, [color]);
   return (
     <div
       id="pixi-canvas"
@@ -63,6 +63,8 @@ class App {
 
   color: any;
 
+  resizeEvent: any;
+
   constructor(color: any) {
     this.color = color;
 
@@ -78,7 +80,7 @@ class App {
 
     document.getElementById("pixi-canvas")!.appendChild(this.pixiApp.view);
     this.resize();
-    window.addEventListener("resize", debounce(this.resize.bind(this), 250));
+    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 250));
   }
 
   resize() {
@@ -100,7 +102,6 @@ class App {
   }
 
   init() {
-    console.log(generateColor(this.color));
     for (let i = 0; i < this.orbNumber; i++) {
       let newOrb = new Orb(generateColor(this.color), this.stageWidth, this.stageHeight, this.bounds);
       this.pixiApp.stage.addChild(newOrb.graphics);
@@ -119,8 +120,15 @@ class App {
   }
 
   destroy() {
+    if (this.pixiApp.view && document.getElementById("pixi-canvas")) {
+      try {
+        document.getElementById("pixi-canvas")!.removeChild(this.pixiApp.view);
+      } catch (e) {}
+    }
+    document.removeEventListener("resize", this.resizeEvent);
     this.pixiApp.stage.destroy(true);
     this.pixiApp.ticker.destroy(true);
+    this.pixiApp = null;
   }
 }
 
@@ -159,7 +167,7 @@ class Orb {
     this.yOff = getRandom(0, 1000);
 
     //incremental of noise
-    this.inc = 0.001;
+    this.inc = 0.0005;
 
     //simplex noise
     this.simplex = new SimplexNoise();
@@ -168,11 +176,11 @@ class Orb {
   }
 
   init() {
-    this.radius = getRandom(this.stageWidth / 6, this.stageHeight / 3);
+    this.radius = getRandom((this.stageWidth + this.stageHeight) / 9, (this.stageHeight + this.stageWidth) / 4);
 
     //PIXI
     this.graphics = new PIXI.Graphics();
-    this.graphics.alpha = 0.825;
+    this.graphics.alpha = 0.5;
   }
 
   update() {
@@ -189,6 +197,7 @@ class Orb {
   }
 
   render() {
+    console.log("render");
     this.graphics.x = this.x;
     this.graphics.y = this.y;
     this.graphics.scale.set(this.scale);

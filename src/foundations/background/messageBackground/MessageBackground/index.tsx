@@ -127,12 +127,13 @@ class App {
     this.source.connect(this.analyser);
     this.source.connect(this.audioCtx.destination);
 
-    this.resizeEvent = window.addEventListener("resize", this.resize.bind(this));
+    this.resizeEvent = this.drawState && window.addEventListener("resize", this.resize.bind(this));
     this.resize();
   }
 
   resize() {
     console.log("resize!");
+
     this.stageWidth = this.wrapper.clientWidth;
     this.stageHeight = this.wrapper.clientHeight;
     this.space = this.stageWidth / this.stageHeight;
@@ -181,7 +182,6 @@ class App {
   }
 
   loopingFunction() {
-    console.log(this.drawState);
     if (this.drawState) {
       this.animationRequest = window.requestAnimationFrame(this.loopingFunction.bind(this));
     }
@@ -210,8 +210,8 @@ class App {
     window.removeEventListener("resize", this.resizeEvent);
     this.ctx = null;
     this.canvas = null;
-    // this.analyser.disconnect();
-    // this.audioCtx.close();
+    this.analyser.disconnect();
+    this.audioCtx.close();
   }
 }
 
@@ -243,8 +243,8 @@ class Point {
     this.angleSpeed = getRandom(-0.001, 0.001);
 
     this.color = color;
-    this.baseColor = `hsla(${color.h}, ${color.s}%, ${color.l}%, 0.6)`;
-    this.fillColor = `hsla(${color.h},  ${getRandom(color.s - 5, color.s + 5)}%, ${getRandom(70, 100)}%, 1)`;
+
+    this.fillColor = `hsla(${color.h},  ${getRandom(color.s - 5, color.s + 5)}%, ${getRandom(Math.min(this.color.l + 10, 100), 100)}%, 1)`;
     this.cellSize = cellSize;
   }
 
@@ -253,7 +253,7 @@ class Point {
 
     let xPos = this.centerX + this.radius * Math.cos(this.angle);
     let yPos = this.centerY + this.radius * Math.sin(this.angle);
-    const size = (value / 255) * 1.5;
+    const size = (value / 255) * 1;
     ctx.beginPath();
 
     // Set the fill style and draw a rectangle
