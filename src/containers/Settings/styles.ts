@@ -1,37 +1,42 @@
 import styled from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
+interface ImageProps {
+  image: any;
+}
 
 export const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
   touch-action: pan-x pan-y;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   overflow: hidden;
   ${FlexCenterStyle};
-
+  background-position: center;
   flex-direction: column;
 
-  backdrop-filter: blur(3rem);
-  -webkit-backdrop-filter: blur(3rem);
+  backdrop-filter: blur(2rem);
+  -webkit-backdrop-filter: blur(2rem);
+  background-size: cover;
 `;
 
-export const BackgroundImageContainer = styled.div`
+export const BackgroundImage = styled.div<ImageProps>`
   position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url(${(props) => props.image});
+  touch-action: pan-x pan-y;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   overflow: hidden;
   ${FlexCenterStyle};
-  z-index: -1;
-`;
+  background-position: center;
+  flex-direction: column;
 
-export const BackgroundImage = styled.img`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: ${({ theme }) => theme.windowWidth}px;
-  min-height: ${({ theme }) => theme.windowHeight}px;
-
-  // filter: brightness(2);
-  z-index: -1;
+  z-index: -4;
+  background-size: cover;
 `;
 
 export const ImageContainer = styled.div`
@@ -67,6 +72,7 @@ export const Image = styled.img`
 `;
 
 export const InputBox = styled.input`
+  mix-blend-mode: difference;
   outline: 0;
   text-align: center;
 
