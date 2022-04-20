@@ -10,6 +10,9 @@ import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { fetchAllMessages } from "@R/messages/middleware";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
+//functions
+import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
+
 function SingleChat({ chat, user, distancePerTime }: any) {
   const dispatch = useAppDispatch();
   const [messages, setMessages] = useState([]);
@@ -23,8 +26,13 @@ function SingleChat({ chat, user, distancePerTime }: any) {
   async function retriveMessages() {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chat.chatId));
-
-      setMessages(fetchedMessages.payload.sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds));
+      //Filter 72 hours and sort by time
+      fetchedMessages.payload.forEach((msg: any) => {
+        console.log(msg.createdAt.seconds);
+        console.log(deltaTime(msg.createdAt));
+      });
+      let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds);
+      setMessages(sortedMessages);
       setMessageReady(true);
 
       //set displayed message name logic

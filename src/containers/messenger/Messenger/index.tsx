@@ -16,6 +16,9 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 //hooks
 import usePinchGestures from "@U/hooks/usePinchGestures";
 
+//functions
+import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
+
 function Messenger() {
   const distance = usePinchGestures();
 
@@ -60,13 +63,13 @@ function Messenger() {
   const [currentChats, setCurrentChats] = useState(chatsReduxState.chats);
   const [chatLoaded, setChatLoaded] = useState(false);
 
-  // useEffect(() => {
-  //   if (!user.uid) {
-  //     navigate("/login");
-  //     return;
-  //   }
-  //   retriveChat();
-  // }, [user]);
+  useEffect(() => {
+    if (!user.uid) {
+      navigate("/login");
+      return;
+    }
+    retriveChat();
+  }, [user]);
 
   async function retriveChat() {
     try {
@@ -78,11 +81,11 @@ function Messenger() {
 
   useEffect(() => {
     let reduxChats = [...chatsReduxState.chats];
-    setCurrentChats(
-      reduxChats.sort((a, b) => {
-        return b.lastUpdatedAt.seconds - a.lastUpdatedAt.seconds;
-      })
-    );
+
+    //apply last 72 hours rules, and sort chat by last updated at
+    let sortedChats = reduxChats.filter((chat) => deltaTime(chat.lastUpdatedAt) < SEVENTY_TWO_HOURS).sort((a, b) => b.lastUpdatedAt.seconds - a.lastUpdatedAt.seconds);
+
+    setCurrentChats(sortedChats);
     setChatLoaded(true);
   }, [chatsReduxState]);
 

@@ -17,3 +17,5 @@ export function deltaTime(time: any) {
   const delta = (Date.now() / 1000 - time.seconds) / (60 * 60);
   return delta;
 }
+
+export const SEVENTY_TWO_HOURS = 3 * 24;
