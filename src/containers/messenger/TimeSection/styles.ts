@@ -6,8 +6,8 @@ interface LengthProps {
 }
 export const TimeLine = styled.div<LengthProps>`
   margin-top: 12rem;
-  margin-left: 6.5rem;
-  margin-right: 6.5rem;
+  margin-left: 7.5rem;
+  margin-right: 7.5rem;
   height: 2px;
   width: ${({ length }) => length}rem;
   background: ${({ theme }) => theme.palette.TIMELINE_GRAY};
@@ -19,7 +19,7 @@ interface DistanceProps {
 
 export const TimeSection = styled.div<DistanceProps>`
   display: flex;
-  margin-left: calc(6.5rem - ${({ distance }) => distance / 2 - 0.4}rem);
+  margin-left: calc(7.5rem - ${({ distance }) => distance / 2 - 0.4}rem);
   flex-direction: row;
 `;
 

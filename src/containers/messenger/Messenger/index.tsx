@@ -3,7 +3,9 @@ import * as S from "./styles";
 
 //containers
 import TimeSection from "@C/messenger/TimeSection";
-import SingleChatRow from "@C/messenger/SingleChatRow";
+
+import SingleChat from "@C/messenger/singleChat/SingleChat";
+
 //navigate
 import { useNavigate } from "react-router-dom";
 
@@ -88,7 +90,7 @@ function Messenger() {
     <S.Container>
       <S.InnerContainer ref={innerContainerRef}>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
-        <S.ChatSection>{chatLoaded && currentChats.map((chat, i) => <SingleChatRow distancePerTime={distancePerTime} key={i} chatId={chat.chatId} />)}</S.ChatSection>
+        <S.ChatContainer>{chatLoaded && currentChats.map((chat, i) => <SingleChat distancePerTime={distancePerTime} chat={chat} user={user} key={i} />)}</S.ChatContainer>
       </S.InnerContainer>
     </S.Container>
   );

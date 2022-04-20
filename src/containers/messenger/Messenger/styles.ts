@@ -28,11 +28,7 @@ export const InnerContainer = styled.div`
   overflow-x: scroll;
 `;
 
-export const ChatSection = styled.div`
-  margin-left: 6.5rem;
+export const ChatContainer = styled.div`
   display: flex;
-  justify-content: center;
   flex-direction: column;
-
-  margin-top: 30px;
 `;
