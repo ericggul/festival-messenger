@@ -56,8 +56,6 @@ function WriteMessage(props: any) {
     }
   }, [musicFile]);
 
-  console.log(playAudioInitial);
-
   //Font State
   const [font, setFont] = useState(preview.font || "Seoul Namsan");
 

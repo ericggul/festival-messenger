@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
 
 function SingleChat({ chat, user, distancePerTime }: any) {
+  console.log(chat.chatId);
   const dispatch = useAppDispatch();
   const [messages, setMessages] = useState([]);
   const [messageReady, setMessageReady] = useState(false);
@@ -27,10 +28,6 @@ function SingleChat({ chat, user, distancePerTime }: any) {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chat.chatId));
       //Filter 72 hours and sort by time
-      fetchedMessages.payload.forEach((msg: any) => {
-        console.log(msg.createdAt.seconds);
-        console.log(deltaTime(msg.createdAt));
-      });
       let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds);
       setMessages(sortedMessages);
       setMessageReady(true);

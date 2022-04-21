@@ -30,6 +30,8 @@ export const ToTextInput = styled.input.attrs({
   border-bottom: 1px solid transparent;
   transition: all 0.3s;
   &::placeholder {
+    padding-bottom: 0.3rem;
+    font-size: 1rem;
     color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
     opacity: 0.3;
     border-bottom: 1px solid white;

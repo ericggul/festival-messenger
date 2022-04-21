@@ -41,8 +41,6 @@ function ColorModal({ initialColor, onColorClick }: any) {
     setColor(selectedColor);
   };
 
-  console.log(color);
-
   return (
     <S.Container>
       <S.ColorContainer>

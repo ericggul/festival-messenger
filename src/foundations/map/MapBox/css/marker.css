@@ -1,0 +1,44 @@
+.marker {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.marker img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+}
+
+.signifier {
+  position: absolute;
+  border-radius: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  top: 1rem;
+  right: -0.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signifier .recieved {
+  background: hsl(241, 80%, 63%);
+}
+
+.signifier .sent {
+  background: white;
+}
+
+.signifier img {
+  width: 80%;
+  height: 80%;
+}
+
+.ad {
+  background: rgba(236, 212, 88, 1);
+}

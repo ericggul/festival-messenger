@@ -1,6 +1,6 @@
 import Header from "@F/layout/Header";
 import Footer from "@F/layout/Footer";
-import MapContainer from "@C/map/Map";
+import MapContainer from "@/containers/map/MapOuter";
 import withMountEvent from "@U/hoc/withMountEvent";
 
 function Map() {

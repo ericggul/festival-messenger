@@ -1,12 +1,22 @@
 import * as S from "./styles";
 import { useEffect, useRef, useState, useCallback } from "react";
 import useResize from "@/utils/hooks/useResize";
+
 // @ts-ignore
 import mapboxgl from "!mapbox-gl"; /* eslint import/no-webpack-loader-syntax: off */
+
+//css
 import "mapbox-gl/dist/mapbox-gl.css";
-import "./marker.css";
+import "@F/map/MapBox/css/marker.css";
+import "@F/map/MapBox/css/newMessage.css";
+import "@F/map/MapBox/css/resetButton.css";
+
+//libraries
 import SunCalc from "suncalc";
 import pointInPolygon from "point-in-polygon";
+
+//support function
+import createMessageMarker from "@F/map/supportFunctions/createMessageMarker";
 
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
@@ -118,13 +128,17 @@ const AD = {
 };
 
 function MapBox({
+  //modal related
   handleMessageClick,
   handleAddNewMessage,
   messageSendMode,
-
+  //reset related
   resetState,
   resetCompleted,
   onMapDisplayed,
+  //data related
+  currentMessages,
+  user,
   zoomIn = false,
 }: any) {
   mapboxgl.accessToken = "pk.eyJ1IjoiZXJpY2dndWwiLCJhIjoiY2wwMmkyYTRkMTRhczNobHNsMnBxb3BkMyJ9.DLFELyGRBinEC75rdCGBBQ";
@@ -326,43 +340,40 @@ function MapBox({
 
   function addMessagesMarker() {
     if (mapRef.current && typeof mapRef.current == "object") {
-      SENT.features.map((feature, i) => {
-        let el = document.createElement("div");
-        el.className = "marker sent";
+      currentMessages.forEach((chat: any) => {
+        chat.messages.forEach((msg: any) => {
+          let el = createMessageMarker(chat, msg, user, handleMessageClick);
+          // let el = document.createElement("div");
+          // el.className = "marker";
 
-        el.addEventListener("click", (ev: any) => {
-          handleMessageClick(feature.properties.chatId, feature.properties.messageId);
-          ev.stopPropagation();
+          // if (msg.messageFromProfile) {
+          //   let img = document.createElement("img");
+          //   img.src = msg.messageFromProfile;
+          //   el.appendChild(img);
+          // } else {
+          //   el.className += "no-img";
+          // }
+
+          // //signifier
+          // let signifier = document.createElement("div");
+          // let signifierImg = document.createElement("img");
+          // if (msg.messageFrom === user.uid) {
+          //   signifier.className = "signifier sent";
+          //   signifierImg.src = ARROW_RIGHT;
+          // } else {
+          //   signifier.className = "signifier recieved";
+          //   signifierImg.src = ARROW_LEFT;
+          // }
+          // signifier.appendChild(signifierImg);
+          // el.appendChild(signifier);
+
+          // el.addEventListener("click", (ev: any) => {
+          //   handleMessageClick(chat.chatId, msg.messageId);
+          //   ev.stopPropagation();
+          // });
+
+          new mapboxgl.Marker(el).setLngLat([msg.latLngPos.lng, msg.latLngPos.lat]).addTo(mapRef.current);
         });
-
-        new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
-      });
-
-      RECEIVED.features.map((feature, i) => {
-        let el = document.createElement("div");
-        el.className = "marker received";
-
-        if (feature.properties.profileImg) {
-          let img = document.createElement("img");
-          img.src = feature.properties.profileImg;
-          el.appendChild(img);
-        } else {
-          el.className += "no-img";
-        }
-
-        el.addEventListener("click", (ev: any) => {
-          handleMessageClick(feature.properties.chatId, feature.properties.messageId);
-          ev.stopPropagation();
-        });
-
-        new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
-      });
-
-      AD.features.map((feature, i) => {
-        let el = document.createElement("div");
-        el.className = "marker ad";
-
-        new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
       });
     }
   }

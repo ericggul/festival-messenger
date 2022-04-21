@@ -19,7 +19,12 @@ import usePinchGestures from "@U/hooks/usePinchGestures";
 //functions
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
 
+//images
+import ARROW_LEFT from "@I/icons/messenger/arrow-left.svg";
+import ARROW_RIGHT from "@I/icons/messenger/arrow-right.svg";
+
 function Messenger() {
+  //layout related
   const distance = usePinchGestures();
 
   //time Interval: Hours
@@ -53,8 +58,8 @@ function Messenger() {
     }
   }, [distancePerTime]);
 
-  const innerContainerRef = useRef<any>(null);
-
+  //data related
+  //retriving chat
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -73,27 +78,41 @@ function Messenger() {
 
   async function retriveChat() {
     try {
-      await dispatch(fetchChatsByMember(user.uid));
+      let res = await dispatch(fetchChatsByMember(user.uid));
+      console.log(res.payload);
+      setCurrentChats(sortChat(res.payload));
+      setChatLoaded(true);
     } catch (e) {
       console.log(e);
     }
   }
 
-  useEffect(() => {
-    let reduxChats = [...chatsReduxState.chats];
-
-    //apply last 72 hours rules, and sort chat by last updated at
-    let sortedChats = reduxChats.filter((chat) => deltaTime(chat.lastUpdatedAt) < SEVENTY_TWO_HOURS).sort((a, b) => b.lastUpdatedAt.seconds - a.lastUpdatedAt.seconds);
-
-    setCurrentChats(sortedChats);
-    setChatLoaded(true);
-  }, [chatsReduxState]);
+  function sortChat(chats: any) {
+    return chats.filter((chat: any) => deltaTime(chat.lastUpdatedAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => b.lastUpdatedAt.seconds - a.lastUpdatedAt.seconds);
+  }
 
   return (
     <S.Container>
-      <S.InnerContainer ref={innerContainerRef}>
+      <S.InnerContainer>
+        <S.Note>
+          <p>주의! 모든 메시지는 전송시점 기준 72시간 후에 사라집니다!</p>
+          <p>이미 내가 읽은/상대가 읽은 메시지는 음영 처리 됩니다.</p>
+        </S.Note>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
         <S.ChatContainer>{chatLoaded && currentChats.map((chat, i) => <SingleChat distancePerTime={distancePerTime} chat={chat} user={user} key={i} />)}</S.ChatContainer>
+
+        <S.FooterNote>
+          <S.Signifier messageISent={false}>
+            <S.SignifierImg src={ARROW_LEFT} />
+          </S.Signifier>
+
+          {"받은 메시지"}
+
+          <S.Signifier messageISent>
+            <S.SignifierImg src={ARROW_RIGHT} />
+          </S.Signifier>
+          {"보낸 메시지"}
+        </S.FooterNote>
       </S.InnerContainer>
     </S.Container>
   );

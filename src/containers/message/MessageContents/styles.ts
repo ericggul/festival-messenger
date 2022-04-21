@@ -58,15 +58,14 @@ export const Span = styled.span<SpanIdx>`
   margin: 0;
 
   animation: flip-text 7s infinite linear;
+  opacity: 0;
   animation-delay: ${({ idx }) => idx * 0.15}s;
 
   @keyframes flip-text {
     0% {
-      transform: rotateY(0deg);
       opacity: 0;
     }
     20% {
-      transform: rotateY(360deg);
       opacity: 1;
     }
     80% {

@@ -1,0 +1,27 @@
+/*여기에 메시지 보내기 핀*/
+
+.new-message {
+  width: 60px;
+  height: 60px;
+}
+.new-message img {
+  width: 30px;
+  height: 30px;
+  left: 15px;
+  position: absolute;
+}
+
+.new-message div {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 120px;
+  height: 24px;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

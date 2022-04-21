@@ -27,7 +27,6 @@ export async function createUserInformationFromFirestore(user: any) {
       console.log(error);
     }
 
-    console.log(preceedingIndexes);
     const thisRef = ref(userSpecificImageRef, `${preceedingIndexes}.${user.profileImage.type.split("/").pop()}`);
 
     await uploadBytesResumable(thisRef, user.profileImage, {

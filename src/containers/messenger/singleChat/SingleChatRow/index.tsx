@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as S from "./styles";
 
+//foundations
+import ProfileSection from "@F/messenger/ProfileSection";
+
 //navigate
 import { useNavigate } from "react-router-dom";
 
@@ -10,8 +13,7 @@ import { timeConverter, deltaTime } from "@U/functions/timeConverter";
 //redux
 import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-
-import { NO_PROFILE } from "@U/hooks/useAuth";
+import { Profile } from "@/foundations/modal/content/openMessage/OpenMessageModalContents/styles";
 
 const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
   const navigate = useNavigate();
@@ -19,12 +21,15 @@ const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
 
   const [name, setName] = useState("");
 
+  const [messageISent, setMessageISent] = useState(false);
+
   useEffect(() => {
     retriveName();
   }, [message]);
 
   async function retriveName() {
     if (message.messageFrom === user.uid) {
+      setMessageISent(true);
       setName(message.toName);
     } else {
       try {
@@ -45,7 +50,8 @@ const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
       left={deltaTime(message.createdAt) * distancePerTime}
     >
       <S.Name>{name}</S.Name>
-      <S.ProfileImg src={message.messageFromProfile || NO_PROFILE} />
+      <ProfileSection message={message} messageISent={messageISent} />
+
       <S.Time>{timeConverter(message.createdAt)}</S.Time>
     </S.SingleMessage>
   );

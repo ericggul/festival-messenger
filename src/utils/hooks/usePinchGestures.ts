@@ -37,43 +37,43 @@ export default function usePinchGestures() {
 
     return [dx, dy];
   }
-  function handleWheel(ev: any) {
-    ev.preventDefault();
+  // function handleWheel(ev: any) {
+  //   ev.preventDefault();
 
-    let [dx, dy] = normalizeWheel(ev);
+  //   let [dx, dy] = normalizeWheel(ev);
 
-    let tempGesture;
-    if (!gesture) {
-      tempGesture = {
-        scale: 1,
-      };
-      setGesture(tempGesture);
-      startGesture(tempGesture);
-    } else {
-      tempGesture = gesture;
-    }
+  //   let tempGesture;
+  //   if (!gesture) {
+  //     tempGesture = {
+  //       scale: 1,
+  //     };
+  //     setGesture(tempGesture);
+  //     startGesture(tempGesture);
+  //   } else {
+  //     tempGesture = gesture;
+  //   }
 
-    if (ev.ctrlKey && tempGesture) {
-      //pinch-zoom
-      let factor = dy <= 0 ? 1 - WHEEL_SCALE_SPEEDUP * dy : 1 / (1 + (WHEEL_SCALE_SPEEDUP * dy) / 100);
-      tempGesture = {
-        scale: tempGesture.scale * factor,
-      };
-    }
-    setGesture(tempGesture);
-    doGesture(tempGesture);
+  //   if (ev.ctrlKey && tempGesture) {
+  //     //pinch-zoom
+  //     let factor = dy <= 0 ? 1 - WHEEL_SCALE_SPEEDUP * dy : 1 / (1 + (WHEEL_SCALE_SPEEDUP * dy) / 100);
+  //     tempGesture = {
+  //       scale: tempGesture.scale * factor,
+  //     };
+  //   }
+  //   setGesture(tempGesture);
+  //   doGesture(tempGesture);
 
-    if (timer) {
-      window.clearTimeout(timer);
-    }
-    let tempTimer = window.setTimeout(() => {
-      if (gesture) {
-        endGesture(gesture);
-        setGesture(null);
-      }
-    }, 50);
-    setTimer(tempTimer);
-  }
+  //   if (timer) {
+  //     window.clearTimeout(timer);
+  //   }
+  //   let tempTimer = window.setTimeout(() => {
+  //     if (gesture) {
+  //       endGesture(gesture);
+  //       setGesture(null);
+  //     }
+  //   }, 50);
+  //   setTimer(tempTimer);
+  // }
 
   //distance handle utils
   function midpoint(touches: any) {
@@ -142,11 +142,11 @@ export default function usePinchGestures() {
 
   useEffect(() => {
     //wheel eventlistener
-    document.addEventListener("wheel", handleWheel);
+    // document.addEventListener("wheel", handleWheel);
     document.addEventListener("touchstart", handleTouches);
 
     return () => {
-      document.removeEventListener("wheel", handleWheel);
+      // document.removeEventListener("wheel", handleWheel);
       document.removeEventListener("touchstart", handleTouches);
     };
   }, []);

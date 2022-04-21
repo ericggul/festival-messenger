@@ -5,9 +5,8 @@ interface LengthProps {
   length: number;
 }
 export const TimeLine = styled.div<LengthProps>`
-  margin-top: 12rem;
-  margin-left: 7.5rem;
-  margin-right: 7.5rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
   height: 2px;
   width: ${({ length }) => length}rem;
   background: ${({ theme }) => theme.palette.TIMELINE_GRAY};
@@ -19,7 +18,7 @@ interface DistanceProps {
 
 export const TimeSection = styled.div<DistanceProps>`
   display: flex;
-  margin-left: calc(7.5rem - ${({ distance }) => distance / 2 - 0.4}rem);
+  margin-left: calc(4rem - ${({ distance }) => distance / 2 - 0.4}rem);
   flex-direction: row;
 `;
 
@@ -29,7 +28,7 @@ export const TimeContainer = styled.div<DistanceProps>`
   ${FlexCenterStyle};
   flex-direction: column;
   width: 1rem;
-  margin: 0 ${({ distance }) => distance / 2 - 0.65}rem;
+  margin: 0 ${({ distance }) => distance / 2 - 0.51}rem;
 `;
 
 export const TimeText = styled.div`
@@ -46,9 +45,10 @@ interface BubbleProps {
 
 export const TimeBubble = styled.div.attrs<BubbleProps>((props) => ({
   style: {
-    width: props.oClock ? "0.6rem" : "0.8rem",
-    height: props.oClock ? "0.6rem" : "0.8rem",
-    margin: props.oClock ? "-0.2rem 0.1rem" : "0",
+    width: !props.oClock ? "0.6rem" : "0.8rem",
+    height: !props.oClock ? "0.6rem" : "0.8rem",
+    margin: !props.oClock ? "-0.2rem 0.1rem" : "0",
+    marginTop: !props.oClock ? "-0.35rem" : "0",
   },
 }))<BubbleProps>`
   position: relative;
@@ -60,7 +60,7 @@ export const TimeBubble = styled.div.attrs<BubbleProps>((props) => ({
 
 export const InnerTimeBubble = styled.div.attrs<BubbleProps>((props) => ({
   style: {
-    background: props.oClock ? `hsla(0, 0%, 73%, 1)` : `hsla(58, 64%, 73%, 1)`,
+    background: !props.oClock ? `hsla(0, 0%, 73%, 1)` : `hsl(241, 80%, 63%)`,
   },
 }))<BubbleProps>`
   position: absolute;

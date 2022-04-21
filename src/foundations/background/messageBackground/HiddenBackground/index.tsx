@@ -25,7 +25,11 @@ const hsl2hex = (h: number, s: number, l: number) => {
 
 const generateColor = (color: any) => {
   const { h, s, l } = color;
-  return hsl2hex((h + getRandom(-40, 40)) % 360, Math.min(Math.max(s + getRandom(-10, 10), 0), 100), Math.min(Math.max(l + getRandom(0, 10), 0), 100));
+  return hsl2hex(
+    (h + getRandom(-40, 40)) % 360,
+    Math.min(Math.max(s + getRandom(-10, 10), 0), 100),
+    l > 60 ? Math.min(Math.max(l + getRandom(-10, 10), 0), 100) : Math.min(Math.max(l + getRandom(0, 10), 0), 100)
+  );
 };
 
 export default function HiddenBackground({ color, windowWidth, windowHeight }: any) {

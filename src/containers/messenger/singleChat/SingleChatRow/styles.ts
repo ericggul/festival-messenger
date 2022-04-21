@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
 
 export const SingleRow = styled.div`
-  margin-left: 7.5rem;
+  margin-left: 4rem;
   display: flex;
   align-items: center;
   flex-direction: row;
 
-  height: 6.3rem;
+  height: 8rem;
 
   position: relative;
 `;
@@ -33,15 +33,6 @@ export const Name = styled.p`
   font-weight: light;
   color: #666;
   margin-bottom: 0.33rem;
-`;
-
-export const ProfileImg = styled.img`
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
-  object-fit: cover;
-  cursor: pointer;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 `;
 
 export const Time = styled.p`

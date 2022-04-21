@@ -38,8 +38,8 @@ export const Container = styled.div<ContainerType>`
 
   background: linear-gradient(${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`}, ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l - 20}%)`});
   opacity: 0.6;
-  filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
-  -webkit-filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
+  // filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
+  // -webkit-filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
 
   animation: background 0.3s;
 `;

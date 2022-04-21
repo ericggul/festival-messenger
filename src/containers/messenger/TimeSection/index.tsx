@@ -18,7 +18,7 @@ function TimeSection({ maxTimeBefore, timeInterval, distancePerTime }: any) {
 
   return (
     <>
-      <S.TimeLine length={Math.floor(maxTimeBefore / timeInterval) * (distancePerTime * timeInterval)} />
+      <S.TimeLine length={Math.ceil(maxTimeBefore / timeInterval) * (distancePerTime * timeInterval)} />
 
       <S.TimeSection distance={distancePerTime * timeInterval}>
         {new Array(Math.floor(maxTimeBefore / timeInterval) + 1).fill(0).map((_, i) => (
