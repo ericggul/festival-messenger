@@ -30,103 +30,6 @@ const POLYGON = [
   [126.9567311, 37.4603392],
 ];
 
-const RECEIVED = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95603, 37.45879],
-      },
-      properties: {
-        chatId: "0HiesFLloKBLU9qC1Jcq",
-        messageId: "8gFNyZMnJr69CpoDuUn2",
-        profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png",
-      },
-    },
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95646, 37.45919],
-      },
-      properties: {
-        chatId: "FWf8NAji0t65xYqay2n3",
-        messageId: "3kh8eSRttdkjZSl1Iksn",
-        profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png",
-      },
-    },
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95604, 37.45809],
-      },
-      properties: {
-        chatId: "Hqwr1MYuGfDDWG0zyfGm",
-        messageId: "9GYU9MACmzP1YSvWwoCm",
-        profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png",
-      },
-    },
-  ],
-};
-
-const SENT = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95545, 37.45878],
-      },
-      properties: {
-        chatId: "Hqwr1MYuGfDDWG0zyfGm",
-        messageId: "9GYU9MACmzP1YSvWwoCm",
-      },
-    },
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95568, 37.45898],
-      },
-      properties: {
-        chatId: "Hqwr1MYuGfDDWG0zyfGm",
-        messageId: "9GYU9MACmzP1YSvWwoCm",
-      },
-    },
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95541, 37.45864],
-      },
-      properties: {
-        chatId: "Hqwr1MYuGfDDWG0zyfGm",
-        messageId: "9GYU9MACmzP1YSvWwoCm",
-      },
-    },
-  ],
-};
-
-const AD = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [126.95653, 37.45822],
-      },
-      properties: {
-        id: "messageId",
-      },
-    },
-  ],
-};
-
 function MapBox({
   //modal related
   handleMessageClick,
@@ -342,36 +245,8 @@ function MapBox({
     if (mapRef.current && typeof mapRef.current == "object") {
       currentMessages.forEach((chat: any) => {
         chat.messages.forEach((msg: any) => {
+          //retrive from external function
           let el = createMessageMarker(chat, msg, user, handleMessageClick);
-          // let el = document.createElement("div");
-          // el.className = "marker";
-
-          // if (msg.messageFromProfile) {
-          //   let img = document.createElement("img");
-          //   img.src = msg.messageFromProfile;
-          //   el.appendChild(img);
-          // } else {
-          //   el.className += "no-img";
-          // }
-
-          // //signifier
-          // let signifier = document.createElement("div");
-          // let signifierImg = document.createElement("img");
-          // if (msg.messageFrom === user.uid) {
-          //   signifier.className = "signifier sent";
-          //   signifierImg.src = ARROW_RIGHT;
-          // } else {
-          //   signifier.className = "signifier recieved";
-          //   signifierImg.src = ARROW_LEFT;
-          // }
-          // signifier.appendChild(signifierImg);
-          // el.appendChild(signifier);
-
-          // el.addEventListener("click", (ev: any) => {
-          //   handleMessageClick(chat.chatId, msg.messageId);
-          //   ev.stopPropagation();
-          // });
-
           new mapboxgl.Marker(el).setLngLat([msg.latLngPos.lng, msg.latLngPos.lat]).addTo(mapRef.current);
         });
       });

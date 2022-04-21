@@ -12,26 +12,18 @@ import MessageContents from "@C/message/MessageContents";
 import HeaderUtils from "@F/message/HeaderUtils";
 
 //hooks
-import useAuth from "@U/hooks/useAuth";
+import useDistanceAvailability from "@U/hooks/messages/useDistanceAvailability";
 import useGeoLocation from "@U/hooks/useGeoLocation";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-
-//Functions
-import getDistance from "@U/functions/distance";
 
 //middleware
 import { fetchMessage, addMemberToChat, alterMessageTo, alterMessageReadState } from "@R/messages/middleware";
 import { fetchChatsById } from "@R/chats/middleware";
 import { actions } from "@R/users/state";
 
-function Message({ chatId, messageId, navigationComingFrom = 'map' }: any) {
+function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  //Testing Code
-  // useEffect(() => {
-  //   dispatch(actions.reset());
-  // }, []);
 
   //login, if user is not log-inned
 
@@ -88,7 +80,6 @@ function Message({ chatId, messageId, navigationComingFrom = 'map' }: any) {
   //get message information, check location accessibility
   //geo location
   const { pos, permittedStatus: geoPermittedStatus } = useGeoLocation();
-  const [distanceMessageAvailable, setDistanceMessageAvailable] = useState(false);
   const [messageReady, setMessageReady] = useState(false);
   const [message, setMessage] = useState<any>(null);
 
@@ -115,15 +106,8 @@ function Message({ chatId, messageId, navigationComingFrom = 'map' }: any) {
     }
   }, [chatId, messageId, userMessageAvailable]);
 
-  useEffect(() => {
-    console.log("Get Lat Lng!");
-    //lat lng
-    if (message && message.latLngPos) {
-      const distance = getDistance(message.latLngPos, pos);
-      //Temporarily True for testing
-      setDistanceMessageAvailable(distance < 50 ? true : true);
-    }
-  }, [message, pos]);
+  //get distance message availability
+  const distanceMessageAvailable = useDistanceAvailability(pos, user, message);
 
   //change the read state of message to 'true'
   useEffect(() => {
@@ -140,9 +124,7 @@ function Message({ chatId, messageId, navigationComingFrom = 'map' }: any) {
         geoPermittedStatus ? (
           messageReady && distanceMessageAvailable && userMessageAvailable ? (
             <>
-              <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid}
-              navigationComingFrom={navigationComingFrom}
-              />
+              <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid} navigationComingFrom={navigationComingFrom} />
               <MessageContents
                 toName={message.toName}
                 mainText={message.mainText.replaceAll("\\n", "\n")}

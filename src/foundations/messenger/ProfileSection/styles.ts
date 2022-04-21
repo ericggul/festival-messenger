@@ -8,7 +8,7 @@ export const ProfileImgContainer = styled.div<ReadProps>`
   width: 4rem;
   height: 4rem;
 
-  // opacity: ${({ read }) => (read ? 0.3 : 1)};
+  opacity: ${({ read }) => (read ? 0.3 : 1)};
   drop-shadow: ${({ read }) => read && "0 0 0.5rem #000"};
 `;
 

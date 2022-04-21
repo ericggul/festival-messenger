@@ -3,9 +3,6 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { actions } from "@R/geoLocation/state";
 
 export default function useGeoLocation() {
-  const dispatch = useAppDispatch();
-  const geoLocation = useAppSelector((state) => state.geoLocation);
-
   const [pos, setPos] = useState({});
   const [permittedStatus, setPermittedStatus] = useState(false);
 

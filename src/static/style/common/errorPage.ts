@@ -16,7 +16,7 @@ export const Text = styled.div`
   font-size: 1.2rem;
   margin: 0 2rem;
   text-align: center;
-  animation: ${AppearAnimation} 1s;
+  animation: ${AppearAnimation} 1s backwards;
 `;
 
 export const ToMainButton = styled.div`
@@ -29,5 +29,5 @@ export const ToMainButton = styled.div`
   border: 1px solid black;
   border-radius: 1rem;
   ${FlexCenterStyle};
-  animation: ${AppearAnimation} 1s;
+  animation: ${AppearAnimation} 1s backwards;
 `;

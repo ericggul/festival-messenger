@@ -19,22 +19,21 @@
   border-radius: 50%;
   width: 1.2rem;
   height: 1.2rem;
-  top: 1rem;
+  top: 0rem;
   right: -0.15rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.signifier .recieved {
-  background: hsl(241, 80%, 63%);
+.recieved {
+  background-color: hsl(241, 80%, 63%);
 }
 
-.signifier .sent {
-  background: white;
+.sent {
+  background-color: white;
 }
 
 .signifier img {
+  margin-left: 10%;
+  margin-top: 10%;
   width: 80%;
   height: 80%;
 }

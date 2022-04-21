@@ -5,10 +5,8 @@ import * as S from "./styles";
 import { useNavigate } from "react-router-dom";
 
 //hooks
+import useDistanceAvailability from "@U/hooks/messages/useDistanceAvailability";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-
-//Functions
-import getDistance from "@U/functions/distance";
 
 //middleware
 import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
@@ -21,11 +19,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   //Message Availablity based on distance btw message and currentPos
 
   const user = useAppSelector((state) => state.users);
-  const [messageAvailable, setMessageAvailable] = useState(false);
-  useEffect(() => {
-    const distance = getDistance(message.latLngPos, pos);
-    setMessageAvailable(distance < 50 ? true : true);
-  }, [message.latLngPos, pos]);
+  const distanceMessageAvailable = useDistanceAvailability(pos, user, message);
 
   //get delta time of message
   const time = useMemo(() => {
@@ -54,10 +48,10 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   //Navigate on click
   const navigate = useNavigate();
   const handleClick = useCallback(() => {
-    if (messageAvailable) {
+    if (distanceMessageAvailable) {
       navigate(`/message/${chatId}/${messageId}`);
     }
-  }, [messageAvailable, chatId, messageId]);
+  }, [distanceMessageAvailable, chatId, messageId]);
 
   return (
     <>
@@ -77,10 +71,10 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
         </S.ContentsPreview>
 
         <S.ButtonContainer>
-          <S.Button shine={messageAvailable} onClick={handleClick}>
+          <S.Button shine={distanceMessageAvailable} onClick={handleClick}>
             열기
           </S.Button>
-          {!messageAvailable && (
+          {!distanceMessageAvailable && (
             <S.NotAccessible>
               <p>메시지는 버들골 내 핀 근처에서만 열람할 수 있습니다.</p>
               <p>핀이 찍힌 위치 가까이로 가주세요.</p>
