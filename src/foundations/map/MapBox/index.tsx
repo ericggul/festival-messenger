@@ -180,7 +180,7 @@ function MapBox({
     }
 
     mapZoomOnceIdle(zoomIn);
-    addMessagesMarker();
+    // addMessagesMarker();
   }, [mapRef, zoomIn]);
 
   //New Marker on message Click
@@ -241,7 +241,11 @@ function MapBox({
     }
   }, [messageSendMode, newMarker]);
 
-  function addMessagesMarker() {
+  useEffect(() => {
+    addMessagesMarker();
+  }, [currentMessages, mapRef]);
+
+  const addMessagesMarker = useCallback(() => {
     if (mapRef.current && typeof mapRef.current == "object") {
       currentMessages.forEach((chat: any) => {
         chat.messages.forEach((msg: any) => {
@@ -251,7 +255,7 @@ function MapBox({
         });
       });
     }
-  }
+  }, [currentMessages, user, handleMessageClick]);
 
   //On reset state change, zoom map back to initial
   useEffect(() => {

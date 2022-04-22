@@ -17,10 +17,10 @@ export const Span = styled.span<SpanIdx>`
   padding: 0;
   margin: 0;
 
-  animation: flip-text 9s infinite linear;
+  animation: flip-text-rotate 9s infinite linear;
   animation-delay: ${({ idx }) => idx * 0.1}s;
 
-  @keyframes flip-text {
+  @keyframes flip-text-rotate {
     0% {
       transform: rotateY(0deg);
     }

@@ -26,7 +26,9 @@ export const Icon = styled.img`
   margin-right: 0.3rem;
 `;
 
-export const Text = styled.div``;
+export const Text = styled.div`
+  min-width: 10rem;
+`;
 
 interface ReplyProps {
   cursor: any;

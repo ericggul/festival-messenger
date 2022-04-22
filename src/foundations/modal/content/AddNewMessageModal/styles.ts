@@ -117,13 +117,6 @@ export const SendIcon = styled.img`
   cursor: pointer;
 `;
 
-export const Ziptoss = styled.div`
-  width: 100%;
-  height: 4rem;
-  background: #ecd458;
-  ${FlexCenterStyle};
-`;
-
 export const OtherFriendsList = styled.div`
   margin: 1.75rem;
 

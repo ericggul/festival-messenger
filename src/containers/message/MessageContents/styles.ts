@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
+import { FlexCenterStyle, AppearAnimation, BlurredAppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
   position: absolute;
@@ -13,6 +13,9 @@ export const Container = styled.div`
   -webkit-user-select: none;
   zindex: 10;
   cursor: default;
+
+  animation-delay: 0.5s;
+  animation: ${BlurredAppearAnimation} 1s;
 `;
 
 interface FontInterface {
@@ -57,11 +60,11 @@ export const Span = styled.span<SpanIdx>`
   padding: 0;
   margin: 0;
 
-  animation: flip-text 7s infinite linear;
+  animation: opaque-text 7s infinite linear;
   opacity: 0;
   animation-delay: ${({ idx }) => idx * 0.15}s;
 
-  @keyframes flip-text {
+  @keyframes opaque-text {
     0% {
       opacity: 0;
     }

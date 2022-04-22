@@ -3,8 +3,10 @@ import * as S from "./styles";
 
 //containers
 import TimeSection from "@C/messenger/TimeSection";
-
 import SingleChat from "@C/messenger/singleChat/SingleChat";
+
+//Foundations
+import FooterNote from "@F/messenger/FooterNote";
 
 //navigate
 import { useNavigate } from "react-router-dom";
@@ -18,10 +20,6 @@ import usePinchGestures from "@U/hooks/usePinchGestures";
 
 //functions
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
-
-//images
-import ARROW_LEFT from "@I/icons/messenger/arrow-left.svg";
-import ARROW_RIGHT from "@I/icons/messenger/arrow-right.svg";
 
 function Messenger() {
   //layout related
@@ -79,7 +77,7 @@ function Messenger() {
   async function retriveChat() {
     try {
       let res = await dispatch(fetchChatsByMember(user.uid));
-      console.log(res.payload);
+
       setCurrentChats(sortChat(res.payload));
       setChatLoaded(true);
     } catch (e) {
@@ -96,23 +94,10 @@ function Messenger() {
       <S.InnerContainer>
         <S.Note>
           <p>주의! 모든 메시지는 전송시점 기준 72시간 후에 사라집니다!</p>
-          <p>이미 내가 읽은/상대가 읽은 메시지는 음영 처리 됩니다.</p>
         </S.Note>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
         <S.ChatContainer>{chatLoaded && currentChats.map((chat, i) => <SingleChat distancePerTime={distancePerTime} chat={chat} user={user} key={i} />)}</S.ChatContainer>
-
-        <S.FooterNote>
-          <S.Signifier messageISent={false}>
-            <S.SignifierImg src={ARROW_LEFT} />
-          </S.Signifier>
-
-          {"받은 메시지"}
-
-          <S.Signifier messageISent>
-            <S.SignifierImg src={ARROW_RIGHT} />
-          </S.Signifier>
-          {"보낸 메시지"}
-        </S.FooterNote>
+        <FooterNote />
       </S.InnerContainer>
     </S.Container>
   );

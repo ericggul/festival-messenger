@@ -3,6 +3,8 @@
 .new-message {
   width: 60px;
   height: 60px;
+  font-family: "Seoul Namsan";
+  font-weight: 300;
 }
 .new-message img {
   width: 30px;

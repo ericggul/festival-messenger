@@ -5,7 +5,7 @@ const COLOR_SETS = [
   { h: 68, s: 0, l: 0 },
 
   { h: 10, s: 46, l: 61 },
-  { h: 46, s: 100, l: 53, ziptoss: true, black: true },
+  { h: 46, s: 100, l: 53 },
   { h: 68, s: 66, l: 71, black: true },
 
   { h: 120, s: 80, l: 97, black: true },

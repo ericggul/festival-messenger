@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 
 //containers
-import SingleChatLabel from "@C/messenger/singleChat/SingleChatLabel";
 import SingleChatRow from "@C/messenger/singleChat/SingleChatRow";
 
 //redux
@@ -14,7 +13,6 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
 
 function SingleChat({ chat, user, distancePerTime }: any) {
-  console.log(chat.chatId);
   const dispatch = useAppDispatch();
   const [messages, setMessages] = useState([]);
   const [messageReady, setMessageReady] = useState(false);
@@ -27,6 +25,7 @@ function SingleChat({ chat, user, distancePerTime }: any) {
   async function retriveMessages() {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chat.chatId));
+
       //Filter 72 hours and sort by time
       let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds);
       setMessages(sortedMessages);
@@ -49,15 +48,6 @@ function SingleChat({ chat, user, distancePerTime }: any) {
     }
   }
 
-  return (
-    <S.Container>
-      {messageReady && (
-        <>
-          {/* <SingleChatLabel name={displayedName || "No Name"} /> */}
-          <SingleChatRow user={user} distancePerTime={distancePerTime} messages={messages} chatId={chat.chatId} />
-        </>
-      )}
-    </S.Container>
-  );
+  return <S.Container>{messageReady && <SingleChatRow user={user} distancePerTime={distancePerTime} messages={messages} chatId={chat.chatId} />}</S.Container>;
 }
 export default SingleChat;

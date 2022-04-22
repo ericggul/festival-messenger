@@ -8,7 +8,6 @@ import KakaoIcon from "@I/icons/kakao/kakao.svg";
 //p5
 import Sketch from "react-p5";
 import p5Types from "p5";
-import p5 from "p5";
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
@@ -38,13 +37,14 @@ const P5Container = () => {
   const [ps, setPs] = useState<any>(null);
 
   const preload = (p5: p5Types) => {
-    const img = p5.loadImage("kakao.svg");
+    let img = p5.loadImage("./assets/images/kakao.svg");
     setParticleTexture(img);
   };
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     setP5(p5);
-    setPs(new (ParticleSystem(0, p5.createVector(windowWidth / 2, windowHeight - 60), particleTexture) as any)());
+    console.log(particleTexture);
+    setPs(new ParticleSystem(p5, 0, p5.createVector(windowWidth / 2, windowHeight - 60), particleTexture));
     p5.createCanvas(windowWidth, windowHeight).parent(canvasParentRef);
   };
 
@@ -53,6 +53,7 @@ const P5Container = () => {
 
     let dx = p5.map(p5.mouseX, 0, p5.width, -0.2, 0.2);
     let wind = p5.createVector(dx, 0);
+
     ps.applyForce(wind);
     ps.run();
     for (let i = 0; i < 2; i++) {
@@ -60,15 +61,32 @@ const P5Container = () => {
     }
   };
 
-  ///Particle system
-  let ParticleSystem = function (this: any, num: any, v: any, img_: any) {
+  ///Particle system Interface
+  interface ParticleSystem {
+    p5: any;
+    particles: any;
+    origin: any;
+    img: any;
+    run(): void;
+    applyForce(): void;
+    addParticle(): void;
+  }
+
+  interface ParticleSystemConstructor {
+    new (p5: any, num: any, v: any, img_: any): ParticleSystem;
+    (): void;
+  }
+
+  let ParticleSystem = function (this: ParticleSystem, p5: any, num: any, v: any, img_: any) {
+    this.p5 = p5;
+
     this.particles = [];
     this.origin = v.copy();
     this.img = img_;
     for (let i = 0; i < num; i++) {
-      this.particles.push(new (Particle(this.origin, this.img) as any)());
+      this.particles.push(new Particle(this.p5, this.origin, this.img));
     }
-  };
+  } as ParticleSystemConstructor;
 
   ParticleSystem.prototype.run = function () {
     let len = this.particles.length;
@@ -91,21 +109,43 @@ const P5Container = () => {
   };
 
   ParticleSystem.prototype.addParticle = function () {
-    this.particles.push(new (Particle(this.origin, this.img) as any)());
+    this.particles.push(new Particle(this.p5, this.origin, this.img));
   };
 
-  //Particle
-  let Particle = function (this: any, pos: any, img_: any) {
+  //Particle interface
+  interface Particle {
+    p5: any;
+    loc: number;
+    vel: number;
+    acc: number;
+    lifespan: number;
+    texture: any;
+
+    run(): void;
+    render(): void;
+    applyForce(f: any): void;
+    isDead(): void;
+    update(): void;
+  }
+
+  interface ParticleConstructor {
+    new (p5: any, pos: any, img_: any): Particle;
+    (): void;
+  }
+
+  let Particle = function (this: Particle, p5: any, pos: any, img_: any) {
     this.loc = pos.copy();
 
-    let vx = p5.randomGaussian() * 0.3;
-    let vy = p5.randomGaussian() * 0.1 - 1.0;
-    this.vel = p5.createVector(vx, vy);
-    this.acc = p5.createVector(0, 0);
+    this.p5 = p5;
+
+    let vx = this.p5.randomGaussian() * 0.3;
+    let vy = this.p5.randomGaussian() * 0.1 - 1.0;
+    this.vel = this.p5.createVector(vx, vy);
+    this.acc = this.p5.createVector(0, 0);
 
     this.lifespan = 100.0;
     this.texture = img_;
-  };
+  } as ParticleConstructor;
 
   Particle.prototype.run = function () {
     this.update();
@@ -113,9 +153,9 @@ const P5Container = () => {
   };
 
   Particle.prototype.render = function () {
-    p5.imageMode(p5.CENTER);
-    p5.tint(255, this.lifespan);
-    p5.image(this.texture, this.loc.x, this.loc.y);
+    this.p5.imageMode(this.p5.CENTER);
+    this.p5.tint(255, this.lifespan);
+    this.p5.image(this.texture, this.loc.x, this.loc.y);
   };
 
   Particle.prototype.applyForce = function (f: any) {

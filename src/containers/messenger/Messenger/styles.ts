@@ -28,9 +28,7 @@ export const InnerContainer = styled.div`
   overflow-x: scroll;
 `;
 
-export const Note = styled.p`
-  margin: 0;
-  padding: 0;
+export const Note = styled.div`
   margin-left: 3.45rem;
   margin-top: 8rem;
   margin-bottom: 4rem;
@@ -42,38 +40,6 @@ export const Note = styled.p`
     margin: 0;
     padding: 0;
   }
-`;
-
-export const FooterNote = styled.div`
-  margin-top: 1rem;
-  font-size: 1rem;
-  font-weight: light;
-  color: #666;
-  margin-bottom: 10rem;
-  margin-left: 1.95rem;
-
-  display: flex;
-  align-items: center;
-`;
-
-interface SignifierProps {
-  messageISent: boolean;
-}
-
-export const Signifier = styled.div<SignifierProps>`
-  margin-left: 1.5rem;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-  width: 1.2rem;
-  height: 1.2rem;
-  background: ${({ messageISent }) => (!messageISent ? `hsl(241, 80%, 63%)` : `white`)};
-  ${FlexCenterStyle};
-  filter: drop-shadow(0 0.3rem 0.3rem rgba(0, 0, 0, 0.25));
-`;
-
-export const SignifierImg = styled.img`
-  width: 80%;
-  height: 80%;
 `;
 
 export const ChatContainer = styled.div`

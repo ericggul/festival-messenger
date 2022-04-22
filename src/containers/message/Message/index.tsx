@@ -19,7 +19,6 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 //middleware
 import { fetchMessage, addMemberToChat, alterMessageTo, alterMessageReadState } from "@R/messages/middleware";
 import { fetchChatsById } from "@R/chats/middleware";
-import { actions } from "@R/users/state";
 
 function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
   const dispatch = useAppDispatch();
@@ -140,7 +139,7 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
                 <p>메시지는 버들골 내 핀 근처에서만 열람할 수 있습니다.</p>
                 <p>핀이 찍힌 위치로 가서 메시지를 다시 열람해주세요.</p>
               </ES.Text>
-              <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
+              <ES.ToMainButton onClick={() => navigate(`/${navigationComingFrom}`)}>{navigationComingFrom === "messenger" ? "메신저로" : "메인으로"} 가기</ES.ToMainButton>
             </>
           )
         ) : (
@@ -148,7 +147,7 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
             <p>잠시만 기다려주세요.</p>
             <p>장시간 로딩이 되지 않을경우,</p>
             <p>브라우저의 위치 접근 권한을 확인해주세요.</p>
-            <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
+            <ES.ToMainButton onClick={() => navigate(`/${navigationComingFrom}`)}>{navigationComingFrom === "messenger" ? "메신저로" : "메인으로"} 가기</ES.ToMainButton>
           </ES.Text>
         )
       ) : (

@@ -60,7 +60,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
         <S.Header>
           <S.HeaderText>메시지 열어보기</S.HeaderText>
           <S.Time>
-            {message.messageFrom === user.uid && <S.TimeIcon src={ClockIcon} />}
+            {message.messageFrom !== user.uid && <S.TimeIcon src={ClockIcon} />}
             <S.TimeText>{message.messageFrom === user.uid ? (message.read ? "상대가 읽음" : "상대가 읽지않음") : time}</S.TimeText>
           </S.Time>
         </S.Header>

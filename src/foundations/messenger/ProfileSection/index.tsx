@@ -10,7 +10,7 @@ function Profile({ message, messageISent }: any) {
   return (
     <S.ProfileImgContainer read={message.read}>
       <S.ProfileImg src={message.messageFromProfile || NO_PROFILE} />
-      <S.Signifier messageISent={messageISent}>
+      <S.Signifier read={message.read} messageISent={messageISent}>
         <S.SignifierImg src={messageISent ? ARROW_RIGHT : ARROW_LEFT} />
       </S.Signifier>
     </S.ProfileImgContainer>

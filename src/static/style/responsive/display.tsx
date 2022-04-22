@@ -17,3 +17,14 @@ export const AppearAnimation = keyframes`
         opacity: 100%;
     }
 `;
+
+export const BlurredAppearAnimation = keyframes`
+    from{ 
+        filter: blur(3rem);
+        opacity: 20%;
+    }
+    to{
+        filter: blur(0);
+        opacity: 100%;
+    }
+`;

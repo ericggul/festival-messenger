@@ -7,9 +7,13 @@ interface Props {
 export const MapContainer = styled.div<Props>`
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
-  ${(props) => (props.displayMap ? "opacity: .8" : "opacity : 0")};
+  ${(props) => (props.displayMap ? "opacity: 1" : "opacity : 0")};
   transition: opacity 0.8s;
   z-index: 0;
+
+  canvas {
+    opacity: 0.8;
+  }
 `;
 
 export const Marker = styled.div`

@@ -117,6 +117,8 @@ function Map({ hideLoading }: any) {
   }
 
   useEffect(() => {
+    setCurrentMessages([]);
+
     for (const chat of currentChats) {
       retriveMessages(chat.chatId);
     }
@@ -126,7 +128,7 @@ function Map({ hideLoading }: any) {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chatId));
       //Filter 72 hours and and get only unread messages
-      let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS && !msg.read);
+      let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS && !msg.read).sort((a: any, b: any) => b.createdAt.seconds - a.createdAt.seconds);
       setCurrentMessages((msg: any) => [...msg, { chatId: chatId, messages: sortedMessages }]);
       setLoadedChats((load) => load + 1);
     } catch (e) {
@@ -147,6 +149,7 @@ function Map({ hideLoading }: any) {
   //position related
   //Reset Position
   const [reset, setReset] = useState(false);
+
   const [displayMap, setDisplayMap] = useState(false);
 
   useEffect(() => {
@@ -180,7 +183,7 @@ function Map({ hideLoading }: any) {
           <S.ButtonImg src={Location2} />
           <S.ButtonText>내위치</S.ButtonText>
         </S.GhostButton>
-        <S.Button show={displayMap}>
+        <S.Button show={displayMap} onClick={retriveChat}>
           <S.ButtonImg src={Update} />
           <S.ButtonText>업데이트</S.ButtonText>
         </S.Button>

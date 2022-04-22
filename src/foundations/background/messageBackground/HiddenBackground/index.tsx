@@ -201,7 +201,6 @@ class Orb {
   }
 
   render() {
-    console.log("render");
     this.graphics.x = this.x;
     this.graphics.y = this.y;
     this.graphics.scale.set(this.scale);

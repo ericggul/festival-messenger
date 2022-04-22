@@ -51,8 +51,7 @@ const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
     >
       <S.Name>{name}</S.Name>
       <ProfileSection message={message} messageISent={messageISent} />
-
-      <S.Time>{timeConverter(message.createdAt)}</S.Time>
+      <S.Time>{message.read ? "읽음" : timeConverter(message.createdAt)}</S.Time>
     </S.SingleMessage>
   );
 };
