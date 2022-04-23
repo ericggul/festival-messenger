@@ -39,7 +39,10 @@ const slice = createSlice({
         state.name = action.payload.name;
       })
       .addCase(createUserInformation.fulfilled, (state, action) => {
-        state.token = action.meta.arg.token;
+        if (action.meta.arg.token) {
+          state.token = action.meta.arg.token;
+        }
+
         state.email = action.meta.arg.email;
         state.name = action.meta.arg.name;
 

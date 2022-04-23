@@ -48,6 +48,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
 
   //Bring Friends from Kakao
   const user = useAppSelector((state) => state.users);
+  console.log(user);
   const { signIn } = useAuth("/map");
 
   const [loadingForLogin, setLoadingForLogin] = useState(false);
@@ -66,15 +67,15 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
         fail: (err: any) => {
           alert("재로그인이 필요합니다!");
 
-          setLoadingForLogin(true);
-          signIn();
+          // setLoadingForLogin(true);
+          // signIn();
           console.log(err);
         },
       });
     } else {
       alert(user.uid ? "재로그인이 필요합니다!" : "로그인이 필요합니다!");
-      setLoadingForLogin(true);
-      signIn();
+      // setLoadingForLogin(true);
+      // signIn();
     }
   };
 

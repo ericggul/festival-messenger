@@ -93,6 +93,7 @@ function Map({ hideLoading }: any) {
 
   const user = useAppSelector((state) => state.users);
   const chatsReduxState = useAppSelector((state) => state.chats);
+  const [chatsRetrived, setChatsRetrived] = useState(false);
   const [currentChats, setCurrentChats] = useState<any>([]);
   const [currentMessages, setCurrentMessages] = useState<any>([]);
 
@@ -111,6 +112,7 @@ function Map({ hideLoading }: any) {
     try {
       let res = await dispatch(fetchChatsByMember(user.uid));
       setCurrentChats(sortChat(res.payload));
+      setChatsRetrived(true);
     } catch (e) {
       console.log(e);
     }
@@ -118,7 +120,6 @@ function Map({ hideLoading }: any) {
 
   useEffect(() => {
     setCurrentMessages([]);
-
     for (const chat of currentChats) {
       retriveMessages(chat.chatId);
     }
@@ -136,8 +137,10 @@ function Map({ hideLoading }: any) {
     }
   }
 
+  console.log(chatsRetrived);
+
   useEffect(() => {
-    if (loadedChats === currentChats.length && currentChats.length > 0) {
+    if (loadedChats === currentChats.length && chatsRetrived) {
       setAllLoaded(true);
     }
   }, [loadedChats, currentChats]);

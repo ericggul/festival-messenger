@@ -32,9 +32,10 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
       window.Kakao.API.request({
         url: "/v2/user/me",
         data: {
-          property_keys: ["kakao_account.profile"],
+          property_keys: ["kakao_account.profile", "kakao_account.friends", "friends"],
         },
         success: (res: any) => {
+          console.log("res", res);
           let output = res.kakao_account.profile;
           console.log(output);
           //create
@@ -124,6 +125,7 @@ const useAuth = (navigateTo?: any) => {
               //   //fetch data: to do?
               // }
 
+              console.log(kakaoToken);
               dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email, token: kakaoToken }));
               dispatch(actions.setLoading(false));
             })

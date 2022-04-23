@@ -20,6 +20,8 @@ import * as S from "./styles";
 
 function Settings() {
   const user = useAppSelector((state) => state.users);
+
+  console.log(user);
   const dispatch = useAppThunkDispatch();
 
   const { modalComponent, isModalOpen, setIsModalOpen, imageFile, image, setImage, setImageFile } = useAddImageModal(AddImageModal, true, {}, createUserInfo);
@@ -28,7 +30,6 @@ function Settings() {
   async function fetchUserProfile() {
     try {
       const res = await dispatch(fetchUserInformation(user.uid)).unwrap();
-      console.log(res);
       setImage(res.profileImage || NO_PROFILE);
       setName(res.name);
     } catch (e) {
