@@ -129,15 +129,15 @@ function Map({ hideLoading }: any) {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chatId));
       //Filter 72 hours and and get only unread messages
-      let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS && !msg.read).sort((a: any, b: any) => b.createdAt.seconds - a.createdAt.seconds);
+      let sortedMessages = fetchedMessages.payload
+        .filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS && msg.messageFrom !== user.uid)
+        .sort((a: any, b: any) => b.createdAt.seconds - a.createdAt.seconds);
       setCurrentMessages((msg: any) => [...msg, { chatId: chatId, messages: sortedMessages }]);
       setLoadedChats((load) => load + 1);
     } catch (e) {
       console.log(e);
     }
   }
-
-  console.log(chatsRetrived);
 
   useEffect(() => {
     if (loadedChats === currentChats.length && chatsRetrived) {

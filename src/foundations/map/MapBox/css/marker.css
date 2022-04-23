@@ -5,6 +5,16 @@
   opacity: 1;
 }
 
+.marker-read {
+  width: 2.8em;
+  height: 2.8rem;
+  border-radius: 50%;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .marker img {
   width: 100%;
   height: 100%;
@@ -13,6 +23,32 @@
   top: 0;
   left: 0;
   border-radius: 50%;
+}
+
+.marker-read img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  opacity: 0.5;
+
+  /* filter:  */
+}
+
+.read-text {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+
+  font-size: 0.67rem;
+  font-weight: light;
+  color: #666;
 }
 
 .signifier {

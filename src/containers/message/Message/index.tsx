@@ -61,9 +61,11 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
         }
       } else {
         //If there is only one member, add current user to the chat
-        members.push(user.uid);
-        await dispatch(addMemberToChat({ chatId, members }));
-        await dispatch(alterMessageTo({ chatId, messageId, newMessageTo: user.uid }));
+        if (members[0] !== user.uid) {
+          members.push(user.uid);
+          await dispatch(addMemberToChat({ chatId, members }));
+          await dispatch(alterMessageTo({ chatId, messageId, newMessageTo: user.uid }));
+        }
         setUserMessageAvailable(true);
       }
     } catch (e) {

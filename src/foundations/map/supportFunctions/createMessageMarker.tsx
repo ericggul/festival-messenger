@@ -4,7 +4,11 @@ import ARROW_RIGHT from "@I/icons/messenger/arrow-right.svg";
 
 export default function createMessageMarker(chat: any, msg: any, user: any, handleMessageClick: any) {
   let el = document.createElement("div");
-  el.className = "marker";
+  if (msg.read) {
+    el.className = "marker-read";
+  } else {
+    el.className = "marker";
+  }
 
   if (msg.messageFromProfile) {
     let img = document.createElement("img");

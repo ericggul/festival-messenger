@@ -119,7 +119,7 @@ function WriteMessage(props: any) {
           font,
         })
       );
-      alert("Preview!");
+
       props.moveToPreview(imageFile, musicFile);
     } catch (error) {
       console.log(error);
