@@ -42,7 +42,6 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
   );
 
   //Intermediate state listener for color, etc.
-  const [color, setColor] = useState({ h: 144, s: 17, l: 42 });
   const [music, setMusic] = useState({
     name: "No Music",
     file: null,
@@ -50,7 +49,6 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
   const [font, setFont] = useState("Seoul Namsan");
 
   const onColorClick = (cl: any) => {
-    setColor(cl);
     onColorChange(cl);
   };
   const onMusicClick = (mz: any, mzFile: any) => {

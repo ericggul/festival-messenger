@@ -16,6 +16,7 @@ import { actions } from "@R/singleMessage/messagePreview/state";
 
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
+import COLOR_LIST from "@S/assets/color/colorList";
 
 const Complete = ({ completeCommand }: any) => {
   return <S.CompletePanel onClick={completeCommand}>작성 완료</S.CompletePanel>;
@@ -26,7 +27,7 @@ function WriteMessage(props: any) {
   const preview = useAppSelector((state) => state.singleMessagePreview);
 
   //Color State
-  const [color, setColor] = useState(preview.color || { h: 144, s: 17, l: 42, black: false });
+  const [color, setColor] = useState(preview.color || COLOR_LIST[Math.floor(Math.random() * COLOR_LIST.length)]);
   const [isTextBlack, setIsTextBlack] = useState(preview.color?.black || false);
   useEffect(() => {
     if (color?.black) {
