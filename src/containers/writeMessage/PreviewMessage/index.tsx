@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 //styles
 import * as ES from "@S/style/common/errorPage";
 
+//kakao config
+import { KAKAO_MESSAGE_ID, KAKAO_LINK_ID } from "@/configs/kakao";
+
 //react router usenavigate
 import { useNavigate } from "react-router-dom";
 
@@ -67,20 +70,56 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
     if (messageSendStarted) {
       setMessageSendFinished(true);
       dispatch(actions.reset());
-
-      alert("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
     }
   });
 
   //share through kakao
   const [chatId, setChatId] = useState<any>(null);
   const [messageId, setMessageId] = useState<any>(null);
+  const [messageUUID, setMessageUUID] = useState<any>(null);
   const [profileName, setProfileName] = useState<any>(null);
   const [profileImg, setProfileImg] = useState<any>(null);
 
   const shareThroughKakao = () => {
+    if (messageUUID === "unassigned") {
+      //if there is not friend registerd, share through kakao Link
+      shareThroughKakaoLink();
+    } else {
+      shareThroughKakaoMessenger();
+    }
+  };
+
+  const shareThroughKakaoMessenger = () => {
+    window.Kakao.API.request({
+      url: "/v1/api/talk/friends/message/send",
+      data: {
+        receiver_uuids: [messageUUID],
+        template_id: KAKAO_MESSAGE_ID,
+        template_args: {
+          imageURL: profileImg,
+          profileName,
+          chatId,
+          messageId,
+        },
+      },
+      success: function (response: any) {
+        console.log(response);
+        alert("메시지 전송 완료!");
+        navigate("/map");
+      },
+      fail: function (error: any) {
+        console.log(error);
+        if (error.code) {
+          shareThroughKakaoLink();
+        }
+      },
+    });
+  };
+
+  const shareThroughKakaoLink = () => {
+    alert("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
     window.Kakao.Link.sendCustom({
-      templateId: 74978,
+      templateId: KAKAO_LINK_ID,
       templateArgs: {
         imageURL: profileImg,
         profileName,
@@ -117,7 +156,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
           handleEdit={handleEdit}
           handleSend={() => {
             setMessageSendStarted(true);
-            handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen, setChatId, setMessageId, setProfileName, setProfileImg);
+            handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen, setChatId, setMessageId, setMessageUUID, setProfileName, setProfileImg);
           }}
         />
       )}

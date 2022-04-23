@@ -89,6 +89,13 @@ function Messenger() {
     return chats.filter((chat: any) => deltaTime(chat.lastUpdatedAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => b.lastUpdatedAt.seconds - a.lastUpdatedAt.seconds);
   }
 
+  useEffect(() => {
+    if (currentChats.length === 0) {
+      alert("메시지가 없습니다!");
+      navigate("/map");
+    }
+  }, [currentChats]);
+
   return (
     <S.Container>
       <S.InnerContainer>

@@ -25,12 +25,14 @@ export default async function handleSend(
 
   setChatId: any,
   setMessageId: any,
+  setMessageUUID: any,
   setProfileName: any,
   setProfileImg: any
 ) {
   setLoading(true);
 
   let toId = preview.toId;
+  let uuid = preview.uuid;
 
   //For Testing
   //   toId = "test-new-user";
@@ -90,6 +92,7 @@ export default async function handleSend(
 
   setChatId(chatId);
   setMessageId(messageId);
+  setMessageUUID(uuid);
 
   setProfileImg(user.profileImage || NO_PROFILE);
   setProfileName(user.name || "NO NAME");

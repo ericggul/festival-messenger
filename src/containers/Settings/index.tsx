@@ -60,9 +60,10 @@ function Settings() {
       kakaoProfileImageUrl: user.profileImage,
     };
     try {
-      const res = await dispatch(createUserInformation(userInfo)).unwrap();
+      await dispatch(createUserInformation(userInfo)).unwrap();
       alert("저장 완료!");
       setLoading(false);
+      navigate("/map");
     } catch (e) {
       alert("오류 발생!");
       setLoading(false);

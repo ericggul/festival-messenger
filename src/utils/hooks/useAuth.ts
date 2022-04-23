@@ -148,6 +148,7 @@ const useAuth = (navigateTo?: any) => {
     dispatch(actions.setLoading(true));
     window.Kakao.Auth.authorize({
       redirectUri: redirectUri,
+      scope: "friends,talk_message",
     });
   }, [dispatch]);
 

@@ -71,6 +71,7 @@ function WriteMessage(props: any) {
   const [name, setName] = useState(preview.toName || props?.name || "");
   const [mainText, setMainText] = useState(preview.mainText || "");
   const [imageFile, setImageFile] = useState<any>(props.imageFile || null);
+
   const [dataRetrivedStatus, setDataRetrivedStatus] = useState(0);
 
   //We do this to get data from the child components (name, text, image)
@@ -110,6 +111,7 @@ function WriteMessage(props: any) {
         actions.setValues({
           toId: props?.id && props?.id !== -1 ? props?.id : "unassigned",
           toName: name,
+          uuid: props?.uuid || "unassigned",
           latLngPos: props?.latLng || null,
           mainText,
           color,
