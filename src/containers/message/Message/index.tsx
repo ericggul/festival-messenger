@@ -108,7 +108,7 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
   }, [chatId, messageId, userMessageAvailable]);
 
   //get distance message availability
-  const distanceMessageAvailable = useDistanceAvailability(pos, user, message);
+  const { messageAvaialble: distanceMessageAvailable, messageDistance } = useDistanceAvailability(pos, user, message);
 
   //change the read state of message to 'true'
   useEffect(() => {

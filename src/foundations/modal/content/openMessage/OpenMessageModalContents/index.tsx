@@ -13,13 +13,14 @@ import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 
 //Images
 import { NO_PROFILE } from "@U/hooks/useAuth";
-import ClockIcon from "@I/icons/openMessage/clock.svg";
+import ClockWhite from "@I/icons/openMessage/clock.svg";
+import ClockBlack from "@I/icons/openMessage/clock-black.svg";
 
 function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   //Message Availablity based on distance btw message and currentPos
 
   const user = useAppSelector((state) => state.users);
-  const distanceMessageAvailable = useDistanceAvailability(pos, user, message);
+  const { messageAvaialble: distanceMessageAvailable, messageDistance } = useDistanceAvailability(pos, user, message);
 
   //get delta time of message
   const time = useMemo(() => {
@@ -56,17 +57,16 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   return (
     <>
       <S.Background color={message.color} />
-      <S.Container>
+      <S.Container color={message.color}>
         <S.Header>
-          <S.HeaderText>메시지 열어보기</S.HeaderText>
+          <S.HeaderText>{message.messageFrom === user.uid ? `To. ${message.toName}` : `From. ${fromName}`}</S.HeaderText>
           <S.Time>
-            {message.messageFrom !== user.uid && <S.TimeIcon src={ClockIcon} />}
+            {message.messageFrom !== user.uid && <S.TimeIcon src={message.color.black ? ClockBlack : ClockWhite} />}
             <S.TimeText>{message.messageFrom === user.uid ? (message.read ? "상대가 읽음" : "상대가 읽지않음") : time}</S.TimeText>
           </S.Time>
         </S.Header>
         <S.Profile src={fromProfile} />
         <S.ContentsPreview>
-          <S.FromText>{message.messageFrom === user.uid ? `To. ${message.toName}` : `From. ${fromName}`}</S.FromText>
           <S.BodyText>{message.mainText.replaceAll("\\n", "\n").slice(0, Math.min(Math.floor(message.mainText.length * 0.3), 30))}...</S.BodyText>
         </S.ContentsPreview>
 
@@ -75,10 +75,21 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
             열기
           </S.Button>
           {!distanceMessageAvailable && (
-            <S.NotAccessible>
-              <p>메시지는 버들골 내 핀 근처에서만 열람할 수 있습니다.</p>
-              <p>핀이 찍힌 위치 가까이로 가주세요.</p>
-            </S.NotAccessible>
+            <>
+              {messageDistance > 150 ? (
+                <S.NotAccessible color={message.color}>
+                  {" "}
+                  <p>메시지는 버들골 내에서만 열람할 수 있습니다.</p>
+                  <p>핀이 찍힌 위치 가까이로 가주세요.</p>
+                </S.NotAccessible>
+              ) : (
+                <S.AlmostAccessible>
+                  {" "}
+                  <p>메시지까지 {Math.round(messageDistance)}m</p>
+                  <p>50m내에서 열람 가능합니다.</p>
+                </S.AlmostAccessible>
+              )}
+            </>
           )}
         </S.ButtonContainer>
       </S.Container>

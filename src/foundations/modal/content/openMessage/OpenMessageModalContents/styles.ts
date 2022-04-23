@@ -5,7 +5,7 @@ interface ContainerColor {
   color: any;
 }
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerColor>`
   ${FlexCenterStyle};
   flex-direction: column;
   animation: ${AppearAnimation} 0.7s;
@@ -15,7 +15,7 @@ export const Container = styled.div`
 
   position: relative;
   opacity: 1;
-  color: white;
+  color: ${({ color }) => (color.black ? "black" : "white")};
   z-index: 99;
 `;
 
@@ -73,10 +73,7 @@ export const ContentsPreview = styled.div`
   margin-top: 2.5rem;
   margin-bottom: 2rem;
 `;
-export const FromText = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
+
 export const BodyText = styled.div`
   font-size: 1rem;
   margin-top: 1.25rem;
@@ -97,18 +94,27 @@ interface ButtonProps {
 export const Button = styled.div<ButtonProps>`
   ${FlexCenterStyle};
   font-weight: bold;
-  font-size: 1.67rem;
+  font-size: 1.5rem;
   color: ${({ shine }) => (shine ? "black" : "#696969")};
-  width: 11rem;
-  height: 3rem;
+  width: 10rem;
+  height: 2.5rem;
   border-radius: 1.5rem;
   background: ${({ shine }) => (shine ? "#f7fdea" : "#b1afaf")};
   box-shadow: ${({ shine }) => shine && "0 0 5rem #fff"};
   cursor: ${({ shine }) => shine && "pointer"};
 `;
 
-export const NotAccessible = styled.div`
-  color: #dfdfdf;
+export const NotAccessible = styled.div<ContainerColor>`
+  color: ${({ color }) => (color.black ? "#555" : "#dfdfdf")};
+
+  font-size: 0.8rem;
+  p {
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+export const AlmostAccessible = styled.div`
   font-size: 0.8rem;
   p {
     margin: 0;

@@ -25,5 +25,5 @@ export default function useDistanceAvailability(currPos: any, user: any, message
     }
   }, [message, user, currPos]);
 
-  return messageAvaialble;
+  return {messageAvaialble, messageDistance: distance};
 }
