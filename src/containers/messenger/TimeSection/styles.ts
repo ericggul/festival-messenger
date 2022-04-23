@@ -5,6 +5,7 @@ interface LengthProps {
   length: number;
 }
 export const TimeLine = styled.div<LengthProps>`
+  // margin-top: 13rem;
   margin-left: 4rem;
   margin-right: 4rem;
   height: 2px;

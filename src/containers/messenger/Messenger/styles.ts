@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
+import { ButtonCommon } from "@C/map/MapInner/styles";
 
 export const Container = styled.div`
   position: fixed;
@@ -29,17 +30,16 @@ export const InnerContainer = styled.div`
 `;
 
 export const Note = styled.div`
+  width: ${({ theme }) => (theme.windowWidth > 768 ? theme.windowWidth - 6.9 * 16 : theme.windowWidth - 6.9 * 12)}px;
   margin-left: 3.45rem;
+  margin-right: 3.45rem;
   margin-top: 8rem;
   margin-bottom: 4rem;
   font-size: 1rem;
   font-weight: light;
   color: #666;
-
-  p {
-    margin: 0;
-    padding: 0;
-  }
+  ${FlexCenterStyle};
+  justify-content: space-between;
 `;
 
 export const ChatContainer = styled.div`

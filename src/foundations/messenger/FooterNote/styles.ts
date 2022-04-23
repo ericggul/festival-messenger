@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
-export const FooterNote = styled.div`
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10rem;
+  margin-left: 1.95rem;
   font-size: 1rem;
   font-weight: light;
   color: #666;
-  margin-bottom: 10rem;
-  margin-left: 1.95rem;
+`;
 
+export const FooterNote = styled.div`
   display: flex;
   align-items: center;
 
@@ -23,8 +27,8 @@ interface SignifierProps {
 export const Signifier = styled.div<SignifierProps>`
   margin-left: 1.5rem;
   margin-right: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   border-radius: 50%;
   width: 1.2rem;
   height: 1.2rem;
@@ -38,4 +42,13 @@ export const Signifier = styled.div<SignifierProps>`
 export const SignifierImg = styled.img`
   width: 80%;
   height: 80%;
+`;
+
+export const SendButton = styled.div`
+  cursor: pointer;
+  width: 20rem;
+
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
 `;

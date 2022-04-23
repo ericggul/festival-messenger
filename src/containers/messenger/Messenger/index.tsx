@@ -100,7 +100,8 @@ function Messenger() {
     <S.Container>
       <S.InnerContainer>
         <S.Note>
-          <p>주의! 모든 메시지는 전송시점 기준 72시간 후에 사라집니다!</p>
+          <div>주의! 모든 메시지는 전송시점 기준 72시간 후에 사라집니다!</div>
+    
         </S.Note>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
         <S.ChatContainer>{chatLoaded && currentChats.map((chat, i) => <SingleChat distancePerTime={distancePerTime} chat={chat} user={user} key={i} />)}</S.ChatContainer>

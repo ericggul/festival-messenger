@@ -179,9 +179,24 @@ function Map({ hideLoading }: any) {
             user={user}
           />
         )}
-        <S.AddMessageButton show={displayMap} onClick={() => setMessageSendMode((mode) => !mode)}>
-          {messageSendMode ? "지도 상에 핀을 꽂아보세요" : " + 새로운 메시지 보내기"}
-        </S.AddMessageButton>
+
+        {messageSendMode ? (
+          <S.AddMessageButton show={displayMap} onClick={() => setMessageSendMode((mode) => !mode)}>
+            {"지도 상에 핀을 꽂아보세요"}
+          </S.AddMessageButton>
+        ) : (
+          <S.AddMessageButton show={displayMap} onClick={() => setMessageSendMode((mode) => !mode)}>
+            {"+ 새로운 메시지 보내기"
+              .trim()
+              .split("")
+              .map((t: String, i: number, array: any) => (
+                <S.Span key={i} idx={i}>
+                  {t === " " ? "\u00A0" : t}
+                </S.Span>
+              ))}
+          </S.AddMessageButton>
+        )}
+
         <S.GhostButton show={displayMap}>
           <S.ButtonImg src={Location2} />
           <S.ButtonText>내위치</S.ButtonText>

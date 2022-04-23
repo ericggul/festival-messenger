@@ -12,7 +12,7 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 
-const ButtonCommon = css`
+export const ButtonCommon = css`
   cursor: pointer;
 
   position: absolute;
@@ -23,7 +23,7 @@ const ButtonCommon = css`
   font-size: 1rem;
   border-radius: 1.1rem;
   ${FlexCenterStyle};
-  background: ${({ theme }) => theme.palette.TRANSPARENT_WHITE};
+  background: white;
 `;
 
 interface ButtonProps {
@@ -39,6 +39,30 @@ export const AddMessageButton = styled.div<ButtonProps>`
   transition: opacity 0.8s;
   transition-delay: 0.5s;
   opacity: ${({ show }) => (show ? 1 : 0)};
+`;
+
+interface SpanIdx {
+  idx: number;
+}
+
+export const Span = styled.span<SpanIdx>`
+  padding: 0;
+  margin: 0;
+
+  animation: flip-text-rotate 9s infinite linear;
+  // animation-delay: ${({ idx }) => idx * 0.1}s;
+
+  @keyframes flip-text-rotate {
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(360deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
 `;
 
 export const GhostButton = styled.div<ButtonProps>`
