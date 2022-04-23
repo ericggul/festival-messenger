@@ -8,6 +8,7 @@ import mapboxgl from "!mapbox-gl"; /* eslint import/no-webpack-loader-syntax: of
 //css
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@F/map/MapBox/css/marker.css";
+import "@F/map/MapBox/css/currentPosMarker.css";
 import "@F/map/MapBox/css/newMessage.css";
 import "@F/map/MapBox/css/resetButton.css";
 
@@ -314,10 +315,17 @@ function MapBox({
   }
 
   async function mapZoomToCurrent() {
+    if (document.querySelector(".current-pos")) {
+      document.querySelector(".current-pos")?.remove();
+    }
+    let el = document.createElement("div");
+    el.className = "current-pos";
+
     console.log("map zoom to current");
     console.log(currentPos);
     if (mapRef.current && typeof mapRef.current == "object") {
       if (currentPosPermittedStatus) {
+        new mapboxgl.Marker(el).setLngLat([currentPos.lng, currentPos.lat]).addTo(mapRef.current);
         mapRef.current.flyTo({
           center: [currentPos.lng, currentPos.lat],
           zoom: 18,

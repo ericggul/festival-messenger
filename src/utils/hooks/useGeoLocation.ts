@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-import { actions } from "@R/geoLocation/state";
 
 export default function useGeoLocation() {
   const [pos, setPos] = useState<any>({});
