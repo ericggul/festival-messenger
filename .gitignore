@@ -2,6 +2,7 @@
 
 #secret key
 /src/firebase
+/src/configs
 
 /_templates
 .firebase

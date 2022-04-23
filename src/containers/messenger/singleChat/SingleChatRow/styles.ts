@@ -14,11 +14,12 @@ export const SingleRow = styled.div`
 
 interface LeftProps {
   left: number;
+  read: boolean;
 }
 
 export const SingleMessage = styled.div.attrs<LeftProps>((props) => ({
   style: {
-    left: `${props.left - 1.6}rem`,
+    left: `${props.read ? props.left - 1.0 : props.left - 1.6}rem`,
   },
 }))<LeftProps>`
   ${FlexCenterStyle};
@@ -27,6 +28,8 @@ export const SingleMessage = styled.div.attrs<LeftProps>((props) => ({
 `;
 
 export const Name = styled.p`
+  position: absolute;
+  top: -1.1rem;
   margin: 0;
   padding: 0;
   font-size: 0.67rem;
@@ -36,6 +39,8 @@ export const Name = styled.p`
 `;
 
 export const Time = styled.p`
+  position: absolute;
+  bottom: -1.1rem;
   margin: 0;
   padding: 0;
   font-size: 0.67rem;

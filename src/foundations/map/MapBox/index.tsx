@@ -25,6 +25,9 @@ import createMessageMarker from "@F/map/supportFunctions/createMessageMarker";
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
 
+//configs
+import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLES } from "@/configs/mapbox";
+
 const POLYGON = [
   [126.9567311, 37.4603392],
   [126.9548643, 37.4583549],
@@ -51,7 +54,7 @@ function MapBox({
   user,
   zoomIn = false,
 }: any) {
-  mapboxgl.accessToken = "pk.eyJ1IjoiZXJpY2dndWwiLCJhIjoiY2wwMmkyYTRkMTRhczNobHNsMnBxb3BkMyJ9.DLFELyGRBinEC75rdCGBBQ";
+  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
   const mapRef = useRef<any>(!null);
   const mapContainerRef = useRef<any>(!null);
 
@@ -70,7 +73,7 @@ function MapBox({
         zoom: zoom,
         pitch: 85,
         bearing: 180,
-        style: "mapbox://styles/ericggul/cl0nx2gmt000a14sdee853joe",
+        style: MAPBOX_STYLES,
         attributionControl: false,
       });
 

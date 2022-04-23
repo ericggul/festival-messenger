@@ -9,8 +9,6 @@ export const ProfileImgContainer = styled.div<ReadProps>`
   height: ${({ read }) => (read ? 2.8 : 4)}rem;
 
   opacity: ${({ read }) => (read ? 0.8 : 1)};
-  filter: ${({ read }) => read && `grayscale(50%)`};
-  // drop-shadow: ${({ read }) => read && "0 0 0.5rem #000"};
 
   animation: ${AppearAnimation} 1s backwards;
 `;
@@ -34,8 +32,8 @@ export const Signifier = styled.div<SignifierProps>`
   border-radius: 50%;
   width: ${({ read }) => (read ? "0.9" : "1.2")}rem;
   height: ${({ read }) => (read ? "0.9" : "1.2")}rem;
-  top: 1rem;
-  right: -0.1rem;
+  top: 0rem;
+  right: -0.15rem;
   background: ${({ messageISent }) => (!messageISent ? `hsl(241, 80%, 63%)` : `white`)};
   ${FlexCenterStyle};
   filter: drop-shadow(0 0.3rem 0.3rem rgba(0, 0, 0, 0.25));
