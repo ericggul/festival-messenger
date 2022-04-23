@@ -4,6 +4,8 @@ import { useAppThunkDispatch, useAppSelector } from "@R/common/hooks";
 import { createUserInformation } from "@R/users/middleware";
 import useInput from "@U/hooks/useInput";
 
+import { NO_PROFILE } from "@U/hooks/useAuth";
+
 //useModal
 import useModal, { useAddImageModal } from "@U/hooks/useModal";
 import LoadingModal from "@F/modal/content/LoadingModal";
@@ -26,7 +28,8 @@ function Settings() {
   async function fetchUserProfile() {
     try {
       const res = await dispatch(fetchUserInformation(user.uid)).unwrap();
-      setImage(res.profileImage);
+      console.log(res);
+      setImage(res.profileImage || NO_PROFILE);
       setName(res.name);
     } catch (e) {
       console.log(e);

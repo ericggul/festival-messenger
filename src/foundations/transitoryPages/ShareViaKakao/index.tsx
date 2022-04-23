@@ -38,6 +38,7 @@ const P5Container = () => {
 
   const preload = (p5: p5Types) => {
     let img = p5.loadImage("./assets/images/kakao.svg");
+
     setParticleTexture(img);
   };
 
@@ -79,7 +80,6 @@ const P5Container = () => {
 
   let ParticleSystem = function (this: ParticleSystem, p5: any, num: any, v: any, img_: any) {
     this.p5 = p5;
-
     this.particles = [];
     this.origin = v.copy();
     this.img = img_;
@@ -94,7 +94,6 @@ const P5Container = () => {
     for (let i = len - 1; i >= 0; i--) {
       let particle = this.particles[i];
       particle.run();
-
       if (particle.isDead()) {
         this.particles.splice(i, 1);
       }
