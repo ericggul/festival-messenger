@@ -15,6 +15,9 @@ import "@F/map/MapBox/css/resetButton.css";
 import SunCalc from "suncalc";
 import pointInPolygon from "point-in-polygon";
 
+//hooks
+import useGeoLocation from "@U/hooks/useGeoLocation";
+
 //support function
 import createMessageMarker from "@F/map/supportFunctions/createMessageMarker";
 
@@ -35,6 +38,9 @@ function MapBox({
   handleMessageClick,
   handleAddNewMessage,
   messageSendMode,
+  //current position related
+  goToCurrentPosition,
+  goToCurrentPositionCompleted,
   //reset related
   resetState,
   resetCompleted,
@@ -72,6 +78,17 @@ function MapBox({
       };
     }
   }, [mapContainerRef]);
+
+  //go to current position related
+  const { pos: currentPos, permittedStatus: currentPosPermittedStatus } = useGeoLocation();
+
+  useEffect(() => {
+    if (goToCurrentPosition) {
+      console.log("get to current pos");
+      mapZoomToCurrent();
+      goToCurrentPositionCompleted();
+    }
+  }, [goToCurrentPosition]);
 
   //Resize Map
   useEffect(() => {
@@ -167,16 +184,16 @@ function MapBox({
         setZoom(mapRef.current.getZoom().toFixed(2));
       });
 
-      mapRef.current.addControl(
-        new mapboxgl.GeolocateControl({
-          fitBoundsOptions: { maxZoom: 19 },
-          positionOptions: {
-            enableHighAccuracy: true,
-          },
-          trackUserLocation: true,
-          showUserHeading: true,
-        })
-      );
+      // mapRef.current.addControl(
+      //   new mapboxgl.GeolocateControl({
+      //     fitBoundsOptions: { maxZoom: 19 },
+      //     positionOptions: {
+      //       enableHighAccuracy: true,
+      //     },
+      //     trackUserLocation: true,
+      //     showUserHeading: true,
+      //   })
+      // );
     }
 
     mapZoomOnceIdle(zoomIn);
@@ -285,7 +302,27 @@ function MapBox({
           center: [INITIAL_POS.lng, INITIAL_POS.lat],
           zoom: 18,
           bearing: 180,
-          speed: 0.7,
+          speed: 1.5,
+          curve: 1,
+          easing: (t: any) => t,
+
+          // this animation is considered essential with respect to prefers-reduced-motion
+          essential: true,
+        });
+      }
+    }
+  }
+
+  async function mapZoomToCurrent() {
+    console.log("map zoom to current");
+    console.log(currentPos);
+    if (mapRef.current && typeof mapRef.current == "object") {
+      if (currentPosPermittedStatus) {
+        mapRef.current.flyTo({
+          center: [currentPos.lng, currentPos.lat],
+          zoom: 18,
+          bearing: 180,
+          speed: 1.5,
           curve: 1,
           easing: (t: any) => t,
 

@@ -103,7 +103,8 @@ function Map({ hideLoading }: any) {
   useEffect(() => {
     if (!user.uid) {
       setCurrentChats([]);
-      return;
+      setAllLoaded(true);
+      // navigate("/login");
     }
     retriveChat();
   }, [user]);
@@ -152,8 +153,10 @@ function Map({ hideLoading }: any) {
   //position related
   //Reset Position
   const [reset, setReset] = useState(false);
-
   const [displayMap, setDisplayMap] = useState(false);
+
+  //get current position
+  const [goToCurrentPosition, setGoToCurrentPosition] = useState(false);
 
   useEffect(() => {
     if (displayMap) {
@@ -170,6 +173,9 @@ function Map({ hideLoading }: any) {
             handleMessageClick={handleMessageClick}
             handleAddNewMessage={handleAddNewMessage}
             messageSendMode={messageSendMode}
+            //current position related
+            goToCurrentPosition={goToCurrentPosition}
+            goToCurrentPositionCompleted={() => setGoToCurrentPosition(false)}
             //Reset Button
             resetState={reset}
             resetCompleted={() => setReset(false)}
@@ -197,7 +203,7 @@ function Map({ hideLoading }: any) {
           </S.AddMessageButton>
         )}
 
-        <S.GhostButton show={displayMap}>
+        <S.GhostButton show={displayMap} onClick={() => setGoToCurrentPosition(true)}>
           <S.ButtonImg src={Location2} />
           <S.ButtonText>내위치</S.ButtonText>
         </S.GhostButton>

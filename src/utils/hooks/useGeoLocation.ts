@@ -3,11 +3,13 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { actions } from "@R/geoLocation/state";
 
 export default function useGeoLocation() {
-  const [pos, setPos] = useState({});
+  const [pos, setPos] = useState<any>({});
   const [permittedStatus, setPermittedStatus] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
+      console.log("here");
+
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setPos({ lat: position.coords.latitude, lng: position.coords.longitude });
@@ -15,11 +17,14 @@ export default function useGeoLocation() {
           // dispatch(actions.setValues({ pos: { lat: position.coords.latitude, lng: position.coords.longitude }, permittedStatus: true }));
         },
         (error) => {
+          setPermittedStatus(false);
           alert("메시지 열람을 위해서는 위치 권한이 필요합니다.");
           console.log(error);
+          return;
         }
       );
     } else {
+      setPermittedStatus(false);
       alert("브라우저가 GeoLocation을 지원하지 않습니다. 최신 브라우저(크롬, 사파리 등)을 이용하시길 바랍니다.");
     }
   }, []);

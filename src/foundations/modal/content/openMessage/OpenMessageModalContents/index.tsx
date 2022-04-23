@@ -13,8 +13,10 @@ import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 
 //Images
 import { NO_PROFILE } from "@U/hooks/useAuth";
-import ClockWhite from "@I/icons/openMessage/clock.svg";
+import ClockWhite from "@I/icons/openMessage/clock-white.svg";
 import ClockBlack from "@I/icons/openMessage/clock-black.svg";
+import CheckWhite from "@I/icons/openMessage/check-white.svg";
+import CheckBlack from "@I/icons/openMessage/check-black.svg";
 
 function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   //Message Availablity based on distance btw message and currentPos
@@ -61,8 +63,8 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
         <S.Header>
           <S.HeaderText>{message.messageFrom === user.uid ? `To. ${message.toName}` : `From. ${fromName}`}</S.HeaderText>
           <S.Time>
-            {message.messageFrom !== user.uid && <S.TimeIcon src={message.color.black ? ClockBlack : ClockWhite} />}
-            <S.TimeText>{message.messageFrom === user.uid ? (message.read ? "상대가 읽음" : "상대가 읽지않음") : time}</S.TimeText>
+            {message.read ? <S.TimeIcon src={message.color.black ? CheckBlack : CheckWhite} /> : <S.TimeIcon src={message.color.black ? ClockBlack : ClockWhite} />}
+            <S.TimeText>{message.messageFrom === user.uid ? (message.read ? "상대가 읽음" : "상대가 읽지않음") : message.read ? "읽은 메시지" : time}</S.TimeText>
           </S.Time>
         </S.Header>
         <S.Profile src={fromProfile} />

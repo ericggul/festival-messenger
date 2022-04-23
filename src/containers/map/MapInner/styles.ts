@@ -17,13 +17,15 @@ export const ButtonCommon = css`
 
   position: absolute;
   font-weight: 300;
-  z-index: 2;
+  z-index: 5;
   padding: 0 1.2rem;
   height: 2.2rem;
   font-size: 1rem;
   border-radius: 1.1rem;
   ${FlexCenterStyle};
-  background: white;
+
+  opacity: 1 !important;
+  background: #ffffff !important;
 `;
 
 interface ButtonProps {
@@ -69,7 +71,6 @@ export const GhostButton = styled.div<ButtonProps>`
   right: 0;
   margin-right: 1rem;
   top: 10px;
-  pointer-events: none;
 
   transition: opacity 0.8s;
   transition-delay: 0.5s;
