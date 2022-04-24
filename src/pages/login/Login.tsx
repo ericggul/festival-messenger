@@ -1,4 +1,5 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Header from "@F/layout/Header";
 import Footer from "@F/layout/Footer";
 import withMountEvent from "@U/hoc/withMountEvent";
 import LoginContainer from "@C/Login";
@@ -9,6 +10,7 @@ function Login() {
 
   return (
     <>
+      <Header name="Login" />
       <LoginContainer {...state} />
       <Footer currentLoc="Login" color="rgba(0, 0, 0, 0)" />
     </>

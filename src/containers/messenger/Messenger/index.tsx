@@ -101,10 +101,17 @@ function Messenger() {
       <S.InnerContainer>
         <S.Note>
           <div>주의! 모든 메시지는 전송시점 기준 72시간 후에 사라집니다!</div>
-    
         </S.Note>
         <TimeSection maxTimeBefore={maxTimeBefore} timeInterval={timeInterval} distancePerTime={distancePerTime} />
-        <S.ChatContainer>{chatLoaded && currentChats.map((chat, i) => <SingleChat distancePerTime={distancePerTime} chat={chat} user={user} key={i} />)}</S.ChatContainer>
+        <S.ChatContainer>
+          {chatLoaded && currentChats.length > 0 ? (
+            currentChats.map((chat, i) => <SingleChat distancePerTime={distancePerTime} chat={chat} user={user} key={i} />)
+          ) : (
+            <S.Note>
+              <div>메시지가 없습니다. 지도 섹션에서 메시지를 추가해주세요.</div>
+            </S.Note>
+          )}
+        </S.ChatContainer>
         <FooterNote />
       </S.InnerContainer>
     </S.Container>

@@ -28,7 +28,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
     console.log(userInfo.payload);
 
     if (!userInfo.payload) {
-      console.log("here!");
+      console.log("new user!");
       window.Kakao.API.request({
         url: "/v2/user/me",
         data: {
@@ -52,7 +52,16 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
           dispatch(actions.setValue({ profileImage: output.profile_image_url || NO_PROFILE }));
 
           alert("로그인 완료!");
-          navigate(user.landingUrl || "/settings");
+          console.log(user.landingUrl);
+          if (user.landingUrl !== "/settings") {
+            navigate(user.landingUrl);
+          } else {
+            navigate("/settings", {
+              state: {
+                initialUI: true,
+              },
+            });
+          }
         },
         fail: (err: any) => {
           console.log(err);
@@ -62,6 +71,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
       console.log("existing user");
       //fetch data: to do?
       alert("로그인 완료!");
+
       navigate(user.landingUrl || "/settings");
     }
   } catch (e) {

@@ -20,11 +20,11 @@ import { fetchUserInformation } from "@R/users/middleware";
 
 import * as S from "./styles";
 
-function Settings() {
+function Settings(props: any) {
   //Two types of UI
   //1. Initial UI(Where User can select btw kakao talk and custom)
   //2. Default UI
-  const [initialUI, setInitialUI] = useState(true);
+  const [initialUI, setInitialUI] = useState(props?.initialUI || false);
 
   //background loading
   const [backgroundLoading, setBackgroundLoading] = useState(false);
