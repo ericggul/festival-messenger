@@ -14,6 +14,10 @@ import MessageContents from "@C/message/MessageContents";
 //foundations
 import ControlPanel from "@F/writeMessage/preview/ControlPanel";
 import LoadingModal from "@F/modal/content/LoadingModal";
+import ShareViaKakao from "@F/transitoryPages/ShareViaKakao";
+
+//Toast
+import toast from "react-hot-toast";
 
 //function
 import handleSend from "./handleSend";
@@ -28,7 +32,13 @@ import { actions } from "@R/singleMessage/messagePreview/state";
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
 
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
+  useEffect(() => {
+    EventBehavior("Write Message", "Preview Phase", "Started to preview message");
+  }, []);
   const preview = useAppSelector((state) => state.singleMessagePreview);
   const user = useAppSelector((state) => state.users);
 
@@ -59,11 +69,13 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   }, [imageFile, musicFile]);
 
   function handleEdit() {
+    EventBehavior("Write Message", "Preview Phase", "Back to writing phase");
     moveBackToWriteMode();
   }
 
   const [messageSendStarted, setMessageSendStarted] = useState(false);
   const [messageSendFinished, setMessageSendFinished] = useState(false);
+
   const [kakaoLinkClicked, setKakaoLinkClicked] = useState(false);
   const navigate = useNavigate();
   const { modalComponent, isModalOpen, setIsModalOpen } = useModal(LoadingModal, true, {}, () => {
@@ -82,12 +94,19 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
 
   const shareThroughKakao = () => {
     if (messageUUID === "unassigned") {
-      //if there is not friend registerd, share through kakao Link
+      //if there is no friend registerd, share through kakao Link
       shareThroughKakaoLink();
-    } else {
-      shareThroughKakaoMessenger();
     }
   };
+
+  useEffect(() => {
+    if (messageSendFinished) {
+      console.log("here");
+      if (messageUUID !== "unassigned") {
+        shareThroughKakaoMessenger();
+      }
+    }
+  }, [messageSendFinished, messageUUID]);
 
   const shareThroughKakaoMessenger = () => {
     window.Kakao.API.request({
@@ -103,8 +122,8 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
         },
       },
       success: function (response: any) {
-        console.log(response);
-        alert("카카오톡 전송 완료!");
+        EventBehavior("Write Message", "Preview Phase", "Share Through Kakao Messenger");
+        toast("카카오톡 전송 완료!");
         navigate("/map");
       },
       fail: function (error: any) {
@@ -117,7 +136,8 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   };
 
   const shareThroughKakaoLink = () => {
-    alert("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
+    EventBehavior("Write Message", "Preview Phase", "Share Through Kakao Link");
+    toast("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
     window.Kakao.Link.sendCustom({
       templateId: KAKAO_LINK_ID,
       templateArgs: {
@@ -141,12 +161,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   return (
     <>
       {messageSendFinished ? (
-        <ES.Container>
-          <ES.Text>
-            <p>친구한테 카카오톡을 보내서 메시지 링크를 전송해주세요!</p>
-          </ES.Text>
-          <ES.ToMainButton onClick={shareThroughKakao}>카카오톡 보내기</ES.ToMainButton>
-        </ES.Container>
+        <ShareViaKakao onClick={shareThroughKakao} />
       ) : (
         <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />
       )}
@@ -156,6 +171,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
           handleEdit={handleEdit}
           handleSend={() => {
             setMessageSendStarted(true);
+            EventBehavior("Write Message", "Preview Phase", "Send Message");
             handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen, setChatId, setMessageId, setMessageUUID, setProfileName, setProfileImg);
           }}
         />

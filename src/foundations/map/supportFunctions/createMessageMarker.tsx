@@ -2,6 +2,9 @@
 import ARROW_LEFT from "@I/icons/messenger/arrow-left.svg";
 import ARROW_RIGHT from "@I/icons/messenger/arrow-right.svg";
 
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 export default function createMessageMarker(chat: any, msg: any, user: any, handleMessageClick: any) {
   let el = document.createElement("div");
   if (msg.read) {
@@ -32,6 +35,7 @@ export default function createMessageMarker(chat: any, msg: any, user: any, hand
   el.appendChild(signifier);
 
   el.addEventListener("click", (ev: any) => {
+    EventBehavior("Map", "Message Read", "Message Read via Map");
     handleMessageClick(chat.chatId, msg.messageId);
     ev.stopPropagation();
   });

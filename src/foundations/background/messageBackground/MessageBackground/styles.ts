@@ -1,30 +1,9 @@
 import styled, { css } from "styled-components";
+import { AppearAnimation } from "@S/style/responsive/display";
 
 interface ContainerType {
   color: any;
 }
-
-export const HiddenContainer = styled.div<ContainerType>`
-  position: fixed;
-  height: ${({ theme }) => theme.windowHeight}px;
-  width: ${({ theme }) => theme.windowWidth}px;
-  top: 0;
-  left: 0;
-  background: black;
-  opacity: 0.7;
-  z-index: -10;
-
-  animation: changeBackground 10s infinite alternate;
-
-  @keyframes changeBackground {
-    from {
-      background: white;
-    }
-    to {
-      background: black;
-    }
-  }
-`;
 
 export const Container = styled.div<ContainerType>`
   height: ${({ theme }) => theme.windowHeight * 1.1}px;
@@ -38,10 +17,8 @@ export const Container = styled.div<ContainerType>`
 
   background: linear-gradient(${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l}%)`}, ${({ color }) => `hsl(${color.h}, ${color.s}%, ${color.l - 20}%)`});
   opacity: 0.6;
-  // filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
-  // -webkit-filter: blur(${({ theme }) => (theme.windowWidth * 2 + theme.windowHeight) * 0.025}px);
 
-  animation: background 0.3s;
+  animation: background 1s;
 `;
 
 export const Button = styled.div`

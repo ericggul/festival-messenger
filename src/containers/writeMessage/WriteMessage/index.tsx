@@ -14,15 +14,24 @@ import AddImage from "@F/writeMessage/addImage/AddImage";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { actions } from "@R/singleMessage/messagePreview/state";
 
+//Toast
+import toast from "react-hot-toast";
+
 //audio assets
 import AUDIO_LIST from "@S/assets/audio/audioList";
 import COLOR_LIST from "@S/assets/color/colorList";
+
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
 
 const Complete = ({ completeCommand }: any) => {
   return <S.CompletePanel onClick={completeCommand}>작성 완료</S.CompletePanel>;
 };
 
 function WriteMessage(props: any) {
+  useEffect(() => {
+    EventBehavior("Write Message", "Writing Phase", "Started to write message");
+  }, []);
   //check if there's stored data
   const preview = useAppSelector((state) => state.singleMessagePreview);
 
@@ -93,7 +102,7 @@ function WriteMessage(props: any) {
   useEffect(() => {
     if (dataRetrivedStatus === 3) {
       if (name === "" || mainText === "") {
-        alert("이름이나 내용이 불충분합니다.");
+        toast("이름이나 내용이 불충분합니다.");
         return;
       }
       handlePreviewingSendData();
@@ -107,6 +116,7 @@ function WriteMessage(props: any) {
   const dispatch = useAppDispatch();
 
   const handlePreviewingSendData = useCallback(async () => {
+    EventBehavior("Write Message", "Writing Phase", "Go To Preview Phase");
     try {
       await dispatch(
         actions.setValues({

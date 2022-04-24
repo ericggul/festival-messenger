@@ -29,6 +29,9 @@ import Explore from "@I/icons/map/explore.svg";
 import Location2 from "@I/icons/map/location-2.svg";
 import Update from "@I/icons/map/rotate-small-right.svg";
 
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 function Map(props: any) {
   ///////
   //Popup Related
@@ -47,6 +50,7 @@ function Map(props: any) {
   useEffect(() => {
     if (containerRef && containerRef.current) {
       if (messageSendMode) {
+        EventBehavior("Map", "Add Message", "1. Add Message Button Clicked");
         toast("메시지를 보낼 위치를 선택해주세요!");
         containerRef.current.style.cursor = "pointer";
       }
@@ -95,7 +99,9 @@ function Map(props: any) {
   const navigate = useNavigate();
   const handleAddNewMessage = (latLng: any) => {
     setLatLng(latLng);
+    EventBehavior("Map", "Add Message", "2. Lat Lng Position Selected");
     if (addMessageToSelected) {
+      EventBehavior("Map", "Add Message", "3-1. Friend Already Selected");
       //directly send message to friend
       getUserInformation(addMessageToSelected).then((res) => {
         navigate(`/writeMessage`, {
@@ -108,6 +114,7 @@ function Map(props: any) {
         });
       });
     } else {
+      EventBehavior("Map", "Add Message", "3-2. Selecting Friend to Send");
       setIsModalOpen(true);
     }
   };
@@ -145,6 +152,7 @@ function Map(props: any) {
   }, [user]);
 
   async function retriveChat() {
+    EventBehavior("Map", "Buttons", "Update button");
     try {
       let res = await dispatch(fetchChatsByMember(user.uid));
       setCurrentChats(sortChat(res.payload));
@@ -256,15 +264,17 @@ function Map(props: any) {
         )}
         {focusAddMessageButton && (
           <S.AddMessageButtonFocus show={displayMap}>
-            {new Array(10).fill(0).map((e, i) => (
-              <S.FocusText key={i} idx={i}>
-                새로운 메시지 보내기 버튼을 눌러주세요.
-              </S.FocusText>
-            ))}
+            <S.FocusText>새로운 메시지 보내기 버튼을 눌러주세요.</S.FocusText>
           </S.AddMessageButtonFocus>
         )}
 
-        <S.GhostButton show={displayMap} onClick={() => setGoToCurrentPosition(true)}>
+        <S.GhostButton
+          show={displayMap}
+          onClick={() => {
+            EventBehavior("Map", "Buttons", "Current Pos button");
+            setGoToCurrentPosition(true);
+          }}
+        >
           <S.ButtonImg src={Location2} />
           <S.ButtonText>내위치</S.ButtonText>
         </S.GhostButton>
@@ -272,7 +282,13 @@ function Map(props: any) {
           <S.ButtonImg src={Update} />
           <S.ButtonText>업데이트</S.ButtonText>
         </S.Button>
-        <S.ButtonLeft onClick={() => setReset(true)} show={displayMap}>
+        <S.ButtonLeft
+          onClick={() => {
+            setReset(true);
+            EventBehavior("Map", "Buttons", "Beoudeolgol button");
+          }}
+          show={displayMap}
+        >
           <S.ButtonImg src={Explore} />
           <S.ButtonText>버들골</S.ButtonText>
         </S.ButtonLeft>

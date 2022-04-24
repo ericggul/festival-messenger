@@ -12,6 +12,9 @@ import "@F/map/MapBox/css/currentPosMarker.css";
 import "@F/map/MapBox/css/newMessage.css";
 import "@F/map/MapBox/css/resetButton.css";
 
+//Toast
+import toast from "react-hot-toast";
+
 //libraries
 import SunCalc from "suncalc";
 import pointInPolygon from "point-in-polygon";
@@ -27,6 +30,9 @@ import AddMessage from "@I/icons/map/add-message.svg";
 
 //configs
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLES } from "@/configs/mapbox";
+
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
 
 const POLYGON = [
   [126.9567311, 37.4603392],
@@ -214,9 +220,11 @@ function MapBox({
     if (newMarkerLatLng !== null) {
       let pointInside = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], POLYGON);
       if (!pointInside) {
-        alert("버들골 외부에는 메시지를 전송할수 없습니다!");
+        EventBehavior("Map", "Add Pin", "Pin to place outside");
+        toast("버들골 외부에는 메시지를 전송할수 없습니다!");
         return;
       }
+      EventBehavior("Map", "Add Pin", "Pin to place inside");
       if (newMarker !== null) {
         newMarker.remove();
       }

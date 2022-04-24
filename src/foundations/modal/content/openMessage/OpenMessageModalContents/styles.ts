@@ -70,13 +70,12 @@ export const Profile = styled.img`
 export const ContentsPreview = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
 `;
 
 export const BodyText = styled.div`
   font-size: 1rem;
-  margin-top: 1.25rem;
 `;
 
 export const ButtonContainer = styled.div`

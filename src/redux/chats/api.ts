@@ -1,4 +1,4 @@
-import { chatsRef } from "@U/initalizer/firebase";
+import { chatsRef } from "@/utils/initializer/firebase";
 import { doc, getDoc, getDocs, setDoc, deleteDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
 
 ///////////////

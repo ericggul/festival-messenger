@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  cursor: pointer;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
 

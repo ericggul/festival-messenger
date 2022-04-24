@@ -1,4 +1,4 @@
-import { usersRef, userStorageRef } from "@U/initalizer/firebase";
+import { usersRef, userStorageRef } from "@/utils/initializer/firebase";
 import { doc, getDoc, getDocs, setDoc, deleteDoc, query, where, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL, listAll } from "firebase/storage";
 

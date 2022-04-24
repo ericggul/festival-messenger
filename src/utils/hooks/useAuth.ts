@@ -4,9 +4,15 @@ import { useAppSelector, useAppDispatch } from "@R/common/hooks";
 import { createUserInformation, fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { actions } from "@R/users/state";
 import { signInWithCustomToken } from "firebase/auth";
-import { functions, auth } from "@U/initalizer/firebase";
+import { functions, auth } from "@/utils/initializer/firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { useNavigate } from "react-router-dom";
+
+//Toast
+import toast from "react-hot-toast";
+
+//google analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
 
 //https://festival-messenger-4df40.web.app
 //http://localhost:3000
@@ -51,8 +57,9 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
           dispatch(actions.setValue({ name: output.nickname || "No Name" }));
           dispatch(actions.setValue({ profileImage: output.profile_image_url || NO_PROFILE }));
 
-          alert("로그인 완료!");
-          console.log(user.landingUrl);
+          toast("로그인 완료!");
+          EventBehavior("Login", "New Login", "New User");
+
           if (user.landingUrl !== "/settings") {
             navigate(user.landingUrl);
           } else {
@@ -69,8 +76,10 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
       });
     } else {
       console.log("existing user");
+
       //fetch data: to do?
-      alert("로그인 완료!");
+      toast("로그인 완료!");
+      EventBehavior("Login", "New Login", "Existing User");
 
       navigate(user.landingUrl || "/settings");
     }

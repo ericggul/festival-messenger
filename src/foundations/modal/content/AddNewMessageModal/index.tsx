@@ -15,6 +15,9 @@ import Send from "@I/icons/footer/outline/send.svg";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 const TEST_DATA = [
   { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
   { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
@@ -70,9 +73,9 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
 
   const navigate = useNavigate();
 
-  const handleIconClick = (i: any, name: any, ev: any, uuid: any) => {
-    //To implement: Uid
-    const id = i;
+  const handleIconClick = (id: any, name: any, ev: any, uuid: any) => {
+    EventBehavior("Map", "Add Message", "4. Selected Friend");
+
     ev.stopPropagation();
     navigate(`/writeMessage`, {
       state: {

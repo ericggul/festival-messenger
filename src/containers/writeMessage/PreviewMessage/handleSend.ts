@@ -5,6 +5,9 @@ import { createNewChat, createNewMessage, updateChatLastUpdatedAt } from "@R/mes
 
 import { NO_PROFILE } from "@U/hooks/useAuth";
 
+//Toast
+import toast from "react-hot-toast";
+
 async function createNewChatAssigned(dispatch: any, user: any, toId: any) {
   const chatId = await dispatch(createNewChat([user.uid, toId]));
   return chatId;
@@ -97,6 +100,7 @@ export default async function handleSend(
   setProfileImg(user.profileImage || NO_PROFILE);
   setProfileName(user.name || "NO NAME");
 
-  alert("메시지 전송 완료!");
+  toast("메시지 전송 완료!");
+
   setLoading(false);
 }

@@ -12,6 +12,9 @@ import useResize from "@U/hooks/useResize";
 import BeforeInputImage from "@F/writeMessage/addImage/BeforeInputImage";
 import ImageEditPanel from "@F/writeMessage/addImage/ImageEditPanel";
 
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImageRespond }: any) {
   //Initial Image to save for reset
   const [initialImageFile, setInitialImageFile] = useState<any>(defaultImage || null);
@@ -58,6 +61,8 @@ function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImag
         alert("이미지 파일은 3MB 이하로 선택해주세요.");
         return;
       }
+
+      EventBehavior("Write Message", "Writing Phase", "User Added Image");
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       setInitialImageFile(e.target.files[0]);

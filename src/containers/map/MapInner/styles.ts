@@ -64,10 +64,10 @@ interface SpanIdx {
   idx: number;
 }
 
-export const FocusText = styled.span<SpanIdx>`
+export const FocusText = styled.span`
   padding: 0.3rem 0.5rem;
   animation: ${AppearAnimation} 3s backwards;
-  animation-delay: ${({ idx }) => idx * 0.5 + 3.8}s;
+  animation-delay: 4.5s;
 `;
 
 export const Span = styled.span<SpanIdx>`

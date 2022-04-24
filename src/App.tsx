@@ -10,8 +10,17 @@ import useResize from "@U/hooks/useResize";
 //Toaster
 import { Toaster } from "react-hot-toast";
 
+//analytics
+import { GA_KEY } from "@/configs/analytics";
+import GaAnalytics from "@/UserAnalytics";
+
+//styles
 import { GlobalStyle, theme } from "@S/style/index";
+
+//routes
 import routes from "@/routes";
+
+//loading
 import LoadingContainer from "@C/Loading";
 
 const Message = lazy(() => import("@/pages/message"));
@@ -40,6 +49,7 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+        {GA_KEY && <GaAnalytics />}
       </Router>
     </ThemeProvider>
   );

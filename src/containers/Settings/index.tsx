@@ -18,6 +18,9 @@ import AddImageModal from "@F/modal/content/settings/AddImageModal";
 //middleware
 import { fetchUserInformation } from "@R/users/middleware";
 
+//google analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 import * as S from "./styles";
 
 function Settings(props: any) {
@@ -70,6 +73,7 @@ function Settings(props: any) {
     try {
       await dispatch(createUserInformation(userInfo)).unwrap();
       alert("저장 완료!");
+      EventBehavior("Settings", "Edit Profile", "Edit Profile");
       setInitialUI(false);
       setLoading(false);
     } catch (e) {

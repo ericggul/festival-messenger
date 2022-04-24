@@ -17,6 +17,9 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 //icons
 import Plus from "@I/icons/messenger/plus.svg";
 
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -47,6 +50,7 @@ const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
     <S.SingleMessage
       onClick={(ev) => {
         ev.stopPropagation();
+        EventBehavior("Messenger", "Read Message", "Read Message via Messenger");
         navigate(`/message/${chatId}/${message.messageId}/messenger`);
       }}
       left={deltaTime(message.createdAt) * distancePerTime}
@@ -90,6 +94,7 @@ const SingleChatRow = ({ user, distancePerTime, messages, chat }: any) => {
   //navigate to map
   const navigate = useNavigate();
   const handleAddMessageButtonClick = () => {
+    EventBehavior("Messenger", "Add Button", "Add Message via Add Button");
     let filteredChatMembers = chat.members.filter((member: any) => member !== user.uid);
 
     navigate(`/map`, {

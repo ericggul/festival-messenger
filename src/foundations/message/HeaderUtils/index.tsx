@@ -29,14 +29,11 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComing
     return name;
   }
 
-  const handleIconClick = async () => {
-    let name = await getNameFromId();
-    alert("답장을 보내는 경우 메시지를 읽을 수 있는 위치는 변동될 수 없습니다.");
-    navigate(`/writeMessage`, {
+  const handleIconClick = () => {
+    navigate(`/map`, {
       state: {
-        id: messageToSend,
-        name,
-        latLng,
+        focusAddMessageButton: true,
+        addMessageTo: messageToSend,
       },
     });
   };

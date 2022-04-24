@@ -2,199 +2,159 @@ import React, { useMemo, useCallback, useEffect, useState } from "react";
 import * as S from "./styles";
 
 import useResize from "@U/hooks/useResize";
+import e from "cors";
 
-import KakaoIcon from "@I/icons/kakao/kakao.svg";
-
-//p5
-import Sketch from "react-p5";
-import p5Types from "p5";
+//colors
+const KAKAO_YELLOW = "#F7E600";
+const KAKAO_BROWN = "#964B00";
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
-// const KakaoIcon = () => {
-//   const brownColor = useMemo(() => `hsl(29, 100%, ${getRandom(25, 35)}%)`, []);
-//   const scale = useMemo(() => 2, []);
-//   //originally -149
-//   const rotate = useMemo(() => getRandom(0, 360), []);
-
-//   return (
-//     <svg xmlns="http://www.w3.org/2000/svg" width={34} height={34} transform={`rotate(${rotate}) scale(${scale})`}>
-//       <g id="그룹_6" data-name="그룹 6" transform="translate(-167 -652)">
-//         <circle id="타원_1" data-name="타원 1" cx="17" cy="17" r="17" transform="translate(167 652)" style={{ fill: "hsl(56, 100%, 48%)" }} />
-//         <ellipse id="타원_2" data-name="타원 2" style={{ fill: brownColor }} cx="10.077" cy="8.061" rx="10.077" ry="8.061" transform="translate(173.852 659.622)" />
-//         <path id="다각형_1" data-name="다각형 1" style={{ fill: brownColor }} d="m4.6 0 4.6 12.026H0z" transform={`rotate(-149 185.425 315.762)`} />
-//       </g>
-//     </svg>
-//   );
-// };
-
-const P5Container = () => {
+const ShareViaKakao = ({ onClick }: any) => {
   const [windowWidth, windowHeight] = useResize();
-  const y = 0;
-
-  const [particleTexture, setParticleTexture] = useState<any>(null);
-  const [p5, setP5] = useState<any>(null);
-  const [ps, setPs] = useState<any>(null);
-
-  const preload = (p5: p5Types) => {
-    let img = p5.loadImage("./assets/images/kakao.svg");
-
-    setParticleTexture(img);
-  };
-
-  const setup = (p5: p5Types, canvasParentRef: Element) => {
-    setP5(p5);
-    console.log(particleTexture);
-    setPs(new ParticleSystem(p5, 0, p5.createVector(windowWidth / 2, windowHeight - 60), particleTexture));
-    p5.createCanvas(windowWidth, windowHeight).parent(canvasParentRef);
-  };
-
-  const draw = (p5: p5Types) => {
-    p5.background(0);
-
-    let dx = p5.map(p5.mouseX, 0, p5.width, -0.2, 0.2);
-    let wind = p5.createVector(dx, 0);
-
-    ps.applyForce(wind);
-    ps.run();
-    for (let i = 0; i < 2; i++) {
-      ps.addParticle();
-    }
-  };
-
-  ///Particle system Interface
-  interface ParticleSystem {
-    p5: any;
-    particles: any;
-    origin: any;
-    img: any;
-    run(): void;
-    applyForce(): void;
-    addParticle(): void;
-  }
-
-  interface ParticleSystemConstructor {
-    new (p5: any, num: any, v: any, img_: any): ParticleSystem;
-    (): void;
-  }
-
-  let ParticleSystem = function (this: ParticleSystem, p5: any, num: any, v: any, img_: any) {
-    this.p5 = p5;
-    this.particles = [];
-    this.origin = v.copy();
-    this.img = img_;
-    for (let i = 0; i < num; i++) {
-      this.particles.push(new Particle(this.p5, this.origin, this.img));
-    }
-  } as ParticleSystemConstructor;
-
-  ParticleSystem.prototype.run = function () {
-    let len = this.particles.length;
-
-    for (let i = len - 1; i >= 0; i--) {
-      let particle = this.particles[i];
-      particle.run();
-      if (particle.isDead()) {
-        this.particles.splice(i, 1);
-      }
-    }
-  };
-
-  ParticleSystem.prototype.applyForce = function (dir: any) {
-    let len = this.particles.length;
-    for (let i = 0; i < len; i++) {
-      this.particles[i].applyForce(dir);
-    }
-  };
-
-  ParticleSystem.prototype.addParticle = function () {
-    this.particles.push(new Particle(this.p5, this.origin, this.img));
-  };
-
-  //Particle interface
-  interface Particle {
-    p5: any;
-    loc: number;
-    vel: number;
-    acc: number;
-    lifespan: number;
-    texture: any;
-
-    run(): void;
-    render(): void;
-    applyForce(f: any): void;
-    isDead(): void;
-    update(): void;
-  }
-
-  interface ParticleConstructor {
-    new (p5: any, pos: any, img_: any): Particle;
-    (): void;
-  }
-
-  let Particle = function (this: Particle, p5: any, pos: any, img_: any) {
-    this.loc = pos.copy();
-
-    this.p5 = p5;
-
-    let vx = this.p5.randomGaussian() * 0.3;
-    let vy = this.p5.randomGaussian() * 0.1 - 1.0;
-    this.vel = this.p5.createVector(vx, vy);
-    this.acc = this.p5.createVector(0, 0);
-
-    this.lifespan = 100.0;
-    this.texture = img_;
-  } as ParticleConstructor;
-
-  Particle.prototype.run = function () {
-    this.update();
-    this.render();
-  };
-
-  Particle.prototype.render = function () {
-    this.p5.imageMode(this.p5.CENTER);
-    this.p5.tint(255, this.lifespan);
-    this.p5.image(this.texture, this.loc.x, this.loc.y);
-  };
-
-  Particle.prototype.applyForce = function (f: any) {
-    this.acc.add(f);
-  };
-
-  Particle.prototype.isDead = function () {
-    if (this.lifespan <= 0.0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  Particle.prototype.update = function () {
-    this.vel.add(this.acc);
-    this.loc.add(this.vel);
-    this.lifespan -= 2.5;
-    this.acc.mult(0);
-  };
-
-  //utils: window resizing
-  const windowResized = () => {
-    if (p5) {
-      p5.resizeCanvas(windowWidth, windowHeight);
-    }
-  };
 
   useEffect(() => {
-    windowResized();
-  }, [windowWidth, windowHeight]);
-
-  return <Sketch preload={preload} setup={setup} draw={draw} />;
+    const app = new App();
+    return () => app.destroy();
+  }, []);
+  return (
+    <div
+      id="CanvasWrapper"
+      onClick={onClick}
+      style={{
+        position: "absolute",
+        top: "0",
+        left: "0",
+        width: `${windowWidth}px`,
+        height: `${windowHeight}px`,
+        zIndex: 50,
+      }}
+    />
+  );
 };
 
-function ShareViaKakao() {
-  return (
-    <S.Container>
-      <P5Container />
-    </S.Container>
-  );
+class App {
+  canvas: any;
+  ctx: any;
+  wrapper: any;
+  stageWidth: any;
+  stageHeight: any;
+
+  cellSize: any;
+  rows: any;
+  cols: any;
+
+  text: any;
+
+  //state manager
+  resizeEvent: any;
+  drawState: any;
+
+  constructor() {
+    this.text = "Kakao";
+
+    this.canvas = document.createElement("canvas");
+
+    this.ctx = this.canvas.getContext("2d");
+    this.wrapper = document.getElementById("CanvasWrapper");
+    this.wrapper.appendChild(this.canvas);
+
+    this.resizeEvent = this.drawState && window.addEventListener("resize", this.resize.bind(this));
+    this.resize();
+  }
+
+  resize() {
+    this.stageWidth = this.wrapper.clientWidth;
+    this.stageHeight = this.wrapper.clientHeight;
+
+    this.canvas.width = this.stageWidth;
+    this.canvas.height = this.stageHeight;
+    this.ctx.scale(1, 1);
+
+    this.cellSize = (this.stageWidth * this.stageHeight) / 200000;
+
+    this.init();
+  }
+
+  init() {
+    this.draw();
+  }
+
+  destroy() {}
+
+  draw() {
+    this.rows = Math.floor(this.stageHeight / this.cellSize);
+    this.cols = Math.floor(this.stageWidth / this.cellSize);
+
+    this.ctx.fillStyle = KAKAO_YELLOW;
+    this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
+
+    //glyphs
+    const fontSize = this.cols * 0.3;
+    this.ctx.fillStyle = KAKAO_BROWN;
+    this.ctx.font = `${fontSize}px Times New Roman`;
+    this.ctx.textBaseline = "top";
+
+    const metrics = this.ctx.measureText(this.text);
+    const mx = metrics.actualBoundingBoxLeft * -1;
+    const my = metrics.actualBoundingBoxAscent * -1;
+    const mw = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+    const mh = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+    const tx = (this.cols - mw) * 0.5 - mx;
+    const ty = (this.rows - mh) * 0.5 - my;
+    console.log(mw, mh, tx, ty);
+
+    this.ctx.save();
+    this.ctx.translate(tx, ty);
+    this.ctx.beginPath();
+    // this.ctx.rect(mx, my, mw, mh);
+    this.ctx.stroke();
+
+    this.ctx.fillText(this.text, 0, 0);
+    this.ctx.restore();
+
+    const typeData = this.ctx.getImageData(0, 0, this.cols, this.rows).data;
+
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
+    this.ctx.textBaseline = "midde";
+    this.ctx.textAlign = "center";
+
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
+        const index = (i * this.cols + j) * 4;
+        const r = typeData[index];
+        const g = typeData[index + 1];
+        const b = typeData[index + 2];
+        const a = typeData[index + 3];
+
+        const glyph = getGlpyh(r);
+
+        this.ctx.font = `${this.cellSize * 4}px Times New Roman`;
+        this.ctx.fillStyle = Math.random() < 0.7 ? KAKAO_YELLOW : KAKAO_BROWN;
+
+        const x = j * this.cellSize;
+        const y = i * this.cellSize;
+        const w = this.cellSize;
+        const h = this.cellSize;
+
+        this.ctx.save();
+        this.ctx.translate(x, y);
+        this.ctx.translate(w * 0.5, h * 0.5);
+        this.ctx.fillText(glyph, 0, 0);
+        this.ctx.restore();
+      }
+    }
+  }
 }
+
+const getGlpyh = (v: any) => {
+  const letters = "KAKAO".split("");
+  if (v < 200) return letters[Math.floor(Math.random() * letters.length)];
+
+  const glyphs = "_= /".split("");
+  return "@";
+};
+
 export default ShareViaKakao;

@@ -14,8 +14,8 @@ export const Container = styled.div`
   zindex: 10;
   cursor: default;
 
-  animation-delay: 0.5s;
-  animation: ${BlurredAppearAnimation} 1s;
+  animation-delay: 0.2s;
+  animation: ${BlurredAppearAnimation} 0.8s;
 `;
 
 interface FontInterface {

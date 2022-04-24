@@ -17,6 +17,9 @@ import ImageIcon from "@I/icons/writeMessage/image-1.svg";
 import Up from "@I/icons/writeMessage/up.svg";
 import Down from "@I/icons/writeMessage/down.svg";
 
+//analytics
+import { EventBehavior } from "@U/initializer/googleAnalytics";
+
 function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOption, onAddImageCommand }: any) {
   const navigate = useNavigate();
 
@@ -49,13 +52,16 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
   const [font, setFont] = useState("Seoul Namsan");
 
   const onColorClick = (cl: any) => {
+    EventBehavior("Write Message", "Writing Phase", "Utils: User Chagned Colors");
     onColorChange(cl);
   };
   const onMusicClick = (mz: any, mzFile: any) => {
+    EventBehavior("Write Message", "Writing Phase", "Utils: User Chagned Music");
     setMusic(mz);
     onMusicChange(mz, mzFile);
   };
   const onFontClick = (ft: any) => {
+    EventBehavior("Write Message", "Writing Phase", "Utils: User Chagned Font");
     setFont(ft);
     onFontChange(ft);
   };

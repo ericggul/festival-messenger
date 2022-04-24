@@ -1,4 +1,4 @@
-import { chatsRef, messageStorageRef, HOSTED_URL } from "@U/initalizer/firebase";
+import { chatsRef, messageStorageRef, HOSTED_URL } from "@/utils/initializer/firebase";
 import { doc, collection, getDoc, getDocs, deleteDoc, query, addDoc, serverTimestamp, updateDoc, arrayUnion } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
