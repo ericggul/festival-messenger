@@ -40,19 +40,6 @@
   /* filter:  */
 }
 
-.read-text {
-  position: absolute;
-  top: 3rem;
-  left: 0;
-  right: 0;
-  margin: auto;
-  text-align: center;
-
-  font-size: 0.67rem;
-  font-weight: light;
-  color: #666;
-}
-
 .signifier {
   position: absolute;
   border-radius: 50%;

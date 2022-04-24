@@ -24,10 +24,10 @@ function FooterNote() {
         </S.Signifier>
         {"보낸 메시지"}
       </S.FooterNote>
-      <S.SendButton onClick={() => navigate("/map")}>
+      {/* <S.SendButton onClick={() => navigate("/map")}>
         <S.Signifier messageISent>+</S.Signifier>
         새로운 메시지 보내기
-      </S.SendButton>
+      </S.SendButton> */}
     </S.Container>
   );
 }

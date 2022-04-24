@@ -118,10 +118,10 @@ function MapBox({
             type: "fill-extrusion",
             minzoom: 15,
             paint: {
-              "fill-extrusion-color": "#aaa",
+              "fill-extrusion-color": "#e7d2f7",
               "fill-extrusion-height": ["interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "height"]],
               "fill-extrusion-base": ["interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "min_height"]],
-              "fill-extrusion-opacity": 0.6,
+              "fill-extrusion-opacity": 1,
             },
           },
           labelLayerId
@@ -142,11 +142,11 @@ function MapBox({
           maxzoom: 22,
         });
 
-        mapRef.current.addLayer({
-          id: "hillshading",
-          source: "mapbox-dem",
-          type: "hillshade",
-        });
+        // mapRef.current.addLayer({
+        //   id: "hillshading",
+        //   source: "mapbox-dem",
+        //   type: "hillshade",
+        // });
 
         //Terrain
         mapRef.current.setTerrain({ source: "mapbox-dem2", exaggeration: 2 });
@@ -159,13 +159,14 @@ function MapBox({
         // });
 
         //Sky
+
         mapRef.current.addLayer({
           id: "sky",
           type: "sky",
           paint: {
             "sky-opacity": ["interpolate", ["linear"], ["zoom"], 0, 0, 5, 0.3, 8, 1],
             "sky-type": "atmosphere",
-            "sky-atmosphere-halo-color": "rgba(255, 255, 255, 0.5)",
+            "sky-atmosphere-halo-color": "rgba(230, 215, 250, 0.5)",
             "sky-atmosphere-sun-intensity": 5,
             "sky-atmosphere-sun": getSunPosition(),
           },
@@ -187,17 +188,6 @@ function MapBox({
         });
         setZoom(mapRef.current.getZoom().toFixed(2));
       });
-
-      // mapRef.current.addControl(
-      //   new mapboxgl.GeolocateControl({
-      //     fitBoundsOptions: { maxZoom: 19 },
-      //     positionOptions: {
-      //       enableHighAccuracy: true,
-      //     },
-      //     trackUserLocation: true,
-      //     showUserHeading: true,
-      //   })
-      // );
     }
 
     mapZoomOnceIdle(zoomIn);
@@ -355,7 +345,7 @@ function MapBox({
   const getFog = () => {
     const time = SunCalc.getTimes(new Date(), pos.lat, pos.lng);
     if (new Date() < time.sunrise || new Date() > time.sunset) {
-      return "rgb(0, 0, 20)";
+      return "rgba(224, 77, 148, 0.5)";
     }
     return "white";
   };

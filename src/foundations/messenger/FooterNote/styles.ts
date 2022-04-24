@@ -5,9 +5,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 10rem;
-  margin-left: 1.95rem;
+  margin-left: 2.5rem;
   font-size: 1rem;
-  font-weight: light;
+
   color: #666;
 `;
 

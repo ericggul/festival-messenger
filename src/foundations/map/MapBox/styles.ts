@@ -12,7 +12,7 @@ export const MapContainer = styled.div<Props>`
   z-index: 0;
 
   canvas {
-    opacity: 0.85;
+    opacity: 0.9;
   }
 `;
 

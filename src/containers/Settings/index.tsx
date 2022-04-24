@@ -63,13 +63,17 @@ function Settings() {
       await dispatch(createUserInformation(userInfo)).unwrap();
       alert("저장 완료!");
       setLoading(false);
-      navigate("/map");
     } catch (e) {
       alert("오류 발생!");
       setLoading(false);
       console.log(e);
     }
   }
+
+  const handleSaveButtonClick = () => {
+    createUserInfo();
+    navigate("/map");
+  };
 
   return (
     <>
@@ -83,7 +87,7 @@ function Settings() {
         </S.ImageContainer>
 
         <S.InputBox value={name} onChange={onNameChange} />
-        <S.SaveButton onClick={createUserInfo}>저장</S.SaveButton>
+        <S.SaveButton onClick={handleSaveButtonClick}>저장</S.SaveButton>
       </S.Container>
       {modalComponent}
       {loadingModalComponent}

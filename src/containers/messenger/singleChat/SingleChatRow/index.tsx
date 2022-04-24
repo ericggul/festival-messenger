@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import * as S from "./styles";
 
 //foundations
@@ -8,14 +8,16 @@ import ProfileSection from "@F/messenger/ProfileSection";
 import { useNavigate } from "react-router-dom";
 
 //Functions
-import { timeConverter, deltaTime } from "@U/functions/timeConverter";
+import { timeConverter, deltaTime, deltaTimeForDeltaArray } from "@U/functions/timeConverter";
 
 //redux
 import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
-import { Profile } from "@/foundations/modal/content/openMessage/OpenMessageModalContents/styles";
 
-const SingleItem = ({ message, user, chatId, distancePerTime, deltaTimeFromLast }: any) => {
+//icons
+import Plus from "@I/icons/messenger/plus.svg";
+
+const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -41,7 +43,6 @@ const SingleItem = ({ message, user, chatId, distancePerTime, deltaTimeFromLast 
     }
   }
 
-  console.log(deltaTimeFromLast * distancePerTime);
   return (
     <S.SingleMessage
       onClick={(ev) => {
@@ -51,27 +52,51 @@ const SingleItem = ({ message, user, chatId, distancePerTime, deltaTimeFromLast 
       left={deltaTime(message.createdAt) * distancePerTime}
       read={message.read}
     >
-      <S.Name>{deltaTimeFromLast * distancePerTime > 2 && name}</S.Name>
+      <S.Name>{name}</S.Name>
       <ProfileSection message={message} messageISent={messageISent} />
-      <S.Time>{deltaTimeFromLast * distancePerTime > 2 && (message.read ? "읽음" : timeConverter(message.createdAt))}</S.Time>
+      <S.Time>{message.read ? (message.messageFrom === user.uid ? "읽혀짐" : "읽음") : timeConverter(message.createdAt)}</S.Time>
     </S.SingleMessage>
   );
 };
 
 const SingleChatRow = ({ user, distancePerTime, messages, chatId }: any) => {
   //To do: algorithm that detects adjacent neighbor
+  const messengerDeltaArray = useMemo(() => messages.map((msg: any) => (distancePerTime * msg.createdAt.seconds) / (60 * 60)), [messages]);
+  const [refinedDeltaArray, setRefinedDeltaArray] = useState(messengerDeltaArray);
+  // console.log(messengerDeltaArray);
+  useEffect(() => {
+    const reducedArray = messengerDeltaArray.reduce((prev: any, curr: any) => {
+      if (prev.length > 0) {
+        const last = prev[prev.length - 1];
+        if (curr - last.center < 2) {
+          const newLast = { center: (last.center * last.number + curr) / (last.number + 1), number: last.number + 1 };
+          prev.pop();
+          prev.push(newLast);
+          return prev;
+        } else {
+          prev.push({ center: curr, number: 1 });
+          return prev;
+        }
+      } else {
+        return [{ center: curr, number: 1 }];
+      }
+    }, []);
+    console.log(reducedArray);
+    setRefinedDeltaArray(reducedArray);
+  }, [messengerDeltaArray]);
+
+  refinedDeltaArray.forEach((center: any) => deltaTimeForDeltaArray(center));
 
   return (
     <S.SingleRow>
+      <S.RowLine length={deltaTime(messages[0].createdAt) * distancePerTime} />
+      {deltaTime(messages[messages.length - 1].createdAt) * distancePerTime > 3 && (
+        <S.AddMessageButton>
+          <S.Icon src={Plus} />
+        </S.AddMessageButton>
+      )}
       {messages.map((message: any, i: number) => (
-        <SingleItem
-          key={i}
-          user={user}
-          distancePerTime={distancePerTime}
-          message={message}
-          chatId={chatId}
-          deltaTimeFromLast={i > 0 ? (message.createdAt.seconds - messages[i - 1].createdAt.seconds) / (60 * 60) : 5000}
-        />
+        <SingleItem key={i} user={user} distancePerTime={distancePerTime} message={message} chatId={chatId} />
       ))}
     </S.SingleRow>
   );

@@ -18,4 +18,8 @@ export function deltaTime(time: any) {
   return delta;
 }
 
+export function deltaTimeForDeltaArray(center: any) {
+  return Date.now() / (1000 * 60 * 60) - center.center;
+}
+
 export const SEVENTY_TWO_HOURS = 3 * 24;
