@@ -7,10 +7,12 @@ import NotFound from "@P/NotFound";
 
 import useResize from "@U/hooks/useResize";
 
+//Toaster
+import { Toaster } from "react-hot-toast";
+
 import { GlobalStyle, theme } from "@S/style/index";
 import routes from "@/routes";
 import LoadingContainer from "@C/Loading";
-
 
 const Message = lazy(() => import("@/pages/message"));
 
@@ -21,6 +23,7 @@ function App() {
   return (
     <ThemeProvider theme={themeWithWindowSize}>
       <GlobalStyle />
+      <Toaster />
       <Router>
         <Routes>
           {routes.map((route: any, i: number) => (

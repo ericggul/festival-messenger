@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { FlexCenterStyle } from "@S/style/responsive/display";
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
+import { Background } from "@F/modal/content/commonStyles/styles";
 
 export const Container = styled.div`
   width: ${({ theme }) => theme.windowWidth}px;
@@ -30,6 +31,7 @@ export const ButtonCommon = css`
 
 interface ButtonProps {
   show: boolean;
+  focusAddMessageButton?: boolean;
 }
 
 export const AddMessageButton = styled.div<ButtonProps>`
@@ -41,11 +43,32 @@ export const AddMessageButton = styled.div<ButtonProps>`
   transition: opacity 0.8s;
   transition-delay: 0.5s;
   opacity: ${({ show }) => (show ? 1 : 0)};
+  box-shadow: ${({ focusAddMessageButton }) => focusAddMessageButton && "0 0 2rem white"};
+  z-index: 15;
+`;
+
+export const AddMessageButtonFocus = styled.div<ButtonProps>`
+  ${Background};
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  z-index: 10;
+  transition: opacity 0.3s;
+
+  font-size: 1.3rem;
+  font-weight: bold;
+  mix-blend-mode: darken;
+  ${FlexCenterStyle};
+  flex-direction: column;
 `;
 
 interface SpanIdx {
   idx: number;
 }
+
+export const FocusText = styled.span<SpanIdx>`
+  padding: 0.3rem 0.5rem;
+  animation: ${AppearAnimation} 3s backwards;
+  animation-delay: ${({ idx }) => idx * 0.5 + 3.8}s;
+`;
 
 export const Span = styled.span<SpanIdx>`
   padding: 0;

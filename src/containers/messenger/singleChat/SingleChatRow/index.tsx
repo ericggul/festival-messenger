@@ -59,7 +59,7 @@ const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
   );
 };
 
-const SingleChatRow = ({ user, distancePerTime, messages, chatId }: any) => {
+const SingleChatRow = ({ user, distancePerTime, messages, chat }: any) => {
   //To do: algorithm that detects adjacent neighbor
   const messengerDeltaArray = useMemo(() => messages.map((msg: any) => (distancePerTime * msg.createdAt.seconds) / (60 * 60)), [messages]);
   const [refinedDeltaArray, setRefinedDeltaArray] = useState(messengerDeltaArray);
@@ -87,16 +87,29 @@ const SingleChatRow = ({ user, distancePerTime, messages, chatId }: any) => {
 
   refinedDeltaArray.forEach((center: any) => deltaTimeForDeltaArray(center));
 
+  //navigate to map
+  const navigate = useNavigate();
+  const handleAddMessageButtonClick = () => {
+    let filteredChatMembers = chat.members.filter((member: any) => member !== user.uid);
+
+    navigate(`/map`, {
+      state: {
+        focusAddMessageButton: true,
+        addMessageTo: filteredChatMembers.length === 0 ? null : filteredChatMembers[0],
+      },
+    });
+  };
+
   return (
     <S.SingleRow>
       <S.RowLine length={deltaTime(messages[0].createdAt) * distancePerTime} />
       {deltaTime(messages[messages.length - 1].createdAt) * distancePerTime > 3 && (
-        <S.AddMessageButton>
+        <S.AddMessageButton onClick={handleAddMessageButtonClick}>
           <S.Icon src={Plus} />
         </S.AddMessageButton>
       )}
       {messages.map((message: any, i: number) => (
-        <SingleItem key={i} user={user} distancePerTime={distancePerTime} message={message} chatId={chatId} />
+        <SingleItem key={i} user={user} distancePerTime={distancePerTime} message={message} chatId={chat.chatId} />
       ))}
     </S.SingleRow>
   );

@@ -16,7 +16,6 @@ function SingleChat({ chat, user, distancePerTime }: any) {
   const dispatch = useAppDispatch();
   const [messages, setMessages] = useState([]);
   const [messageReady, setMessageReady] = useState(false);
-  const [displayedName, setDisplayedName] = useState<any>(null);
 
   useEffect(() => {
     retriveMessages();
@@ -32,22 +31,22 @@ function SingleChat({ chat, user, distancePerTime }: any) {
       setMessageReady(true);
 
       //set displayed message name logic
-      let targetMessage = fetchedMessages.payload[0];
-      if (targetMessage.messageFrom === user.uid) {
-        setDisplayedName(targetMessage.toName);
-      } else {
-        try {
-          const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(targetMessage.messageFrom));
-          setDisplayedName(userInfo.payload.name);
-        } catch (e) {
-          console.log(e);
-        }
-      }
+      // let targetMessage = fetchedMessages.payload[0];
+      // if (targetMessage.messageFrom === user.uid) {
+      //   setDisplayedName(targetMessage.toName);
+      // } else {
+      //   try {
+      //     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(targetMessage.messageFrom));
+      //     setDisplayedName(userInfo.payload.name);
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      // }
     } catch (e) {
       console.log(e);
     }
   }
 
-  return <S.Container>{messageReady && <SingleChatRow user={user} distancePerTime={distancePerTime} messages={messages} chatId={chat.chatId} />}</S.Container>;
+  return <S.Container>{messageReady && <SingleChatRow user={user} distancePerTime={distancePerTime} messages={messages} chat={chat} />}</S.Container>;
 }
 export default SingleChat;

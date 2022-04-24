@@ -5,12 +5,12 @@ import * as S from "./styles";
 import LoadingContainer from "@C/Loading";
 import MapInner from "@C/map/MapInner";
 
-function MapOuter() {
+function MapOuter(props: any) {
   const [hideLoading, setHideLoading] = useState(false);
 
   return (
     <>
-      <MapInner hideLoading={() => setHideLoading(true)} />
+      <MapInner hideLoading={() => setHideLoading(true)} {...props} />
       {!hideLoading && <LoadingContainer />}
     </>
   );

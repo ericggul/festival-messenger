@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexCenterStyle } from "@S/style/responsive/display";
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
   position: relative;
@@ -9,6 +9,7 @@ export const Container = styled.div`
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
+  animation: ${AppearAnimation} 1s;
 `;
 
 interface FontInterface {

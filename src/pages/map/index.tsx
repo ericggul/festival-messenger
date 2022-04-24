@@ -1,14 +1,15 @@
-import Header from "@F/layout/Header";
 import Footer from "@F/layout/Footer";
 import MapContainer from "@/containers/map/MapOuter";
+import { useLocation } from "react-router-dom";
 import withMountEvent from "@U/hoc/withMountEvent";
 
 function Map() {
+  const location = useLocation();
+  const state = location.state as any;
+
   return (
     <>
-      <MapContainer />
-      {/* <Header name="Map" /> */}
-
+      <MapContainer {...state} />
       <Footer currentLoc="Map" />
     </>
   );

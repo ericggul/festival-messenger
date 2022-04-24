@@ -4,16 +4,16 @@ import * as S from "./styles";
 //Mapbox
 import MapBox from "@F/map/MapBox";
 
+//usenavigate
+import { useNavigate } from "react-router-dom";
+
+//Toast
+import toast from "react-hot-toast";
+
 //Modals
 import useModal from "@U/hooks/useModal";
 import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
 import OpenMessageModal from "@F/modal/content/openMessage/OpenMessageModal";
-
-//Loading
-import LoadingContainer from "@C/Loading";
-
-//navigate
-import { useNavigate } from "react-router-dom";
 
 //functions
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
@@ -21,16 +21,19 @@ import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
 //redux
 import { fetchChatsByMember } from "@R/chats/middleware";
 import { fetchAllMessages } from "@R/messages/middleware";
+import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 
 //Icons
 import Explore from "@I/icons/map/explore.svg";
 import Location2 from "@I/icons/map/location-2.svg";
 import Update from "@I/icons/map/rotate-small-right.svg";
-import message from "@/pages/message";
 
-function Map({ hideLoading }: any) {
-  //popup related
+function Map(props: any) {
+  ///////
+  //Popup Related
+  ///////
+
   //Message Send Popup
   const [messageSendMode, setMessageSendMode] = useState(false);
   const [latLng, setLatLng] = useState<any>(!null);
@@ -44,6 +47,7 @@ function Map({ hideLoading }: any) {
   useEffect(() => {
     if (containerRef && containerRef.current) {
       if (messageSendMode) {
+        toast("메시지를 보낼 위치를 선택해주세요!");
         containerRef.current.style.cursor = "pointer";
       }
     }
@@ -75,24 +79,55 @@ function Map({ hideLoading }: any) {
     messageId: messagePopupId,
   });
 
-  const handleAddNewMessage = (latLng: any) => {
-    setLatLng(latLng);
-    setIsModalOpen(true);
-  };
-
   const handleMessageClick = (chatId: any, messageId: any) => {
     setChatPopupId(chatId);
     setMessagePopupId(messageId);
     setIsOpenMessageModalOpen(true);
   };
 
-  //data related
+  ////////
+  // Adding Message UX Related
+  ///////
+
+  const [focusAddMessageButton, setFocusAddMessageButton] = useState(props.focusAddMessageButton || false);
+  const [addMessageToSelected, AddMessageToSelected] = useState<any>(props.addMessageTo || null);
+
+  const navigate = useNavigate();
+  const handleAddNewMessage = (latLng: any) => {
+    setLatLng(latLng);
+    if (addMessageToSelected) {
+      //directly send message to friend
+      getUserInformation(addMessageToSelected).then((res) => {
+        navigate(`/writeMessage`, {
+          state: {
+            id: addMessageToSelected,
+            name: res,
+            latLng,
+            uuid: "unassigned",
+          },
+        });
+      });
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+  async function getUserInformation(idToRetrive: any) {
+    try {
+      const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(idToRetrive));
+      return userInfo.payload.name;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
+  ///////
+  //Data Related
+  ///////
   //retriving chat
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.users);
-  const chatsReduxState = useAppSelector((state) => state.chats);
   const [chatsRetrived, setChatsRetrived] = useState(false);
   const [currentChats, setCurrentChats] = useState<any>([]);
   const [currentMessages, setCurrentMessages] = useState<any>([]);
@@ -104,7 +139,7 @@ function Map({ hideLoading }: any) {
     if (!user.uid) {
       setCurrentChats([]);
       setAllLoaded(true);
-      // navigate("/login");
+      navigate("/login");
     }
     retriveChat();
   }, [user]);
@@ -120,11 +155,18 @@ function Map({ hideLoading }: any) {
   }
 
   useEffect(() => {
-    setCurrentMessages([]);
-    for (const chat of currentChats) {
-      retriveMessages(chat.chatId);
+    if (chatsRetrived) {
+      setCurrentMessages([]);
+      //if user has no chat, automatically popup guidance
+      if (currentChats.length === 0) {
+        setFocusAddMessageButton(true);
+      }
+
+      for (const chat of currentChats) {
+        retriveMessages(chat.chatId);
+      }
     }
-  }, [currentChats]);
+  }, [currentChats, chatsRetrived]);
 
   async function retriveMessages(chatId: any) {
     try {
@@ -150,7 +192,9 @@ function Map({ hideLoading }: any) {
     return chats.filter((chat: any) => deltaTime(chat.lastUpdatedAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => b.lastUpdatedAt.seconds - a.lastUpdatedAt.seconds);
   }
 
-  //position related
+  ///////
+  //Position Related
+  ///////
   //Reset Position
   const [reset, setReset] = useState(false);
   const [displayMap, setDisplayMap] = useState(false);
@@ -160,7 +204,7 @@ function Map({ hideLoading }: any) {
 
   useEffect(() => {
     if (displayMap) {
-      hideLoading();
+      props.hideLoading();
     }
   }, [displayMap]);
 
@@ -191,7 +235,14 @@ function Map({ hideLoading }: any) {
             {"지도 상에 핀을 꽂아보세요"}
           </S.AddMessageButton>
         ) : (
-          <S.AddMessageButton show={displayMap} onClick={() => setMessageSendMode((mode) => !mode)}>
+          <S.AddMessageButton
+            show={displayMap}
+            onClick={() => {
+              setMessageSendMode((mode) => !mode);
+              setFocusAddMessageButton(false);
+            }}
+            focusAddMessageButton={focusAddMessageButton}
+          >
             {"+ 새로운 메시지 보내기"
               .trim()
               .split("")
@@ -201,6 +252,15 @@ function Map({ hideLoading }: any) {
                 </S.Span>
               ))}
           </S.AddMessageButton>
+        )}
+        {focusAddMessageButton && (
+          <S.AddMessageButtonFocus show={displayMap}>
+            {new Array(10).fill(0).map((e, i) => (
+              <S.FocusText key={i} idx={i}>
+                새로운 메시지 보내기 버튼을 눌러주세요.
+              </S.FocusText>
+            ))}
+          </S.AddMessageButtonFocus>
         )}
 
         <S.GhostButton show={displayMap} onClick={() => setGoToCurrentPosition(true)}>

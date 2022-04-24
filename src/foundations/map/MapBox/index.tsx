@@ -105,7 +105,6 @@ function MapBox({
     if (mapRef.current && typeof mapRef.current == "object") {
       mapRef.current.on("load", () => {
         //Building
-
         const layers = mapRef.current.getStyle().layers;
         const labelLayerId = layers.find((layer: any) => layer.type === "symbol" && layer.layout["text-field"]).id;
 
@@ -128,12 +127,18 @@ function MapBox({
         );
 
         //Get Terrain Data
-        mapRef.current.addSource("mapbox-dem", {
-          type: "raster-dem",
-          url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-          tileSize: 512,
-          maxzoom: 22,
-        });
+        // mapRef.current.addSource("mapbox-dem", {
+        //   type: "raster-dem",
+        //   url: "mapbox://mapbox.mapbox-terrain-dem-v1",
+        //   tileSize: 512,
+        //   maxzoom: 22,
+        // });
+
+        // mapRef.current.addLayer({
+        //   id: "hillshading",
+        //   source: "mapbox-dem",
+        //   type: "hillshade",
+        // });
 
         mapRef.current.addSource("mapbox-dem2", {
           type: "raster-dem",
@@ -142,13 +147,6 @@ function MapBox({
           maxzoom: 22,
         });
 
-        // mapRef.current.addLayer({
-        //   id: "hillshading",
-        //   source: "mapbox-dem",
-        //   type: "hillshade",
-        // });
-
-        //Terrain
         mapRef.current.setTerrain({ source: "mapbox-dem2", exaggeration: 2 });
 
         //Fog
