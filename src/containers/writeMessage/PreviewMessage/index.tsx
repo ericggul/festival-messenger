@@ -104,7 +104,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
       },
       success: function (response: any) {
         console.log(response);
-        alert("메시지 전송 완료!");
+        alert("카카오톡 전송 완료!");
         navigate("/map");
       },
       fail: function (error: any) {

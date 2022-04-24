@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
 interface ImageProps {
   image: any;
+  backgroundLoading?: any;
 }
 
 export const Container = styled.div`
@@ -22,14 +23,34 @@ export const Container = styled.div`
   background-size: cover;
 `;
 
-export const BackgroundImage = styled.div<ImageProps>`
+export const ExplText = styled.div`
+  width: 100%;
+  ${FlexCenterStyle};
+  flex-direction: column;
+  text-align: center;
+  z-index: 3;
+  h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+
+    font-weight: 300;
+  }
+`;
+
+export const BackgroundCommon = css`
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(${(props) => props.image});
-  touch-action: pan-x pan-y;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
+
   overflow: hidden;
   ${FlexCenterStyle};
   background-position: center;
@@ -37,38 +58,21 @@ export const BackgroundImage = styled.div<ImageProps>`
 
   z-index: -4;
   background-size: cover;
+  transition: all 0.4s;
+  touch-action: pan-x pan-y;
 `;
 
-export const ImageContainer = styled.div`
-  width: 19rem;
-  height: 19rem;
-  position: relative;
+export const InitialBackgroud = styled.div`
+  ${BackgroundCommon};
+  background: linear-gradient(148.88deg, rgba(0, 158, 221, 0.8) 7%, rgba(247, 81, 160, 0.8) 115%);
+  backdrop-filter: blur(2rem);
+  -webkit-backdrop-filter: blur(2rem);
 `;
 
-export const ChangeContainer = styled.div`
-  position: absolute;
-  width: 3rem;
-  height: 3rem;
-  top: 15.1rem;
-  left: 15.1rem;
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0.1rem 0.1rem 1rem rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  cursor: pointer;
-  ${FlexCenterStyle};
-`;
-
-export const Change = styled.img`
-  width: 60%;
-  height: 60%;
-`;
-
-export const Image = styled.img`
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.15);
+export const BackgroundImage = styled.div<ImageProps>`
+  ${BackgroundCommon};
+  background-image: url(${(props) => props.image});
+  opacity: ${({ backgroundLoading }) => (backgroundLoading ? 0 : 1)};
 `;
 
 export const InputBox = styled.input`

@@ -45,7 +45,8 @@ export const AddMessageButton = styled.div`
 
   background: white;
   ${FlexCenterStyle};
-  filter: drop-shadow(0 0.3rem 0.3rem rgba(0, 0, 0, 0.25));
+
+  box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.25);
 `;
 
 export const Icon = styled.img`

@@ -34,7 +34,8 @@ export const Signifier = styled.div<SignifierProps>`
   height: 1.2rem;
   background: ${({ messageISent }) => (!messageISent ? `hsl(241, 80%, 63%)` : `white`)};
   ${FlexCenterStyle};
-  filter: drop-shadow(0 0.3rem 0.3rem rgba(0, 0, 0, 0.25));
+  box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.25);
+
   animation-delay: 1s;
   animation: ${AppearAnimation} 0.5s forwards;
 `;

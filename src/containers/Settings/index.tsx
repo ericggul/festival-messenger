@@ -6,6 +6,10 @@ import useInput from "@U/hooks/useInput";
 
 import { NO_PROFILE } from "@U/hooks/useAuth";
 
+//containers
+import InitialImageContainer from "@F/settings/InitialImageContainer";
+import DefaultImageContainer from "@F/settings/DefaultImageContainer";
+
 //useModal
 import useModal, { useAddImageModal } from "@U/hooks/useModal";
 import LoadingModal from "@F/modal/content/LoadingModal";
@@ -13,15 +17,19 @@ import AddImageModal from "@F/modal/content/settings/AddImageModal";
 
 //middleware
 import { fetchUserInformation } from "@R/users/middleware";
-//icons
-import ChangeIcon from "@I/icons/writeMessage/imageEdit/change.svg";
 
 import * as S from "./styles";
 
 function Settings() {
-  const user = useAppSelector((state) => state.users);
+  //Two types of UI
+  //1. Initial UI(Where User can select btw kakao talk and custom)
+  //2. Default UI
+  const [initialUI, setInitialUI] = useState(true);
 
-  console.log(user);
+  //background loading
+  const [backgroundLoading, setBackgroundLoading] = useState(false);
+
+  const user = useAppSelector((state) => state.users);
   const dispatch = useAppThunkDispatch();
 
   const { modalComponent, isModalOpen, setIsModalOpen, imageFile, image, setImage, setImageFile } = useAddImageModal(AddImageModal, true, {}, createUserInfo);
@@ -62,6 +70,7 @@ function Settings() {
     try {
       await dispatch(createUserInformation(userInfo)).unwrap();
       alert("저장 완료!");
+      setInitialUI(false);
       setLoading(false);
     } catch (e) {
       alert("오류 발생!");
@@ -77,15 +86,17 @@ function Settings() {
 
   return (
     <>
-      <S.BackgroundImage image={image} />
-      <S.Container>
-        <S.ImageContainer>
-          <S.Image src={image} />
-          <S.ChangeContainer onClick={() => setIsModalOpen(true)}>
-            <S.Change src={ChangeIcon} />
-          </S.ChangeContainer>
-        </S.ImageContainer>
+      {initialUI ? <S.InitialBackgroud /> : <S.BackgroundImage image={image} backgroundLoading={backgroundLoading} onLoad={() => setBackgroundLoading(false)} />}
 
+      <S.Container>
+        {initialUI && (
+          <S.ExplText>
+            <h1> 프로필 사진을 선택해주세요</h1>
+            <p>기존 카카오톡 프로필 혹은 새로운 프로필 사진을</p>
+            <p>선택할 수 있습니다.</p>
+          </S.ExplText>
+        )}
+        {initialUI ? <InitialImageContainer image={image} setIsModalOpen={setIsModalOpen} /> : <DefaultImageContainer image={image} setIsModalOpen={setIsModalOpen} />}
         <S.InputBox value={name} onChange={onNameChange} />
         <S.SaveButton onClick={handleSaveButtonClick}>저장</S.SaveButton>
       </S.Container>
