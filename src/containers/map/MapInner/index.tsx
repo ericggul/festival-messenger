@@ -189,15 +189,20 @@ function Map(props: any) {
       setCurrentChats([]);
       setAllLoaded(true);
       navigate("/login");
+    } else {
+      retriveChat();
     }
-    retriveChat();
   }, [user]);
 
   async function retriveChat() {
     EventBehavior("Map", "Map Buttons", "Update button");
     try {
       let res = await dispatch(fetchChatsByMember(user.uid));
-      setCurrentChats(sortChat(res.payload));
+      if (!res.payload || !user.uid) {
+        setCurrentChats([]);
+      } else {
+        setCurrentChats(sortChat(res.payload));
+      }
       setChatsRetrived(true);
     } catch (e) {
       console.log(e);

@@ -123,8 +123,8 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
       },
       success: function (response: any) {
         EventBehavior("Write Message", "Message Preview Phase", "Share Through Kakao Messenger");
-        toast("카카오톡 전송 완료!");
-        navigate("/map");
+
+        navigate("/messenger");
       },
       fail: function (error: any) {
         console.log(error);
@@ -152,7 +152,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
 
   useEffect(() => {
     if (kakaoLinkClicked) {
-      navigate("/map");
+      navigate("/messenger");
     }
   }, [kakaoLinkClicked]);
 
