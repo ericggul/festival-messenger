@@ -1,7 +1,4 @@
 import { css, keyframes } from "styled-components";
-import media from "styled-media-query";
-
-const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
 export const FlexCenterStyle = css`
   display: flex;
@@ -21,10 +18,10 @@ export const AppearAnimation = keyframes`
 export const BlurredAppearAnimation = keyframes`
     from{ 
         filter: blur(3rem);
-        opacity: 20%;
+        opacity: 80%;
     }
     to{
-        filter: blur(0);
+        filter: blur(0) grayscale(0%);
         opacity: 100%;
     }
 `;

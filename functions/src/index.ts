@@ -6,9 +6,9 @@ const REALTIME_DATABASE_URL = "https://festival-messenger-4df40-default-rtdb.fir
 // // https://firebase.google.com/docs/functions/typescript
 //
 
-//https://festival-messenger-4df40.web.app
+//https://festival-messenger.com
 //http://localhost:3000
-const REDIRECT_URI = "http://localhost:3000";
+const REDIRECT_URI = "https://festival-messenger.com";
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 

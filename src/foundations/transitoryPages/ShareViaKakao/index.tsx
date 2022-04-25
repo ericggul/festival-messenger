@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
 const ShareViaKakao = ({ onClick }: any) => {
-  const [number, setNumber] = useState(59);
+  const [number, setNumber] = useState(52);
   const [show, setShow] = useState(false);
 
   useDisminishingInterval(() => setNumber((n) => n + 1), 10, 0.2, 47);

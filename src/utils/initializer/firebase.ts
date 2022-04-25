@@ -26,4 +26,4 @@ export const messageStorageRef = ref(storage, "messages");
 export const auth = getAuth();
 
 //"https://festival-messenger-4df40.web.app";
-export const HOSTED_URL = "localhost:3000";
+export const HOSTED_URL = "https://festival-messenger.com";

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "@R/common/hooks";
 import { createUserInformation, fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { actions } from "@R/users/state";
@@ -14,11 +13,11 @@ import toast from "react-hot-toast";
 //google analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
-//https://festival-messenger-4df40.web.app
+//https://festival-messenger.com
 //http://localhost:3000
 
 export const NO_PROFILE = "https://firebasestorage.googleapis.com/v0/b/festival-messenger-4df40.appspot.com/o/users%2FNO_PROFILE.png?alt=media&token=78d7f5fa-7f31-4779-ac50-2c746d1fc2d4";
-export const redirectUri = "http://localhost:3000";
+export const redirectUri = "https://festival-messenger.com";
 
 async function uploadUserInfo(dispatch: any, userInfo: any) {
   try {
@@ -94,7 +93,7 @@ const useAuth = (navigateTo?: any) => {
   const user = useAppSelector((state) => ({
     uid: state.users.uid,
     email: state.users.email,
-    isLoading: state.users.isLoading,
+    isLoading: state.users.isLoading || false,
     landingUrl: state.users.landingUrl || null,
     name: state.users.name || null,
     profileImage: state.users.profileImage || null,

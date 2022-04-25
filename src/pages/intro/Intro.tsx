@@ -4,10 +4,13 @@ import LoadingContainer from "@C/Loading";
 import * as ES from "@S/style/common/errorPage";
 import { useNavigate } from "react-router-dom";
 
-export default function Intro() {
-  const { signIn, user, isAuthorized } = useAuth("/settings");
+import { useAppSelector } from "@R/common/hooks";
 
+export default function Intro() {
   const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.users);
+
   useEffect(() => {
     if (!user.isLoading) {
       navigate("/map");
