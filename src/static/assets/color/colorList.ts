@@ -4,10 +4,10 @@ const COLOR_LIST = [
   { h: 68, s: 66, l: 71, black: true },
 
   { h: 120, s: 80, l: 97, black: true },
-  { h: 130, s: 20, l: 48 },
-  { h: 140, s: 100, l: 23 },
+  { h: 130, s: 30, l: 48 },
   { h: 151, s: 100, l: 63, black: true },
   { h: 173, s: 40, l: 41 },
+  { h: 174, s: 53, l: 68, title: "Tiffany Blue" },
   { h: 194, s: 80, l: 36 },
   { h: 197, s: 100, l: 43 },
   { h: 205, s: 36, l: 61, black: true },

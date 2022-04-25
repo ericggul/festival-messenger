@@ -6,7 +6,6 @@ function UserAnalytics() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log(pathname);
     ReactGA.send({ hitType: "pageview", page: pathname });
   }, [pathname]);
 

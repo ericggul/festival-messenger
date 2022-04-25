@@ -2,7 +2,10 @@ import React, { useMemo, useCallback, useEffect, useState } from "react";
 import * as S from "./styles";
 
 import useResize from "@U/hooks/useResize";
-import e from "cors";
+import Kakao from "@I/icons/kakao/kakao.svg";
+
+//import toast
+import toast from "react-hot-toast";
 
 //colors
 const KAKAO_YELLOW = "#F7E600";
@@ -14,22 +17,26 @@ const ShareViaKakao = ({ onClick }: any) => {
   const [windowWidth, windowHeight] = useResize();
 
   useEffect(() => {
+    toast("화면을 클릭해 친구에게 카카오톡 알림을 전송해주세요.");
     const app = new App();
     return () => app.destroy();
   }, []);
   return (
-    <div
-      id="CanvasWrapper"
-      onClick={onClick}
-      style={{
-        position: "absolute",
-        top: "0",
-        left: "0",
-        width: `${windowWidth}px`,
-        height: `${windowHeight}px`,
-        zIndex: 50,
-      }}
-    />
+    <>
+      <div
+        id="CanvasWrapper"
+        onClick={onClick}
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          width: `${windowWidth}px`,
+          height: `${windowHeight}px`,
+          zIndex: 50,
+        }}
+      />
+      <img id="source" src={Kakao} alt="Kakao" style={{ opacity: 0 }} />
+    </>
   );
 };
 
@@ -40,15 +47,20 @@ class App {
   stageWidth: any;
   stageHeight: any;
 
-  cellSize: any;
   rows: any;
   cols: any;
 
   text: any;
+  imgSource: any;
 
   //state manager
   resizeEvent: any;
   drawState: any;
+  animationRequest: any;
+
+  //time manager
+  now: any;
+  then: any;
 
   constructor() {
     this.text = "Kakao";
@@ -71,90 +83,67 @@ class App {
     this.canvas.height = this.stageHeight;
     this.ctx.scale(1, 1);
 
-    this.cellSize = (this.stageWidth * this.stageHeight) / 200000;
+    this.imgSource = document.getElementById("source");
 
-    this.init();
+    this.imgSource.addEventListener("load", () => {
+      this.init();
+    });
   }
 
   init() {
-    this.draw();
-  }
-
-  destroy() {}
-
-  draw() {
-    this.rows = Math.floor(this.stageHeight / this.cellSize);
-    this.cols = Math.floor(this.stageWidth / this.cellSize);
-
+    this.now = Date.now();
+    this.then = Date.now();
     this.ctx.fillStyle = KAKAO_YELLOW;
     this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
+    this.ctx.drawImage(this.imgSource, this.stageWidth * 0.25, this.stageHeight / 2 - this.stageWidth / 4, this.stageWidth * 0.5, this.stageWidth * 0.5);
 
-    //glyphs
-    const fontSize = this.cols * 0.3;
-    this.ctx.fillStyle = KAKAO_BROWN;
-    this.ctx.font = `${fontSize}px Times New Roman`;
-    this.ctx.textBaseline = "top";
+    this.animate();
+  }
 
-    const metrics = this.ctx.measureText(this.text);
-    const mx = metrics.actualBoundingBoxLeft * -1;
-    const my = metrics.actualBoundingBoxAscent * -1;
-    const mw = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-    const mh = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+  destroy() {
+    cancelAnimationFrame(this.animationRequest);
+    window.removeEventListener("resize", this.resizeEvent);
+    this.canvas.remove();
+  }
 
-    const tx = (this.cols - mw) * 0.5 - mx;
-    const ty = (this.rows - mh) * 0.5 - my;
-    console.log(mw, mh, tx, ty);
+  animate() {
+    this.now = Date.now();
+    const delta = this.now - this.then;
+    if (delta > 10) {
+      this.draw();
+      this.then = this.now;
+    }
+    this.animationRequest = requestAnimationFrame(this.animate.bind(this));
+  }
+
+  draw() {
+    const TEXT_SET = [
+      "친구에게 메시지 보내기",
+      "카카오톡으로 메시지 보내기",
+      "클릭",
+      "클릭해서 카카오톡으로 연결",
+      "클릭해주세요!",
+      "카카오톡",
+      "버들골 메신저",
+      "축하사 화이팅",
+      "클릭하면 메시지가 보내집니다.",
+      "메시지를 보내지 않으면 친구에게 전달할 방법이 없어요!",
+      "친구에게 소식을 전달해주세요.",
+    ];
+    this.ctx.globalCompositeOperation = "hard-light";
 
     this.ctx.save();
-    this.ctx.translate(tx, ty);
-    this.ctx.beginPath();
-    // this.ctx.rect(mx, my, mw, mh);
-    this.ctx.stroke();
 
-    this.ctx.fillText(this.text, 0, 0);
+    this.ctx.font = `${getRandom(10, getRandom(20, 80))}px sans-serif`;
+    this.ctx.fillStyle = this.ctx.strokeStyle = Math.random() < 0.4 ? KAKAO_YELLOW : KAKAO_BROWN;
+
+    const TEXT = TEXT_SET[Math.floor(Math.random() * TEXT_SET.length)];
+
+    this.ctx.strokeText(TEXT, getRandom(-150, this.stageWidth), getRandom(0, this.stageHeight + 30));
+    // this.ctx.strokeText(TEXT, getRandom(-150, this.stageWidth), getRandom(0, this.stageHeight + 30));
+
     this.ctx.restore();
-
-    const typeData = this.ctx.getImageData(0, 0, this.cols, this.rows).data;
-
-    this.ctx.fillStyle = "black";
-    this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
-    this.ctx.textBaseline = "midde";
-    this.ctx.textAlign = "center";
-
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        const index = (i * this.cols + j) * 4;
-        const r = typeData[index];
-        const g = typeData[index + 1];
-        const b = typeData[index + 2];
-        const a = typeData[index + 3];
-
-        const glyph = getGlpyh(r);
-
-        this.ctx.font = `${this.cellSize * 4}px Times New Roman`;
-        this.ctx.fillStyle = Math.random() < 0.7 ? KAKAO_YELLOW : KAKAO_BROWN;
-
-        const x = j * this.cellSize;
-        const y = i * this.cellSize;
-        const w = this.cellSize;
-        const h = this.cellSize;
-
-        this.ctx.save();
-        this.ctx.translate(x, y);
-        this.ctx.translate(w * 0.5, h * 0.5);
-        this.ctx.fillText(glyph, 0, 0);
-        this.ctx.restore();
-      }
-    }
   }
 }
-
-const getGlpyh = (v: any) => {
-  const letters = "KAKAO".split("");
-  if (v < 200) return letters[Math.floor(Math.random() * letters.length)];
-
-  const glyphs = "_= /".split("");
-  return "@";
-};
 
 export default ShareViaKakao;

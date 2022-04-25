@@ -30,7 +30,7 @@ const Complete = ({ completeCommand }: any) => {
 
 function WriteMessage(props: any) {
   useEffect(() => {
-    EventBehavior("Write Message", "Writing Phase", "Started to write message");
+    EventBehavior("Write Message", "Message Writing Phase", "Started to write message");
   }, []);
   //check if there's stored data
   const preview = useAppSelector((state) => state.singleMessagePreview);
@@ -116,7 +116,7 @@ function WriteMessage(props: any) {
   const dispatch = useAppDispatch();
 
   const handlePreviewingSendData = useCallback(async () => {
-    EventBehavior("Write Message", "Writing Phase", "Go To Preview Phase");
+    EventBehavior("Write Message", "Message Writing Phase", "Go To Message Preview Phase");
     try {
       await dispatch(
         actions.setValues({

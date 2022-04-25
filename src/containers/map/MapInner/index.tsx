@@ -4,6 +4,9 @@ import * as S from "./styles";
 //Mapbox
 import MapBox from "@F/map/MapBox";
 
+//hooks
+import useAuth from "@U/hooks/useAuth";
+
 //usenavigate
 import { useNavigate } from "react-router-dom";
 
@@ -50,7 +53,7 @@ function Map(props: any) {
   useEffect(() => {
     if (containerRef && containerRef.current) {
       if (messageSendMode) {
-        EventBehavior("Map", "Add Message", "1. Add Message Button Clicked");
+        EventBehavior("Map", "Map Add Message Steps", "1. Add Message Button Clicked");
         toast("메시지를 보낼 위치를 선택해주세요!");
         containerRef.current.style.cursor = "pointer";
       }
@@ -97,27 +100,31 @@ function Map(props: any) {
   const [addMessageToSelected, AddMessageToSelected] = useState<any>(props.addMessageTo || null);
 
   const navigate = useNavigate();
-  const handleAddNewMessage = (latLng: any) => {
+  const handleAddNewMessage = async (latLng: any) => {
     setLatLng(latLng);
-    EventBehavior("Map", "Add Message", "2. Lat Lng Position Selected");
+    EventBehavior("Map", "Map Add Message Steps", "2. Lat Lng Position Selected");
     if (addMessageToSelected) {
-      EventBehavior("Map", "Add Message", "3-1. Friend Already Selected");
+      EventBehavior("Map", "Map Add Message Steps", "3-1. Friend Already Selected");
+      //get kakao talk uuid from friend api
+      let kakaoUUID = await getFriendUUID(addMessageToSelected);
       //directly send message to friend
-      getUserInformation(addMessageToSelected).then((res) => {
-        navigate(`/writeMessage`, {
-          state: {
-            id: addMessageToSelected,
-            name: res,
-            latLng,
-            uuid: "unassigned",
-          },
-        });
+      let friendName = await getUserInformation(addMessageToSelected);
+
+      navigate(`/writeMessage`, {
+        state: {
+          id: addMessageToSelected,
+          name: friendName,
+          latLng,
+          uuid: kakaoUUID || "unassigned",
+        },
       });
     } else {
-      EventBehavior("Map", "Add Message", "3-2. Selecting Friend to Send");
+      EventBehavior("Map", "Map Add Message Steps", "3-2. Selecting Friend to Send");
       setIsModalOpen(true);
     }
   };
+
+  //get user name from DB
   async function getUserInformation(idToRetrive: any) {
     try {
       const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(idToRetrive));
@@ -127,6 +134,41 @@ function Map(props: any) {
       return null;
     }
   }
+
+  //get Kakao Friend API UUID from ID
+  const { signIn } = useAuth("/map");
+  const getFriendUUID = async (uid: any) => {
+    let parsedUID = uid.split("kakao:")[1];
+
+    let friend: any;
+    if (!uid.includes("kakao:")) {
+      return "unassigned";
+    }
+
+    if (user.token) {
+      const token = window.Kakao.Auth.getAccessToken();
+      window.Kakao.Auth.setAccessToken(token);
+      await window.Kakao.API.request({
+        url: "/v1/api/talk/friends",
+        success: (res: any) => {
+          let friends = res.elements;
+
+          friend = friends.find((friend: any) => friend.id == parsedUID);
+        },
+        fail: (err: any) => {
+          alert("재로그인이 필요합니다!");
+          signIn();
+          return null;
+        },
+      });
+    } else {
+      alert(user.uid ? "재로그인이 필요합니다!" : "로그인이 필요합니다!");
+      signIn();
+      return null;
+    }
+
+    return friend ? friend.uuid : null;
+  };
 
   ///////
   //Data Related
@@ -152,7 +194,7 @@ function Map(props: any) {
   }, [user]);
 
   async function retriveChat() {
-    EventBehavior("Map", "Buttons", "Update button");
+    EventBehavior("Map", "Map Buttons", "Update button");
     try {
       let res = await dispatch(fetchChatsByMember(user.uid));
       setCurrentChats(sortChat(res.payload));
@@ -271,7 +313,7 @@ function Map(props: any) {
         <S.GhostButton
           show={displayMap}
           onClick={() => {
-            EventBehavior("Map", "Buttons", "Current Pos button");
+            EventBehavior("Map", "Map Buttons", "Current Pos button");
             setGoToCurrentPosition(true);
           }}
         >
@@ -285,7 +327,7 @@ function Map(props: any) {
         <S.ButtonLeft
           onClick={() => {
             setReset(true);
-            EventBehavior("Map", "Buttons", "Beoudeolgol button");
+            EventBehavior("Map", "Map Buttons", "Beoudeolgol button");
           }}
           show={displayMap}
         >

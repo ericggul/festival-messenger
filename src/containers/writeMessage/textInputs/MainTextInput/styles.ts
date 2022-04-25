@@ -16,7 +16,7 @@ export const MainTextInput = styled.textarea.attrs({
 })<IsTextBlack>`
   outline: 0;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
-
+  height: 5rem;
   white-space: pre-wrap;
 
   text-size-adjust: auto;

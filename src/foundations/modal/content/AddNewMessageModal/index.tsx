@@ -18,19 +18,6 @@ import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
-const TEST_DATA = [
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/1ArtNoveau/1.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-  { name: "배우진", profileImg: "https://laboratory-occupied.com/assets/images/7Shitga/3.png" },
-  { name: "홍길동", profileImg: "https://laboratory-occupied.com/assets/images/9WhiteMonuments/0.png" },
-];
-
 const SingleProfile = ({ friend, i, clickedFriend, setClickedFriend, handleIconClick }: any) => {
   const uid = useMemo(() => `kakao:${friend.id}`, [friend]);
   const [profilePic, setProfilePic] = useState(friend.profile_thumbnail_image);
@@ -74,7 +61,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const navigate = useNavigate();
 
   const handleIconClick = (id: any, name: any, ev: any, uuid: any) => {
-    EventBehavior("Map", "Add Message", "4. Selected Friend");
+    EventBehavior("Map", "Map Add Message Steps", "4. Selected Friend");
 
     ev.stopPropagation();
     navigate(`/writeMessage`, {

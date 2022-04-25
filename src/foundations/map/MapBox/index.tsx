@@ -221,7 +221,7 @@ function MapBox({
       let pointInside = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], POLYGON);
       if (!pointInside) {
         EventBehavior("Map", "Add Pin", "Pin to place outside");
-        toast("버들골 외부에는 메시지를 전송할수 없습니다!");
+        toast("버들골 외부에는 메시지를 전송할 수 없습니다!");
         return;
       }
       EventBehavior("Map", "Add Pin", "Pin to place inside");

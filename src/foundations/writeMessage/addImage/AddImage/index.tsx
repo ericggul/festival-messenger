@@ -62,7 +62,7 @@ function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImag
         return;
       }
 
-      EventBehavior("Write Message", "Writing Phase", "User Added Image");
+      EventBehavior("Write Message", "Message Writing Phase", "User Added Image");
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       setInitialImageFile(e.target.files[0]);

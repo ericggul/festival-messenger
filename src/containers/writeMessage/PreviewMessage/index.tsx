@@ -37,7 +37,7 @@ import { EventBehavior } from "@U/initializer/googleAnalytics";
 
 function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   useEffect(() => {
-    EventBehavior("Write Message", "Preview Phase", "Started to preview message");
+    EventBehavior("Write Message", "Message Preview Phase", "Started to preview message");
   }, []);
   const preview = useAppSelector((state) => state.singleMessagePreview);
   const user = useAppSelector((state) => state.users);
@@ -69,7 +69,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   }, [imageFile, musicFile]);
 
   function handleEdit() {
-    EventBehavior("Write Message", "Preview Phase", "Back to writing phase");
+    EventBehavior("Write Message", "Message Preview Phase", "Back to Message Writing Phase");
     moveBackToWriteMode();
   }
 
@@ -122,7 +122,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
         },
       },
       success: function (response: any) {
-        EventBehavior("Write Message", "Preview Phase", "Share Through Kakao Messenger");
+        EventBehavior("Write Message", "Message Preview Phase", "Share Through Kakao Messenger");
         toast("카카오톡 전송 완료!");
         navigate("/map");
       },
@@ -136,7 +136,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   };
 
   const shareThroughKakaoLink = () => {
-    EventBehavior("Write Message", "Preview Phase", "Share Through Kakao Link");
+    EventBehavior("Write Message", "Message Preview Phase", "Share Through Kakao Link");
     toast("친구에게 카카오톡 메시지를 전송하기 위해 팝업을 허용해주세요!");
     window.Kakao.Link.sendCustom({
       templateId: KAKAO_LINK_ID,
@@ -171,7 +171,8 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
           handleEdit={handleEdit}
           handleSend={() => {
             setMessageSendStarted(true);
-            EventBehavior("Write Message", "Preview Phase", "Send Message");
+            EventBehavior("Write Message", "Message Preview Phase", "Send Message");
+            EventBehavior("Write Message", "Message Created", "New Message Created!");
             handleSend(preview, imageFile, musicFile, dispatch, user, setIsModalOpen, setChatId, setMessageId, setMessageUUID, setProfileName, setProfileImg);
           }}
         />

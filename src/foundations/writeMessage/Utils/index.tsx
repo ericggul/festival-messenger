@@ -52,16 +52,16 @@ function Utils({ onColorChange, onMusicChange, onFontChange, displayAddImageOpti
   const [font, setFont] = useState("Seoul Namsan");
 
   const onColorClick = (cl: any) => {
-    EventBehavior("Write Message", "Writing Phase", "Utils: User Chagned Colors");
+    EventBehavior("Write Message", "Message Writing Phase", "Utils: User Chagned Colors");
     onColorChange(cl);
   };
   const onMusicClick = (mz: any, mzFile: any) => {
-    EventBehavior("Write Message", "Writing Phase", "Utils: User Chagned Music");
+    EventBehavior("Write Message", "Message Writing Phase", "Utils: User Chagned Music");
     setMusic(mz);
     onMusicChange(mz, mzFile);
   };
   const onFontClick = (ft: any) => {
-    EventBehavior("Write Message", "Writing Phase", "Utils: User Chagned Font");
+    EventBehavior("Write Message", "Message Writing Phase", "Utils: User Chagned Font");
     setFont(ft);
     onFontChange(ft);
   };
