@@ -57,8 +57,8 @@ function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImag
 
   const onImageChange = (e: any) => {
     if (e.target.files.length !== 0) {
-      if (e.target.files[0].size > 1048576 * 3) {
-        alert("이미지 파일은 3MB 이하로 선택해주세요.");
+      if (e.target.files[0].size > 1048576 * 5) {
+        alert("이미지 파일은 5MB 이하로 선택해주세요.");
         return;
       }
 

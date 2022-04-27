@@ -1,6 +1,8 @@
 import React from "react";
 import * as S from "./styles";
 
+import { useNavigate } from "react-router-dom";
+
 //helment
 import { Helmet } from "react-helmet";
 
@@ -10,6 +12,8 @@ interface HeaderProps {
 }
 
 function Header({ name, color = `rgba(255, 255, 255, .6)` }: HeaderProps) {
+  const navigate = useNavigate();
+
   return (
     <S.HeaderContainer color={color}>
       <Helmet>
@@ -17,7 +21,7 @@ function Header({ name, color = `rgba(255, 255, 255, .6)` }: HeaderProps) {
       </Helmet>
       <S.TextContainer>
         <S.Text>{name}</S.Text>
-        <S.Logo>Festival Messenger</S.Logo>
+        <S.Logo onClick={() => navigate("/about")}>Festival Messenger</S.Logo>
       </S.TextContainer>
     </S.HeaderContainer>
   );

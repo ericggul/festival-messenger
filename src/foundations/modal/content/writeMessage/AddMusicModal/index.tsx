@@ -28,8 +28,6 @@ function AddMusicModal({ setIsModalOpen, setAudioFile, setAudio }: any) {
     }
   };
 
-  console.log(audioFileLocally);
-
   useEffect(() => {
     if (uploadState === 2) {
       setTimeout(() => {

@@ -101,7 +101,6 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
 
   useEffect(() => {
     if (messageSendFinished) {
-      console.log("here");
       if (messageUUID !== "unassigned") {
         shareThroughKakaoMessenger();
       }

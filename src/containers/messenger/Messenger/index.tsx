@@ -66,6 +66,7 @@ function Messenger() {
   const [currentChats, setCurrentChats] = useState(chatsReduxState.chats);
   const [chatLoaded, setChatLoaded] = useState(false);
 
+  // let TEMP_ID =
   useEffect(() => {
     if (!user.uid) {
       navigate("/login");

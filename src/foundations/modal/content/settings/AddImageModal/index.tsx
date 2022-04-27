@@ -15,8 +15,8 @@ function AddImageModal({ setIsModalOpen, setImageFile, setImage, setSimpleModalC
 
   const onImageChange = (e: any) => {
     if (e.target.files.length !== 0) {
-      if (e.target.files[0].size > 1048576 * 1) {
-        alert("프로필 사진은 1MB 이하로 선택해주세요.");
+      if (e.target.files[0].size > 1048576 * 5) {
+        alert("프로필 사진은 5MB 이하로 선택해주세요.");
         return;
       }
       setUploadState(1);

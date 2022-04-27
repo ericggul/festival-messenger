@@ -103,7 +103,6 @@ class App {
 
     const tx = (this.cols - mw) * 0.5 - mx;
     const ty = (this.rows - mh) * 0.5 - my;
-    console.log(mw, mh, tx, ty);
 
     this.ctx.save();
     this.ctx.translate(tx, ty);

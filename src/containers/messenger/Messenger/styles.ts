@@ -31,7 +31,7 @@ export const InnerContainer = styled.div`
 
 export const Note = styled.div`
   width: ${({ theme }) => (theme.windowWidth > 768 ? theme.windowWidth - 6.9 * 16 : theme.windowWidth - 6.9 * 12)}px;
-  margin-left: 3.65rem;
+  margin-left: 3.5rem;
   margin-right: 3.45rem;
   margin-top: 8rem;
   margin-bottom: 4rem;

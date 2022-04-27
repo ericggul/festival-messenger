@@ -94,7 +94,6 @@ function MapBox({
 
   useEffect(() => {
     if (goToCurrentPosition) {
-      console.log("get to current pos");
       mapZoomToCurrent();
       goToCurrentPositionCompleted();
     }
@@ -320,8 +319,6 @@ function MapBox({
     let el = document.createElement("div");
     el.className = "current-pos";
 
-    console.log("map zoom to current");
-    console.log(currentPos);
     if (mapRef.current && typeof mapRef.current == "object") {
       if (currentPosPermittedStatus) {
         new mapboxgl.Marker(el).setLngLat([currentPos.lng, currentPos.lat]).addTo(mapRef.current);

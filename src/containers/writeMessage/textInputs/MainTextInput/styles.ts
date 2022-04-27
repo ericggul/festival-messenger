@@ -24,6 +24,7 @@ export const MainTextInput = styled.textarea.attrs({
   background: transparent;
   font-size: 1rem;
 
+  border-radius: 0;
   border-bottom: 1px solid transparent;
 
   color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};

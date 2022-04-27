@@ -10,7 +10,21 @@ function Texture() {
     return () => draw && draw.destroy();
   }, []);
 
-  return <div id="CanvasWrapper" style={{ position: "absolute", top: 0, left: 0, width: windowWidth, height: windowHeight, zIndex: 0 }} />;
+  return (
+    <div
+      id="CanvasWrapper"
+      style={{
+        position: "absolute",
+        top: -20,
+        left: 0,
+        width: windowWidth,
+        height: windowHeight * 1.2,
+        zIndex: 0,
+
+        overflow: "hidden",
+      }}
+    />
+  );
 }
 
 class Canvas {
@@ -22,6 +36,8 @@ class Canvas {
 
   interval: any;
 
+  resizeEvent: any;
+
   constructor() {
     this.wrapper = document.getElementById("CanvasWrapper");
     this.canvas = document.createElement("canvas");
@@ -30,11 +46,11 @@ class Canvas {
     this.ctx = this.canvas.getContext("2d");
 
     this.resize();
-
-    window.addEventListener("resize", this.resize.bind(this));
+    this.resizeEvent = document.addEventListener("resize", this.resize.bind(this));
   }
 
   destroy() {
+    document.removeEventListener("resize", this.resizeEvent);
     this.wrapper.removeChild(this.canvas);
   }
 
@@ -45,13 +61,14 @@ class Canvas {
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
 
-    this.interval = 1;
+    this.interval = Math.max(Math.round(Math.sqrt(((this.stageWidth * this.stageHeight) / (1280 * 720)) * 100)) / 100, 1);
 
     this.ctx.scale(1, 1);
     this.init();
   }
 
   init() {
+    this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
     for (let i = 0; i < Math.ceil(this.stageWidth / this.interval); i++) {
       for (let j = 0; j < Math.ceil(this.stageHeight / this.interval); j++) {
         this.ctx.beginPath();

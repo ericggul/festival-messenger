@@ -31,3 +31,21 @@ export const ToMainButton = styled.div`
   ${FlexCenterStyle};
   animation: ${AppearAnimation} 1s backwards;
 `;
+
+export const AssistContainer = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: row;
+`;
+
+export const AssistButton = styled.div`
+  margin: 2rem;
+  width: 10rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 1rem;
+  ${FlexCenterStyle};
+  animation: ${AppearAnimation} 1s backwards;
+`;

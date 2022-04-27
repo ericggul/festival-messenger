@@ -19,6 +19,9 @@ export const Container = styled.div`
 
   font-size: 20vh;
   color: white;
+  height: ${({ theme }) => theme.windowHeight}px;
+  width: ${({ theme }) => theme.windowWidth}px;
+  background: linear-gradient(hsl(35, 52%, 45%), hsl(180, 52%, 45%));
 
   flex-direction: row;
   font-weight: 800;

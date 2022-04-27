@@ -44,7 +44,7 @@ const P5Container = () => {
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     setP5(p5);
-    console.log(particleTexture);
+
     setPs(new ParticleSystem(p5, 0, p5.createVector(windowWidth / 2, windowHeight - 60), particleTexture));
     p5.createCanvas(windowWidth, windowHeight).parent(canvasParentRef);
   };

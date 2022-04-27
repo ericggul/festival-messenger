@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   ${FlexCenterStyle};
+  overflow: hidden;
 `;
 
 export const Description = styled.div``;

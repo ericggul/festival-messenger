@@ -63,6 +63,7 @@ class App {
   stageHeight: any;
   bounds: any;
 
+  wrapper: any;
   pixiApp: any;
 
   color: any;
@@ -82,14 +83,18 @@ class App {
 
     this.pixiApp.stage.filters = [new KawaseBlurFilter(30, 10, true)];
 
-    document.getElementById("pixi-canvas")!.appendChild(this.pixiApp.view);
+    this.wrapper = document.getElementById("pixi-canvas");
+
+    this.wrapper.appendChild(this.pixiApp.view);
     this.resize();
     this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 250));
   }
 
   resize() {
-    this.stageWidth = window.innerWidth;
-    this.stageHeight = window.innerHeight;
+    this.orbs = [];
+
+    this.stageWidth = this.wrapper.clientWidth;
+    this.stageHeight = this.wrapper.clientHeight;
     this.bounds = this.setBounds();
     this.init();
   }
@@ -115,6 +120,7 @@ class App {
   }
 
   animate() {
+    console.log(this.orbs);
     this.pixiApp.ticker.add(() => {
       this.orbs.forEach((orb: any) => {
         orb.update();

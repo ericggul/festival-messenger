@@ -36,5 +36,6 @@ export const Text = styled.div`
 export const Logo = styled.div`
   font-size: 1.1rem;
   text-align: right;
-  width: 7rem;
+  width: 6rem;
+  cursor: pointer;
 `;

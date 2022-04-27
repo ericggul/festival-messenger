@@ -30,7 +30,6 @@ async function uploadUserInfo(dispatch: any, userInfo: any) {
 async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user: any) {
   try {
     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(derivedUser.uid));
-    console.log(userInfo.payload);
 
     if (!userInfo.payload) {
       console.log("new user!");
@@ -40,21 +39,26 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
           property_keys: ["kakao_account.profile", "kakao_account.friends", "friends"],
         },
         success: (res: any) => {
-          console.log("res", res);
           let output = res.kakao_account.profile;
-          console.log(output);
+
+          //http to https for profile image
+          let profileImgURL = output.profile_image_url || NO_PROFILE;
+          if (profileImgURL && profileImgURL.includes(`http://`)) {
+            profileImgURL = profileImgURL.replace(`http://`, `https://`);
+          }
+
           //create
 
           const userInfo = {
             id: derivedUser.uid,
             email: derivedUser.email,
             name: output.nickname || "No Name",
-            kakaoProfileImageUrl: output.profile_image_url || NO_PROFILE,
+            kakaoProfileImageUrl: profileImgURL || NO_PROFILE,
           };
 
           uploadUserInfo(dispatch, userInfo);
           dispatch(actions.setValue({ name: output.nickname || "No Name" }));
-          dispatch(actions.setValue({ profileImage: output.profile_image_url || NO_PROFILE }));
+          dispatch(actions.setValue({ profileImage: profileImgURL || NO_PROFILE }));
 
           toast("로그인 완료!");
           EventBehavior("Login", "New Login", "New User");
@@ -106,6 +110,7 @@ const useAuth = (navigateTo?: any) => {
 
     if (authorizeCodeFromKakao !== undefined) {
       dispatch(actions.setLoading(true));
+      toast("로그인 중..");
       let kakaoAuth = httpsCallable(functions, "kakaoAuth");
       kakaoAuth({ code: authorizeCodeFromKakao })
         .then((result: any) => {
@@ -120,30 +125,6 @@ const useAuth = (navigateTo?: any) => {
 
               getUserInfo(dispatch, derivedUser, navigate, user);
 
-              // if (!output) {
-
-              //   window.Kakao.API.request({
-              //     url: "/v2/user/me",
-              //     data: {
-              //       property_keys: ["kakao_account.profile"],
-              //     },
-              //     success: (res: any) => {
-              //       let output = res.kakao_account.profile;
-              //       console.log(output);
-              //       //Nickname
-              //       dispatch(actions.setValue({ name: output.nickname || "No Name" }));
-              //       dispatch(actions.setValue({ profileImage: output.profile_image_url || NO_PROFILE }));
-              //     },
-              //     fail: (err: any) => {
-              //       console.log(err);
-              //     },
-              //   });
-              // } else {
-              //   console.log("existing user");
-              //   //fetch data: to do?
-              // }
-
-              console.log(kakaoToken);
               dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email, token: kakaoToken }));
               dispatch(actions.setLoading(false));
             })

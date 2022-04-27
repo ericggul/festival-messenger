@@ -264,6 +264,18 @@ function Map(props: any) {
     }
   }, [displayMap]);
 
+  function getChatsMessagesLength(chatMessages: any) {
+    let i = 0;
+
+    chatMessages.forEach((chat: any) => {
+      chat.messages.forEach((msg: any) => {
+        i++;
+      });
+    });
+
+    return i;
+  }
+
   return (
     <>
       <S.Container ref={containerRef}>
@@ -339,6 +351,7 @@ function Map(props: any) {
           <S.ButtonImg src={Explore} />
           <S.ButtonText>버들골</S.ButtonText>
         </S.ButtonLeft>
+        <S.Recieved show={displayMap}>{`받은 메시지 ${getChatsMessagesLength(currentMessages)}개`}</S.Recieved>
       </S.Container>
       {addNewMessageModalComponent}
       {openMessageModalComponent}

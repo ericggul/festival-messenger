@@ -50,9 +50,7 @@ const slice = createSlice({
         copiedMessages.filter((msg) => msg.messageId === action.meta.arg.messageId).forEach((msg) => (msg.messageTo = action.meta.arg.newMessageTo));
         state.messages = copiedMessages;
       })
-      .addCase(deleteMessage.fulfilled, (state, action) => {
-        console.log(action.payload);
-      });
+      .addCase(deleteMessage.fulfilled, (state, action) => {});
   },
 });
 export default slice.reducer;

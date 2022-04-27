@@ -67,7 +67,7 @@ const SingleChatRow = ({ user, distancePerTime, messages, chat }: any) => {
   //To do: algorithm that detects adjacent neighbor
   const messengerDeltaArray = useMemo(() => messages.map((msg: any) => (distancePerTime * msg.createdAt.seconds) / (60 * 60)), [messages]);
   const [refinedDeltaArray, setRefinedDeltaArray] = useState(messengerDeltaArray);
-  // console.log(messengerDeltaArray);
+
   useEffect(() => {
     const reducedArray = messengerDeltaArray.reduce((prev: any, curr: any) => {
       if (prev.length > 0) {
@@ -85,7 +85,7 @@ const SingleChatRow = ({ user, distancePerTime, messages, chat }: any) => {
         return [{ center: curr, number: 1 }];
       }
     }, []);
-    console.log(reducedArray);
+
     setRefinedDeltaArray(reducedArray);
   }, [messengerDeltaArray]);
 

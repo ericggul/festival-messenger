@@ -13,7 +13,6 @@ const slice = createSlice({
   initialState,
   reducers: {
     setValue: (state, action: any) => {
-      console.log(action.payload);
       return { ...state, ...action.payload };
     },
     setLoading: (state, action: any) => {
@@ -34,7 +33,6 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserInformation.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.profileImage = action.payload.profileImage || null;
         state.name = action.payload.name;
       })

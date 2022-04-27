@@ -9,10 +9,12 @@ import { useAppSelector } from "@R/common/hooks";
 export default function Intro() {
   const navigate = useNavigate();
 
-  const user = useAppSelector((state) => state.users);
+  // const user = useAppSelector((state) => state.users);
+
+  const { user } = useAuth();
 
   useEffect(() => {
-    if (!user.isLoading) {
+    if (user.uid || !user.isLoading) {
       navigate("/map");
     }
   }, [user.isLoading]);
@@ -22,7 +24,7 @@ export default function Intro() {
         <LoadingContainer />
       ) : (
         <ES.Container>
-          <ES.Text>잘못된 접근입니다.</ES.Text>
+          <ES.Text>이 페이지에는 별게 없어요!!</ES.Text>
           <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
         </ES.Container>
       )}

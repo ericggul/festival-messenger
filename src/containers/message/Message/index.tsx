@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import * as S from "./styles";
 import * as ES from "@S/style/common/errorPage";
 
 //React router usenavigate
@@ -46,7 +45,6 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
   const [userMessageAvailable, setUserMessageAvailable] = useState(false);
 
   async function getChat() {
-    console.log("Get Chat!");
     try {
       const res = await dispatch(fetchChatsById(chatId));
       let members = res.payload.members;
@@ -85,7 +83,6 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
   const [message, setMessage] = useState<any>(null);
 
   async function getMessage() {
-    console.log("Get Message!");
     try {
       const res = await dispatch(fetchMessage({ chatId, messageId }));
       setMessage(res.payload);
@@ -149,6 +146,7 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
             <p>잠시만 기다려주세요.</p>
             <p>장시간 로딩이 되지 않을경우,</p>
             <p>브라우저의 위치 접근 권한을 확인해주세요.</p>
+
             <ES.ToMainButton onClick={() => navigate(`/${navigationComingFrom}`)}>{navigationComingFrom === "messenger" ? "메신저로" : "메인으로"} 가기</ES.ToMainButton>
           </ES.Text>
         )

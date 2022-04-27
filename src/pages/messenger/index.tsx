@@ -11,6 +11,7 @@ function Messenger() {
     <>
       <Helmet>
         <title>Messenger</title>
+
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="description" content="Page where you can view all messages." />
       </Helmet>

@@ -2,12 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 
 export default function usePinchGestures() {
   const [scale, setScale] = useState(1);
-  function startGesture(gesture: any) {
-    console.log("start", gesture);
-  }
+  function startGesture(gesture: any) {}
 
   function doGesture(gesture: any) {
-    console.log("do", gesture);
     setScale(gesture.scale);
   }
 

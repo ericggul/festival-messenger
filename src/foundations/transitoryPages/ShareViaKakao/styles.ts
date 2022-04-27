@@ -34,16 +34,34 @@ export const SubContainer = styled.div`
   animation-delay: 5s;
 
   p {
-    font-weight: 300;
     margin: 0.3rem 0;
     padding: 0;
     font-size: 1.1rem;
   }
 `;
 
-export const Text = styled.p`
-  margin: 0.3rem 0;
-  padding: 0;
+export const Back = styled.div`
+  animation: ${AppearAnimation} 1s backwards;
+  animation-delay: 3s;
+  position: absolute;
+  right: 0;
+  margin-right: 2rem;
+  ${FlexCenterStyle};
+  flex-direction: column;
+  cursor: pointer;
+  top: 0;
+  margin-top: 2rem;
+`;
+
+export const Icon = styled.img`
+  height: 2rem;
+  width: auto;
+`;
+
+export const Text = styled.div`
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 300;
 `;
 
 export const ImgContainer = styled.div`

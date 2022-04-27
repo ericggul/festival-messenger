@@ -35,7 +35,7 @@ export const AddMessageButton = styled.div`
   position: absolute;
   margin: auto;
 
-  left: 0;
+  left: -0.4rem;
   top: 0;
   bottom: 0;
 
@@ -78,6 +78,7 @@ export const Name = styled.p`
   font-weight: 300;
   color: #666;
   margin-bottom: 0.33rem;
+  text-align: center;
 `;
 
 export const Time = styled.p`

@@ -140,3 +140,13 @@ export const ButtonImg = styled.img`
   margin-left: -0.2rem;
 `;
 export const ButtonText = styled.div``;
+
+export const Recieved = styled.div<ButtonProps>`
+  ${ButtonCommon};
+  margin-left: 1rem;
+  top: 10px;
+  left: 0;
+  transition: opacity 0.8s;
+  transition-delay: 0.5s;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+`;

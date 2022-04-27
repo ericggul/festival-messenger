@@ -89,7 +89,6 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
       window.Kakao.API.request({
         url: "/v1/api/talk/friends",
         success: (res: any) => {
-          console.log(res.elements);
           setFriends(res.elements);
         },
         fail: (err: any) => {

@@ -43,6 +43,13 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Seoul Namsan', 'sans-serif';
     user-select: none;
     color: black;
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    -webkit-text-stroke 0.1px;
+    text-shadow: 0 0 1px #fff;
     
     &::-webkit-scrollbar {
       display: none; /* Chrome, Safari, Opera*/

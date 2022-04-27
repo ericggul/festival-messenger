@@ -132,8 +132,6 @@ class App {
   }
 
   resize() {
-    console.log("resize!");
-
     this.stageWidth = this.wrapper.clientWidth;
     this.stageHeight = this.wrapper.clientHeight;
     this.space = this.stageWidth / this.stageHeight;

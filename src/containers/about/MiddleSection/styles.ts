@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexCenterStyle } from "@S/style/responsive/display";
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
   top: ${({ theme }) => theme.windowHeight}px;
@@ -10,6 +10,8 @@ export const Container = styled.div`
 
   overflow: hidden;
   ${FlexCenterStyle};
+
+  background: linear-gradient(#daf9fd, white);
 `;
 
 const widthConverter = (value: any, theme: any) => value * (Math.min(theme.windowWidth, 500) / 375);
@@ -18,6 +20,17 @@ export const TextContainer = styled.div`
   position: absolute;
   width: ${({ theme }) => Math.min(theme.windowWidth, 500)}px;
   top: ${({ theme }) => theme.windowHeight / 2 - Math.min(theme.windowWidth, 500) * 0.6}px;
+
+  animation: change-color 1s ease-in forwards;
+  animation-delay: 2.7s;
+  @keyframes change-color {
+    from {
+      color: black;
+    }
+    to {
+      color: #fe3f3f;
+    }
+  }
 `;
 
 export const Designed = styled.div`
@@ -33,6 +46,17 @@ export const Designed = styled.div`
 
   font-weight: bold;
   transform: rotate(-9.33deg);
+
+  animation: designed-rotate 0.5s infinite alternate;
+
+  @keyframes designed-rotate {
+    from {
+      transform: rotate(-12deg);
+    }
+    to {
+      transform: rotate(-6.5deg);
+    }
+  }
 `;
 
 export const And = styled.div`
@@ -47,6 +71,17 @@ export const And = styled.div`
   line-height: ${({ theme }) => widthConverter(135, theme)}px;
 
   font-weight: 900;
+
+  animation: scaling 1s ease-in-out infinite alternate backwards;
+  animation-delay: 1s;
+  @keyframes scaling {
+    from {
+      transform: scale(0.9);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
 `;
 
 export const Developed = styled.div`
@@ -75,6 +110,9 @@ export const By = styled.div`
   line-height: ${({ theme }) => widthConverter(30, theme)}px;
 
   transform: rotate(3.27deg);
+
+  animation: ${AppearAnimation} 0.5s linear infinite alternate backwards;
+  animation-delay: 1.9s;
 `;
 
 export const JYC = styled.div`
@@ -103,4 +141,8 @@ export const With = styled.div`
   line-height: ${({ theme }) => widthConverter(50, theme)}px;
 
   font-weight: 300;
+
+  opacity: 0;
+  animation: ${AppearAnimation} 1s forwards;
+  animation-delay: 2.5s;
 `;

@@ -60,20 +60,19 @@ class App {
     this.canvas.height = this.stageHeight;
     this.ctx.scale(1, 1);
 
-    this.gridWidth = 20;
-    this.gridHeight = 20;
+    this.gridWidth = (this.stageWidth + this.stageHeight) / 70;
+    this.gridHeight = (this.stageWidth + this.stageHeight) / 70;
 
-    for (let i = -this.gridWidth * 10; i < this.stageWidth; i += this.gridWidth) {
-      for (let j = -this.gridHeight * 10; j < this.stageHeight; j += this.gridHeight) {
+    for (let i = 0; i < this.stageWidth; i += this.gridWidth) {
+      for (let j = 0; j < this.stageHeight; j += this.gridHeight) {
         this.gridSets.push(new Element(i, j, this.gridWidth, this.gridHeight, this.stageHeight * ((j + this.gridHeight * 10) / this.gridHeight) ** 0.9));
       }
     }
   }
 
   animate() {
-    console.log("animation request!");
     this.animationRequest = window.requestAnimationFrame(this.animate.bind(this));
-    this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+    // this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
     this.gridSets.map((el: any, i: number) => el.draw(this.ctx));
   }
@@ -96,6 +95,8 @@ class Element {
   time: any;
   interval: any;
 
+  angle: any;
+
   constructor(x: any, y: any, width: any, height: any, interval: any) {
     this.x = x + width * getRandom(-0.5, 0.5);
     this.y = y + height * getRandom(-0.5, 0.5);
@@ -105,14 +106,20 @@ class Element {
     this.interval = interval * getRandom(0.9, 1.1);
     this.color = 0;
     this.colorAmpl = getRandom(70, 90);
+
+    this.angle = getRandom(0, Math.PI * 2);
   }
 
   draw(ctx: any) {
-    this.time++;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    this.time += 0.1;
     this.color = Math.min(Math.sin((this.time * this.interval) / 100000) * 1.3, 1) * this.colorAmpl + 197;
-    ctx.fillStyle = `rgba(${this.color}, ${this.color + 30}, ${this.color * 1.6}, 0.02)`;
+    ctx.fillStyle = `rgba(${this.color}, ${this.color + 30}, ${this.color * getRandom(1.5, 1.6)}, 0.02)`;
 
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    ctx.restore();
   }
 }
 

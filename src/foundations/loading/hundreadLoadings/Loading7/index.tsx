@@ -1,17 +1,19 @@
 import React, { Suspense, useMemo, useState, useRef, useLayoutEffect } from "react";
+
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+import { TextureLoader } from "three/src/loaders/TextureLoader";
+
 import * as THREE from "three";
 
 import { extend, Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+import { Sky, CameraShake, Cloud, Environment } from "@react-three/drei";
 
-import { Stars } from "@react-three/drei";
+import Texture from "@I/loading/texture.png";
 import * as S from "./styles";
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
-
-extend({ TextGeometry });
+const getFloorRandom = (a: number, b: number) => Math.floor(Math.random() * (b - a) + a);
 
 declare global {
   namespace JSX {
@@ -21,11 +23,27 @@ declare global {
   }
 }
 
-//there used to be no Hero
+const Text = ({ i }: any) => {
+  extend({ TextGeometry });
 
-const Text = () => {
+  const pos = useMemo(() => ({ x: getRandom(-5, 5), y: getRandom(-15, 15), z: getRandom(-5, 5) }), []);
+
+  const delay = useMemo(() => getRandom(0, Math.PI * 2), []);
+  const color = useMemo(() => `rgb(${getFloorRandom(0, 250)}, ${getFloorRandom(0, 250)}, ${getFloorRandom(0, 250)})`, []);
+  const rotatePos = useMemo(() => ({ y: getRandom(0, Math.PI * 2) }), []);
+  const rotateSpeed = useMemo(() => ({ y: getRandom(-5, 5) }), []);
+
   const font = useLoader(FontLoader, "/assets/fonts/Roboto_Regular.json");
-  const config = useMemo(() => ({ font: font, size: 20, height: 1, curveSegments: 12, bevelEnabled: true, bevelThickness: 1, bevelSize: 1, bevelOffset: 0, bevelSegments: 1 }), [font]);
+
+  const config = useMemo(
+    () => ({
+      font: font,
+      size: 5,
+      height: 1,
+      curveSegments: 10,
+    }),
+    [font]
+  );
 
   const mesh = useRef<any>(null);
   const { viewport } = useThree();
@@ -40,17 +58,17 @@ const Text = () => {
   useFrame((state) => {
     if (mesh.current) {
       const t = state.clock.elapsedTime;
-      mesh.current.position.x = Math.sin(t) * 10 + (state.mouse.x * viewport.width) / 2 - size.x / 2;
-      mesh.current.position.y = viewport.height * 2 * Math.exp(-3 * t) * Math.cos(t * 3) + (state.mouse.y * viewport.height) / 2 - size.y / 2;
-      mesh.current.position.z = Math.cos(t / 1.3) * 4;
-      mesh.current.rotation.z = Math.sin(t / 1.17) * 0.05;
+      mesh.current.position.x = Math.sin(t + delay) * 2 + pos.x - size.x / 2;
+      mesh.current.position.y = pos.y - size.y / 2;
+      mesh.current.position.z = pos.z;
+      mesh.current.rotation.y = 0;
     }
   });
 
   return (
     <mesh ref={mesh}>
       <textGeometry attach="geometry" args={["LOADING", config]} />
-      <meshPhongMaterial attach="material" color="white" emissive="black" shininess={40} />
+      <meshStandardMaterial attach="material" color={color} />
     </mesh>
   );
 };
@@ -58,14 +76,15 @@ const Text = () => {
 function Loading() {
   return (
     <S.Container>
-      <Canvas shadows dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 100] }}>
-        <color attach="background" args={["black"]} />
-        <Stars count={2000} factor={3} />
+      <Canvas shadows dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 30] }}>
         <ambientLight intensity={0.2} />
-        <directionalLight intensity={3} color={"pink"} position={[100, 0, 100]} castShadow shadow-mapSize={[1024, 1024]} />
+        <directionalLight intensity={2.5} color={"pink"} position={[0, 0, 20]} />
         <Suspense fallback={null}>
-          <Text />
-          <Environment preset="city" />
+          {new Array(15).fill(0).map((e, i) => (
+            <Text key={i} i={i} />
+          ))}
+
+          <Environment preset="apartment" />
         </Suspense>
       </Canvas>
     </S.Container>
