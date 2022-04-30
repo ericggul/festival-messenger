@@ -24,7 +24,6 @@ function SingleChat({ chat, user, distancePerTime }: any) {
   async function retriveMessages() {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chat.chatId));
-
       //Filter 72 hours and sort by time
       let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds);
       setMessages(sortedMessages);

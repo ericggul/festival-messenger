@@ -84,7 +84,7 @@ const Wave = () => {
   return (
     <mesh>
       <planeBufferGeometry args={[0.596, 0.842, 40, 40]} />
-      <waveShaderMaterial uColor={"hotpink"} ref={ref} uTexture={image} />
+      <waveShaderMaterial uColor={"white"} ref={ref} uTexture={image} />
     </mesh>
   );
 };

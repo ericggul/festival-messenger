@@ -107,8 +107,8 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
     }
   }, [messageSendFinished, messageUUID]);
 
-  const shareThroughKakaoMessenger = () => {
-    window.Kakao.API.request({
+  const shareThroughKakaoMessenger = async () => {
+    await window.Kakao.API.request({
       url: "/v1/api/talk/friends/message/send",
       data: {
         receiver_uuids: [messageUUID],

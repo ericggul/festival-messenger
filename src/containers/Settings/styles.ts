@@ -80,6 +80,9 @@ export const InputBox = styled.input`
   outline: 0;
   text-align: center;
 
+  border-radius: 0;
+  border-bottom: 1px solid black;
+
   font-size: 1.67rem;
   font-weight: bold;
 

@@ -66,12 +66,12 @@ function Messenger() {
   const [currentChats, setCurrentChats] = useState(chatsReduxState.chats);
   const [chatLoaded, setChatLoaded] = useState(false);
 
-  // let TEMP_ID =
   useEffect(() => {
     if (!user.uid) {
       navigate("/login");
       return;
     }
+
     retriveChat();
   }, [user]);
 
@@ -82,6 +82,8 @@ function Messenger() {
       setCurrentChats(sortChat(res.payload));
       setChatLoaded(true);
     } catch (e) {
+      setCurrentChats([]);
+
       console.log(e);
     }
   }
@@ -91,11 +93,11 @@ function Messenger() {
   }
 
   useEffect(() => {
-    if (currentChats.length === 0) {
+    if (chatLoaded && currentChats.length === 0) {
       alert("메시지가 없습니다!");
       navigate("/map");
     }
-  }, [currentChats]);
+  }, [chatLoaded, currentChats]);
 
   return (
     <S.Container>

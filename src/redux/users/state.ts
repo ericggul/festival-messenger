@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserInformation, createUserInformation } from "@R/users/middleware";
 
-type SliceState = { uid: any; email: any; isLoading: any; name?: any; profileImage?: any; token?: any; landingUrl?: any };
+type SliceState = { uid: any; isLoading: any; name?: any; email?: any; profileImage?: any; token?: any; landingUrl?: any };
 const initialState: SliceState = {
   uid: null,
-  email: null,
   isLoading: false,
 };
 
@@ -25,7 +24,7 @@ const slice = createSlice({
     },
     reset: (state) => {
       state.uid = null;
-      state.email = null;
+
       state.isLoading = false;
       return state;
     },
@@ -41,7 +40,6 @@ const slice = createSlice({
           state.token = action.meta.arg.token;
         }
 
-        state.email = action.meta.arg.email;
         state.name = action.meta.arg.name;
 
         if (action.payload) {

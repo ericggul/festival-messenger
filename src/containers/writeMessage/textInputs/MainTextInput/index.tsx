@@ -4,6 +4,8 @@ import * as S from "./styles";
 //hooks
 import useInput from "@U/hooks/useInput";
 
+const SAMPLE_TEXT = `내용을 입력하세요.`;
+
 const MainTextInput = ({ defaultText, getTextState, onTextRespond, isTextBlack }: any) => {
   const { value: mainText, onChange: onMainTextChange, setValue: setMainText } = useInput(defaultText || "");
   const textAreaEl = useRef<any>(!null);
@@ -25,7 +27,7 @@ const MainTextInput = ({ defaultText, getTextState, onTextRespond, isTextBlack }
 
   return (
     <S.MainText>
-      <S.MainTextInput isTextBlack={isTextBlack} value={mainText} ref={textAreaEl} onKeyDown={handleHeightAdjust} onChange={onMainTextChange} placeholder="내용을 입력하세요" />
+      <S.MainTextInput isTextBlack={isTextBlack} value={mainText} ref={textAreaEl} onKeyDown={handleHeightAdjust} onChange={onMainTextChange} placeholder={SAMPLE_TEXT} />
     </S.MainText>
   );
 };

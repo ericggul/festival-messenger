@@ -10,8 +10,6 @@ export const Container = styled.div`
 
   overflow: hidden;
   ${FlexCenterStyle};
-
-  background: linear-gradient(#daf9fd, white);
 `;
 
 const widthConverter = (value: any, theme: any) => value * (Math.min(theme.windowWidth, 500) / 375);
@@ -19,18 +17,7 @@ const widthConverter = (value: any, theme: any) => value * (Math.min(theme.windo
 export const TextContainer = styled.div`
   position: absolute;
   width: ${({ theme }) => Math.min(theme.windowWidth, 500)}px;
-  top: ${({ theme }) => theme.windowHeight / 2 - Math.min(theme.windowWidth, 500) * 0.6}px;
-
-  animation: change-color 1s ease-in forwards;
-  animation-delay: 2.7s;
-  @keyframes change-color {
-    from {
-      color: black;
-    }
-    to {
-      color: #fe3f3f;
-    }
-  }
+  top: ${({ theme }) => theme.windowHeight / 2 - Math.min(theme.windowWidth, 500) * 0.65}px;
 `;
 
 export const Designed = styled.div`
@@ -129,20 +116,26 @@ export const JYC = styled.div`
   font-weight: 900;
 `;
 
-export const With = styled.div`
+export const ContactContainer = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
   position: absolute;
+  bottom: 95px;
+`;
+
+export const Text = styled.div``;
+export const IconContainer = styled.div`
+  ${FlexCenterStyle};
+`;
+
+export const AIcon = styled.div`
   ${FlexCenterStyle};
 
-  top: ${({ theme }) => widthConverter(363, theme)}px;
-  left: 0;
-  width: 100%;
-  height: ${({ theme }) => widthConverter(56, theme)}px;
-  font-size: ${({ theme }) => widthConverter(50, theme)}px;
-  line-height: ${({ theme }) => widthConverter(50, theme)}px;
-
-  font-weight: 300;
-
-  opacity: 0;
-  animation: ${AppearAnimation} 1s forwards;
-  animation-delay: 2.5s;
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 `;

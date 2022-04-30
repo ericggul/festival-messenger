@@ -49,7 +49,7 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
 
     -webkit-text-stroke 0.1px;
-    text-shadow: 0 0 1px #fff;
+    text-shadow: 0 0 0px #fff;
     
     &::-webkit-scrollbar {
       display: none; /* Chrome, Safari, Opera*/

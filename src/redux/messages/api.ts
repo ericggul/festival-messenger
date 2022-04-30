@@ -7,6 +7,7 @@ export async function createNewChatFromFirestore(members: any) {
   const docRef = await addDoc(chatsRef, {
     members,
     createdAt: serverTimestamp(),
+    lastUpdatedAt: serverTimestamp(),
   });
   return docRef.id;
 }

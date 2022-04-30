@@ -41,9 +41,12 @@ function Settings(props: any) {
   async function fetchUserProfile() {
     try {
       const res = await dispatch(fetchUserInformation(user.uid)).unwrap();
+      console.log(res);
       setImage(res.profileImage || NO_PROFILE);
       setName(res.name);
     } catch (e) {
+      setImage(NO_PROFILE);
+      setName("No Name");
       console.log(e);
     }
   }
@@ -65,14 +68,13 @@ function Settings(props: any) {
     setLoading(true);
     const userInfo = {
       id: user.uid,
-      email: user.email,
       name: name,
       profileImage: imageFile,
       kakaoProfileImageUrl: user.profileImage,
     };
     try {
       await dispatch(createUserInformation(userInfo)).unwrap();
-      alert("저장 완료!");
+      alert("프로필 저장 완료!");
       EventBehavior("Settings", "Edit Profile", "Edit Profile");
       setInitialUI(false);
       setLoading(false);
@@ -83,8 +85,8 @@ function Settings(props: any) {
     }
   }
 
-  const handleSaveButtonClick = () => {
-    createUserInfo();
+  const handleSaveButtonClick = async () => {
+    await createUserInfo();
     navigate("/map");
   };
 
@@ -96,8 +98,8 @@ function Settings(props: any) {
         {initialUI && (
           <S.ExplText>
             <h1> 프로필 사진을 선택해주세요</h1>
-            <p>기존 카카오톡 프로필 혹은 새로운 프로필 사진을</p>
-            <p>선택할 수 있습니다.</p>
+            <p>프로필 사진과 이름을</p>
+            <p>선택해주세요.</p>
           </S.ExplText>
         )}
         {initialUI ? <InitialImageContainer image={image} setIsModalOpen={setIsModalOpen} /> : <DefaultImageContainer image={image} setIsModalOpen={setIsModalOpen} />}

@@ -13,3 +13,25 @@ export const Container = styled.div`
 
   ${FlexCenterStyle};
 `;
+
+export const Contents = styled.div`
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+
+  ${FlexCenterStyle};
+  flex-direction: column;
+`;
+
+export const Intro = styled.div`
+  text-align: center;
+`;
+
+export const Expl = styled.div`
+  text-align: center;
+
+  p {
+    font-size: 0.8rem;
+    font-color: #ccc;
+  }
+`;

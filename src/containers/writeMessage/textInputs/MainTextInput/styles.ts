@@ -13,15 +13,19 @@ export const MainText = styled.div`
 
 export const MainTextInput = styled.textarea.attrs({
   spellcheck: "false",
+  rows: 15,
 })<IsTextBlack>`
   outline: 0;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;
-  height: 5rem;
+  min-height: 5rem;
   white-space: pre-wrap;
+
+  line-height: 1.5rem;
+  background: transparent;
 
   text-size-adjust: auto;
   border: none;
-  background: transparent;
+
   font-size: 1rem;
 
   border-radius: 0;
@@ -29,7 +33,8 @@ export const MainTextInput = styled.textarea.attrs({
 
   color: ${({ isTextBlack }) => (isTextBlack ? "black" : "white")};
 
-  transition: all 0.3s;
+  transition: all 0.5s;
+
   &:focus {
     border-bottom: 1px solid white;
   }

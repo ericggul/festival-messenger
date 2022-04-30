@@ -41,6 +41,7 @@ const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
         const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(message.messageFrom));
         setName(userInfo.payload.name);
       } catch (e) {
+        setName("No Name");
         console.log(e);
       }
     }

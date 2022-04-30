@@ -36,6 +36,9 @@ import Update from "@I/icons/map/rotate-small-right.svg";
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
 function Map(props: any) {
+  const [focusAddMessageButton, setFocusAddMessageButton] = useState(props.focusAddMessageButton || false);
+  const [addMessageToSelected, AddMessageToSelected] = useState<any>(props.addMessageTo || null);
+
   ///////
   //Popup Related
   ///////
@@ -54,7 +57,7 @@ function Map(props: any) {
     if (containerRef && containerRef.current) {
       if (messageSendMode) {
         EventBehavior("Map", "Map Add Message Steps", "1. Add Message Button Clicked");
-        toast("메시지를 보낼 위치를 선택해주세요!");
+        toast(focusAddMessageButton ? "메시지를 보낼 위치를 선택해주세요! 친구는 그 장소에서만 메시지를 읽을 수 있습니다." : "메시지를 보낼 위치를 선택해주세요!");
         containerRef.current.style.cursor = "pointer";
       }
     }
@@ -96,9 +99,6 @@ function Map(props: any) {
   // Adding Message UX Related
   ///////
 
-  const [focusAddMessageButton, setFocusAddMessageButton] = useState(props.focusAddMessageButton || false);
-  const [addMessageToSelected, AddMessageToSelected] = useState<any>(props.addMessageTo || null);
-
   const navigate = useNavigate();
   const handleAddNewMessage = async (latLng: any) => {
     setLatLng(latLng);
@@ -107,6 +107,7 @@ function Map(props: any) {
       EventBehavior("Map", "Map Add Message Steps", "3-1. Friend Already Selected");
       //get kakao talk uuid from friend api
       let kakaoUUID = await getFriendUUID(addMessageToSelected);
+
       //directly send message to friend
       let friendName = await getUserInformation(addMessageToSelected);
 
@@ -131,43 +132,57 @@ function Map(props: any) {
       return userInfo.payload.name;
     } catch (e) {
       console.log(e);
-      return null;
+      return "No Name";
     }
   }
 
   //get Kakao Friend API UUID from ID
+
   const { signIn } = useAuth("/map");
+
+  const kakaoApiBringFriends = async (offset: any, parsedUID: any) => {
+    let friend: any = null;
+    await window.Kakao.API.request({
+      url: "/v1/api/talk/friends",
+      data: {
+        offset: offset,
+        limit: 100,
+        order: "asc",
+      },
+      success: (res: any) => {
+        friend = res.elements.find((friend: any) => friend.id == parsedUID);
+        if (friend) {
+        } else if (res.after_url) {
+          kakaoApiBringFriends(offset + 100, parsedUID);
+        }
+      },
+      fail: (err: any) => {
+        alert("재로그인이 필요합니다!");
+        signIn();
+        return null;
+      },
+    });
+    return friend ? friend.uuid : null;
+  };
+
   const getFriendUUID = async (uid: any) => {
     let parsedUID = uid.split("kakao:")[1];
 
-    let friend: any;
+    let friend: any = null;
     if (!uid.includes("kakao:")) {
       return "unassigned";
     }
-
     if (user.token) {
       const token = window.Kakao.Auth.getAccessToken();
       window.Kakao.Auth.setAccessToken(token);
-      await window.Kakao.API.request({
-        url: "/v1/api/talk/friends",
-        success: (res: any) => {
-          let friends = res.elements;
-
-          friend = friends.find((friend: any) => friend.id == parsedUID);
-        },
-        fail: (err: any) => {
-          alert("재로그인이 필요합니다!");
-          signIn();
-          return null;
-        },
-      });
+      friend = await kakaoApiBringFriends(0, parsedUID);
     } else {
       alert(user.uid ? "재로그인이 필요합니다!" : "로그인이 필요합니다!");
       signIn();
       return null;
     }
 
-    return friend ? friend.uuid : null;
+    return friend;
   };
 
   ///////
@@ -206,6 +221,9 @@ function Map(props: any) {
       setChatsRetrived(true);
     } catch (e) {
       console.log(e);
+      alert("Error!");
+      setCurrentChats([]);
+      setChatsRetrived(true);
     }
   }
 
@@ -230,7 +248,7 @@ function Map(props: any) {
       //Filter 72 hours and and get only unread messages
       let sortedMessages = fetchedMessages.payload
         .filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS && msg.messageFrom !== user.uid)
-        .sort((a: any, b: any) => b.createdAt.seconds - a.createdAt.seconds);
+        .sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds);
       setCurrentMessages((msg: any) => [...msg, { chatId: chatId, messages: sortedMessages }]);
       setLoadedChats((load) => load + 1);
     } catch (e) {
@@ -351,7 +369,7 @@ function Map(props: any) {
           <S.ButtonImg src={Explore} />
           <S.ButtonText>버들골</S.ButtonText>
         </S.ButtonLeft>
-        <S.Recieved show={displayMap}>{`받은 메시지 ${getChatsMessagesLength(currentMessages)}개`}</S.Recieved>
+        <S.Recieved show={displayMap} onClick={() => navigate("/messenger")}>{`받은 메시지 ${getChatsMessagesLength(currentMessages)}개`}</S.Recieved>
       </S.Container>
       {addNewMessageModalComponent}
       {openMessageModalComponent}

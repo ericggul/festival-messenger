@@ -41,6 +41,8 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
       setFromName(from.payload.name);
       setFromProfile(message.messageFromProfile || from.payload.profileImage || NO_PROFILE);
     } catch (e) {
+      setFromName("No Name");
+      setFromProfile(NO_PROFILE);
       alert("No matching user record!");
     }
   }

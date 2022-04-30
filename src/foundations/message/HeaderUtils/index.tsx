@@ -17,18 +17,6 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComing
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  async function getNameFromId() {
-    let name;
-    try {
-      const from = await dispatch(fetchUserInformationWithoutUpdatingRedux(messageToSend));
-      name = from.payload.name;
-    } catch (e) {
-      name = "";
-      alert("No matching user record!");
-    }
-    return name;
-  }
-
   const handleIconClick = () => {
     navigate(`/map`, {
       state: {

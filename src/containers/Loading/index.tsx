@@ -107,7 +107,7 @@ import Loading81 from "@F/loading/hundreadLoadings/Loading81";
 function Loading() {
   return (
     <S.Container>
-      <Loading80 />
+      <Loading7 />
     </S.Container>
   );
 }

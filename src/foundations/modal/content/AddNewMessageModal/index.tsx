@@ -32,8 +32,13 @@ const SingleProfile = ({ friend, i, clickedFriend, setClickedFriend, handleIconC
   async function getUserInformation() {
     try {
       const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(uid));
-      setProfilePic(userInfo.payload.profileImage);
-      setProfileName(userInfo.payload.name);
+      console.log(userInfo);
+      if (userInfo.payload.profileImage) {
+        setProfilePic(userInfo.payload.profileImage);
+      }
+      if (userInfo.payload.name) {
+        setProfileName(userInfo.payload.name);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -80,24 +85,36 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const [loadingForLogin, setLoadingForLogin] = useState(false);
 
   //friends
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState<any[]>([]);
+
+  const kakaoApiBringFriends = async (offset: any) => {
+    await window.Kakao.API.request({
+      url: "/v1/api/talk/friends",
+      data: {
+        offset: offset,
+        limit: 10,
+        order: "asc",
+      },
+      success: (res: any) => {
+        if (res.after_url) {
+          kakaoApiBringFriends(offset + 10);
+        }
+        setFriends((friends) => [...friends, ...res.elements]);
+      },
+      fail: (err: any) => {
+        alert("재로그인이 필요합니다!");
+        setLoadingForLogin(true);
+        signIn();
+        console.log(err);
+      },
+    });
+  };
 
   const bringFriends = () => {
     if (user.token) {
       const token = window.Kakao.Auth.getAccessToken();
       window.Kakao.Auth.setAccessToken(token);
-      window.Kakao.API.request({
-        url: "/v1/api/talk/friends",
-        success: (res: any) => {
-          setFriends(res.elements);
-        },
-        fail: (err: any) => {
-          alert("재로그인이 필요합니다!");
-          setLoadingForLogin(true);
-          signIn();
-          console.log(err);
-        },
-      });
+      kakaoApiBringFriends(0);
     } else {
       alert(user.uid ? "재로그인이 필요합니다!" : "로그인이 필요합니다!");
       setLoadingForLogin(true);

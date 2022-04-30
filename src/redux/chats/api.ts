@@ -12,12 +12,17 @@ export async function fetchChatsFromFirestore(chatId: any) {
 
 export async function fetchChatsByMemberFromFirestore(member: any) {
   const q = query(chatsRef, where("members", "array-contains", member));
-  const querySnapshot = await getDocs(q);
-
   let result: any[] = [];
-  querySnapshot.forEach((doc: any) => {
-    result.push({ chatId: doc.id, lastUpdatedAt: doc.data().lastUpdatedAt, members: doc.data().members });
-  });
+
+  try {
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc: any) => {
+      result.push({ chatId: doc.id, lastUpdatedAt: doc.data().lastUpdatedAt, members: doc.data().members });
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   return result;
 }

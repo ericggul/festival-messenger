@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import * as S from "./styles";
 
+const Fade = require("react-reveal/Fade");
+const Swing = require("react-reveal/Swing");
+const LightSpeed = require("react-reveal/LightSpeed");
+const Bounce = require("react-reveal/Bounce");
+const Wobble = require("react-reveal/Wobble");
+const Zoom = require("react-reveal/Zoom");
+
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
 function UpperSection() {
@@ -20,8 +27,29 @@ function UpperSection() {
           left: 0,
           width: "100%",
           height: "100%",
+          opacity: 0.7,
         }}
       />
+      <S.Contents>
+        <S.Intro>
+          <Fade delay={1000}>
+            <p>어디서든 보낼 수 있지만, 버들골에서만 읽을 수 있는 네 마음!</p>
+          </Fade>
+          <Fade delay={1800}>
+            <p>SNUFESTIVAL: 홈커밍에서 메신저를 열어보세요!</p>
+          </Fade>
+        </S.Intro>
+
+        <Zoom delay={3000}>
+          <S.Expl>
+            <h2>사용방법</h2>
+            <p>1. 지도에 가서 메시지를 보낼 장소에 핀을 찍으세요.</p>
+            <p>2. 메시지를 보낼 친구를 고르고, 메시지를 작성해주세요.</p>
+            <p>3. 작성 완료 후, 친구에게 카카오톡 알림이 전송됩니다.</p>
+            <p>4. 친구는 핀으로부터 50m 내에서만 메시지를 읽어볼 수 있습니다.</p>
+          </S.Expl>
+        </Zoom>
+      </S.Contents>
     </S.Container>
   );
 }
@@ -38,6 +66,7 @@ class App {
 
   gridSets: any;
 
+  resizeEvent: any;
   animationRequest: any;
 
   constructor() {
@@ -49,6 +78,7 @@ class App {
     this.gridSets = [];
 
     this.resize();
+    this.resizeEvent = document.addEventListener("resize", this.resize.bind(this));
     this.animate();
   }
 
@@ -78,6 +108,7 @@ class App {
   }
 
   destroy() {
+    document.removeEventListener("resize", this.resizeEvent);
     window.cancelAnimationFrame(this.animationRequest);
   }
 }

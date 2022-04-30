@@ -50,12 +50,17 @@ export default async function handleSend(
     chatId = res.payload;
   } else {
     try {
-      const res = await dispatch(fetchChatsByMembers([user.uid, toId]));
-      if (res.payload.length === 0) {
+      const res1 = await dispatch(fetchChatsByMembers([user.uid, toId]));
+      const res2 = await dispatch(fetchChatsByMembers([toId, user.uid]));
+      if (res1.payload.length === 0 && res2.payload.length === 0) {
         const res = await createNewChatAssigned(dispatch, user, toId);
         chatId = res.payload;
       } else {
-        chatId = res.payload[0];
+        if (res1.payload.length === 0) {
+          chatId = res2.payload[0];
+        } else {
+          chatId = res1.payload[0];
+        }
       }
     } catch (e) {
       alert(e);
