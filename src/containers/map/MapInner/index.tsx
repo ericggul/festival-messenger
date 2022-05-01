@@ -20,6 +20,7 @@ import OpenMessageModal from "@F/modal/content/openMessage/OpenMessageModal";
 
 //functions
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
+import preloadImage from "@U/functions/preload";
 
 //redux
 import { fetchChatsByMember } from "@R/chats/middleware";
@@ -31,11 +32,17 @@ import { useAppDispatch, useAppSelector } from "@R/common/hooks";
 import Explore from "@I/icons/map/explore.svg";
 import Location2 from "@I/icons/map/location-2.svg";
 import Update from "@I/icons/map/rotate-small-right.svg";
+import AddMessage from "@I/icons/map/add-message.svg";
 
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
 function Map(props: any) {
+  //preload image
+  useEffect(() => {
+    preloadImage(AddMessage);
+  }, []);
+
   const [focusAddMessageButton, setFocusAddMessageButton] = useState(props.focusAddMessageButton || false);
   const [addMessageToSelected, AddMessageToSelected] = useState<any>(props.addMessageTo || null);
 
@@ -220,10 +227,10 @@ function Map(props: any) {
       }
       setChatsRetrived(true);
     } catch (e) {
-      console.log(e);
       alert("Error!");
       setCurrentChats([]);
       setChatsRetrived(true);
+      navigate("/login");
     }
   }
 
@@ -252,6 +259,7 @@ function Map(props: any) {
       setCurrentMessages((msg: any) => [...msg, { chatId: chatId, messages: sortedMessages }]);
       setLoadedChats((load) => load + 1);
     } catch (e) {
+      navigate("/login");
       console.log(e);
     }
   }

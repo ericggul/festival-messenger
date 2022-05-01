@@ -71,6 +71,7 @@ function Settings(props: any) {
       name: name,
       profileImage: imageFile,
       kakaoProfileImageUrl: user.profileImage,
+      token: user.token || null,
     };
     try {
       await dispatch(createUserInformation(userInfo)).unwrap();

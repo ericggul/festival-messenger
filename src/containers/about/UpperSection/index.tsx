@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import * as S from "./styles";
 
 const Fade = require("react-reveal/Fade");
-const Swing = require("react-reveal/Swing");
-const LightSpeed = require("react-reveal/LightSpeed");
-const Bounce = require("react-reveal/Bounce");
-const Wobble = require("react-reveal/Wobble");
+
 const Zoom = require("react-reveal/Zoom");
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;

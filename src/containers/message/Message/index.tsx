@@ -94,6 +94,7 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
       }
     } catch (e) {
       alert("메시지가 존재하지 않습니다.");
+      navigate("/login");
       console.log(e);
     }
   }

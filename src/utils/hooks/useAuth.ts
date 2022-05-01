@@ -20,17 +20,32 @@ import { EventBehavior } from "@U/initializer/googleAnalytics";
 export const NO_PROFILE = "https://firebasestorage.googleapis.com/v0/b/festival-messenger-4df40.appspot.com/o/users%2FNO_PROFILE.png?alt=media&token=78d7f5fa-7f31-4779-ac50-2c746d1fc2d4";
 export const redirectUri = "https://festival-messenger.com";
 
-async function uploadUserInfo(dispatch: any, userInfo: any) {
+async function uploadUserInfo(dispatch: any, userInfo: any, navigate: any) {
   try {
     await dispatch(createUserInformation(userInfo)).unwrap();
   } catch (e) {
+    alert("계정생성에 실패했습니다. 시크릿 브라우저에서 다시 로그인해주세요.");
+    navigate("/login");
     console.log(e);
+  }
+}
+
+function navigateUser(landingUrl: any, navigate: any) {
+  if (landingUrl !== "/settings") {
+    navigate(landingUrl);
+  } else {
+    navigate("/settings", {
+      state: {
+        initialUI: true,
+      },
+    });
   }
 }
 
 async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user: any) {
   try {
     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(derivedUser.uid));
+    const landingUrl = user.landingUrl || "/settings";
     console.log(userInfo.payload);
 
     if (!userInfo.payload) {
@@ -60,22 +75,13 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
               kakaoProfileImageUrl: profileImgURL,
             };
 
-            uploadUserInfo(dispatch, userInfo);
+            uploadUserInfo(dispatch, userInfo, navigate);
             dispatch(actions.setValue({ name: output.profile.nickname || "No Name" }));
             dispatch(actions.setValue({ profileImage: profileImgURL || NO_PROFILE }));
-
             toast("로그인 완료!");
+            dispatch(actions.setLoading(false));
             EventBehavior("Login", "New Login", "New User");
-
-            if (user.landingUrl !== "/settings") {
-              navigate(user.landingUrl);
-            } else {
-              navigate("/settings", {
-                state: {
-                  initialUI: true,
-                },
-              });
-            }
+            navigateUser(landingUrl, navigate);
           } catch (e) {
             const userInfo = {
               id: derivedUser.uid,
@@ -84,19 +90,12 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
               kakaoProfileImageUrl: NO_PROFILE,
             };
 
-            uploadUserInfo(dispatch, userInfo);
+            uploadUserInfo(dispatch, userInfo, navigate);
+
             dispatch(actions.setValue({ name: "No Name" }));
             dispatch(actions.setValue({ profileImage: NO_PROFILE }));
-
-            if (user.landingUrl !== "/settings") {
-              navigate(user.landingUrl);
-            } else {
-              navigate("/settings", {
-                state: {
-                  initialUI: true,
-                },
-              });
-            }
+            dispatch(actions.setLoading(false));
+            navigateUser(landingUrl, navigate);
           }
         },
         fail: (err: any) => {
@@ -108,20 +107,12 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
             name: "No Name",
             kakaoProfileImageUrl: NO_PROFILE,
           };
+          uploadUserInfo(dispatch, userInfo, navigate);
 
-          uploadUserInfo(dispatch, userInfo);
           dispatch(actions.setValue({ name: "No Name" }));
           dispatch(actions.setValue({ profileImage: NO_PROFILE }));
-
-          if (user.landingUrl !== "/settings") {
-            navigate(user.landingUrl);
-          } else {
-            navigate("/settings", {
-              state: {
-                initialUI: true,
-              },
-            });
-          }
+          dispatch(actions.setLoading(false));
+          navigateUser(landingUrl, navigate);
         },
       });
     } else {
@@ -129,12 +120,15 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
 
       //fetch data: to do?
       toast("로그인 완료!");
+      dispatch(actions.setLoading(false));
       EventBehavior("Login", "New Login", "Existing User");
 
       navigate(user.landingUrl || "/settings");
     }
   } catch (e) {
-    console.log(e);
+    alert("계정생성에 실패했습니다. 시크릿 브라우저에서 다시 로그인해주세요.");
+    dispatch(actions.setLoading(false));
+    navigate("/login");
   }
 }
 
@@ -168,20 +162,19 @@ const useAuth = (navigateTo?: any) => {
           signInWithCustomToken(auth, fireToken)
             .then((userCredential: any) => {
               window.Kakao.Auth.setAccessToken(kakaoToken);
-
               const derivedUser = userCredential.user;
-
               getUserInfo(dispatch, derivedUser, navigate, user);
-
-              console.log(kakaoToken);
               dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email, token: kakaoToken }));
-              dispatch(actions.setLoading(false));
             })
             .catch((error: any) => {
+              dispatch(actions.setLoading(false));
               console.log(error.code, error.message, error.details);
             });
         })
         .catch((error: any) => {
+          alert("다시 시도해주세요.");
+          dispatch(actions.setLoading(false));
+          navigate("/login");
           console.log(error.message, error.details);
         });
     }
