@@ -18,6 +18,12 @@
   font-weight: 900;
 }
 
+@font-face {
+  font-family: "Seoul Hangang";
+  src: url("./SeoulHangangL.ttf") format("Truetype");
+  font-weight: 300;
+}
+
 /* Other Fonts */
 @font-face {
   font-family: "Black Han Sans";

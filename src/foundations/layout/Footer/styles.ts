@@ -12,7 +12,7 @@ export const FooterContainer = styled.div<HeaderContainerProps>`
   bottom: 0;
   left: 0;
   background: ${({ color }) => color};
-  zindex: ${({ theme }) => theme.headerColor};
+  z-index: ${({ theme }) => theme.zIndex.headerColor};
 
   ${FlexCenterStyle};
 

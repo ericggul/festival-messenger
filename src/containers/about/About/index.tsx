@@ -6,10 +6,10 @@ import MiddleSection from "@C/about/MiddleSection";
 
 function About() {
   return (
-    <>
+    <S.Background>
       <UpperSection />
       <MiddleSection />
-    </>
+    </S.Background>
   );
 }
 export default About;

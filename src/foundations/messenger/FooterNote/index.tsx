@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import ARROW_LEFT from "@I/icons/messenger/arrow-left.svg";
 import ARROW_RIGHT from "@I/icons/messenger/arrow-right.svg";
+import Plus from "@I/icons/messenger/plus.svg";
 
 function FooterNote() {
   const navigate = useNavigate();
@@ -24,10 +25,21 @@ function FooterNote() {
         </S.Signifier>
         {"보낸 메시지"}
       </S.FooterNote>
-      {/* <S.SendButton onClick={() => navigate("/map")}>
-        <S.Signifier messageISent>+</S.Signifier>
+
+      <S.SendButton
+        onClick={() =>
+          navigate(`/map`, {
+            state: {
+              focusAddMessageButton: true,
+            },
+          })
+        }
+      >
+        <S.Signifier messageISent>
+          <S.SignifierImg src={Plus} />
+        </S.Signifier>
         새로운 메시지 보내기
-      </S.SendButton> */}
+      </S.SendButton>
     </S.Container>
   );
 }

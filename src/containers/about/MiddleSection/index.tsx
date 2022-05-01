@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./styles";
 
 import Heart from "@I/icons/about/heart.svg";
@@ -20,36 +20,43 @@ function Contact() {
   return (
     <S.ContactContainer>
       <S.IconContainer>
-        <S.AIcon>
-          <a href="https://github.com/ericggul" target="_blank" rel="noreferrer" style={{ color: "black", textDecoration: "none" }}>
-            <FaGithub />
-          </a>
-        </S.AIcon>
-        <S.AIcon>
-          <a href="https://www.linkedin.com/in/jeanyoonchoi/" target="_blank" rel="noreferrer" style={{ color: "black", textDecoration: "none" }}>
-            <FaLinkedin />
-          </a>
-        </S.AIcon>
-        <S.AIcon>
-          <a href="https://laboratory-occupied.com" target="_blank" rel="noreferrer" style={{ color: "black", textDecoration: "none" }}>
-            <FaPalette />
-          </a>
-        </S.AIcon>
-        <S.AIcon>
-          <a href="http://portfolio-jyc.org" target="_blank" rel="noreferrer" style={{ color: "black", textDecoration: "none" }}>
-            <CgWebsite />
-          </a>
-        </S.AIcon>
+        <Fade duration={500} delay={2300}>
+          <S.AIcon>
+            <a href="https://github.com/ericggul" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
+              <FaGithub />
+            </a>
+          </S.AIcon>
+        </Fade>
+        <Fade duration={500} delay={2400}>
+          <S.AIcon>
+            <a href="https://www.linkedin.com/in/jeanyoonchoi/" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
+              <FaLinkedin />
+            </a>
+          </S.AIcon>
+        </Fade>
+        <Fade duration={500} delay={2500}>
+          <S.AIcon>
+            <a href="https://laboratory-occupied.com" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
+              <FaPalette />
+            </a>
+          </S.AIcon>
+        </Fade>
+        <Fade duration={500} delay={2600}>
+          <S.AIcon>
+            <a href="http://portfolio-jyc.org" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
+              <CgWebsite />
+            </a>
+          </S.AIcon>
+        </Fade>
       </S.IconContainer>
-
-      <S.Text>Email: ericggul@gmail.com</S.Text>
+      <Fade duration={500} delay={2800}>
+        <S.Text href={`mailto:ericggul@gmail.com`}>Email: ericggul@gmail.com</S.Text>
+      </Fade>
     </S.ContactContainer>
   );
 }
 
 function MiddleSection() {
-  const [windowWidth, windowHeight] = useResize();
-
   //contact me section
   return (
     <S.Container>

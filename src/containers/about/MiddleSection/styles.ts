@@ -123,7 +123,10 @@ export const ContactContainer = styled.div`
   bottom: 95px;
 `;
 
-export const Text = styled.div``;
+export const Text = styled.a`
+  color: white;
+  text-decoration: none;
+`;
 export const IconContainer = styled.div`
   ${FlexCenterStyle};
 `;
