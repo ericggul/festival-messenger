@@ -21,8 +21,7 @@ export const Container = styled.div`
   color: white;
   height: ${({ theme }) => theme.windowHeight}px;
   width: ${({ theme }) => theme.windowWidth}px;
-  background: linear-gradient(hsl(350, 50%, 85%), hsl(150, 52%, 80%));
-
+  background: linear-gradient(black, hotpink);
   flex-direction: row;
   font-weight: 800;
   text-transform: uppercase;

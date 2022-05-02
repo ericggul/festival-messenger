@@ -68,7 +68,7 @@ function Messenger() {
 
   useEffect(() => {
     if (!user.uid) {
-      // navigate("/login");
+      navigate("/login");
       return;
     }
 

@@ -16,12 +16,12 @@ import Loading11 from "@F/loading/hundreadLoadings/Loading11";
 import Loading12 from "@F/loading/hundreadLoadings/Loading12";
 import Loading13 from "@F/loading/hundreadLoadings/Loading13";
 import Loading14 from "@F/loading/hundreadLoadings/Loading14";
-// import Loading15 from "@F/loading/hundreadLoadings/Loading15";
-// import Loading16 from "@F/loading/hundreadLoadings/Loading16";
-// import Loading17 from "@F/loading/hundreadLoadings/Loading17";
-// import Loading18 from "@F/loading/hundreadLoadings/Loading18";
-// import Loading19 from "@F/loading/hundreadLoadings/Loading19";
-// import Loading20 from "@F/loading/hundreadLoadings/Loading20";
+import Loading15 from "@F/loading/hundreadLoadings/Loading15";
+import Loading16 from "@F/loading/hundreadLoadings/Loading16";
+import Loading17 from "@F/loading/hundreadLoadings/Loading17";
+import Loading18 from "@F/loading/hundreadLoadings/Loading18";
+import Loading19 from "@F/loading/hundreadLoadings/Loading19";
+import Loading20 from "@F/loading/hundreadLoadings/Loading20";
 import Loading21 from "@F/loading/hundreadLoadings/Loading21";
 import Loading22 from "@F/loading/hundreadLoadings/Loading22";
 import Loading23 from "@F/loading/hundreadLoadings/Loading23";
@@ -29,7 +29,7 @@ import Loading24 from "@F/loading/hundreadLoadings/Loading24";
 import Loading25 from "@F/loading/hundreadLoadings/Loading25";
 import Loading26 from "@F/loading/hundreadLoadings/Loading26";
 import Loading27 from "@F/loading/hundreadLoadings/Loading27";
-// import Loading28 from "@F/loading/hundreadLoadings/Loading28";
+import Loading28 from "@F/loading/hundreadLoadings/Loading28";
 // import Loading29 from "@F/loading/hundreadLoadings/Loading29";
 // import Loading30 from "@F/loading/hundreadLoadings/Loading30";
 
@@ -107,7 +107,7 @@ import Loading81 from "@F/loading/hundreadLoadings/Loading81";
 function Loading() {
   return (
     <S.Container>
-      <Loading14 />
+      <Loading28 />
     </S.Container>
   );
 }

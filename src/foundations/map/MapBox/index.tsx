@@ -24,6 +24,7 @@ import useGeoLocation from "@U/hooks/useGeoLocation";
 
 //support function
 import createMessageMarker from "@F/map/supportFunctions/createMessageMarker";
+import generateSNUFestival from "@F/map/supportFunctions/snuFestival";
 
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
@@ -33,6 +34,11 @@ import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLES } from "@/configs/mapbox";
 
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
+
+//Three
+import * as THREE from "three";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 
 const POLYGON = [
   [126.9567311, 37.4603392],
@@ -131,20 +137,6 @@ function MapBox({
           labelLayerId
         );
 
-        //Get Terrain Data
-        // mapRef.current.addSource("mapbox-dem", {
-        //   type: "raster-dem",
-        //   url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-        //   tileSize: 512,
-        //   maxzoom: 22,
-        // });
-
-        // mapRef.current.addLayer({
-        //   id: "hillshading",
-        //   source: "mapbox-dem",
-        //   type: "hillshade",
-        // });
-
         mapRef.current.addSource("mapbox-dem2", {
           type: "raster-dem",
           url: "mapbox://mapbox.mapbox-terrain-dem-v1",
@@ -153,13 +145,6 @@ function MapBox({
         });
 
         mapRef.current.setTerrain({ source: "mapbox-dem2", exaggeration: 2 });
-
-        //Fog
-        // mapRef.current.setFog({
-        //   range: [-1, 1.5],
-        //   color: getFog(),
-        //   "horizon-blend": 0.1,
-        // });
 
         //Sky
 
@@ -174,6 +159,29 @@ function MapBox({
             "sky-atmosphere-sun": getSunPosition(),
           },
         });
+
+        //Video
+        mapRef.current.addSource("video", {
+          type: "video",
+          urls: ["https://www.youtube.com/watch?v=w3UaqYwfEEM"],
+          coordinates: [
+            [INITIAL_POS.lng, INITIAL_POS.lat],
+            [INITIAL_POS.lng + 0.01, INITIAL_POS.lat],
+            [INITIAL_POS.lng, INITIAL_POS.lat + 0.01],
+            [INITIAL_POS.lng + 0.01, INITIAL_POS.lat + 0.01],
+          ],
+        });
+        mapRef.current.addLayer(
+          {
+            id: "video",
+            type: "raster",
+            source: "video",
+          },
+          "waterway-label"
+        );
+
+        //SNU FESTIVAL Sign
+        generateSNUFestival(INITIAL_POS, mapRef);
       });
 
       //Error Handling

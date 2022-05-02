@@ -24,23 +24,16 @@ declare global {
 
 const LENGTH = 200;
 
-const Text = () => {
+const Text = ({ idx }: any) => {
   const ref = useRef<THREE.Mesh>(null!);
 
   const { viewport } = useThree();
-  const xPos = getRandom(-viewport.width / 2, viewport.width / 2);
-  const yPos = getRandom(-viewport.height / 2, viewport.height / 2);
-  const deltaTime = getRandom(-5, 5);
-  const deltaZ = getRandom(0, getRandom(0, 30));
 
-  const rotationX = getRandom(-Math.PI / 12, Math.PI / 12);
-  const rotationY = getRandom(-Math.PI / 12, Math.PI / 12);
-
+  const angle = ((idx % 12) * Math.PI) / 6;
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-
-    ref.current.position.set(xPos - 10, yPos, Math.sin(t * 0.2 + deltaTime) * deltaZ);
-    ref.current.rotation.set(rotationX, rotationX, 0);
+    ref.current.position.set(30 * Math.cos(angle), 20 - idx * 0.4, 30 * Math.sin(angle));
+    ref.current.rotation.set(t * 3 + idx * 0.1, 0, 0);
   });
 
   return <Instance ref={ref} />;
@@ -53,10 +46,9 @@ const Texts = () => {
   const config = useMemo(
     () => ({
       font: font,
-      size: 2,
-      height: 1,
-      curveSegments: 10,
-      // bevelEnabled: true,
+      size: 0.3,
+      height: 0.1,
+      bevelEnabled: true,
     }),
     [font]
   );
@@ -64,9 +56,9 @@ const Texts = () => {
   return (
     <Instances limit={LENGTH}>
       <textGeometry attach="geometry" args={["LOADING", config]} />
-      <meshStandardMaterial attach="material" color={"black"} />
+      <meshPhongMaterial attach="material" color={"white"} />
       {new Array(LENGTH).fill(0).map((_: any, i: number) => (
-        <Text key={i} />
+        <Text key={i} idx={i} />
       ))}
     </Instances>
   );
@@ -75,9 +67,10 @@ const Texts = () => {
 function Loading() {
   return (
     <S.Container>
-      <Canvas shadows dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 40] }}>
-        <ambientLight intensity={0.2} />
-        <directionalLight intensity={2.5} color={"pink"} position={[0, 0, 50]} />
+      <Canvas shadows dpr={[1, 2]} camera={{ fov: 100, position: [0, 30, 0] }}>
+        <ambientLight intensity={0.8} />
+        <fog attach="fog" args={["hotpink", 4, 200]} />
+        <directionalLight intensity={2.5} color={"pink"} position={[0, 0, 20]} />
         <Suspense fallback={null}>
           <Texts />
           <Environment preset="apartment" />
