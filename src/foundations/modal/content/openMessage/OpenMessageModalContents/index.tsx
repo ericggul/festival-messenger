@@ -80,7 +80,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
           </S.Button>
           {!distanceMessageAvailable && (
             <>
-              {messageDistance > 150 ? (
+              {messageDistance > 1000 ? (
                 <S.NotAccessible color={message.color}>
                   {" "}
                   <p>메시지는 버들골 내에서만 열람할 수 있습니다.</p>

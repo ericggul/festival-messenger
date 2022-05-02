@@ -2,7 +2,7 @@ import * as S from "./styles";
 import { useState, useEffect, useRef } from "react";
 
 import HiddenBackground from "@F/background/messageBackground/HiddenBackground";
-
+import { debounce } from "@U/functions/timer";
 import ReactAudioPlayer from "react-audio-player";
 import useResize from "@/utils/hooks/useResize";
 
@@ -127,7 +127,7 @@ class App {
     this.source.connect(this.analyser);
     this.source.connect(this.audioCtx.destination);
 
-    this.resizeEvent = this.drawState && window.addEventListener("resize", this.resize.bind(this));
+    this.resizeEvent = this.drawState && window.addEventListener("resize", debounce(this.resize.bind(this), 300));
     this.resize();
   }
 

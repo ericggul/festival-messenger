@@ -6,8 +6,6 @@ export default function useGeoLocation() {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      console.log("here");
-
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setPos({ lat: position.coords.latitude, lng: position.coords.longitude });
@@ -16,7 +14,7 @@ export default function useGeoLocation() {
         (error) => {
           setPermittedStatus(false);
           alert("메시지 열람을 위해서는 위치 권한이 필요합니다.");
-          alert(error.message);
+          alert(`${error.code}, ${error.message}`);
 
           console.log(error, error.message);
           return;

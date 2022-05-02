@@ -5,6 +5,8 @@ import useResize from "@U/hooks/useResize";
 import UpperSection from "@C/about/UpperSection";
 import MiddleSection from "@C/about/MiddleSection";
 
+import { debounce } from "@U/functions/timer";
+
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
 function About() {
@@ -62,8 +64,7 @@ class App {
     this.gridSets = [];
 
     this.resize();
-    this.resizeEvent = document.addEventListener("resize", this.resize.bind(this));
-    this.animate();
+    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 100));
   }
 
   resize() {
@@ -80,11 +81,16 @@ class App {
     this.gridWidth = (this.stageWidth + this.stageHeight) / 200;
     this.gridHeight = (this.stageWidth + this.stageHeight) / 200;
 
+    this.gridSets = [];
+
     for (let i = 0; i < this.stageWidth; i += this.gridWidth * 2) {
+      console.log(this.stageWidth);
       for (let j = 0; j < this.stageHeight; j += this.gridHeight * 2) {
         this.gridSets.push(new Element(i, j, this.gridWidth, this.gridHeight, this.stageHeight));
       }
     }
+
+    this.animate();
   }
 
   animate() {
@@ -132,7 +138,6 @@ class Element {
     this.angle = getRandom(0, Math.PI * 2);
     this.angleSpeed = getRandom(-0.007, 0.007);
 
-    console.log(this.y / stageHeight);
     this.colorMultiply = {
       r: 0.9 + (y / stageHeight) * getRandom(0.6, 1.3) + getRandom(-0.3, 0.3),
       g: getRandom(0.6, 0.9),

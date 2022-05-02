@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useResize from "@U/hooks/useResize";
+import { debounce } from "@U/functions/timer";
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
 function Texture() {
@@ -46,7 +47,7 @@ class Canvas {
     this.ctx = this.canvas.getContext("2d");
 
     this.resize();
-    this.resizeEvent = document.addEventListener("resize", this.resize.bind(this));
+    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 150));
   }
 
   destroy() {
@@ -61,7 +62,7 @@ class Canvas {
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
 
-    this.interval = Math.max(Math.round(Math.sqrt(((this.stageWidth * this.stageHeight) / (1280 * 720)) * 100)) / 100, 1);
+    this.interval = Math.max(Math.round(Math.sqrt(((this.stageWidth * this.stageHeight) / (1280 * 720)) * 200)) / 100, 1);
 
     this.ctx.scale(1, 1);
     this.init();

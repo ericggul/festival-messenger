@@ -25,6 +25,7 @@ import useGeoLocation from "@U/hooks/useGeoLocation";
 //support function
 import createMessageMarker from "@F/map/supportFunctions/createMessageMarker";
 import generateSNUFestival from "@F/map/supportFunctions/snuFestival";
+import generateVideo from "@F/map/supportFunctions/video";
 
 //Icons
 import AddMessage from "@I/icons/map/add-message.svg";
@@ -161,25 +162,7 @@ function MapBox({
         });
 
         //Video
-        mapRef.current.addSource("video", {
-          type: "video",
-          urls: ["https://www.youtube.com/watch?v=w3UaqYwfEEM"],
-          coordinates: [
-            [INITIAL_POS.lng, INITIAL_POS.lat],
-            [INITIAL_POS.lng + 0.01, INITIAL_POS.lat],
-            [INITIAL_POS.lng, INITIAL_POS.lat + 0.01],
-            [INITIAL_POS.lng + 0.01, INITIAL_POS.lat + 0.01],
-          ],
-        });
-        mapRef.current.addLayer(
-          {
-            id: "video",
-            type: "raster",
-            source: "video",
-          },
-          "waterway-label"
-        );
-
+        generateVideo(mapRef);
         //SNU FESTIVAL Sign
         generateSNUFestival(INITIAL_POS, mapRef);
       });

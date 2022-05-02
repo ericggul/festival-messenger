@@ -7,9 +7,6 @@ import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 
 async function generateSNUFestival(INITIAL_POS: any, mapRef: any) {
-  //   const modelOrigin = [37.45787, 126.95658];
-
-  //nst INITIAL_POS = { lat: 37.45843, lng: 126.95597 };
   const modelOrigin = [126.95635, 37.45578];
   const modelAltitude = 390;
   const modelRotate = [Math.PI * 0.5, Math.PI * 0.27, Math.PI * 0.01];
@@ -40,19 +37,23 @@ async function generateSNUFestival(INITIAL_POS: any, mapRef: any) {
         scene = new THREE.Scene();
 
         const directionalLight = new THREE.DirectionalLight(0xffffff);
-        directionalLight.position.set(0, 0, 1).normalize();
+        directionalLight.position.set(0.5, -0.2, -3);
         scene.add(directionalLight);
 
         const directionalLight2 = new THREE.DirectionalLight(0xffffff);
-        directionalLight2.position.set(0, 0, -1).normalize();
+        directionalLight2.position.set(4, 3, -5);
+        directionalLight2.intensity = 0.3;
         scene.add(directionalLight2);
+        const ambientLight = new THREE.AmbientLight(0xffffff);
+        ambientLight.intensity = 0.2;
+        scene.add(ambientLight);
 
         const loader = new FontLoader();
-        loader.load("/assets/fonts/Roboto_Regular.json", function (font: any) {
+        loader.load("/assets/fonts/Hollywood.json", function (font: any) {
           const textGeo = new TextGeometry("SNU FESTIVAL", {
             font: font,
-            size: 15,
-            height: 2,
+            size: 17,
+            height: 2.2,
             curveSegments: 12,
           });
 

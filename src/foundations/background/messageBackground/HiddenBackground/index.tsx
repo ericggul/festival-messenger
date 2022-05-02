@@ -87,7 +87,7 @@ class App {
 
     this.wrapper.appendChild(this.pixiApp.view);
     this.resize();
-    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 250));
+    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 150));
   }
 
   resize() {

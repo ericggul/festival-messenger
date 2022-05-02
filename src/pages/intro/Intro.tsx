@@ -14,8 +14,10 @@ export default function Intro() {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (user.uid || !user.isLoading) {
+    if (user.uid && !user.isLoading) {
       navigate("/map");
+    } else if (!user.isLoading) {
+      navigate("/login");
     }
   }, [user.isLoading]);
   return (

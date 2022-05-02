@@ -76,6 +76,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
             };
 
             uploadUserInfo(dispatch, userInfo, navigate);
+            dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
             dispatch(actions.setValue({ name: output.profile.nickname || "No Name" }));
             dispatch(actions.setValue({ profileImage: profileImgURL || NO_PROFILE }));
             toast("로그인 완료!");
@@ -91,7 +92,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
             };
 
             uploadUserInfo(dispatch, userInfo, navigate);
-
+            dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
             dispatch(actions.setValue({ name: "No Name" }));
             dispatch(actions.setValue({ profileImage: NO_PROFILE }));
             dispatch(actions.setLoading(false));
@@ -108,7 +109,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
             kakaoProfileImageUrl: NO_PROFILE,
           };
           uploadUserInfo(dispatch, userInfo, navigate);
-
+          dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
           dispatch(actions.setValue({ name: "No Name" }));
           dispatch(actions.setValue({ profileImage: NO_PROFILE }));
           dispatch(actions.setLoading(false));
@@ -120,6 +121,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
 
       //fetch data: to do?
       toast("로그인 완료!");
+      dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
       dispatch(actions.setLoading(false));
       EventBehavior("Login", "New Login", "Existing User");
 
@@ -127,6 +129,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
     }
   } catch (e) {
     alert("계정생성에 실패했습니다. 시크릿 브라우저에서 다시 로그인해주세요.");
+    dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
     dispatch(actions.setLoading(false));
     navigate("/login");
   }
@@ -164,7 +167,7 @@ const useAuth = (navigateTo?: any) => {
               window.Kakao.Auth.setAccessToken(kakaoToken);
               const derivedUser = userCredential.user;
               getUserInfo(dispatch, derivedUser, navigate, user);
-              dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email, token: kakaoToken }));
+              dispatch(actions.setValue({ token: kakaoToken }));
             })
             .catch((error: any) => {
               dispatch(actions.setLoading(false));

@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useEffect, useState } from "react";
 import * as S from "./styles";
-
+import { debounce } from "@U/functions/timer";
 import useResize from "@U/hooks/useResize";
 import e from "cors";
 
