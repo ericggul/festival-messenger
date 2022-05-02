@@ -25,7 +25,7 @@ export const UpperPart = styled.div`
 export const SingleClause = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 `;
 
 export const Header = styled.div`
@@ -49,4 +49,22 @@ export const Button = styled.div`
   border-radius: 1.5rem;
   margin: 1rem 0;
   border: 1px dashed white;
+
+  opacity: 0;
+  animation: button-blink 1s infinite linear alternate;
+  animation-delay: 7s;
+  @keyframes button-blink {
+    0% {
+      opacity: 0.3;
+    }
+    10% {
+      opacity: 0.3;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;

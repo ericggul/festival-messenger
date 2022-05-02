@@ -9,13 +9,13 @@ import Loading4 from "@F/loading/hundreadLoadings/Loading4";
 import Loading5 from "@F/loading/hundreadLoadings/Loading5";
 import Loading6 from "@F/loading/hundreadLoadings/Loading6";
 import Loading7 from "@F/loading/hundreadLoadings/Loading7";
-// import Loading8 from "@F/loading/hundreadLoadings/Loading8";
-// import Loading9 from "@F/loading/hundreadLoadings/Loading9";
-// import Loading10 from "@F/loading/hundreadLoadings/Loading10";
-// import Loading11 from "@F/loading/hundreadLoadings/Loading11";
-// import Loading12 from "@F/loading/hundreadLoadings/Loading12";
-// import Loading13 from "@F/loading/hundreadLoadings/Loading13";
-// import Loading14 from "@F/loading/hundreadLoadings/Loading14";
+import Loading8 from "@F/loading/hundreadLoadings/Loading8";
+import Loading9 from "@F/loading/hundreadLoadings/Loading9";
+import Loading10 from "@F/loading/hundreadLoadings/Loading10";
+import Loading11 from "@F/loading/hundreadLoadings/Loading11";
+import Loading12 from "@F/loading/hundreadLoadings/Loading12";
+import Loading13 from "@F/loading/hundreadLoadings/Loading13";
+import Loading14 from "@F/loading/hundreadLoadings/Loading14";
 // import Loading15 from "@F/loading/hundreadLoadings/Loading15";
 // import Loading16 from "@F/loading/hundreadLoadings/Loading16";
 // import Loading17 from "@F/loading/hundreadLoadings/Loading17";
@@ -107,7 +107,7 @@ import Loading81 from "@F/loading/hundreadLoadings/Loading81";
 function Loading() {
   return (
     <S.Container>
-      <Loading7 />
+      <Loading14 />
     </S.Container>
   );
 }
