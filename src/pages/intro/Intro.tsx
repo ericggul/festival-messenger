@@ -26,7 +26,7 @@ export default function Intro() {
         <title>페스티벌 메신저</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="description" content="버들골에서만 읽을 수 있는 네 마음" />
-        <meta property="og:image" content="https://festival-messenger.com/assets/images/poster.png" />
+        <meta property="og:image" content="https://festival-messenger.com/logo512.png" />
       </Helmet>
       <div>
         {user.isLoading ? (

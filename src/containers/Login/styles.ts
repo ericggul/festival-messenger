@@ -15,11 +15,11 @@ export const Description = styled.div`
   ${FlexCenterStyle};
   text-align: center;
   flex-direction: column;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   h1 {
-    margin: 0.5rem;
+    margin: 0.3rem;
     padding: 0;
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 
   z-index: 5;

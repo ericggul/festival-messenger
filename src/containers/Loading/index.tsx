@@ -85,7 +85,7 @@ import Loading80 from "@F/loading/hundreadLoadings/Loading80";
 import Loading81 from "@F/loading/hundreadLoadings/Loading81";
 import Loading82 from "@F/loading/hundreadLoadings/Loading82";
 import Loading83 from "@F/loading/hundreadLoadings/Loading83";
-// import Loading84 from "@F/loading/hundreadLoadings/Loading84";
+import Loading84 from "@F/loading/hundreadLoadings/Loading84";
 // import Loading85 from "@F/loading/hundreadLoadings/Loading85";
 // import Loading86 from "@F/loading/hundreadLoadings/Loading86";
 // import Loading87 from "@F/loading/hundreadLoadings/Loading87";
@@ -106,7 +106,7 @@ import Loading83 from "@F/loading/hundreadLoadings/Loading83";
 function Loading() {
   return (
     <S.Container>
-      <Loading83 />
+      <Loading84 />
     </S.Container>
   );
 }
