@@ -9,7 +9,7 @@ import * as THREE from "three";
 import { extend, Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
 import { Sky, CameraShake, Environment, Instances, Instance, OrbitControls } from "@react-three/drei";
 
-import Texture from "./texture.jpeg";
+import Texture from "./texture2.jpeg";
 import * as S from "./styles";
 
 declare global {
@@ -75,7 +75,7 @@ const Cloud = () => {
       ref.current.rotation.x = rotation.x;
       ref.current.rotation.y = rotation.y;
       ref.current.rotation.z = rotation.z - rotationSpeed.z * t;
-      ref.current.material.opacity = 1;
+      ref.current.material.opacity = 0.8;
     }
   });
   return (
@@ -114,7 +114,7 @@ function Loading() {
     <S.Container>
       <Canvas shadows dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 100], near: 1, far: 1000 }}>
         <ambientLight color={0x555555} />
-        <directionalLight color={0xffffff} position={[0, 0, 1]} />
+        <directionalLight color={0xffeedd} position={[0, 0, 1]} />
 
         <Suspense fallback={null}>
           <Environment preset="apartment" />

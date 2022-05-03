@@ -127,7 +127,7 @@ class App {
     this.source.connect(this.analyser);
     this.source.connect(this.audioCtx.destination);
 
-    this.resizeEvent = this.drawState && window.addEventListener("resize", debounce(this.resize.bind(this), 300));
+    this.resizeEvent = this.drawState && window.addEventListener("resize", this.resize.bind(this));
     this.resize();
   }
 

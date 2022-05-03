@@ -3,6 +3,7 @@ import { FlexCenterStyle } from "@S/style/responsive/display";
 
 interface HeaderContainerProps {
   color: any;
+  textColor: any;
 }
 export const HeaderContainer = styled.div<HeaderContainerProps>`
   touch-action: pan-x pan-y;
@@ -12,6 +13,7 @@ export const HeaderContainer = styled.div<HeaderContainerProps>`
   top: 0;
   left: 0;
   background: ${({ color }) => color};
+  color: ${({ textColor }) => textColor};
   z-index: ${({ theme }) => theme.zIndex.headerColor};
   ${FlexCenterStyle};
 `;

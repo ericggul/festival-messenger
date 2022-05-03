@@ -9,7 +9,7 @@ export const Container = styled.div`
   left: 0;
   position: absolute;
   width: ${({ theme }) => theme.windowWidth}px;
-  height: ${({ theme }) => theme.windowHeight}px;
+  height: 100vh;
 
   ${FlexCenterStyle};
   flex-direction: column;

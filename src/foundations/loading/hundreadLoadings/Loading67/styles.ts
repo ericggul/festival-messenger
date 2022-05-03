@@ -22,6 +22,7 @@ interface BoxInterface {
   idx: number;
   angle: number;
   size: number;
+  color: any;
 }
 
 export const Box = styled.div<BoxInterface>`
@@ -29,14 +30,14 @@ export const Box = styled.div<BoxInterface>`
   ${FlexCenterStyle};
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
-  color: white;
+  color: ${({ color }) => color};
 
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
   font-size: 1.5rem;
 
   animation: ${AppearAnimation} 0.25s backwards;
-  animation-delay: ${({ idx }) => idx * 0.05}s;
+  animation-delay: ${({ idx }) => idx * 0.25}s;
 
   transform: rotate(${({ angle }) => angle}deg);
 `;

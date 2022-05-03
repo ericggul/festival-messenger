@@ -6,10 +6,24 @@ export const Container = styled.div`
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   ${FlexCenterStyle};
+
+  flex-direction: column;
   overflow: hidden;
 `;
 
-export const Description = styled.div``;
+export const Description = styled.div`
+  ${FlexCenterStyle};
+  text-align: center;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  h1 {
+    margin: 0.5rem;
+    padding: 0;
+    font-size: 1.3rem;
+  }
+
+  z-index: 5;
+`;
 
 export const Button = styled.div`
   font-size: 1.3rem;

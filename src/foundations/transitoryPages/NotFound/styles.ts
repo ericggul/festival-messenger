@@ -6,6 +6,7 @@ export const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  cursor: pointer;
 
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;

@@ -13,7 +13,7 @@ function Texture() {
 
   return (
     <div
-      id="CanvasWrapper"
+      id="CanvasWrapper4"
       style={{
         position: "absolute",
         top: -20,
@@ -40,18 +40,18 @@ class Canvas {
   resizeEvent: any;
 
   constructor() {
-    this.wrapper = document.getElementById("CanvasWrapper");
+    this.wrapper = document.getElementById("CanvasWrapper4");
     this.canvas = document.createElement("canvas");
     this.canvas.style.zIndex = 0;
     this.wrapper.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
 
     this.resize();
-    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 150));
+    this.resizeEvent = window.addEventListener("resize", this.resize.bind(this));
   }
 
   destroy() {
-    document.removeEventListener("resize", this.resizeEvent);
+    window.removeEventListener("resize", this.resize.bind(this));
     this.wrapper.removeChild(this.canvas);
   }
 
@@ -59,6 +59,7 @@ class Canvas {
     this.stageWidth = this.wrapper.clientWidth;
     this.stageHeight = this.wrapper.clientHeight;
 
+    console.log(this.stageWidth);
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
 

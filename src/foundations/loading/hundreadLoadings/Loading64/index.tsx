@@ -2,14 +2,16 @@ import React, { useEffect, useState, useMemo, useRef } from "react";
 import * as S from "./styles";
 import useResize from "@U/hooks/useResize";
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
+const getRandomColor = () => `hsl(${getRandom(100, 300)}, ${getRandom(90, 100)}%, ${getRandom(90, 100)}%)`;
 
-const Component = ({ top, left }: any) => {
+const Component = ({ top, left, idx, angle, size, color }: any) => {
   const boxRef = useRef<any>(null);
 
-  const angleInterval = useMemo(() => getRandom(10, 50), []);
+  const angleInterval = useMemo(() => 10, []);
+  const leftInterval = useMemo(() => 5, []);
   useEffect(() => {
     if (boxRef && boxRef.current) {
-      const bundles = "loading".split("");
+      const bundles = "loading".repeat(20).split("");
       for (let i = 0; i < bundles.length; i++) {
         const n = document.createElement("span");
         n.innerText = bundles[i];
@@ -17,9 +19,9 @@ const Component = ({ top, left }: any) => {
           "style",
           ` 
         position: absolute;
-        left: 0;
+        left: ${i * leftInterval}px;
         top: 0;
-        bottom: 0;
+        bottom:  0;
         right: 0;
         margin: auto;
         transform: rotate(${i * angleInterval}deg);
@@ -31,7 +33,7 @@ const Component = ({ top, left }: any) => {
     }
   }, [boxRef]);
 
-  return <S.Box ref={boxRef} top={top} left={left}></S.Box>;
+  return <S.Box ref={boxRef} top={top} left={left} idx={idx} angle={angle} size={size} color={color} />;
 };
 
 function Loading() {
@@ -39,8 +41,8 @@ function Loading() {
 
   return (
     <S.Container>
-      {new Array(10).fill(0).map((_, i) => (
-        <Component key={i} top={getRandom(0, windowHeight)} left={getRandom(0, windowWidth)} />
+      {Array.from({ length: 20 }, () => getRandom(windowWidth * 0.1, windowWidth * 0.35)).map((size, i) => (
+        <Component key={i} top={getRandom(0, windowHeight) - size / 2} left={getRandom(0, windowWidth) - size / 2} idx={i} angle={getRandom(0, 360)} size={size} color={getRandomColor()} />
       ))}
     </S.Container>
   );

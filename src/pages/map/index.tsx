@@ -14,8 +14,7 @@ function Map() {
     <>
       <Helmet>
         <title>Messenger Map</title>
-
-        <meta name="description" content="Page where you can view all messages." />
+        <meta name="description" content="버들골에서만 읽을 수 있는 네 마음" />
       </Helmet>
       <MapContainer {...state} />
       <Footer currentLoc="Map" />

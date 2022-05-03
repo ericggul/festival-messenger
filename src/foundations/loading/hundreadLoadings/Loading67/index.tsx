@@ -2,11 +2,13 @@ import React, { useEffect, useState, useMemo, useRef } from "react";
 import * as S from "./styles";
 import useResize from "@U/hooks/useResize";
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
+const getRandomColor = () => `hsl(${getRandom(300, 360)}, ${getRandom(90, 100)}%, ${getRandom(80, 90)}%)`;
 
-const Component = ({ top, left, idx, angle, size }: any) => {
+const Component = ({ top, left, idx, angle, size, color }: any) => {
   const boxRef = useRef<any>(null);
 
-  const angleInterval = useMemo(() => getRandom(10, 80), []);
+  const angleInterval = useMemo(() => getRandom(7, 15), []);
+  const leftInterval = useMemo(() => 5, []);
   useEffect(() => {
     if (boxRef && boxRef.current) {
       const bundles = "loading".repeat(5).split("");
@@ -17,9 +19,9 @@ const Component = ({ top, left, idx, angle, size }: any) => {
           "style",
           ` 
         position: absolute;
-        left: 0;
+        left: ${i * leftInterval}px;
         top: 0;
-        bottom: 0;
+        bottom:  0;
         right: 0;
         margin: auto;
         transform: rotate(${i * angleInterval}deg);
@@ -31,7 +33,7 @@ const Component = ({ top, left, idx, angle, size }: any) => {
     }
   }, [boxRef]);
 
-  return <S.Box ref={boxRef} top={top} left={left} idx={idx} angle={angle} size={size} />;
+  return <S.Box ref={boxRef} top={top} left={left} idx={idx} angle={angle} size={size} color={color} />;
 };
 
 function Loading() {
@@ -39,8 +41,8 @@ function Loading() {
 
   return (
     <S.Container>
-      {Array.from({ length: 70 }, () => getRandom(windowWidth * 0.1, windowWidth * 0.35)).map((size, i) => (
-        <Component key={i} top={getRandom(0, windowHeight) - size / 2} left={getRandom(0, windowWidth) - size / 2} idx={i} angle={getRandom(0, 360)} size={size} />
+      {Array.from({ length: 50 }, () => getRandom(windowWidth * 0.1, windowWidth * 0.35)).map((size, i) => (
+        <Component key={i} top={getRandom(0, windowHeight) - size / 2} left={getRandom(0, windowWidth) - size / 2} idx={i} angle={getRandom(0, 360)} size={size} color={getRandomColor()} />
       ))}
     </S.Container>
   );

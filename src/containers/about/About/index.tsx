@@ -15,14 +15,13 @@ function About() {
     return () => app.destroy();
   }, []);
 
-  const [windowWidth, windowHeight] = useResize();
   return (
     <S.Background>
       <div
-        id="CanvasWrapper"
+        id="CanvasWrapper5"
         style={{
-          width: windowWidth,
-          height: 2 * windowHeight,
+          width: "100%",
+          height: "100%",
           position: "absolute",
           top: 0,
           left: 0,
@@ -56,25 +55,30 @@ class App {
   animationRequest: any;
 
   constructor() {
-    this.wrapper = document.getElementById("CanvasWrapper");
+    this.wrapper = document.getElementById("CanvasWrapper5");
     this.canvas = document.createElement("canvas");
+    this.canvas.style.zIndex = 0;
     this.wrapper.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
 
     this.gridSets = [];
 
     this.resize();
-    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 100));
+    // this.resizeEvent = window.addEventListener("resize", this.resize.bind(this));
   }
 
   resize() {
+    this.ctx.scale(1, 1);
     this.stageWidth = this.wrapper.clientWidth;
     this.stageHeight = this.wrapper.clientHeight;
 
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
-    this.ctx.scale(1, 1);
 
+    this.init();
+  }
+
+  init() {
     this.ctx.fillStyle = "black";
     this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
 
@@ -84,7 +88,6 @@ class App {
     this.gridSets = [];
 
     for (let i = 0; i < this.stageWidth; i += this.gridWidth * 2) {
-      console.log(this.stageWidth);
       for (let j = 0; j < this.stageHeight; j += this.gridHeight * 2) {
         this.gridSets.push(new Element(i, j, this.gridWidth, this.gridHeight, this.stageHeight));
       }
@@ -101,7 +104,7 @@ class App {
   }
 
   destroy() {
-    document.removeEventListener("resize", this.resizeEvent);
+    // window.removeEventListener("resize", this.resizeEvent);
     window.cancelAnimationFrame(this.animationRequest);
   }
 }

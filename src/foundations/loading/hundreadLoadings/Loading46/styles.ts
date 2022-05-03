@@ -6,7 +6,7 @@ export const Container = styled.div`
   ${ContainerStyles};
   position: relative;
 
-  background: linear-gradient(black, white);
+  background: linear-gradient(blue, pink);
 
   font-size: 25vw;
   font-family: Times New Roman;

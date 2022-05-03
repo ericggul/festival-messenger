@@ -87,7 +87,7 @@ class App {
 
     this.wrapper.appendChild(this.pixiApp.view);
     this.resize();
-    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 150));
+    this.resizeEvent = window.addEventListener("resize", debounce(this.resize.bind(this), 200));
   }
 
   resize() {
@@ -135,7 +135,7 @@ class App {
         document.getElementById("pixi-canvas")!.removeChild(this.pixiApp.view);
       } catch (e) {}
     }
-    document.removeEventListener("resize", this.resizeEvent);
+    window.removeEventListener("resize", this.resizeEvent);
     this.pixiApp.stage.destroy(true);
     this.pixiApp.ticker.destroy(true);
     this.pixiApp = null;

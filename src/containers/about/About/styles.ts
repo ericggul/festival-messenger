@@ -6,9 +6,9 @@ export const Background = styled.div`
   top: 0;
   left: 0;
   position: absolute;
-  width: ${({ theme }) => theme.windowWidth}px;
-  height: ${({ theme }) => theme.windowHeight * 2}px;
-
+  width: 100vw;
+  height: 200vh;
+  overflow: hidden;
   color: white;
   background: black;
 `;

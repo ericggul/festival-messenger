@@ -12,9 +12,9 @@ function Messenger() {
       <Helmet>
         <title>About Festival Messenger</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <meta name="description" content="About Festival Messenger." />
+        <meta name="description" content="버들골에서만 읽을 수 있는 네 마음" />
       </Helmet>
-      <Header name="About" />
+      <Header name="About" color="transparent" textColor="white" />
       <AboutContainer />
       <Footer currentLoc="About" />
     </>

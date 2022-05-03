@@ -9,13 +9,14 @@ import { Helmet } from "react-helmet";
 interface HeaderProps {
   name: String;
   color?: any;
+  textColor?: any;
 }
 
-function Header({ name, color = `rgba(255, 255, 255, .6)` }: HeaderProps) {
+function Header({ name, color = `rgba(255, 255, 255, .6)`, textColor = "black" }: HeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <S.HeaderContainer color={color}>
+    <S.HeaderContainer color={color} textColor={textColor}>
       <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </Helmet>

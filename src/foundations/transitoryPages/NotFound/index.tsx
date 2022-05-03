@@ -152,9 +152,9 @@ function NotFound() {
         <Scene />
       </S.SceneContainer>
 
-      <S.Container>
+      <S.Container onClick={() => navigate("/map")}>
         <S.Text>페이지가 존재하지 않습니다.</S.Text>
-        <S.Button onClick={() => navigate("/map")}>메인으로 가기</S.Button>
+        <S.Button>메인으로 가기</S.Button>
         <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
       </S.Container>
     </>
