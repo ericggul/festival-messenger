@@ -15,6 +15,7 @@ import MessageContents from "@C/message/MessageContents";
 import ControlPanel from "@F/writeMessage/preview/ControlPanel";
 import LoadingModal from "@F/modal/content/LoadingModal";
 import ShareViaKakao from "@F/transitoryPages/ShareViaKakao";
+import KakaoSending from "@F/transitoryPages/KakaoSending";
 
 //Toast
 import toast from "react-hot-toast";
@@ -75,6 +76,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
 
   const [messageSendStarted, setMessageSendStarted] = useState(false);
   const [messageSendFinished, setMessageSendFinished] = useState(false);
+  const [kakaoAutomaticallySend, setKakaoAutomaticallySend] = useState(false);
 
   const [kakaoLinkClicked, setKakaoLinkClicked] = useState(false);
   const navigate = useNavigate();
@@ -102,6 +104,7 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   useEffect(() => {
     if (messageSendFinished) {
       if (messageUUID !== "unassigned") {
+        setKakaoAutomaticallySend(true);
         shareThroughKakaoMessenger();
       }
     }
@@ -159,7 +162,11 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   return (
     <>
       {messageSendFinished ? (
-        <ShareViaKakao onClick={shareThroughKakao} />
+        kakaoAutomaticallySend ? (
+          <KakaoSending />
+        ) : (
+          <ShareViaKakao onClick={shareThroughKakao} />
+        )
       ) : (
         <MessageContents toName={preview.toName} mainText={preview.mainText} color={preview.color} font={preview.font} image={image} music={music} />
       )}
