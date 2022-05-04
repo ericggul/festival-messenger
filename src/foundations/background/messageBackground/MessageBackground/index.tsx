@@ -6,6 +6,9 @@ import { debounce } from "@U/functions/timer";
 import ReactAudioPlayer from "react-audio-player";
 import useResize from "@/utils/hooks/useResize";
 
+//Toast
+import toast from "react-hot-toast";
+
 function getRandom(a: number, b: number) {
   return Math.random() * (b - a) + a;
 }
@@ -28,7 +31,9 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   const [rap, setRap] = useState<any>(!null);
   const [windowWidth, windowHeight] = useResize();
 
-  console.log("message background 29", audio);
+  if (audio !== null) {
+    toast("화면을 클릭해서 브금을 재생해보세요!");
+  }
 
   const waveRef = useRef<any>(null);
 

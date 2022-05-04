@@ -23,7 +23,7 @@ export default function Test() {
   async function getUser() {
     try {
       const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux("kakao:2219381660"));
-      console.log(userInfo);
+
       await uploadUserInfo(dispatch, {
         id: "kakao:2219381660",
         name: "No Name",

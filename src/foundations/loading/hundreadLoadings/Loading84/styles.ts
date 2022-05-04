@@ -1,21 +1,11 @@
 import styled, { keyframes } from "styled-components";
 import { ContainerStyles } from "@F/loading/common/styles";
-import { FlexCenterStyle } from "@S/style/responsive/display";
-
-const brighter = keyframes`
-from {
-  opacity: 0;
-}
-to {
-  opacity: 1;
-}
-`;
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
-  font-family: Helvetica;
   ${ContainerStyles};
   position: relative;
-  background: white;
+  background: black;
 
   font-size: 20vh;
   color: white;
@@ -26,41 +16,54 @@ export const Container = styled.div`
 
   overflow: hidden;
   ${FlexCenterStyle};
+
+  animation: ${AppearAnimation} 1s;
 `;
 
-export const Wrapper = styled.div`
-  ${FlexCenterStyle};
-  flex-direction: column;
-  margin: -8rem;
+export const Box = styled.div`
+  width: 15rem;
+  height: 20rem;
+  background: transparent;
+  margin: -7.5rem;
+  position: relative;
 `;
 
-interface IdxInterface {
-  idx: number;
+interface IdxProps {
+  delay: any;
+  duration: any;
   color: any;
+  bottom: any;
 }
 
-export const LoadingText = styled.div<IdxInterface>`
-  font-size: 28vh;
-  margin: -13vh 0;
-  color: ${({ color }) => color};
-  animation: ${brighter} 1s backwards;
-  animation-delay: ${({ idx }) => idx * 0.7}s;
-  text-shadow: 0 0 1rem ${({ color }) => color};
-`;
-
-interface ColorInterface {
-  color: any;
-}
-
-export const Overlay = styled.div<ColorInterface>`
+export const InnerBox = styled.div<IdxProps>`
   position: absolute;
-  top: 0;
-  left: 0;
+  ${({ bottom }) => (bottom ? "bottom: 0" : "top: 0")};
   width: 100%;
-  height: 100%;
-  background: radial-gradient(transparent 30%, ${({ color }) => color} 100%);
+  height: 0;
+  background: ${({ color }) => color};
 
-  background-size: 0.3rem 0.3rem;
-  cursor: wait;
-  background-repeat: repeat;
+  animation: move-height ${({ duration }) => duration}s infinite linear;
+  animation-delay: ${({ delay }) => delay}s;
+  @keyframes move-height {
+    0% {
+      height: 0;
+    }
+
+    10% {
+      height: 20rem;
+    }
+    100% {
+      height: 0;
+    }
+  }
+`;
+
+export const LoadingText = styled.div`
+  font-family: Hollywood;
+  font-size: 3rem;
+  position: absolute;
+  bottom: 7rem;
+  text-align: center;
+
+  color: white;
 `;

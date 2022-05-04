@@ -97,7 +97,8 @@ function MapBox({
   }, [mapContainerRef]);
 
   //go to current position related
-  const { pos: currentPos, permittedStatus: currentPosPermittedStatus } = useGeoLocation();
+
+  const { pos: currentPos, permittedStatus: currentPosPermittedStatus } = useGeoLocation(user && user.uid ? true : false);
 
   useEffect(() => {
     if (goToCurrentPosition) {
@@ -128,6 +129,7 @@ function MapBox({
             filter: ["==", "extrude", "true"],
             type: "fill-extrusion",
             minzoom: 15,
+            maxzoom: 22,
             paint: {
               "fill-extrusion-color": "#e7d2f7",
               "fill-extrusion-height": ["interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "height"]],
@@ -142,13 +144,13 @@ function MapBox({
           type: "raster-dem",
           url: "mapbox://mapbox.mapbox-terrain-dem-v1",
           tileSize: 512,
+          minzoom: 6,
           maxzoom: 22,
         });
 
         mapRef.current.setTerrain({ source: "mapbox-dem2", exaggeration: 2 });
 
         //Sky
-
         mapRef.current.addLayer({
           id: "sky",
           type: "sky",
@@ -159,6 +161,8 @@ function MapBox({
             "sky-atmosphere-sun-intensity": 5,
             "sky-atmosphere-sun": getSunPosition(),
           },
+          minzoom: 6,
+          maxzoom: 22,
         });
 
         //Video

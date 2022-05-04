@@ -122,7 +122,6 @@ function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
       },
       success: function (response: any) {
         EventBehavior("Write Message", "Message Preview Phase", "Share Through Kakao Messenger");
-
         navigate("/messenger");
       },
       fail: function (error: any) {

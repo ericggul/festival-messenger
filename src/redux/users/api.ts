@@ -14,8 +14,7 @@ export async function fetchUserInformationFromFirestore(userId: any) {
 //Editing is also allowd
 export async function createUserInformationFromFirestore(user: any) {
   let imageUrl = user.kakaoProfileImageUrl;
-  console.log(imageUrl);
-  console.log(user);
+
   if (user.profileImage) {
     const userSpecificImageRef = ref(userStorageRef, user.id);
     let preceedingIndexes = 0;
@@ -36,8 +35,6 @@ export async function createUserInformationFromFirestore(user: any) {
     });
     imageUrl = await getDownloadURL(thisRef);
   }
-
-  console.log(imageUrl);
 
   await setDoc(
     doc(usersRef, user.id),

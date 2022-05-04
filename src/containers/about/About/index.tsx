@@ -142,9 +142,9 @@ class Element {
     this.angleSpeed = getRandom(-0.007, 0.007);
 
     this.colorMultiply = {
-      r: 0.9 + (y / stageHeight) * getRandom(0.6, 1.3) + getRandom(-0.3, 0.3),
-      g: getRandom(0.6, 0.9),
-      b: 1.6 - (this.y / stageHeight) * getRandom(0.2, 0.8),
+      r: 0.9 + (y / stageHeight) * getRandom(0.5, 1.4) + getRandom(-0.5, 0.5),
+      g: getRandom(0.3, 1.2),
+      b: 1.6 - (this.y / stageHeight) * getRandom(0.2, 0.9) + getRandom(-0.7, 0.7),
     };
   }
 

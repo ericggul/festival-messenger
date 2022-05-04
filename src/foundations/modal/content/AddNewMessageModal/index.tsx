@@ -32,7 +32,7 @@ const SingleProfile = ({ friend, i, clickedFriend, setClickedFriend, handleIconC
   async function getUserInformation() {
     try {
       const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(uid));
-      console.log(userInfo);
+
       if (userInfo.payload.profileImage) {
         setProfilePic(userInfo.payload.profileImage);
       }

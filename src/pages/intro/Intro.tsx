@@ -9,8 +9,6 @@ import { Helmet } from "react-helmet";
 export default function Intro() {
   const navigate = useNavigate();
 
-  // const user = useAppSelector((state) => state.users);
-
   const { user } = useAuth();
 
   useEffect(() => {

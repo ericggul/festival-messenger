@@ -39,7 +39,7 @@ export default function UpperSection() {
       timeout2 = setTimeout(() => typeWriter("보낼 수 있지만", 0, textRef1), 1500);
       timeout3 = setTimeout(() => typeWriter("버들골에서만", 0, headerRef2), 3000);
       timeout4 = setTimeout(() => typeWriter("읽을 수 있는 네 마음", 0, textRef2), 4200);
-      timeout5 = setTimeout(() => typeWriter("페스티벌 메신저", 0, headerRef3), 5500);
+      timeout5 = setTimeout(() => typeWriter("페스티벌 메신저", 0, headerRef3), 5800);
 
       return () => {
         clearTimeout(timeout1);

@@ -16,7 +16,7 @@ import Cancel from "@I/icons/modal/cancel.svg";
 
 function OpenMessageModal({ setIsModalOpen, chatId, messageId }: any) {
   //geo location
-  const { pos, permittedStatus } = useGeoLocation();
+  const { pos, permittedStatus } = useGeoLocation(true);
 
   //fetching message
   const dispatch = useAppDispatch();

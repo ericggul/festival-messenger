@@ -24,6 +24,11 @@
   font-weight: 300;
 }
 
+@font-face {
+  font-family: "Hollywood";
+  src: url("./Hollywood.ttf") format("Truetype");
+}
+
 /* Other Fonts */
 @font-face {
   font-family: "Black Han Sans";

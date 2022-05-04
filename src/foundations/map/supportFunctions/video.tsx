@@ -30,6 +30,8 @@ export default async function video(mapRef: any) {
       id: "video",
       type: "raster",
       source: "video",
+      minzoom: 6,
+      maxzoom: 22,
     });
   } catch (e) {
     console.log(e);

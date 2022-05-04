@@ -46,7 +46,6 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
   try {
     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(derivedUser.uid));
     const landingUrl = user.landingUrl || "/settings";
-    console.log(userInfo.payload);
 
     if (!userInfo.payload) {
       console.log("new user!");
@@ -56,7 +55,6 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
           property_keys: ["kakao_account.profile"],
         },
         success: (res: any) => {
-          console.log("res", res);
           let output = res.kakao_account;
 
           try {

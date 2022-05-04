@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FlexCenterStyle } from "@S/style/responsive/display";
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 const SKY_BLUE = `hsl(197, 100%, 43%)`;
 const HOT_PINK = `hsl(331, 91%, 64%)`;
@@ -51,20 +51,6 @@ export const Button = styled.div`
   border: 1px dashed white;
 
   opacity: 0;
-  animation: button-blink 1s infinite linear alternate;
-  animation-delay: 7s;
-  @keyframes button-blink {
-    0% {
-      opacity: 0.3;
-    }
-    10% {
-      opacity: 0.3;
-    }
-    20% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+  animation: ${AppearAnimation} 1s forwards;
+  animation-delay: 7.5s;
 `;

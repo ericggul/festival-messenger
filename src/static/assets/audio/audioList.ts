@@ -1,5 +1,8 @@
 const Reality = require("./Reality.mp3");
-const BlueDanube = require("./BlueDanube.mp3");
+const FallingSlowly = require("./FallingSlowly.mp3");
+const Czechian = require("./Czechian.mp3");
+
+const Jabti = require("./Jabti.mp3");
 
 const AUDIO_LIST = [
   {
@@ -11,16 +14,16 @@ const AUDIO_LIST = [
     file: Reality,
   },
   {
-    name: "Blue Danube",
-    file: BlueDanube,
+    name: "Falling Slowly",
+    file: FallingSlowly,
   },
   {
-    name: "Reality",
-    file: Reality,
+    name: "Czechian",
+    file: Czechian,
   },
   {
-    name: "Blue Danube",
-    file: BlueDanube,
+    name: "Jabti",
+    file: Jabti,
   },
 ];
 

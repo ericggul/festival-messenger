@@ -79,7 +79,7 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
 
   //get message information, check location accessibility
   //geo location
-  const { pos, permittedStatus: geoPermittedStatus } = useGeoLocation();
+  const { pos, permittedStatus: geoPermittedStatus } = useGeoLocation(user && user.uid ? true : false);
   const [messageReady, setMessageReady] = useState(false);
   const [message, setMessage] = useState<any>(null);
 
@@ -124,7 +124,14 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
         geoPermittedStatus ? (
           messageReady && distanceMessageAvailable && userMessageAvailable ? (
             <>
-              <HeaderUtils messageToSend={message.messageFrom} latLng={message.latLng} messageFromReads={message.messageFrom === user.uid} navigationComingFrom={navigationComingFrom} />
+              <HeaderUtils
+                messageToSend={message.messageFrom}
+                latLng={message.latLng}
+                messageFromReads={message.messageFrom === user.uid}
+                navigationComingFrom={navigationComingFrom}
+                chatId={chatId}
+                messageId={messageId}
+              />
               <MessageContents
                 toName={message.toName}
                 mainText={message.mainText.replaceAll("\\n", "\n")}

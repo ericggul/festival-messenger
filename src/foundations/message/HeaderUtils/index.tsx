@@ -13,7 +13,7 @@ import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 //Icons
 import BackIcon from "@I/icons/writeMessage/back_white.svg";
 
-function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComingFrom }: any) {
+function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComingFrom, chatId, messageId }: any) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -26,6 +26,8 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComing
     });
   };
 
+  const handleShareClick = () => {};
+
   return (
     <S.HeaderUtils>
       <S.Back onClick={() => navigate(`/${navigationComingFrom}`)}>
@@ -33,11 +35,11 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComing
         <S.Text>Back to {navigationComingFrom}</S.Text>
       </S.Back>
       {messageFromReads ? (
-        <S.Reply cursor={"default"}>내가 보낸 메시지</S.Reply>
+        <S.Reply2 chatId={chatId} messageId={messageId} onClick={handleShareClick}>
+          메시지 공유하기
+        </S.Reply2>
       ) : (
-        <S.Reply cursor={"pointer"} onClick={handleIconClick}>
-          답장 보내기
-        </S.Reply>
+        <S.Reply onClick={handleIconClick}>답장 보내기</S.Reply>
       )}
     </S.HeaderUtils>
   );
