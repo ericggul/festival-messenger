@@ -26,7 +26,10 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComing
     });
   };
 
-  const handleShareClick = () => {};
+  const handleShareClick = () => {
+    navigator.clipboard.writeText(`https://festival-messenger.com/message/${chatId}/${messageId}`);
+    alert("메시지 링크가 복사되었습니다!");
+  };
 
   return (
     <S.HeaderUtils>
@@ -34,13 +37,7 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComing
         <S.Icon src={BackIcon} />
         <S.Text>Back to {navigationComingFrom}</S.Text>
       </S.Back>
-      {messageFromReads ? (
-        <S.Reply2 chatId={chatId} messageId={messageId} onClick={handleShareClick}>
-          메시지 공유하기
-        </S.Reply2>
-      ) : (
-        <S.Reply onClick={handleIconClick}>답장 보내기</S.Reply>
-      )}
+      {messageFromReads ? <S.Reply2 onClick={handleShareClick}>메시지 링크 복사</S.Reply2> : <S.Reply onClick={handleIconClick}>답장 보내기</S.Reply>}
     </S.HeaderUtils>
   );
 }

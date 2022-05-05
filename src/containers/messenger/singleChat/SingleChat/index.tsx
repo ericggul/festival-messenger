@@ -28,19 +28,6 @@ function SingleChat({ chat, user, distancePerTime }: any) {
       let sortedMessages = fetchedMessages.payload.filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS).sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds);
       setMessages(sortedMessages);
       setMessageReady(true);
-
-      //set displayed message name logic
-      // let targetMessage = fetchedMessages.payload[0];
-      // if (targetMessage.messageFrom === user.uid) {
-      //   setDisplayedName(targetMessage.toName);
-      // } else {
-      //   try {
-      //     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(targetMessage.messageFrom));
-      //     setDisplayedName(userInfo.payload.name);
-      //   } catch (e) {
-      //     console.log(e);
-      //   }
-      // }
     } catch (e) {
       console.log(e);
     }

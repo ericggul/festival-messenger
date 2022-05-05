@@ -59,11 +59,10 @@ class Canvas {
     this.stageWidth = this.wrapper.clientWidth;
     this.stageHeight = this.wrapper.clientHeight;
 
-    console.log(this.stageWidth);
     this.canvas.width = this.stageWidth;
     this.canvas.height = this.stageHeight;
 
-    this.interval = Math.max(Math.round(Math.sqrt(((this.stageWidth * this.stageHeight) / (1280 * 720)) * 200)) / 100, 1);
+    this.interval = Math.max(Math.round(Math.sqrt(((this.stageWidth * this.stageHeight) / (1280 * 720)) * 200)) / 10, 1);
 
     this.ctx.scale(1, 1);
     this.init();

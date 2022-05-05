@@ -35,16 +35,7 @@ export const Reply = styled.div`
   cursor: pointer;
 `;
 
-interface ReplyProps {
-  chatId: any;
-  messageId: any;
-}
-
-export const Reply2 = styled.div.attrs<ReplyProps>((props) => ({
-  style: {
-    dataClipboardText: `https://festival-messenger.com/message/${props.chatId}/${props.messageId}`,
-  },
-}))<ReplyProps>`
+export const Reply2 = styled.div`
   margin-right: 1.5rem;
   cursor: pointer;
 `;

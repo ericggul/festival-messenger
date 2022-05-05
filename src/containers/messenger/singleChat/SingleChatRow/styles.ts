@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexCenterStyle } from "@S/style/responsive/display";
+import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const SingleRow = styled.div`
   margin-left: 4rem;
@@ -11,6 +11,9 @@ export const SingleRow = styled.div`
 
   width: 100%;
   position: relative;
+
+  animation: ${AppearAnimation} 1s backwards;
+  animation-delay: 1s;
 `;
 
 interface Length {
@@ -55,6 +58,7 @@ export const Icon = styled.img`
 `;
 
 interface LeftProps {
+  idx: number;
   left: number;
   read?: boolean;
 }

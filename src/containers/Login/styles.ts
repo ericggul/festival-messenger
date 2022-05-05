@@ -3,6 +3,11 @@ import { FlexCenterStyle } from "@S/style/responsive/display";
 
 export const Container = styled.div`
   touch-action: pan-x pan-y;
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   ${FlexCenterStyle};
@@ -13,6 +18,7 @@ export const Container = styled.div`
 
 export const Description = styled.div`
   ${FlexCenterStyle};
+
   text-align: center;
   flex-direction: column;
   margin-bottom: 2rem;

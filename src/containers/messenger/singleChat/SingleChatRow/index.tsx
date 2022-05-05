@@ -20,7 +20,7 @@ import Plus from "@I/icons/messenger/plus.svg";
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
-const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
+const SingleItem = ({ idx, message, user, chatId, distancePerTime }: any) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -54,6 +54,7 @@ const SingleItem = ({ message, user, chatId, distancePerTime }: any) => {
         EventBehavior("Messenger", "Read Message", "Read Message via Messenger");
         navigate(`/message/${chatId}/${message.messageId}/messenger`);
       }}
+      idx={idx}
       left={deltaTime(message.createdAt) * distancePerTime}
       read={message.read}
     >
@@ -115,7 +116,7 @@ const SingleChatRow = ({ user, distancePerTime, messages, chat }: any) => {
         </S.AddMessageButton>
       )}
       {messages.map((message: any, i: number) => (
-        <SingleItem key={i} user={user} distancePerTime={distancePerTime} message={message} chatId={chat.chatId} />
+        <SingleItem key={i} idx={i} user={user} distancePerTime={distancePerTime} message={message} chatId={chat.chatId} />
       ))}
     </S.SingleRow>
   );

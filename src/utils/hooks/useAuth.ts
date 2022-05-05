@@ -44,7 +44,6 @@ function navigateUser(landingUrl: any, navigate: any) {
 }
 
 async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user: any) {
-  console.log("get!");
   try {
     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(derivedUser.uid));
     const landingUrl = user.landingUrl || "/settings";

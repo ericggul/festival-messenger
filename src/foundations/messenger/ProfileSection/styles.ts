@@ -3,14 +3,15 @@ import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 interface ReadProps {
   read: boolean;
+  imgLoading: boolean;
 }
 export const ProfileImgContainer = styled.div<ReadProps>`
   width: ${({ read }) => (read ? 2.8 : 4)}rem;
   height: ${({ read }) => (read ? 2.8 : 4)}rem;
 
-  opacity: ${({ read }) => (read ? 0.8 : 1)};
+  opacity: ${({ read, imgLoading }) => (!imgLoading ? (read ? 0.8 : 1) : 0)};
 
-  animation: ${AppearAnimation} 1s backwards;
+  transition: all 1s;
 `;
 
 export const ProfileImg = styled.img`

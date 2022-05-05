@@ -18,7 +18,6 @@ export default function Intro() {
 
   const userLoading = useAppSelector((state) => state.usersLoading.isLoading);
 
-  console.log(userLoading);
   useEffect(() => {
     if (user.uid && !userLoading) {
       navigate("/map");

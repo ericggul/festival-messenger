@@ -15,7 +15,7 @@ export default function useGeoLocation(check: any) {
           (error) => {
             setPermittedStatus(false);
             alert("메시지 열람을 위해서는 위치 권한이 필요합니다.");
-            alert(`${error.code}, ${error.message}`);
+            alert(`브라우저(사파리, 크롬)나 사용 환경(인스타그램, 카카오톡, 네이버 앱)의 위치 권한을 허용해주세요.`);
 
             console.log(error, error.message);
             return;

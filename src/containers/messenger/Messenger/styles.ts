@@ -15,10 +15,8 @@ export const Container = styled.div`
   z-index: 0;
 
   overflow: scroll;
-  ${AppearAnimation};
+  animation: ${AppearAnimation} 1s;
 `;
-
-
 
 export const InnerContainer = styled.div`
   position: absolute;
@@ -29,10 +27,11 @@ export const InnerContainer = styled.div`
   min-width: ${({ theme }) => theme.windowWidth}px;
   min-height: ${({ theme }) => theme.windowHeight}px;
   overflow-x: scroll;
+
+  animation: ${AppearAnimation} 1s forwards;
 `;
 
 export const Note = styled.div`
-  width: ${({ theme }) => (theme.windowWidth > 768 ? theme.windowWidth - 6.9 * 16 : theme.windowWidth - 6.9 * 12)}px;
   margin-left: 3.5rem;
   margin-right: 3.45rem;
   margin-top: 8rem;
@@ -47,4 +46,7 @@ export const Note = styled.div`
 export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  animation: ${AppearAnimation} 1s backwards;
+  animation-delay: 1s;
 `;

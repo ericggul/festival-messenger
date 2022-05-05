@@ -120,7 +120,6 @@ class App {
   }
 
   animate() {
-    console.log(this.orbs);
     this.pixiApp.ticker.add(() => {
       this.orbs.forEach((orb: any) => {
         orb.update();
