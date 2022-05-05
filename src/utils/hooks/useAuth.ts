@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "@R/common/hooks";
 import { createUserInformation, fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
 import { actions } from "@R/users/state";
+import { actions as loadingActions } from "@R/usersLoading/state";
 import { signInWithCustomToken } from "firebase/auth";
 import { functions, auth } from "@/utils/initializer/firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
@@ -43,6 +44,7 @@ function navigateUser(landingUrl: any, navigate: any) {
 }
 
 async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user: any) {
+  console.log("get!");
   try {
     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(derivedUser.uid));
     const landingUrl = user.landingUrl || "/settings";
@@ -78,7 +80,8 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
             dispatch(actions.setValue({ name: output.profile.nickname || "No Name" }));
             dispatch(actions.setValue({ profileImage: profileImgURL || NO_PROFILE }));
             toast("로그인 완료!");
-            dispatch(actions.setLoading(false));
+            dispatch(loadingActions.setLoading(false));
+
             EventBehavior("Login", "New Login", "New User");
             navigateUser(landingUrl, navigate);
           } catch (e) {
@@ -93,7 +96,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
             dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
             dispatch(actions.setValue({ name: "No Name" }));
             dispatch(actions.setValue({ profileImage: NO_PROFILE }));
-            dispatch(actions.setLoading(false));
+            dispatch(loadingActions.setLoading(false));
             navigateUser(landingUrl, navigate);
           }
         },
@@ -110,7 +113,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
           dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
           dispatch(actions.setValue({ name: "No Name" }));
           dispatch(actions.setValue({ profileImage: NO_PROFILE }));
-          dispatch(actions.setLoading(false));
+          dispatch(loadingActions.setLoading(false));
           navigateUser(landingUrl, navigate);
         },
       });
@@ -120,7 +123,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
       //fetch data: to do?
       toast("로그인 완료!");
       dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
-      dispatch(actions.setLoading(false));
+      dispatch(loadingActions.setLoading(false));
       EventBehavior("Login", "New Login", "Existing User");
 
       navigate(user.landingUrl || "/settings");
@@ -128,7 +131,7 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
   } catch (e) {
     alert("계정생성에 실패했습니다. 시크릿 브라우저에서 다시 로그인해주세요.");
     dispatch(actions.setValue({ uid: derivedUser.uid, email: derivedUser.email }));
-    dispatch(actions.setLoading(false));
+    dispatch(loadingActions.setLoading(false));
     navigate("/login");
   }
 }
@@ -151,7 +154,7 @@ const useAuth = (navigateTo?: any) => {
     const authorizeCodeFromKakao = window.location.search.split("code=")[1];
 
     if (authorizeCodeFromKakao !== undefined) {
-      dispatch(actions.setLoading(true));
+      dispatch(loadingActions.setLoading(true));
 
       toast("로그인 중!");
       let kakaoAuth = httpsCallable(functions, "kakaoAuth");
@@ -163,18 +166,19 @@ const useAuth = (navigateTo?: any) => {
           signInWithCustomToken(auth, fireToken)
             .then((userCredential: any) => {
               window.Kakao.Auth.setAccessToken(kakaoToken);
+
               const derivedUser = userCredential.user;
               getUserInfo(dispatch, derivedUser, navigate, user);
               dispatch(actions.setValue({ token: kakaoToken }));
             })
             .catch((error: any) => {
-              dispatch(actions.setLoading(false));
+              dispatch(loadingActions.setLoading(false));
               console.log(error.code, error.message, error.details);
             });
         })
         .catch((error: any) => {
           alert("다시 시도해주세요.");
-          dispatch(actions.setLoading(false));
+          dispatch(loadingActions.setLoading(false));
           navigate("/login");
           console.log(error.message, error.details);
         });
@@ -187,7 +191,7 @@ const useAuth = (navigateTo?: any) => {
     } else {
       dispatch(actions.setLandingUrl("/settings"));
     }
-    dispatch(actions.setLoading(true));
+    dispatch(loadingActions.setLoading(true));
     window.Kakao.Auth.authorize({
       redirectUri: redirectUri,
       scope: "friends,talk_message,profile_nickname, profile_image,account_email",

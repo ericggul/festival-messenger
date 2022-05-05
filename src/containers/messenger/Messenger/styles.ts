@@ -9,7 +9,7 @@ export const Container = styled.div`
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
 
-  background: linear-gradient(180deg, #ebebeb 0%, rgba(203, 203, 203, 0) 100%, rgba(203, 203, 203, 0) 100%);
+  background: linear-gradient(180deg, #ebebeb 0%, rgba(203, 203, 203, 0) 100%);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 0;
@@ -17,6 +17,8 @@ export const Container = styled.div`
   overflow: scroll;
   ${AppearAnimation};
 `;
+
+
 
 export const InnerContainer = styled.div`
   position: absolute;

@@ -318,6 +318,7 @@ function Loading() {
         return <Loading100 />;
     }
   };
+
   return (
     <S.Container>
       <RandomRender number={randomNumber} />

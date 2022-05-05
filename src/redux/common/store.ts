@@ -2,27 +2,34 @@ import userReducer from "@R/users/state";
 import chatReducer from "@R/chats/state";
 import messageReducer from "@R/messages/state";
 
-import geoLocationReducer from "@R/geoLocation/state";
 import messagePreviewReducer from "@R/singleMessage/messagePreview/state";
+import usersLoadingReducer from "@R/usersLoading/state";
 
 import { configureStore, combineReducers, ThunkDispatch, Action } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
+import sessionStorage from "redux-persist/lib/storage/session";
 import { persistStore, persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ["usersLoading"],
+  timeout: 100,
+};
+
+const usersLoadingPersistConfig = {
+  key: "usersLoading",
+  storage: sessionStorage,
+};
 
 const reducers = combineReducers({
   users: userReducer,
   chats: chatReducer,
   messages: messageReducer,
-  geoLocation: geoLocationReducer,
   singleMessagePreview: messagePreviewReducer,
+  usersLoading: persistReducer(usersLoadingPersistConfig, usersLoadingReducer),
 });
-
-const persistConfig = {
-  key: "root",
-  storage,
-  timeout: 100,
-};
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 

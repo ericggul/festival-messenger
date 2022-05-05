@@ -210,7 +210,7 @@ function Map(props: any) {
     if (!user.uid) {
       setCurrentChats([]);
       setAllLoaded(true);
-      // navigate("/login");
+      navigate("/login");
     } else {
       retriveChat();
     }
@@ -253,6 +253,7 @@ function Map(props: any) {
     try {
       const fetchedMessages = await dispatch(fetchAllMessages(chatId));
       //Filter 72 hours and and get only unread messages
+
       let sortedMessages = fetchedMessages.payload
         .filter((msg: any) => deltaTime(msg.createdAt) < SEVENTY_TWO_HOURS && msg.messageFrom !== user.uid)
         .sort((a: any, b: any) => a.createdAt.seconds - b.createdAt.seconds);

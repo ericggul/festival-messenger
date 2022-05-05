@@ -9,7 +9,7 @@ export const Container = styled.div`
   left: 0;
   position: absolute;
   width: ${({ theme }) => theme.windowWidth}px;
-  height: 100vh;
+  height: 90vh;
   color: white;
 
   ${FlexCenterStyle};

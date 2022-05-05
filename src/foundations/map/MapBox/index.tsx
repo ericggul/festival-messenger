@@ -36,11 +36,8 @@ import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLES } from "@/configs/mapbox";
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
-//Three
-import * as THREE from "three";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
-
+const getRandomFromArray = (array: any[]) => array[Math.floor(Math.random() * array.length)];
+const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 const POLYGON = [
   [126.9567311, 37.4603392],
   [126.9548643, 37.4583549],

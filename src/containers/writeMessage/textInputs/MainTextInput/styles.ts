@@ -12,7 +12,7 @@ export const MainText = styled.div`
 `;
 
 export const MainTextInput = styled.textarea.attrs({
-  spellcheck: "false",
+  spellCheck: "false",
   rows: 15,
 })<IsTextBlack>`
   outline: 0;
