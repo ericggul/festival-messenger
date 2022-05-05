@@ -10,6 +10,7 @@ export const Container = styled.div`
   position: absolute;
   width: ${({ theme }) => theme.windowWidth}px;
   height: 100vh;
+  color: white;
 
   ${FlexCenterStyle};
   flex-direction: column;
@@ -52,5 +53,5 @@ export const Button = styled.div`
 
   opacity: 0;
   animation: ${AppearAnimation} 1s forwards;
-  animation-delay: 7.5s;
+  animation-delay: 3s;
 `;

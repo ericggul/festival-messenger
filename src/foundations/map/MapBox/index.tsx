@@ -129,7 +129,6 @@ function MapBox({
             filter: ["==", "extrude", "true"],
             type: "fill-extrusion",
             minzoom: 15,
-            maxzoom: 22,
             paint: {
               "fill-extrusion-color": "#e7d2f7",
               "fill-extrusion-height": ["interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "height"]],
@@ -139,7 +138,6 @@ function MapBox({
           },
           labelLayerId
         );
-
         mapRef.current.addSource("mapbox-dem2", {
           type: "raster-dem",
           url: "mapbox://mapbox.mapbox-terrain-dem-v1",

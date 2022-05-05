@@ -31,9 +31,11 @@ export default function MessageBackground({ color = { h: 130, s: 20, l: 48 }, au
   const [rap, setRap] = useState<any>(!null);
   const [windowWidth, windowHeight] = useResize();
 
-  if (audio !== null) {
-    toast("화면을 클릭해서 브금을 재생해보세요!");
-  }
+  useEffect(() => {
+    if (audio !== null) {
+      toast("화면을 클릭해서 브금을 재생해보세요!");
+    }
+  }, [audio]);
 
   const waveRef = useRef<any>(null);
 

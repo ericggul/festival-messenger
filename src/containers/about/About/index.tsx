@@ -4,6 +4,7 @@ import * as S from "./styles";
 import useResize from "@U/hooks/useResize";
 import UpperSection from "@C/about/UpperSection";
 import MiddleSection from "@C/about/MiddleSection";
+import LowerSection from "@C/about/LowerSection";
 
 import { debounce } from "@U/functions/timer";
 
@@ -16,25 +17,27 @@ function About() {
   }, []);
 
   return (
-    <S.Background>
-      <div
-        id="CanvasWrapper5"
-        style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          pointerEvents: "none",
-          filter: "blur(1px)",
-          margin: 0,
-          padding: 0,
-        }}
-      />
-
+    <>
+      <S.Background>
+        <div
+          id="CanvasWrapper5"
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            pointerEvents: "none",
+            filter: "blur(1px)",
+            margin: 0,
+            padding: 0,
+          }}
+        />
+      </S.Background>
       <UpperSection />
       <MiddleSection />
-    </S.Background>
+      <LowerSection />
+    </>
   );
 }
 export default About;

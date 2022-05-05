@@ -2,13 +2,14 @@ import styled from "styled-components";
 import { FlexCenterStyle, AppearAnimation } from "@S/style/responsive/display";
 
 export const Container = styled.div`
-  top: ${({ theme }) => theme.windowHeight}px;
+  top: 100vh;
   left: 0;
   position: absolute;
   width: ${({ theme }) => theme.windowWidth}px;
   height: 100vh;
 
   overflow: hidden;
+  color: white;
   ${FlexCenterStyle};
 `;
 
