@@ -18,6 +18,7 @@ import useModal from "@U/hooks/useModal";
 import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
 import OpenMessageModal from "@F/modal/content/openMessage/OpenMessageModal";
 import ViewVideoModal from "@F/modal/content/ViewVideoModal";
+import ViewTimeTableModal from "@F/modal/content/ViewTimeTableModal";
 
 //functions
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
@@ -34,6 +35,7 @@ import Explore from "@I/icons/map/explore.svg";
 import Location2 from "@I/icons/map/location-2.svg";
 import Update from "@I/icons/map/rotate-small-right.svg";
 import AddMessage from "@I/icons/map/add-message.svg";
+import Alarm from "@I/icons/map/alarm.svg";
 
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
@@ -307,6 +309,9 @@ function Map(props: any) {
   //view video
   const { modalComponent: viewVideoModalComponent, isModalOpen: isViewVideoModalOpen, setIsModalOpen: setIsViewVideoModalOpen } = useModal(ViewVideoModal);
 
+  //view timetable
+  const { modalComponent: viewTimeTableModalComponent, setIsModalOpen: setIsViewTimeTableModalOpen } = useModal(ViewTimeTableModal);
+
   return (
     <>
       <S.Container ref={containerRef}>
@@ -370,9 +375,9 @@ function Map(props: any) {
           <S.ButtonImg src={Location2} />
           <S.ButtonText>내위치</S.ButtonText>
         </S.GhostButton>
-        <S.Button show={displayMap} onClick={retriveChat}>
-          <S.ButtonImg src={Update} />
-          <S.ButtonText>업데이트</S.ButtonText>
+        <S.Button show={displayMap} onClick={() => setIsViewTimeTableModalOpen(true)}>
+          <S.ButtonImg src={Alarm} />
+          <S.ButtonText>축제 타임테이블</S.ButtonText>
         </S.Button>
         <S.ButtonLeft
           onClick={() => {
@@ -389,6 +394,7 @@ function Map(props: any) {
       {addNewMessageModalComponent}
       {openMessageModalComponent}
       {viewVideoModalComponent}
+      {viewTimeTableModalComponent}
     </>
   );
 }

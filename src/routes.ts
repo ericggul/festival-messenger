@@ -50,7 +50,6 @@ const routes = [
     path: "/writeMessage",
     component: WriteMessage,
   },
-
   {
     path: "/writing",
     component: Writing,
