@@ -19,7 +19,6 @@ function Login() {
 
       <Header name="Login" />
       <LoginContainer {...state} />
-      <Footer currentLoc="Login" color="rgba(0, 0, 0, 0)" />
     </>
   );
 }

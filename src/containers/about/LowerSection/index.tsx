@@ -15,7 +15,7 @@ function LowerSection() {
         ))}
         <S.Last>2022.05.05 최정윤</S.Last>
 
-        <S.Button onClick={() => navigate("/login")}>로그인하고 잊혀졌던 가치 되찾으러 가기</S.Button>
+        <S.Button onClick={() => navigate("/login")}>로그인하고 잊혔던 가치 되찾으러 가기</S.Button>
       </S.Main>
     </S.Container>
   );

@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import useModal from "@U/hooks/useModal";
 import AddNewMessageModal from "@F/modal/content/AddNewMessageModal";
 import OpenMessageModal from "@F/modal/content/openMessage/OpenMessageModal";
+import ViewVideoModal from "@F/modal/content/ViewVideoModal";
 
 //functions
 import { deltaTime, SEVENTY_TWO_HOURS } from "@U/functions/timeConverter";
@@ -303,6 +304,9 @@ function Map(props: any) {
     return i;
   }
 
+  //view video
+  const { modalComponent: viewVideoModalComponent, isModalOpen: isViewVideoModalOpen, setIsModalOpen: setIsViewVideoModalOpen } = useModal(ViewVideoModal);
+
   return (
     <>
       <S.Container ref={containerRef}>
@@ -319,6 +323,8 @@ function Map(props: any) {
             resetState={reset}
             resetCompleted={() => setReset(false)}
             onMapDisplayed={() => setDisplayMap(true)}
+            //video
+            handleVideoClick={() => setIsViewVideoModalOpen(true)}
             //data
             currentMessages={currentMessages}
             user={user}
@@ -382,6 +388,7 @@ function Map(props: any) {
       </S.Container>
       {addNewMessageModalComponent}
       {openMessageModalComponent}
+      {viewVideoModalComponent}
     </>
   );
 }

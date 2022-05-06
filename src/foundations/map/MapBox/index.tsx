@@ -36,6 +36,9 @@ import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLES } from "@/configs/mapbox";
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
+//router
+import { useNavigate } from "react-router-dom";
+
 const getRandomFromArray = (array: any[]) => array[Math.floor(Math.random() * array.length)];
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 const POLYGON = [
@@ -45,6 +48,14 @@ const POLYGON = [
   [126.9564629, 37.4575501],
   [126.9571817, 37.459577],
   [126.9567311, 37.4603392],
+];
+
+const VIDEO_POLYGON = [
+  [360 - 233.0251662, 37.4600416],
+  [360 - 233.0380374, 37.4424334],
+  [360 - 233.0472199, 37.4471384],
+  [360 - 233.0345621, 37.4640778],
+  [360 - 233.0251662, 37.4600416],
 ];
 
 function MapBox({
@@ -59,6 +70,8 @@ function MapBox({
   resetState,
   resetCompleted,
   onMapDisplayed,
+  //video related
+  handleVideoClick,
   //data related
   currentMessages,
   user,
@@ -188,31 +201,41 @@ function MapBox({
   }, [mapRef, zoomIn]);
 
   //New Marker on message Click
-  const [newMarkerLatLng, setNewMarkerLatLng] = useState<any>(null);
+
+  const [newMarkerLatLng, setNewMarkerLatLng] = useState<any>({ lat: getRandom(37.4577268, 37.45894), lng: getRandom(126.9555, 126.95619) });
   const [newMarker, setNewMarker] = useState<any>(null);
 
   //Add new marker on click
   useEffect(() => {
-    if (messageSendMode) {
-      if (mapRef.current && typeof mapRef.current == "object") {
-        //Click event
-        mapRef.current.on("click", (e: any) => {
-          //check if marker in POLYGON
-          setNewMarkerLatLng(e.lngLat);
-        });
-      }
+    if (mapRef.current && typeof mapRef.current == "object") {
+      //Click event
+      mapRef.current.on("click", (e: any) => {
+        setNewMarkerLatLng(e.lngLat);
+      });
     }
-  }, [mapRef, messageSendMode]);
+  }, [mapRef]);
 
   //on new marker change, set new marker
   useEffect(() => {
     if (newMarkerLatLng !== null) {
       let pointInside = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], POLYGON);
-      if (!pointInside) {
-        EventBehavior("Map", "Add Pin", "Pin to place outside");
-        toast("버들골 외부에는 메시지를 전송할 수 없습니다!");
+      if (!pointInside || !messageSendMode) {
+        //when video is selected
+        let pointVideo = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], VIDEO_POLYGON);
+
+        if (pointVideo) {
+          //handle video click
+          EventBehavior("Map", "Add Pin", "Video Clicked");
+          handleVideoClick();
+          return;
+        } else if (messageSendMode) {
+          EventBehavior("Map", "Add Pin", "Pin to place outside");
+          toast("버들골 외부에는 메시지를 전송할 수 없습니다!");
+          return;
+        }
         return;
       }
+
       EventBehavior("Map", "Add Pin", "Pin to place inside");
       if (newMarker !== null) {
         newMarker.remove();
@@ -238,7 +261,7 @@ function MapBox({
 
       setNewMarker(new mapboxgl.Marker(el).setLngLat(newMarkerLatLng).addTo(mapRef.current));
     }
-  }, [newMarkerLatLng]);
+  }, [newMarkerLatLng, messageSendMode]);
 
   //Delete New Marker if messagesendmode is false
   useEffect(() => {
