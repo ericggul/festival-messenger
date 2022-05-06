@@ -11,11 +11,7 @@ const WriteMessage = lazy(() => import("@/pages/writeMessage"));
 
 const About = lazy(() => import("@/pages/about"));
 
-const ShareViaKakao = lazy(() => import("@/pages/tempTesting/shareViaKakao"));
-const Loading = lazy(() => import("@/pages/tempTesting/loading"));
 const Writing = lazy(() => import("@/pages/tempTesting/writing"));
-//test
-const Test = lazy(() => import("@/pages/test"));
 
 const routes = [
   {
@@ -56,18 +52,9 @@ const routes = [
   },
 
   {
-    path: "/loading",
-    component: Loading,
-  },
-  {
     path: "/writing",
     component: Writing,
   },
-  {
-    path: "/shareViaKakao",
-    component: ShareViaKakao,
-  },
-  { path: "/test", component: Test },
 ];
 
 export default routes;
