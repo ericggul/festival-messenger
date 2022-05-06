@@ -1,9 +1,11 @@
 import React from "react";
 import * as S from "./styles";
 
-const RotateText = ({ text }: any) => {
+
+
+const RotateText = ({ text, colorBlack }: any) => {
   return (
-    <S.RotateText>
+    <S.RotateText colorBlack={colorBlack || false}>
       {text
         .trim()
         .split("")

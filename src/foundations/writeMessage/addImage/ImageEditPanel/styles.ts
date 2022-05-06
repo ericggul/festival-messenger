@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
-export const ImageEditContainer = styled.div`
+
+interface FontBlackType {
+  colorBlack: any;
+}
+export const ImageEditContainer = styled.div<FontBlackType>`
   ${FlexCenterStyle};
   flex-direction: row;
   margin-top: 1.4rem;
+
+  color: ${({ colorBlack }) => (colorBlack ? "black" : "white")};
+  transition: all 0.3s ease-in-out;
 `;
 
 export const Setting = styled.div`

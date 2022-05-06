@@ -29,18 +29,26 @@ export const SingleClause = styled.div`
   margin: 0.5rem 0;
 `;
 
-export const Header = styled.div`
+interface Delay {
+  delay: number;
+}
+
+export const Header = styled.div<Delay>`
   text-align: center;
   font-size: 3.33rem;
   font-weight: 300;
   margin: 0.5rem 0;
+  animation: ${AppearAnimation} 1s backwards;
+  animation-delay: ${({ delay }) => delay + 0.5}s;
 `;
 
-export const Text = styled.div`
+export const Text = styled.div<Delay>`
   text-align: center;
   font-size: 1.25rem;
   font-weight: 300;
   margin: 0.4rem 0;
+  animation: ${AppearAnimation} 1s backwards;
+  animation-delay: ${({ delay }) => delay + 0.5}s;
 `;
 
 export const Button = styled.div`
@@ -52,6 +60,6 @@ export const Button = styled.div`
   margin: 2rem 0;
   border: 1px dashed white;
 
-  opacity: 0;
-  animation: ${AppearAnimation} 1s forwards;
+  animation: ${AppearAnimation} 1.5s backwards;
+  animation-delay: 3s;
 `;

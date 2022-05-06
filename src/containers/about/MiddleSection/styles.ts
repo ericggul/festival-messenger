@@ -8,7 +8,7 @@ export const Container = styled.div`
   width: ${({ theme }) => theme.windowWidth}px;
   height: 100vh;
 
-  overflow: hidden;
+  overflow-x: hidden;
   color: white;
   ${FlexCenterStyle};
 `;
@@ -24,6 +24,7 @@ export const TextContainer = styled.div`
 export const Designed = styled.div`
   position: absolute;
   ${FlexCenterStyle};
+  z-index: 3;
 
   top: ${({ theme }) => widthConverter(0, theme)}px;
   left: ${({ theme }) => widthConverter(-19, theme)}px;
@@ -77,10 +78,10 @@ export const Developed = styled.div`
   ${FlexCenterStyle};
 
   top: ${({ theme }) => widthConverter(158, theme)}px;
-  left: ${({ theme }) => widthConverter(72, theme)}px;
+  left: ${({ theme }) => widthConverter(58, theme)}px;
   width: ${({ theme }) => widthConverter(323, theme)}px;
   height: ${({ theme }) => widthConverter(112, theme)}px;
-  font-size: ${({ theme }) => widthConverter(60, theme)}px;
+  font-size: ${({ theme }) => widthConverter(55, theme)}px;
   line-height: ${({ theme }) => widthConverter(60, theme)}px;
 
   transform: rotate(6.82deg);

@@ -171,6 +171,7 @@ function WriteMessage(props: any) {
               setGetImageState(false);
               setDataRetrivedStatus((st) => st + 1);
             }}
+            colorBlack={color.black || false}
           />
         )}
 

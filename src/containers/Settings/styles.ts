@@ -98,7 +98,7 @@ export const InputBox = styled.input`
 
 export const SaveButton = styled.div`
   cursor: pointer;
-  margin-top: 3rem;
+  margin-top: 2rem;
   height: 2rem;
   width: 7rem;
   background: #f7fdea;

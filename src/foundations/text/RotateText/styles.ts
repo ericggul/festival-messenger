@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
 
-export const RotateText = styled.div`
+interface FontColorType {
+  colorBlack: any;
+}
+
+export const RotateText = styled.div<FontColorType>`
   ${FlexCenterStyle};
   pointer-events: none;
-  color: #ddd !important;
+  color: #ddd;
   font-size: 1.33rem;
   font-weight: 900;
+
+  ${({ colorBlack }) => colorBlack && "color: black;"}
 `;
 
 interface SpanIdx {

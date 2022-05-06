@@ -15,7 +15,7 @@ import ImageEditPanel from "@F/writeMessage/addImage/ImageEditPanel";
 //analytics
 import { EventBehavior } from "@U/initializer/googleAnalytics";
 
-function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImageRespond }: any) {
+function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImageRespond, colorBlack }: any) {
   //Initial Image to save for reset
   const [initialImageFile, setInitialImageFile] = useState<any>(defaultImage || null);
   const [initialImage, setInitialImage] = useState<any>("");
@@ -134,7 +134,7 @@ function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImag
   return (
     <>
       {image === "" ? (
-        <BeforeInputImage onImageChange={onImageChange} deleteAddImageContainer={deleteAddImageContainer} />
+        <BeforeInputImage onImageChange={onImageChange} deleteAddImageContainer={deleteAddImageContainer} colorBlack={colorBlack} />
       ) : (
         <S.FatherContainer>
           <S.ImageContainer width={imgDim.width} height={imgDim.height}>
@@ -162,6 +162,7 @@ function AddImage({ defaultImage, deleteAddImageContainer, getImageState, onImag
                 setResizeModeOn(false);
               }}
               resizeComplete={onResizeComplete}
+              colorBlack={colorBlack}
             />
           )}
         </S.FatherContainer>

@@ -3,9 +3,12 @@ import * as S from "./styles";
 
 import { TEXT } from "./text";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@R/common/hooks";
 
 function LowerSection() {
   const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.users);
   return (
     <S.Container>
       <S.Header>작품 소개</S.Header>
@@ -15,7 +18,7 @@ function LowerSection() {
         ))}
         <S.Last>2022.05.05 최정윤</S.Last>
 
-        <S.Button onClick={() => navigate("/login")}>로그인하고 잊혔던 가치 되찾으러 가기</S.Button>
+        {!user.uid && <S.Button onClick={() => navigate("/login")}>로그인하고 잊혔던 가치 되찾으러 가기</S.Button>}
       </S.Main>
     </S.Container>
   );

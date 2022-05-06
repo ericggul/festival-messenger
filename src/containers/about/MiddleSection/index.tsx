@@ -72,7 +72,7 @@ function MiddleSection() {
         </Fade>
 
         <Bounce bottom duration={1000} delay={1000}>
-          <S.Developed>Developed</S.Developed>
+          <S.Developed>Programmed</S.Developed>
         </Bounce>
 
         <Fade duration={500} delay={1500}>
