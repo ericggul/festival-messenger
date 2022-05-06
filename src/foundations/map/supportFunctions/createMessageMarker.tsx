@@ -35,7 +35,7 @@ export default function createMessageMarker(chat: any, msg: any, user: any, hand
   el.appendChild(signifier);
 
   el.addEventListener("click", (ev: any) => {
-    EventBehavior("Map", "Message Read", "Message Read via Map");
+    EventBehavior("Map", "Read Message", "Message Read via Map");
     handleMessageClick(chat.chatId, msg.messageId);
     ev.stopPropagation();
   });

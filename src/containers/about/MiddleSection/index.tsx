@@ -20,28 +20,28 @@ function Contact() {
   return (
     <S.ContactContainer>
       <S.IconContainer>
-        <Fade duration={500} delay={2300}>
+        <Fade duration={500} delay={1900}>
           <S.AIcon>
             <a href="https://github.com/ericggul" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
               <FaGithub />
             </a>
           </S.AIcon>
         </Fade>
-        <Fade duration={500} delay={2400}>
+        <Fade duration={500} delay={2000}>
           <S.AIcon>
             <a href="https://www.linkedin.com/in/jeanyoonchoi/" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
               <FaLinkedin />
             </a>
           </S.AIcon>
         </Fade>
-        <Fade duration={500} delay={2500}>
+        <Fade duration={500} delay={2100}>
           <S.AIcon>
             <a href="https://laboratory-occupied.com" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
               <FaPalette />
             </a>
           </S.AIcon>
         </Fade>
-        <Fade duration={500} delay={2600}>
+        <Fade duration={500} delay={2200}>
           <S.AIcon>
             <a href="http://portfolio-jyc.org" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
               <CgWebsite />
@@ -49,7 +49,7 @@ function Contact() {
           </S.AIcon>
         </Fade>
       </S.IconContainer>
-      <Fade duration={500} delay={2800}>
+      <Fade duration={500} delay={2400}>
         <S.Text href={`mailto:ericggul@gmail.com`}>Email: ericggul@gmail.com</S.Text>
       </Fade>
     </S.ContactContainer>

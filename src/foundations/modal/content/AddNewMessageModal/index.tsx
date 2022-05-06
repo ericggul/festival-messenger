@@ -66,7 +66,11 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const navigate = useNavigate();
 
   const handleIconClick = (id: any, name: any, ev: any, uuid: any) => {
-    EventBehavior("Map", "Map Add Message Steps", "4. Selected Friend");
+    if (uuid == "unassignd" || id == -1) {
+      EventBehavior("Map", "Map Add Message Steps", "4-2. Selected Friend Not on the List");
+    } else {
+      EventBehavior("Map", "Map Add Message Steps", "4-1. Selected Friend On the List");
+    }
 
     ev.stopPropagation();
     navigate(`/writeMessage`, {
@@ -160,7 +164,11 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
                 <div>친구가 아직 페스티벌 메신저에 가입하지 않았을 경우,</div>
                 <div>위 친구 목록에 게시되지 않습니다.</div>
               </S.ExplText>
-              <S.OtherFriendsListHeader onClick={(e: any) => handleIconClick(-1, null, e, "unassigned")}>
+              <S.OtherFriendsListHeader
+                onClick={(e: any) => {
+                  handleIconClick(-1, null, e, "unassigned");
+                }}
+              >
                 <S.OtherFriendsListHeaderText>리스트에 없는 친구에게 보내기</S.OtherFriendsListHeaderText>
                 <S.SendIcon src={Send} />
               </S.OtherFriendsListHeader>

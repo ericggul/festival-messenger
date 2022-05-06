@@ -13,7 +13,7 @@ export const SingleRow = styled.div`
   position: relative;
 
   animation: ${AppearAnimation} 1s backwards;
-  animation-delay: 1s;
+  animation-delay: 0.3s;
 `;
 
 interface Length {

@@ -1,17 +1,32 @@
 import React, { useEffect } from "react";
 import * as S from "./styles";
 
-import useResize from "@U/hooks/useResize";
 import UpperSection from "@C/about/UpperSection";
 import MiddleSection from "@C/about/MiddleSection";
 import LowerSection from "@C/about/LowerSection";
+import ChukasaSection from "@C/about/ChukasaSection";
 
-import { debounce } from "@U/functions/timer";
+//preload images
+import Poster22Spring from "@I/poster/22spring.png";
+import Poster21Fall from "@I/poster/21fall.png";
+import Poster21Spring from "@I/poster/21spring.png";
+import Poster19Spring from "@I/poster/19spring.png";
+import Poster18Spring from "@I/poster/18spring.jpg";
+import Poster17Spring from "@I/poster/17spring.jpeg";
+import Poster19Fall from "@I/poster/19fall.png";
+import Poster18Fall from "@I/poster/18fall.jpeg";
+import Poster17Fall from "@I/poster/17fall.jpg";
+import Poster16Fall from "@I/poster/16fall.jpg";
+import preloadImage from "@U/functions/preload";
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
 
 function About() {
   useEffect(() => {
+    [Poster22Spring, Poster21Fall, Poster21Spring, Poster19Spring, Poster18Spring, Poster17Spring, Poster19Fall, Poster18Fall, Poster17Fall, Poster16Fall].forEach((image) => {
+      preloadImage(image);
+    });
+
     const app = new App();
     return () => app.destroy();
   }, []);
@@ -36,7 +51,10 @@ function About() {
       </S.Background>
       <UpperSection />
       <MiddleSection />
-      <LowerSection />
+      <S.LowerWrapper>
+        <LowerSection />
+        <ChukasaSection />
+      </S.LowerWrapper>
     </>
   );
 }

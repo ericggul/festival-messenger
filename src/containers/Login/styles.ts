@@ -21,11 +21,18 @@ export const Description = styled.div`
 
   text-align: center;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin: 2rem;
   h1 {
     margin: 0.3rem;
     padding: 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    margin: 0.2rem;
+    padding: 0;
+    font-size: 0.9rem;
+    color: black;
   }
 
   z-index: 5;

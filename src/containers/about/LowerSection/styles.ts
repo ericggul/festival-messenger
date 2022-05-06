@@ -2,9 +2,6 @@ import styled from "styled-components";
 import { FlexCenterStyle } from "@S/style/responsive/display";
 
 export const Container = styled.div`
-  top: 200vh;
-  left: 0;
-  position: absolute;
   width: ${({ theme }) => theme.windowWidth}px;
 
   background: black;
@@ -24,7 +21,7 @@ export const Main = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
   margin: 3rem 1rem;
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
 `;
 export const Paragraph = styled.div`
   width: 90%;
@@ -33,4 +30,11 @@ export const Paragraph = styled.div`
 
 export const Last = styled.div`
   margin: 1rem;
+`;
+
+export const Button = styled.div`
+  margin: 2rem 0;
+  padding: 0.3rem 1.5rem;
+  border: 1px dashed white;
+  border-radius: 1rem;
 `;

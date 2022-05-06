@@ -210,7 +210,7 @@ function Map(props: any) {
     if (!user.uid) {
       setCurrentChats([]);
       setAllLoaded(true);
-      navigate("/login");
+      // navigate("/login");
     } else {
       retriveChat();
     }

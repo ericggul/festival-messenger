@@ -13,7 +13,7 @@ import ReactCanvasConfetti from "react-canvas-confetti";
 import { useNavigate } from "react-router-dom";
 
 //Icons
-import Poster from "@I/poster/poster.png";
+import Poster from "@I/poster/22spring.png";
 import glsl from "babel-plugin-glsl/macro";
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;

@@ -8,6 +8,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import * as CS from "@S/style/common/errorPage";
 
+//helmet
+import { Helmet } from "react-helmet";
+
 function WriteMessage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +20,9 @@ function WriteMessage() {
   const [previewState, setPreviewState] = useState(false);
   return (
     <>
+      <Helmet>
+        <title>Write Message</title>
+      </Helmet>
       {state ? (
         <>
           {previewState ? (

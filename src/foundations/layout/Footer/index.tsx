@@ -68,9 +68,19 @@ function Footer({ currentLoc, color = `rgba(255, 255, 255, .6)` }: FooterProps) 
       <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </Helmet>
-      <IconContainer iconText="Messenger" currentLoc={currentLoc} />
+
+      {user.uid ? (
+        <>
+          <IconContainer iconText="Messenger" currentLoc={currentLoc} />
+          <IconContainer iconText="Map" currentLoc={currentLoc} />
+          <IconContainer currentLoc={currentLoc} iconText="Settings" />
+        </>
+      ) : (
+        <IconContainer currentLoc={currentLoc} iconText="Login" />
+      )}
+      {/* <IconContainer iconText="Messenger" currentLoc={currentLoc} />
       <IconContainer iconText="Map" currentLoc={currentLoc} />
-      {user.uid ? <IconContainer currentLoc={currentLoc} iconText="Settings" /> : <IconContainer currentLoc={currentLoc} iconText="Login" />}
+      {user.uid ? <IconContainer currentLoc={currentLoc} iconText="Settings" /> : <IconContainer currentLoc={currentLoc} iconText="Login" />} */}
     </S.FooterContainer>
   );
 }

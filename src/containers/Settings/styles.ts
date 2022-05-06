@@ -73,6 +73,7 @@ export const BackgroundImage = styled.div<ImageProps>`
   ${BackgroundCommon};
   background-image: url(${(props) => props.image});
   opacity: ${({ backgroundLoading }) => (backgroundLoading ? 0 : 1)};
+  transition: all 1s;
 `;
 
 export const InputBox = styled.input`

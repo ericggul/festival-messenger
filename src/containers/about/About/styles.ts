@@ -12,3 +12,9 @@ export const Background = styled.div`
   color: white;
   background: black;
 `;
+
+export const LowerWrapper = styled.div`
+  top: 200vh;
+  left: 0;
+  position: absolute;
+`;

@@ -7,9 +7,7 @@ import { useNavigate } from "react-router-dom";
 //hooks
 import { useAppDispatch } from "@R/common/hooks";
 
-//middleware
-import { fetchUserInformationWithoutUpdatingRedux } from "@R/users/middleware";
-
+import toast from "react-hot-toast";
 //Icons
 import BackIcon from "@I/icons/writeMessage/back_white.svg";
 
@@ -28,7 +26,7 @@ function HeaderUtils({ messageToSend, latLng, messageFromReads, navigationComing
 
   const handleShareClick = () => {
     navigator.clipboard.writeText(`https://festival-messenger.com/message/${chatId}/${messageId}`);
-    alert("메시지 링크가 복사되었습니다!");
+    toast("메시지 링크가 복사되었습니다!");
   };
 
   return (

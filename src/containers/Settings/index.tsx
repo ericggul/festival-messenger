@@ -98,9 +98,9 @@ function Settings(props: any) {
       <S.Container>
         {initialUI && (
           <S.ExplText>
-            <h1> 프로필 사진을 선택해주세요</h1>
-            <p>프로필 사진과 이름을</p>
-            <p>선택해주세요.</p>
+            <h1>프로필 사진을 선택해주세요</h1>
+            <p>기본 카카오톡 프로필은</p>
+            <p>화질이 낮을 수 있습니다.</p>
           </S.ExplText>
         )}
         {initialUI ? <InitialImageContainer image={image} setIsModalOpen={setIsModalOpen} /> : <DefaultImageContainer image={image} setIsModalOpen={setIsModalOpen} />}

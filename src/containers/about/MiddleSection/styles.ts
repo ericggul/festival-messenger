@@ -18,7 +18,7 @@ const widthConverter = (value: any, theme: any) => value * (Math.min(theme.windo
 export const TextContainer = styled.div`
   position: absolute;
   width: ${({ theme }) => Math.min(theme.windowWidth, 500)}px;
-  top: ${({ theme }) => theme.windowHeight / 2 - Math.min(theme.windowWidth, 500) * 0.65}px;
+  top: calc(40vh - ${({ theme }) => Math.min(theme.windowWidth, 500) * 0.65}px);
 `;
 
 export const Designed = styled.div`
@@ -121,7 +121,7 @@ export const ContactContainer = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
   position: absolute;
-  bottom: 95px;
+  bottom: calc(10vh + 85px);
 `;
 
 export const Text = styled.a`

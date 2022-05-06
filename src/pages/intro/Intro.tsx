@@ -22,7 +22,7 @@ export default function Intro() {
     if (user.uid && !userLoading) {
       navigate("/map");
     } else if (!userLoading) {
-      navigate("/login");
+      navigate("/about");
     } else {
       const timeout = setTimeout(() => {
         if (window.confirm("로그인이 예상보다 오래 걸리고 있습니다. 다시 로그인을 시도해 보시겠습니까?")) {
@@ -46,7 +46,10 @@ export default function Intro() {
           <LoadingContainer />
         ) : (
           <ES.Container>
-            <ES.Text>이 페이지에는 별게 없어요!!</ES.Text>
+            <ES.Text>
+              <p>버들골에서만 읽을 수 있는 시크릿 메신저</p>
+              <p>페스티벌 메신저에 오신 것을 환영합니다.</p>
+            </ES.Text>
             <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>
           </ES.Container>
         )}

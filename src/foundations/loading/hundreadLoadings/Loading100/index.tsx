@@ -7,7 +7,7 @@ import { Canvas, extend, useFrame, useLoader } from "@react-three/fiber";
 import { shaderMaterial } from "@react-three/drei";
 
 //Icons
-import Poster from "@I/poster/poster.png";
+import Poster from "@I/poster/22spring.png";
 import glsl from "babel-plugin-glsl/macro";
 
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;

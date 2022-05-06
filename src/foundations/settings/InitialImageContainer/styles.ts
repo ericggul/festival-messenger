@@ -39,10 +39,16 @@ export const Change = styled.img`
   height: 60%;
 `;
 
-export const Image = styled.img`
+interface ImgFace {
+  imgLoaded: boolean;
+}
+export const Image = styled.img<ImgFace>`
   border-radius: 50%;
   width: 100%;
   height: 100%;
   object-fit: cover;
   box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.15);
+
+  opacity: ${({ imgLoaded }) => (imgLoaded ? 1 : 0)};
+  transtion: opacity 0.5s;
 `;
