@@ -31,7 +31,7 @@ export const SubContainer = styled.div`
   flex-direction: column;
 
   animation: ${AppearAnimation} 1s backwards;
-  animation-delay: 5s;
+  animation-delay: 3s;
 
   p {
     margin: 0.3rem 0;

@@ -69,6 +69,7 @@ export const ImageContainer = styled.div`
   margin-bottom: 1rem;
   position: relative;
   transition: all 0.3s;
+  z-index: ${({ theme }) => theme.zIndex.modalContent + 1};
 `;
 
 export const HiddenImg = styled.img`
@@ -90,7 +91,7 @@ export const Image = styled.img`
 
   @keyframes imageChange {
     from {
-      transform: rotateY(180deg);
+      transform: rotateZ(180deg);
     }
     to {
       transform: rotateY(0);
@@ -123,4 +124,6 @@ export const FollowInstagram = styled.div`
   margin: 0;
   padding: 0;
   margin-bottom: 2rem;
+
+  border: 0px solid transparent;
 `;

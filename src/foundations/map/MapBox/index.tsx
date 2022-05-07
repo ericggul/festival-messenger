@@ -202,7 +202,7 @@ function MapBox({
 
   //New Marker on message Click
 
-  const [newMarkerLatLng, setNewMarkerLatLng] = useState<any>({ lat: getRandom(37.4577268, 37.45894), lng: getRandom(126.9555, 126.95619) });
+  const [newMarkerLatLng, setNewMarkerLatLng] = useState<any>(null);
   const [newMarker, setNewMarker] = useState<any>(null);
 
   //Add new marker on click

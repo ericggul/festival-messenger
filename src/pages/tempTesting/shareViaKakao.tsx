@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import WriteMessage from "@C/writeMessage/WriteMessage";
+import SVK from "@F/transitoryPages/ShareViaKakao";
 
 export default function Loading() {
-  return <WriteMessage />;
+  return <SVK />;
 }

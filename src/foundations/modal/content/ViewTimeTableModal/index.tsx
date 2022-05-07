@@ -59,7 +59,7 @@ function ViewTimeTableModal({ setIsModalOpen }: any) {
             <S.Follow>
               <S.FollowText>Follow Chukasa for latest news</S.FollowText>
               <S.FollowInstagram>
-                <a href="https://www.instagram.com/snufestival/" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none" }}>
+                <a href="https://www.instagram.com/snufestival/" target="_blank" rel="noreferrer" style={{ color: "white", textDecoration: "none", outline: "0", border: "0px solid transparent" }}>
                   <FaInstagram />
                 </a>
               </S.FollowInstagram>

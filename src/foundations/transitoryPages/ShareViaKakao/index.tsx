@@ -17,13 +17,13 @@ const ShareViaKakao = ({ onClick }: any) => {
   const [number, setNumber] = useState(52);
   const [show, setShow] = useState(false);
 
-  useDisminishingInterval(() => setNumber((n) => n + 1), 10, 0.2, 47);
+  useDisminishingInterval(() => setNumber((n) => n + 1), 10, 0.1, 47);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setNumber((n) => n + 1);
       setShow(true);
-    }, 5200);
+    }, 2500);
     return () => clearTimeout(timeout);
   }, []);
 

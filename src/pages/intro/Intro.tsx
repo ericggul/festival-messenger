@@ -29,7 +29,7 @@ export default function Intro() {
           navigate("/login");
           dispatch(actions.setLoading(false));
         }
-      }, 60000);
+      }, 15000);
       return () => clearTimeout(timeout);
     }
   }, [user, userLoading]);
