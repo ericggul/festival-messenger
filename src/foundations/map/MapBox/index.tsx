@@ -216,9 +216,17 @@ function MapBox({
   }, [mapRef]);
 
   //on new marker change, set new marker
+
+  useEffect(() => {
+    if (messageSendMode) {
+      setNewMarkerLatLng(null);
+    }
+  }, [messageSendMode]);
+
   useEffect(() => {
     if (newMarkerLatLng !== null) {
       let pointInside = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], POLYGON);
+
       if (!pointInside || !messageSendMode) {
         //when video is selected
         let pointVideo = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], VIDEO_POLYGON);
@@ -261,7 +269,7 @@ function MapBox({
 
       setNewMarker(new mapboxgl.Marker(el).setLngLat(newMarkerLatLng).addTo(mapRef.current));
     }
-  }, [newMarkerLatLng, messageSendMode]);
+  }, [newMarkerLatLng]);
 
   //Delete New Marker if messagesendmode is false
   useEffect(() => {

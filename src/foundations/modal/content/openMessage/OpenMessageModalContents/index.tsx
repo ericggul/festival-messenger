@@ -90,7 +90,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
                 <S.AlmostAccessible>
                   {" "}
                   <p>메시지까지 {Math.round(messageDistance)}m</p>
-                  <p>50m내에서 열람 가능합니다.</p>
+                  <p>100m내에서 열람 가능합니다.</p>
                 </S.AlmostAccessible>
               )}
             </>

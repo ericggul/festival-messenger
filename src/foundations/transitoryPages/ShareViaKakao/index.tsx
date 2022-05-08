@@ -48,7 +48,7 @@ const ShareViaKakao = ({ onClick }: any) => {
       <S.SubContainer>
         <p>많은 메시지는 그저 숫자에 불과하지만</p>
         <p>어떤 메시지는 숫자 그 이상의 가치를 가집니다.</p>
-        <p>아이콘을 클릭해서 친구에게</p>
+        <p>카카오톡 아이콘을 클릭해서 친구에게</p>
         <p>소중한 메시지를 전달하세요.</p>
       </S.SubContainer>
     </S.Container>
