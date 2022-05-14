@@ -24,8 +24,19 @@ export const Container = styled.div<Show>`
   animation-delay: 0.5s;
 `;
 
+export const UpperContainer = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
+  margin-bottom: 4rem;
+
+  p {
+    margin: 0.3rem 0;
+    padding: 0;
+    font-size: 1.5rem;
+  }
+`;
 export const SubContainer = styled.div`
-  margin-top: 5rem;
+  margin-top: 3rem;
 
   ${FlexCenterStyle};
   flex-direction: column;

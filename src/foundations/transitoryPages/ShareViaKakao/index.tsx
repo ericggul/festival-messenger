@@ -40,6 +40,11 @@ const ShareViaKakao = ({ onClick }: any) => {
         <S.Icon src={Cross} />
         <S.Text>Exit</S.Text>
       </S.Back>
+
+      <S.UpperContainer>
+        <p>카카오톡 아이콘을 클릭해</p>
+        <p>메시지 링크를 공유하세요.</p>
+      </S.UpperContainer>
       <S.ImgContainer>
         <S.Img src={Kakao} show={show} />
         <S.Number show={show}>{number}</S.Number>

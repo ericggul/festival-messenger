@@ -13,7 +13,7 @@ export const MainText = styled.div`
 
 export const MainTextInput = styled.textarea.attrs({
   spellCheck: "false",
-  rows: 15,
+  rows: 8,
 })<IsTextBlack>`
   outline: 0;
   width: ${({ theme }) => Math.min(theme.windowWidth, theme.windowHeight) * 0.8}px;

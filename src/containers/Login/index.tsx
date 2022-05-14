@@ -17,7 +17,7 @@ function LoginContainer(props: any) {
       </Helmet>
       <S.Container onClick={signIn}>
         <LoginBackground />
-
+        <S.Description>5초만에 로그인</S.Description>
         <S.Button>카카오톡으로 로그인</S.Button>
       </S.Container>
     </>

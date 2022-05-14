@@ -240,7 +240,7 @@ function Map(props: any) {
   useEffect(() => {
     if (chatsRetrived) {
       //if user has no chat, automatically popup guidance
-      if (currentChats.length === 0) {
+      if (currentChats.length < 2) {
         setFocusAddMessageButton(true);
       }
 

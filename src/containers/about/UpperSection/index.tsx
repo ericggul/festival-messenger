@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from "react";
 import * as S from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@R/common/hooks";
+import useAuth from "@U/hooks/useAuth";
 
 const Fade = require("react-reveal/Fade");
 
@@ -11,6 +12,8 @@ export default function UpperSection() {
 
   const navigate = useNavigate();
 
+  const { signIn } = useAuth("/settings");
+
   const handleClick = useCallback(() => {
     if (user.uid) {
       navigate("/map", {
@@ -19,7 +22,8 @@ export default function UpperSection() {
         },
       });
     } else {
-      navigate("/login");
+      alert("메시지를 작성하기 위해서는 카카오톡 로그인이 필요합니다!");
+      signIn();
     }
   }, [user]);
 

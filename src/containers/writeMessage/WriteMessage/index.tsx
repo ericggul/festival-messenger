@@ -30,6 +30,7 @@ const Complete = ({ completeCommand }: any) => {
 
 function WriteMessage(props: any) {
   useEffect(() => {
+    toast("상단 바에서 색, 배경음악, 폰트를 변경해주세요.");
     EventBehavior("Write Message", "Message Writing Phase", "Started to write message");
   }, []);
   //check if there's stored data
@@ -78,7 +79,7 @@ function WriteMessage(props: any) {
   const [getImageState, setGetImageState] = useState(false);
 
   //name, mainText and Image
-  const [name, setName] = useState(preview.toName || props?.name || "");
+  const [name, setName] = useState(props?.name || preview.toName || "");
   const [mainText, setMainText] = useState(preview.mainText || "");
   const [imageFile, setImageFile] = useState<any>(props.imageFile || null);
 
@@ -92,6 +93,7 @@ function WriteMessage(props: any) {
     if (displayAddImage) {
       setGetImageState(true);
     } else {
+      setDataRetrivedStatus((st) => st + 1);
       setImageFile(null);
     }
   };

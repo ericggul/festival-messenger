@@ -9,7 +9,7 @@ export default function useDistanceAvailability(currPos: any, user: any, message
 
   useEffect(() => {
     //when distance fulfilled
-    if (distance < 100) {
+    if (distance < 120) {
       setMessageAvailable(true);
     } //when message is already read
     else if (message && message.read) {

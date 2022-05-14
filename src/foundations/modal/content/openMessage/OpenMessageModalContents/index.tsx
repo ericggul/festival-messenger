@@ -27,7 +27,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
   //get delta time of message
   const time = useMemo(() => {
     const hours = Math.ceil((Date.now() / 1000 - message.createdAt.seconds) / (60 * 60));
-    return hours >= 24 ? `${Math.floor(hours / 24)}일전` : `${hours}시간전`;
+    return `${hours}시간전`;
   }, [message.createdAt]);
 
   //get user from information
@@ -71,7 +71,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
         </S.Header>
         <S.Profile src={fromProfile} />
         <S.ContentsPreview>
-          <S.BodyText>{message.mainText.replaceAll("\\n", "\n").slice(0, Math.min(Math.floor(message.mainText.length * 0.3), 30))}...</S.BodyText>
+          <S.BodyText>{message.mainText.replaceAll("\\n", "\n").slice(0, Math.min(Math.floor(message.mainText.length * 0.2), 8))}...</S.BodyText>
         </S.ContentsPreview>
 
         <S.ButtonContainer>
@@ -90,7 +90,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
                 <S.AlmostAccessible>
                   {" "}
                   <p>메시지까지 {Math.round(messageDistance)}m</p>
-                  <p>100m내에서 열람 가능합니다.</p>
+                  <p>120m내에서 열람 가능합니다.</p>
                 </S.AlmostAccessible>
               )}
             </>

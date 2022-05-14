@@ -38,6 +38,7 @@ import { EventBehavior } from "@U/initializer/googleAnalytics";
 
 function PreviewMessage({ moveBackToWriteMode, imageFile, musicFile }: any) {
   useEffect(() => {
+    toast("메시지 미리보기! 전송하기를 누르면 메시지가 전송됩니다.");
     EventBehavior("Write Message", "Message Preview Phase", "Started to preview message");
   }, []);
   const preview = useAppSelector((state) => state.singleMessagePreview);

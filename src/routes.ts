@@ -10,6 +10,8 @@ const Message = lazy(() => import("@/pages/message"));
 const WriteMessage = lazy(() => import("@/pages/writeMessage"));
 
 const About = lazy(() => import("@/pages/about"));
+const SVK = lazy(() => import("@/pages/tempTesting/shareViaKakao"));
+const Writing = lazy(() => import("@/pages/tempTesting/writing"));
 
 const routes = [
   {
@@ -47,6 +49,14 @@ const routes = [
   {
     path: "/writeMessage",
     component: WriteMessage,
+  },
+  {
+    path: "/svk",
+    component: SVK,
+  },
+  {
+    path: "/writing",
+    component: Writing,
   },
 ];
 

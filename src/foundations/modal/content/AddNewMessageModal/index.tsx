@@ -71,8 +71,10 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
     } else {
       EventBehavior("Map", "Map Add Message Steps", "4-1. Selected Friend On the List");
     }
+    if (ev) {
+      ev.stopPropagation();
+    }
 
-    ev.stopPropagation();
     navigate(`/writeMessage`, {
       state: {
         id,
@@ -89,7 +91,14 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
   const [loadingForLogin, setLoadingForLogin] = useState(false);
 
   //friends
+  const [goneThroughKakaoAPI, setGoneThroughKakaoAPI] = useState(false);
   const [friends, setFriends] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (goneThroughKakaoAPI && friends.length === 0) {
+      handleIconClick(-1, null, null, "unassigned");
+    }
+  }, [friends, goneThroughKakaoAPI]);
 
   const kakaoApiBringFriends = async (offset: any) => {
     await window.Kakao.API.request({
@@ -104,6 +113,7 @@ function AddNewMessageModal({ setIsModalOpen, latLng }: any) {
           kakaoApiBringFriends(offset + 10);
         }
         setFriends((friends) => [...friends, ...res.elements]);
+        setGoneThroughKakaoAPI(true);
       },
       fail: (err: any) => {
         alert("재로그인이 필요합니다!");
