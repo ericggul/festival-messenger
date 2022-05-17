@@ -17,7 +17,6 @@ import toast from "react-hot-toast";
 
 //libraries
 import SunCalc from "suncalc";
-import pointInPolygon from "point-in-polygon";
 
 //hooks
 import useGeoLocation from "@U/hooks/useGeoLocation";
@@ -41,22 +40,6 @@ import { useNavigate } from "react-router-dom";
 
 const getRandomFromArray = (array: any[]) => array[Math.floor(Math.random() * array.length)];
 const getRandom = (a: number, b: number) => Math.random() * (b - a) + a;
-const POLYGON = [
-  [126.9567311, 37.4603392],
-  [126.9548643, 37.4583549],
-  [126.9555885, 37.4566431],
-  [126.9564629, 37.4575501],
-  [126.9571817, 37.459577],
-  [126.9567311, 37.4603392],
-];
-
-const VIDEO_POLYGON = [
-  [360 - 233.0251662, 37.4600416],
-  [360 - 233.0380374, 37.4424334],
-  [360 - 233.0472199, 37.4471384],
-  [360 - 233.0345621, 37.4640778],
-  [360 - 233.0251662, 37.4600416],
-];
 
 function MapBox({
   //modal related
@@ -81,9 +64,11 @@ function MapBox({
   const mapRef = useRef<any>(!null);
   const mapContainerRef = useRef<any>(!null);
 
+  const { pos: currentPos, permittedStatus: currentPosPermittedStatus } = useGeoLocation(user && user.uid ? true : false);
+
   const INITIAL_POS = { lat: 37.45843, lng: 126.95597 };
   const [displayMap, setDisplayMap] = useState(false);
-  const [pos, setPos] = useState(INITIAL_POS);
+  const [pos, setPos] = useState(currentPos && currentPos.lat ? currentPos : INITIAL_POS);
   const [zoom, setZoom] = useState(zoomIn ? 12 : 18);
 
   const [windowWidth, windowHeight] = useResize();
@@ -105,10 +90,6 @@ function MapBox({
       };
     }
   }, [mapContainerRef]);
-
-  //go to current position related
-
-  const { pos: currentPos, permittedStatus: currentPosPermittedStatus } = useGeoLocation(user && user.uid ? true : false);
 
   useEffect(() => {
     if (goToCurrentPosition) {
@@ -224,26 +205,7 @@ function MapBox({
   }, [messageSendMode]);
 
   useEffect(() => {
-    if (newMarkerLatLng !== null) {
-      let pointInside = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], POLYGON);
-
-      if (!pointInside || !messageSendMode) {
-        //when video is selected
-        let pointVideo = pointInPolygon([newMarkerLatLng.lng, newMarkerLatLng.lat], VIDEO_POLYGON);
-
-        if (pointVideo) {
-          //handle video click
-          EventBehavior("Map", "Add Pin", "Video Clicked");
-          handleVideoClick();
-          return;
-        } else if (messageSendMode) {
-          EventBehavior("Map", "Add Pin", "Pin to place outside");
-          toast("버들골 외부에는 메시지를 전송할 수 없습니다!");
-          return;
-        }
-        return;
-      }
-
+    if (newMarkerLatLng !== null && messageSendMode) {
       EventBehavior("Map", "Add Pin", "Pin to place inside");
       if (newMarker !== null) {
         newMarker.remove();
@@ -269,7 +231,7 @@ function MapBox({
 
       setNewMarker(new mapboxgl.Marker(el).setLngLat(newMarkerLatLng).addTo(mapRef.current));
     }
-  }, [newMarkerLatLng]);
+  }, [newMarkerLatLng, messageSendMode]);
 
   //Delete New Marker if messagesendmode is false
   useEffect(() => {

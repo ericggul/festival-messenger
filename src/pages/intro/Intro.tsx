@@ -47,7 +47,7 @@ export default function Intro() {
         ) : (
           <ES.Container>
             <ES.Text>
-              <p>버들골에서만 읽을 수 있는 시크릿 메신저</p>
+              <p>지정된 장소에서만 읽을 수 있는 시크릿 메신저</p>
               <p>페스티벌 메신저에 오신 것을 환영합니다.</p>
             </ES.Text>
             <ES.ToMainButton onClick={() => navigate("/map")}>메인으로 가기</ES.ToMainButton>

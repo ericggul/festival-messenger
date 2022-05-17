@@ -35,7 +35,7 @@ export default function UpperSection() {
           <S.Text delay={0.5}>보낼 수 있지만</S.Text>
         </S.SingleClause>
         <S.SingleClause>
-          <S.Header delay={1}>버들골에서만</S.Header>
+          <S.Header delay={1}>지정된 장소에서만</S.Header>
           <S.Text delay={1.5}>읽을 수 있는 네 마음</S.Text>
         </S.SingleClause>
         <S.SingleClause>
