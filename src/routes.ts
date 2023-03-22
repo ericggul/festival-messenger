@@ -13,6 +13,9 @@ const About = lazy(() => import("@/pages/about"));
 const SVK = lazy(() => import("@/pages/tempTesting/shareViaKakao"));
 const Writing = lazy(() => import("@/pages/tempTesting/writing"));
 
+//Aligo
+const Aglio = lazy(() => import("@/pages/aglio/Aglio"));
+
 //loading
 const Loading = lazy(() => import("@/pages/loading/Loading"));
 
@@ -20,6 +23,10 @@ const routes = [
   {
     path: "/",
     component: Intro,
+  },
+  {
+    path: "/aglio",
+    component: Aglio,
   },
   {
     path: "/about",

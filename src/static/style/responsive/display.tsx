@@ -6,6 +6,16 @@ export const FlexCenterStyle = css`
   align-items: center;
 `;
 
+export const WholeContainer = css`
+  width: ${({ theme }) => theme.windowWidth}px;
+  height: ${({ theme }) => theme.windowHeight}px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  touch-action: pan-x pan-y;
+  overflow: hidden;
+`;
+
 export const AppearAnimation = keyframes`
     from{ 
         opacity: 0;
