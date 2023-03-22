@@ -83,7 +83,7 @@ function OpenMessageModalContents({ message, pos, chatId, messageId }: any) {
               {messageDistance > 1000 ? (
                 <S.NotAccessible color={message.color}>
                   {" "}
-                  <p>메시지는 지정된 장소 내에서만 열람할 수 있습니다.</p>
+                  <p>메시지는 발신자가 설정한 내에서만 열람할 수 있습니다.</p>
                   <p>핀이 찍힌 위치 가까이로 가주세요.</p>
                 </S.NotAccessible>
               ) : (

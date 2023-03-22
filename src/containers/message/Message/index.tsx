@@ -144,7 +144,7 @@ function Message({ chatId, messageId, navigationComingFrom = "map" }: any) {
           ) : (
             <>
               <ES.Text>
-                <p>메시지는 지정된 장소 내 핀 근처에서만 열람할 수 있습니다.</p>
+                <p>메시지는 발신자가 설정한 핀 근처에서만 열람할 수 있습니다.</p>
                 <p>핀이 찍힌 위치로 가서 메시지를 다시 열람해주세요.</p>
               </ES.Text>
               <ES.ToMainButton onClick={() => navigate(`/${navigationComingFrom}`)}>{navigationComingFrom === "messenger" ? "메신저로" : "메인으로"} 가기</ES.ToMainButton>

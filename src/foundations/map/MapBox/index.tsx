@@ -64,11 +64,19 @@ function MapBox({
   const mapRef = useRef<any>(!null);
   const mapContainerRef = useRef<any>(!null);
 
-  const { pos: currentPos, permittedStatus: currentPosPermittedStatus } = useGeoLocation(user && user.uid ? true : false);
+  const { pos: currentPos, permittedStatus: currentPosPermittedStatus } = useGeoLocation(true);
 
   const INITIAL_POS = { lat: 37.45843, lng: 126.95597 };
   const [displayMap, setDisplayMap] = useState(false);
   const [pos, setPos] = useState(currentPos && currentPos.lat ? currentPos : INITIAL_POS);
+
+  useEffect(() => {
+    if (currentPos && currentPos.lat) {
+      setPos(currentPos);
+      mapZoom(true);
+    }
+  }, [currentPos]);
+
   const [zoom, setZoom] = useState(zoomIn ? 12 : 18);
 
   const [windowWidth, windowHeight] = useResize();
@@ -279,9 +287,9 @@ function MapBox({
 
   async function mapZoom(zoomBoolean: any) {
     if (mapRef.current && typeof mapRef.current == "object") {
-      if (zoomBoolean) {
+      if (zoomBoolean && currentPos && currentPos.lat) {
         mapRef.current.flyTo({
-          center: [INITIAL_POS.lng, INITIAL_POS.lat],
+          center: [currentPos.lng, currentPos.lat],
           zoom: 18,
           bearing: 180,
           speed: 1.5,

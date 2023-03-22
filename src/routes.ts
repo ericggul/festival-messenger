@@ -13,6 +13,9 @@ const About = lazy(() => import("@/pages/about"));
 const SVK = lazy(() => import("@/pages/tempTesting/shareViaKakao"));
 const Writing = lazy(() => import("@/pages/tempTesting/writing"));
 
+//loading
+const Loading = lazy(() => import("@/pages/loading/Loading"));
+
 const routes = [
   {
     path: "/",
@@ -57,6 +60,10 @@ const routes = [
   {
     path: "/writing",
     component: Writing,
+  },
+  {
+    path: "/loading",
+    component: Loading,
   },
 ];
 

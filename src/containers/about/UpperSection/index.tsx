@@ -31,12 +31,12 @@ export default function UpperSection() {
     <S.Container>
       <S.UpperPart onClick={handleClick}>
         <S.SingleClause>
-          <S.Header delay={0}>어디서든</S.Header>
-          <S.Text delay={0.5}>보낼 수 있지만</S.Text>
+          <S.Header delay={0}>보낸사람이</S.Header>
+          <S.Text delay={0.5}>지정한 장소 에서만</S.Text>
         </S.SingleClause>
         <S.SingleClause>
-          <S.Header delay={1}>지정된 장소에서만</S.Header>
-          <S.Text delay={1.5}>읽을 수 있는 네 마음</S.Text>
+          <S.Header delay={1}>읽어 볼 수 있는</S.Header>
+          <S.Text delay={1.5}>GPS기반 메신저</S.Text>
         </S.SingleClause>
         <S.SingleClause>
           <S.Header delay={2}>페스티벌 메신저</S.Header>

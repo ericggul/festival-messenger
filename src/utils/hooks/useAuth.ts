@@ -48,6 +48,8 @@ async function getUserInfo(dispatch: any, derivedUser: any, navigate: any, user:
     const userInfo = await dispatch(fetchUserInformationWithoutUpdatingRedux(derivedUser.uid));
     const landingUrl = user.landingUrl || "/settings";
 
+    console.log(userInfo);
+
     if (!userInfo.payload) {
       console.log("new user!");
       window.Kakao.API.request({
@@ -157,6 +159,7 @@ const useAuth = (navigateTo?: any) => {
 
       toast("로그인 중!");
       let kakaoAuth = httpsCallable(functions, "kakaoAuth");
+      console.log(kakaoAuth);
       kakaoAuth({ code: authorizeCodeFromKakao })
         .then((result: any) => {
           let kakaoToken = result.data.kakao_token;
