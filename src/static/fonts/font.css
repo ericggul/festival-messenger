@@ -1,4 +1,15 @@
 @font-face {
+  font-family: "Noto Sans KR";
+  src: url("./Noto_Sans_KR/NotoSansKR-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("./Noto_Sans_KR/NotoSansKR-Bold.otf") format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
   font-family: "Seoul Namsan";
   src: url("./SeoulNamsanM.ttf") format("Truetype"), url("./SeoulNamsanM.woff2") format("woff2"), url("./SeoulNamsanM.woff") format("woff");
 }
@@ -59,17 +70,6 @@
 @font-face {
   font-family: "Nanum Pen Script";
   src: url("./Nanum_Pen_Script/NanumPenScript-Regular.ttf") format("Truetype");
-}
-
-@font-face {
-  font-family: "Noto Sans KR";
-  src: url("./Noto_Sans_KR/NotoSansKR-Regular.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "Noto Sans KR";
-  src: url("./Noto_Sans_KR/NotoSansKR-Bold.otf") format("opentype");
-  font-weight: bold;
 }
 
 @font-face {

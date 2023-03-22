@@ -6,7 +6,7 @@ import preloadImage from "@U/functions/preload";
 import { DATA } from "./data";
 import Rio from "@I/aglio/result.png";
 
-export default function Aglio() {
+export default function Aglio({ handleNext }: any) {
   const [questionIdx, setQuestionIdx] = useState(0);
   const [answerArchive, setAnswerArchive] = useState<any[]>([]);
   const [nextMode, setNextMode] = useState(true);
@@ -22,9 +22,13 @@ export default function Aglio() {
 
   useEffect(() => {
     setNextMode(false);
-    if (questionIdx === 12) {
-    }
   }, [questionIdx]);
+
+  useEffect(() => {
+    if (questionIdx === 12) {
+      handleNext(answerArchive);
+    }
+  }, [questionIdx, answerArchive]);
 
   return (
     <S.Container>

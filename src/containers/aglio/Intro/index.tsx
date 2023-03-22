@@ -19,7 +19,7 @@ import ISFP from "@I/aglio/16-types/ISFP.png";
 import ISTJ from "@I/aglio/16-types/ISTJ.png";
 import ISTP from "@I/aglio/16-types/ISTP.png";
 
-export default function Aglio() {
+export default function Aglio({ handleNext }: any) {
   const randomIdx = useMemo(() => Math.floor(Math.random() * 16), []);
 
   return (
@@ -42,7 +42,7 @@ export default function Aglio() {
         </S.ImageContainer>
 
         <S.Text>나는 어떤 리오일까?</S.Text>
-        <S.Button>시작하기</S.Button>
+        <S.Button onClick={handleNext}>시작하기</S.Button>
       </S.Inner>
     </S.Container>
   );

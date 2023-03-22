@@ -31,17 +31,18 @@ export const Contents = styled.div`
 export const NameContainer = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  margin-top: 5vh;
+  margin-top: ${({ theme }) => 0.05 * theme.windowHeight}px;
 `;
 export const PreName = styled.div`
-  max-width: 65%;
-  font-size: 1.7vh;
+  max-width: 75%;
+  min-height: ${({ theme }) => 0.035 * theme.windowHeight}px;
+  font-size: ${({ theme }) => 0.017 * theme.windowHeight}px;
   text-align: center;
   ${FlexCenterStyle};
-  margin-bottom: 1.3vh;
+  margin-bottom: ${({ theme }) => 0.013 * theme.windowHeight}px;
 `;
 export const Name = styled.div`
-  font-size: 3vh;
+  font-size: ${({ theme }) => 0.03 * theme.windowHeight}px;
   text-align: center;
   font-weight: bold;
 
@@ -50,7 +51,7 @@ export const Name = styled.div`
   }
 `;
 export const ImageContainer = styled.div`
-  width: 32vh;
+  width: ${({ theme }) => 0.32 * theme.windowHeight}px;
   ${FlexCenterStyle};
 
   img {
@@ -62,13 +63,13 @@ export const Description = styled.div`
   flex-direction: column;
   max-width: 90%;
   text-align: center;
-  font-size: 1.45vh;
+  font-size: ${({ theme }) => 0.0145 * theme.windowHeight}px;
   font-weight: lighter;
 
-  min-height: 30vh;
+  min-height: ${({ theme }) => 0.3 * theme.windowHeight}px;
 
   p {
-    margin: 0.2vh 0;
+    margin: ${({ theme }) => 0.002 * theme.windowHeight}px 0;
   }
 `;
 
@@ -77,21 +78,21 @@ export const MatchContainer = styled.div`
 `;
 
 export const Match = styled.div`
-  width: calc(min(35vw, 30vh));
-  height: 8vh;
-  margin: 4vh calc(min(4vw, 5vh));
+  width: calc(min(35vw, ${({ theme }) => 0.3 * theme.windowHeight}px));
+  height: ${({ theme }) => 0.08 * theme.windowHeight}px;
+  margin: ${({ theme }) => 0.04 * theme.windowHeight}px calc(min(4vw, ${({ theme }) => 0.05 * theme.windowHeight}px));
   background: #ffd55f;
 
   ${FlexCenterStyle};
   flex-direction: column;
 `;
 export const MatchUpper = styled.div`
-  font-size: 1.45vh;
+  font-size: ${({ theme }) => 0.0145 * theme.windowHeight}px;
   text-align: center;
   ${FlexCenterStyle};
 `;
 export const MatchLower = styled.div`
-  font-size: 1.8vh;
+  font-size: ${({ theme }) => 0.018 * theme.windowHeight}px;
   font-weight: bold;
   text-align: center;
   ${FlexCenterStyle};
@@ -99,8 +100,8 @@ export const MatchLower = styled.div`
 
 ////////
 export const ChukasaContainer = styled.div`
-  margin-top: 5vh;
-  width: calc(min(45vw, 30vh));
+  margin-top: ${({ theme }) => 0.05 * theme.windowHeight}px;
+  width: calc(min(45vw, ${({ theme }) => 0.3 * theme.windowHeight}px));
   ${FlexCenterStyle};
 
   img {
@@ -110,45 +111,45 @@ export const ChukasaContainer = styled.div`
 export const ChukasaExpl = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  margin: 1vh 0;
+  margin: ${({ theme }) => 0.01 * theme.windowHeight}px 0;
 
   h1 {
-    margin: -0.1vh 0;
-    font-size: 2.5vh;
+    margin: ${({ theme }) => -0.001 * theme.windowHeight}px 0;
+    font-size: ${({ theme }) => 0.025 * theme.windowHeight}px;
   }
   h2 {
-    font-size: 2.2vh;
-    margin: 0.3vh 0;
-    margin-bottom: 1vh;
+    font-size: ${({ theme }) => 0.022 * theme.windowHeight}px;
+    margin: ${({ theme }) => 0.003 * theme.windowHeight}px 0;
+    margin-bottom: ${({ theme }) => 0.01 * theme.windowHeight}px;
   }
 `;
 export const ShareContainer = styled.div`
   ${FlexCenterStyle};
-  margin: 3vh 0;
-  margin-top: 5vh;
+  margin: ${({ theme }) => 0.03 * theme.windowHeight}px 0;
+  margin-top: ${({ theme }) => 0.05 * theme.windowHeight}px;
 `;
 export const SingleShare = styled.div`
-  width: calc(min(22vw, 15vh));
-  margin: 0 calc(min(2.2vw, 1.5vh));
-  height: 11vh;
+  width: calc(min(22vw, ${({ theme }) => 0.15 * theme.windowHeight}px));
+  margin: 0 calc(min(2.2vw, ${({ theme }) => 0.015 * theme.windowHeight}px));
+  height: ${({ theme }) => 0.11 * theme.windowHeight}px;
   ${FlexCenterStyle};
   flex-direction: column;
   background: #ffefc7;
 `;
 export const Text = styled.div`
-  font-size: 1.2vh;
+  font-size: ${({ theme }) => 0.012 * theme.windowHeight}px;
   text-align: center;
 `;
 export const Image = styled.div`
   ${FlexCenterStyle};
   text-align: center;
   color: black;
-  font-size: 5vh;
-  margin-top: 1vh;
+  font-size: ${({ theme }) => 0.05 * theme.windowHeight}px;
+  margin-top: ${({ theme }) => 0.01 * theme.windowHeight}px;
 `;
 
 export const ResultContainer = styled.div`
-  width: calc(min(30vw, 40vh));
+  width: calc(min(30vw, ${({ theme }) => 0.4 * theme.windowHeight}px));
   ${FlexCenterStyle};
 
   img {
@@ -157,18 +158,18 @@ export const ResultContainer = styled.div`
 `;
 export const EventExpl = styled.div`
   ${FlexCenterStyle};
-  margin-top: 2vh;
+  margin-top: ${({ theme }) => 0.02 * theme.windowHeight}px;
   max-width: 80%;
   text-align: center;
   flex-direction: column;
-  margin-bottom: 10vh;
+  margin-bottom: ${({ theme }) => 0.1 * theme.windowHeight}px;
 
   h3 {
-    font-size: 1.8vh;
+    font-size: ${({ theme }) => 0.018 * theme.windowHeight}px;
     margin: 0;
   }
   h2 {
-    font-size: 2.2vh;
+    font-size: ${({ theme }) => 0.022 * theme.windowHeight}px;
     margin: 0;
   }
 `;

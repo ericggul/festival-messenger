@@ -15,6 +15,7 @@ const Writing = lazy(() => import("@/pages/tempTesting/writing"));
 
 //Aligo
 const Aglio = lazy(() => import("@/pages/aglio/Aglio"));
+const AglioResults = lazy(() => import("@/pages/aglio/Results"));
 
 //loading
 const Loading = lazy(() => import("@/pages/loading/Loading"));
@@ -27,6 +28,10 @@ const routes = [
   {
     path: "/aglio",
     component: Aglio,
+  },
+  {
+    path: "/aglio/results/:type",
+    component: AglioResults,
   },
   {
     path: "/about",
