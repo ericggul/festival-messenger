@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import * as S from "./styles";
 
-import preloadImage from "@U/functions/preload";
-
 //preload images
 import ENFJ from "@I/aglio/16-types/ENFJ.png";
 import ENFP from "@I/aglio/16-types/ENFP.png";

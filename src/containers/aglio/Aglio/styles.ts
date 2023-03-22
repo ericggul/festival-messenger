@@ -21,73 +21,154 @@ export const Inner = styled.div`
 
 export const Contents = styled.div`
   width: 100%;
-  height: 83%;
-  ${FlexCenterStyle};
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const HeaderContainer = styled.div`
-  ${FlexCenterStyle};
+  min-height: 100%;
+  overflow: scroll;
+  display: flex;
+  align-items: center;
   flex-direction: column;
 `;
 
-export const Header = styled.div`
-  font-size: 30px;
-  font-weight: bold;
+export const NameContainer = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
+  margin-top: 5vh;
 `;
-
-export const Upper = styled.div`
-  font-size: 25px;
+export const PreName = styled.div`
+  max-width: 65%;
+  font-size: 1.7vh;
+  text-align: center;
+  ${FlexCenterStyle};
+  margin-bottom: 1.3vh;
+`;
+export const Name = styled.div`
+  font-size: 3vh;
+  text-align: center;
   font-weight: bold;
 
-  margin-bottom: 2rem;
   span {
     background: #f7e38d;
   }
 `;
-
 export const ImageContainer = styled.div`
-  width: calc(min(90vw, 50vh));
+  width: 32vh;
   ${FlexCenterStyle};
 
   img {
     max-width: 100%;
   }
+`;
+export const Description = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
+  max-width: 90%;
+  text-align: center;
+  font-size: 1.45vh;
+  font-weight: lighter;
 
-  @keyframes cute-shake {
-    0% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    10% {
-      transform: translate(-5px, -5px) rotate(-5deg);
-    }
-    20% {
-      transform: translate(5px, 5px) rotate(5deg);
-    }
-    30% {
-      transform: translate(-5px, 5px) rotate(5deg);
-    }
-    40% {
-      transform: translate(5px, -5px) rotate(-5deg);
-    }
-    50% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    100% {
-      transform: translate(0, 0) rotate(0deg);
-    }
+  min-height: 30vh;
+
+  p {
+    margin: 0.2vh 0;
   }
-
-  animation: cute-shake 1s ease-in-out infinite;
 `;
 
+export const MatchContainer = styled.div`
+  ${FlexCenterStyle};
+`;
+
+export const Match = styled.div`
+  width: calc(min(35vw, 30vh));
+  height: 8vh;
+  margin: 4vh calc(min(4vw, 5vh));
+  background: #ffd55f;
+
+  ${FlexCenterStyle};
+  flex-direction: column;
+`;
+export const MatchUpper = styled.div`
+  font-size: 1.45vh;
+  text-align: center;
+  ${FlexCenterStyle};
+`;
+export const MatchLower = styled.div`
+  font-size: 1.8vh;
+  font-weight: bold;
+  text-align: center;
+  ${FlexCenterStyle};
+`;
+
+////////
 export const ChukasaContainer = styled.div`
-  width: calc(min(40vw, 20vh));
-  margin: 1rem 0;
+  margin-top: 5vh;
+  width: calc(min(45vw, 30vh));
   ${FlexCenterStyle};
 
   img {
     max-width: 100%;
+  }
+`;
+export const ChukasaExpl = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
+  margin: 1vh 0;
+
+  h1 {
+    margin: -0.1vh 0;
+    font-size: 2.5vh;
+  }
+  h2 {
+    font-size: 2.2vh;
+    margin: 0.3vh 0;
+    margin-bottom: 1vh;
+  }
+`;
+export const ShareContainer = styled.div`
+  ${FlexCenterStyle};
+  margin: 3vh 0;
+  margin-top: 5vh;
+`;
+export const SingleShare = styled.div`
+  width: calc(min(22vw, 15vh));
+  margin: 0 calc(min(2.2vw, 1.5vh));
+  height: 11vh;
+  ${FlexCenterStyle};
+  flex-direction: column;
+  background: #ffefc7;
+`;
+export const Text = styled.div`
+  font-size: 1.2vh;
+  text-align: center;
+`;
+export const Image = styled.div`
+  ${FlexCenterStyle};
+  text-align: center;
+  color: black;
+  font-size: 5vh;
+  margin-top: 1vh;
+`;
+
+export const ResultContainer = styled.div`
+  width: calc(min(30vw, 40vh));
+  ${FlexCenterStyle};
+
+  img {
+    max-width: 100%;
+  }
+`;
+export const EventExpl = styled.div`
+  ${FlexCenterStyle};
+  margin-top: 2vh;
+  max-width: 80%;
+  text-align: center;
+  flex-direction: column;
+  margin-bottom: 10vh;
+
+  h3 {
+    font-size: 1.8vh;
+    margin: 0;
+  }
+  h2 {
+    font-size: 2.2vh;
+    margin: 0;
   }
 `;

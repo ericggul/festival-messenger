@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import * as S from "./styles";
 
-//preload images
 import Loading from "@I/aglio/loading.png";
 import Chukasa from "@I/aglio/chukasa.png";
 
