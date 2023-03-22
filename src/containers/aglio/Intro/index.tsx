@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import * as S from "./styles";
+import useResize from "@/utils/hooks/useResize";
 
 //preload images
 import ENFJ from "@I/aglio/16-types/ENFJ.png";
@@ -19,8 +20,16 @@ import ISFP from "@I/aglio/16-types/ISFP.png";
 import ISTJ from "@I/aglio/16-types/ISTJ.png";
 import ISTP from "@I/aglio/16-types/ISTP.png";
 
+import ImageTransition from "@C/aglio/Intro/ImageTransition";
+
 export default function Aglio({ handleNext }: any) {
   const randomIdx = useMemo(() => Math.floor(Math.random() * 16), []);
+
+  const [imageTransition, setImageTransition] = useState(false);
+  const [fromIdx, setFromIdx] = useState(Math.floor(Math.random() * 16));
+  const [toIdx, setToIdx] = useState(Math.floor(Math.random() * 16));
+
+  const IMG_ARRAY = [ENFJ, ENFP, ENTJ, ENTP, ESFJ, ESFP, ESTJ, ESTP, INFJ, INFP, INTJ, INTP, ISFJ, ISFP, ISTJ, ISTP];
 
   return (
     <S.Container>
@@ -42,7 +51,7 @@ export default function Aglio({ handleNext }: any) {
         </S.Header>
 
         <S.ImageContainer>
-          <img src={[ENFJ, ENFP, ENTJ, ENTP, ESFJ, ESFP, ESTJ, ESTP, INFJ, INFP, INTJ, INTP, ISFJ, ISFP, ISTJ, ISTP][randomIdx]} />
+          <img src={IMG_ARRAY[fromIdx]} />
         </S.ImageContainer>
 
         <S.Text>나는 어떤 리오일까?</S.Text>

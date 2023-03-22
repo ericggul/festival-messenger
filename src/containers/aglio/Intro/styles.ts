@@ -51,10 +51,16 @@ export const Expl = styled.div`
 `;
 export const ImageContainer = styled.div`
   width: calc(min(80vw, 38vh));
+  height: calc(min(80vw, 38vh));
   ${FlexCenterStyle};
+  position: relative;
 
   img {
-    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   animation: intro-shake 1s ease-in-out infinite;

@@ -1,4 +1,4 @@
-import useResize from "utils/hooks/useResize";
+import useResize from "@/utils/hooks/useResize";
 import React, { useEffect, useState, useRef, Suspense } from "react";
 
 //react-gl imports
@@ -12,7 +12,7 @@ import { useSpring } from "react-spring";
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * Math.floor(max));
 
-export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 1000, size = 0 }: any) {
+export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 3000, size = 0 }: any) {
   const [windowWidth, windowHeight] = useResize();
 
   const [start, setStart] = useState(0);
