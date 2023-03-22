@@ -32,7 +32,7 @@ export const Upper = styled.div`
 export const Header = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  margin-top: 1.3rem;
+  margin-top: 1rem;
 `;
 
 export const Top = styled.div`
@@ -46,20 +46,51 @@ export const ExplSector = styled.div`
 `;
 export const Expl = styled.div`
   font-size: 1.5rem;
-  margin: 0.3rem 1.65rem;
+  margin: 0 1.65rem;
   font-weight: lighter;
 `;
 export const ImageContainer = styled.div`
-  width: calc(min(70vw, 30vh));
-  margin: 1rem 0;
+  width: calc(min(80vw, 38vh));
   ${FlexCenterStyle};
 
   img {
     max-width: 100%;
   }
+
+  animation: intro-shake 1s ease-in-out infinite;
+
+  @keyframes intro-shake {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    10% {
+      transform: rotate(10deg);
+    }
+    20% {
+      transform: rotate(-8deg);
+    }
+    30% {
+      transform: rotate(6deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(2deg);
+    }
+    60% {
+      transform: rotate(-1deg);
+    }
+    70% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
 `;
 export const Text = styled.div`
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 export const Button = styled.div`
   font-size: 1.75rem;
@@ -67,4 +98,6 @@ export const Button = styled.div`
   padding: 0.4rem 2.5rem;
   margin-top: 1.5rem;
   cursor: pointer;
+
+  box-shadow: 0 0 0.3rem #f7e38d, 0 0 0.5rem #f7e38d;
 `;

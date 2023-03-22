@@ -32,8 +32,12 @@ export default function Aglio({ handleNext }: any) {
         <S.Header>
           <S.Top>알리오 올리오</S.Top>
           <S.ExplSector>
-            <S.Expl>알아보고</S.Expl>
-            <S.Expl>올리자</S.Expl>
+            <S.Expl>
+              <b>알</b>아보고
+            </S.Expl>
+            <S.Expl>
+              <b>올</b>리자
+            </S.Expl>
           </S.ExplSector>
         </S.Header>
 

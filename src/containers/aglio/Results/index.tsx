@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import * as S from "./styles";
 
 import { DATA } from "./data";
+import { useNavigate } from "react-router-dom";
 
 //icons
 import { RiKakaoTalkFill } from "react-icons/ri";
@@ -13,6 +14,13 @@ import Loading from "@I/aglio/loading.png";
 import ResultImg from "@I/aglio/result.png";
 import Chukasa from "@I/aglio/chukasa.png";
 
+import { KAKAO_AGLIO_ID } from "@/configs/kakao";
+
+//Toast
+import toast from "react-hot-toast";
+
+import html2canvas from "html2canvas";
+
 export default function Aglio({ type }: any) {
   const [data, setData] = useState(DATA[0]);
 
@@ -20,12 +28,72 @@ export default function Aglio({ type }: any) {
     setData(DATA.filter((datum: any) => datum.type === type)[0] || DATA[0]);
   }, [type]);
 
-  console.log(type, data);
+  const navigate = useNavigate();
+
+  function matchDirect(text: any) {
+    const type = DATA.filter((datum: any) => datum.name === text)[0].type;
+    navigate(`/aglio/results/${type}`);
+  }
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentsRef = useRef<HTMLDivElement>(null);
+
+  async function storyShare() {
+    try {
+      //scroll to top
+      if (!contentsRef.current) return;
+      contentsRef.current.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      alert("스토리에 공유할 이미지를 저장합니다.");
+
+      toast("이미지 저장 중...");
+      if (!containerRef.current) return;
+      const canvas = await html2canvas(containerRef.current);
+      const dataURL = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = `알리오.png`;
+      document.body.appendChild(link);
+      link.href = dataURL;
+      link.click();
+      document.body.removeChild(link);
+
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      alert("이미지를 저장했습니다. 인스타그램으로 이동합니다.");
+
+      window.location.href = "https://www.instagram.com/snufestival";
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function linkShare() {
+    const url = window.location.href;
+    await navigator.clipboard.writeText(url);
+    alert("링크 복사 완료! " + url);
+  }
+
+  function kakaoShare() {
+    console.log("42");
+    const img = new Image();
+    img.src = process.env.PUBLIC_URL + "/assets/images/aglio/16-types/" + data.type + ".png";
+
+    window.Kakao.Link.sendCustom({
+      templateId: KAKAO_AGLIO_ID,
+      templateArgs: {
+        imageURL: img.src,
+      },
+    });
+  }
 
   return (
-    <S.Container>
+    <S.Container ref={containerRef}>
       <S.Inner>
-        <S.Contents>
+        <S.Contents ref={contentsRef}>
           <S.NameContainer>
             <S.PreName>{data.preName}</S.PreName>
             <S.Name>
@@ -41,12 +109,12 @@ export default function Aglio({ type }: any) {
             ))}
           </S.Description>
           <S.MatchContainer>
-            <S.Match>
+            <S.Match onClick={() => matchDirect(data.match[0])}>
               <S.MatchUpper>{"나와 잘 맞는 리오는? :)"}</S.MatchUpper>
               <S.MatchLower>{`'${data.match[0]}'`}</S.MatchLower>
             </S.Match>
 
-            <S.Match>
+            <S.Match onClick={() => matchDirect(data.match[1])}>
               <S.MatchUpper>{"나와 안 맞는 리오는? :("}</S.MatchUpper>
               <S.MatchLower>{`'${data.match[1]}'`}</S.MatchLower>
             </S.Match>
@@ -63,19 +131,19 @@ export default function Aglio({ type }: any) {
           </S.ChukasaExpl>
 
           <S.ShareContainer>
-            <S.SingleShare>
+            <S.SingleShare onClick={storyShare}>
               <S.Text>스토리에 공유하리오</S.Text>
               <S.Image>
                 <FaInstagram />
               </S.Image>
             </S.SingleShare>
-            <S.SingleShare>
+            <S.SingleShare onClick={linkShare}>
               <S.Text>링크 복사하리오</S.Text>
               <S.Image>
                 <AiOutlineLink />
               </S.Image>
             </S.SingleShare>
-            <S.SingleShare>
+            <S.SingleShare onClick={kakaoShare}>
               <S.Text>카톡으로 공유하리오</S.Text>
               <S.Image>
                 <RiKakaoTalkFill />

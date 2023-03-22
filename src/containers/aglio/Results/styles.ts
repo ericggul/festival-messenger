@@ -85,6 +85,7 @@ export const Match = styled.div`
 
   ${FlexCenterStyle};
   flex-direction: column;
+  cursor: pointer;
 `;
 export const MatchUpper = styled.div`
   font-size: ${({ theme }) => 0.0145 * theme.windowHeight}px;
@@ -135,6 +136,7 @@ export const SingleShare = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
   background: #ffefc7;
+  cursor: pointer;
 `;
 export const Text = styled.div`
   font-size: ${({ theme }) => 0.012 * theme.windowHeight}px;
