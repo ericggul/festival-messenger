@@ -39,7 +39,7 @@ export const PreName = styled.div`
   font-size: ${({ theme }) => 0.022 * theme.windowHeight}px;
   text-align: center;
   ${FlexCenterStyle};
-  margin-bottom: ${({ theme }) => 0.013 * theme.windowHeight}px;
+  margin-bottom: ${({ theme }) => 0.01 * theme.windowHeight}px;
 `;
 export const Name = styled.div`
   font-size: ${({ theme }) => 0.035 * theme.windowHeight}px;
@@ -65,7 +65,7 @@ export const Description = styled.div`
   flex-direction: column;
   max-width: 90%;
   text-align: center;
-  font-size: ${({ theme }) => 0.0185 * theme.windowHeight}px;
+  font-size: ${({ theme }) => 0.0178 * theme.windowHeight}px;
   font-weight: lighter;
 
   min-height: ${({ theme }) => 0.35 * theme.windowHeight}px;
