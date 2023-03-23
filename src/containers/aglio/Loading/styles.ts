@@ -41,14 +41,14 @@ export const Upper = styled.div`
   font-size: 25px;
   font-weight: bold;
 
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
   span {
     background: #f7e38d;
   }
 `;
 
 export const ImageContainer = styled.div`
-  width: calc(min(90vw, 50vh));
+  width: calc(min(80vw, 40vh));
   ${FlexCenterStyle};
 
   img {
@@ -83,7 +83,7 @@ export const ImageContainer = styled.div`
 `;
 
 export const ChukasaContainer = styled.div`
-  width: calc(min(40vw, 20vh));
+  width: calc(min(40vw, 18vh));
   margin: 1rem 0;
   ${FlexCenterStyle};
 

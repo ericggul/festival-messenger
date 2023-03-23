@@ -31,18 +31,18 @@ export const Contents = styled.div`
 export const NameContainer = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  margin-top: ${({ theme }) => 0.05 * theme.windowHeight}px;
+  margin-top: ${({ theme }) => 0.035 * theme.windowHeight}px;
 `;
 export const PreName = styled.div`
   max-width: 75%;
   min-height: ${({ theme }) => 0.035 * theme.windowHeight}px;
-  font-size: ${({ theme }) => 0.017 * theme.windowHeight}px;
+  font-size: ${({ theme }) => 0.022 * theme.windowHeight}px;
   text-align: center;
   ${FlexCenterStyle};
   margin-bottom: ${({ theme }) => 0.013 * theme.windowHeight}px;
 `;
 export const Name = styled.div`
-  font-size: ${({ theme }) => 0.03 * theme.windowHeight}px;
+  font-size: ${({ theme }) => 0.035 * theme.windowHeight}px;
   text-align: center;
   font-weight: bold;
 
@@ -52,6 +52,8 @@ export const Name = styled.div`
 `;
 export const ImageContainer = styled.div`
   width: ${({ theme }) => 0.32 * theme.windowHeight}px;
+  margin: ${({ theme }) => -0.02 * theme.windowHeight}px 0;
+
   ${FlexCenterStyle};
 
   img {
@@ -63,10 +65,10 @@ export const Description = styled.div`
   flex-direction: column;
   max-width: 90%;
   text-align: center;
-  font-size: ${({ theme }) => 0.0145 * theme.windowHeight}px;
+  font-size: ${({ theme }) => 0.0185 * theme.windowHeight}px;
   font-weight: lighter;
 
-  min-height: ${({ theme }) => 0.3 * theme.windowHeight}px;
+  min-height: ${({ theme }) => 0.35 * theme.windowHeight}px;
 
   p {
     margin: ${({ theme }) => 0.002 * theme.windowHeight}px 0;
@@ -78,9 +80,9 @@ export const MatchContainer = styled.div`
 `;
 
 export const Match = styled.div`
-  width: calc(min(35vw, ${({ theme }) => 0.3 * theme.windowHeight}px));
+  width: calc(min(35vw, ${({ theme }) => 0.4 * theme.windowHeight}px));
   height: ${({ theme }) => 0.08 * theme.windowHeight}px;
-  margin: ${({ theme }) => 0.04 * theme.windowHeight}px calc(min(4vw, ${({ theme }) => 0.05 * theme.windowHeight}px));
+  margin: ${({ theme }) => 0.025 * theme.windowHeight}px calc(min(3vw, ${({ theme }) => 0.02 * theme.windowHeight}px));
   background: #ffd55f;
 
   ${FlexCenterStyle};
@@ -88,7 +90,7 @@ export const Match = styled.div`
   cursor: pointer;
 `;
 export const MatchUpper = styled.div`
-  font-size: ${({ theme }) => 0.0145 * theme.windowHeight}px;
+  font-size: ${({ theme }) => 0.0185 * theme.windowHeight}px;
   text-align: center;
   ${FlexCenterStyle};
 `;

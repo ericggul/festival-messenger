@@ -21,7 +21,7 @@ export const Inner = styled.div`
 
 export const Contents = styled.div`
   width: 76%;
-  height: 85%;
+  height: 90%;
   ${FlexCenterStyle};
   justify-content: space-between;
   flex-direction: column;
@@ -64,7 +64,7 @@ export const Rio = styled.div`
 export const QuestionSector = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 30px;
+  font-size: 25px;
   width: 100%;
 `;
 export const QuestionIdx = styled.div`
@@ -72,14 +72,14 @@ export const QuestionIdx = styled.div`
 `;
 export const Question = styled.div`
   text-align: left;
-  margin-top: 2rem;
-  font-size: 20px;
+  margin-top: 18px;
+  font-size: 18px;
 `;
 export const AnswerSector = styled.div`
   ${FlexCenterStyle};
   width: 100%;
   flex-direction: column;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: lighter;
 `;
 export const Answer = styled.div`

@@ -48,7 +48,7 @@ export default function Aglio({ type }: any) {
         behavior: "smooth",
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       alert("스토리에 공유할 이미지를 저장합니다.");
 
       toast("이미지 저장 중...");
@@ -62,7 +62,7 @@ export default function Aglio({ type }: any) {
       link.click();
       document.body.removeChild(link);
 
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      await new Promise((resolve) => setTimeout(resolve, 1700));
       alert("이미지를 저장했습니다. 인스타그램으로 이동합니다.");
 
       window.location.href = "https://www.instagram.com/snufestival";
@@ -78,14 +78,10 @@ export default function Aglio({ type }: any) {
   }
 
   function kakaoShare() {
-    console.log("42");
-    const img = new Image();
-    img.src = process.env.PUBLIC_URL + "/assets/images/aglio/16-types/" + data.type + ".png";
-
     window.Kakao.Link.sendCustom({
       templateId: KAKAO_AGLIO_ID,
       templateArgs: {
-        imageURL: img.src,
+        imageUrl: `https://snufestival.com/assets/images/aglio/16-types/${data.type}.png`,
       },
     });
   }
