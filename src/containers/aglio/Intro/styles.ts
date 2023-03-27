@@ -42,11 +42,11 @@ export const Top = styled.div`
 
 export const ExplSector = styled.div`
   ${FlexCenterStyle};
-  margin-right: 5.5rem;
+  margin-right: 3rem;
 `;
 export const Expl = styled.div`
   font-size: 1.5rem;
-  margin: 0 1.65rem;
+  margin: 0 1.3rem;
   font-weight: lighter;
 `;
 export const ImageContainer = styled.div`

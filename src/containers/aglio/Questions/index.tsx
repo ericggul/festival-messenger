@@ -49,7 +49,11 @@ export default function Aglio({ handleNext }: any) {
                 ))}
               </S.Rios>
               <S.QuestionIdx>Q{questionIdx + 1}/12</S.QuestionIdx>
-              <S.Question>{DATA[questionIdx].question}</S.Question>
+              <S.Question>
+                {DATA[questionIdx].question.split("이때 나는")[0]}
+                <br />
+                {"이때 나는"}
+              </S.Question>
             </S.QuestionSector>
 
             <S.AnswerSector>

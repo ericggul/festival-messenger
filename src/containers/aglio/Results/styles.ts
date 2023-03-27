@@ -63,9 +63,9 @@ export const ImageContainer = styled.div`
 export const Description = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-  max-width: 90%;
+  max-width: 91%;
   text-align: center;
-  font-size: ${({ theme }) => 0.0178 * theme.windowHeight}px;
+  font-size: ${({ theme }) => Math.min(0.0178 * theme.windowHeight, 0.033 * theme.windowWidth)}px;
   font-weight: lighter;
 
   min-height: ${({ theme }) => 0.35 * theme.windowHeight}px;
@@ -80,17 +80,18 @@ export const MatchContainer = styled.div`
 `;
 
 export const Match = styled.div`
-  width: calc(min(35vw, ${({ theme }) => 0.4 * theme.windowHeight}px));
+  width: calc(min(40vw, ${({ theme }) => 0.4 * theme.windowHeight}px));
   height: ${({ theme }) => 0.08 * theme.windowHeight}px;
-  margin: ${({ theme }) => 0.025 * theme.windowHeight}px calc(min(3vw, ${({ theme }) => 0.02 * theme.windowHeight}px));
+  margin: ${({ theme }) => 0.025 * theme.windowHeight}px calc(min(2vw, ${({ theme }) => 0.02 * theme.windowHeight}px));
   background: #ffd55f;
 
   ${FlexCenterStyle};
   flex-direction: column;
   cursor: pointer;
 `;
+
 export const MatchUpper = styled.div`
-  font-size: ${({ theme }) => 0.0185 * theme.windowHeight}px;
+  font-size: ${({ theme }) => Math.min(0.0185 * theme.windowHeight, 0.032 * theme.windowWidth)}px;
   text-align: center;
   ${FlexCenterStyle};
 `;

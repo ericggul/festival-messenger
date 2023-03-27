@@ -73,19 +73,20 @@ export const QuestionIdx = styled.div`
 export const Question = styled.div`
   text-align: left;
   margin-top: 18px;
-  font-size: 18px;
+  font-size: 17px;
 `;
 export const AnswerSector = styled.div`
   ${FlexCenterStyle};
   width: 100%;
   flex-direction: column;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: lighter;
 `;
 export const Answer = styled.div`
   width: 100%;
   ${FlexCenterStyle};
   background: #f7e38d;
+  cursor: pointer;
 
   border-radius: 0.5rem;
   margin: 1rem 0;
