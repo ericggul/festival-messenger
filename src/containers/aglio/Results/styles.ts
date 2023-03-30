@@ -116,13 +116,15 @@ export const ChukasaExpl = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
   margin: ${({ theme }) => 0.01 * theme.windowHeight}px 0;
+  max-width: 80%;
+  text-align: center;
 
   h1 {
     margin: ${({ theme }) => -0.001 * theme.windowHeight}px 0;
-    font-size: ${({ theme }) => 0.025 * theme.windowHeight}px;
+    font-size: ${({ theme }) => 0.022 * theme.windowHeight}px;
   }
   h2 {
-    font-size: ${({ theme }) => 0.022 * theme.windowHeight}px;
+    font-size: ${({ theme }) => 0.02 * theme.windowHeight}px;
     margin: ${({ theme }) => 0.003 * theme.windowHeight}px 0;
     margin-bottom: ${({ theme }) => 0.01 * theme.windowHeight}px;
   }
@@ -133,7 +135,7 @@ export const ShareContainer = styled.div`
   margin-top: ${({ theme }) => 0.05 * theme.windowHeight}px;
 `;
 export const SingleShare = styled.div`
-  width: calc(min(22vw, ${({ theme }) => 0.15 * theme.windowHeight}px));
+  width: calc(min(37vw, ${({ theme }) => 0.25 * theme.windowHeight}px));
   margin: 0 calc(min(2.2vw, ${({ theme }) => 0.015 * theme.windowHeight}px));
   height: ${({ theme }) => 0.11 * theme.windowHeight}px;
   ${FlexCenterStyle};
@@ -142,7 +144,7 @@ export const SingleShare = styled.div`
   cursor: pointer;
 `;
 export const Text = styled.div`
-  font-size: ${({ theme }) => 0.012 * theme.windowHeight}px;
+  font-size: ${({ theme }) => 0.014 * theme.windowHeight}px;
   text-align: center;
 `;
 export const Image = styled.div`
@@ -154,11 +156,26 @@ export const Image = styled.div`
 `;
 
 export const ResultContainer = styled.div`
-  width: calc(min(30vw, ${({ theme }) => 0.4 * theme.windowHeight}px));
+  width: calc(min(45vw, ${({ theme }) => 0.45 * theme.windowHeight}px));
+  margin: ${({ theme }) => 0.05 * theme.windowHeight}px 0;
   ${FlexCenterStyle};
 
   img {
     max-width: 100%;
+  }
+
+  animation: jump-character 0.6s infinite;
+
+  @keyframes jump-character {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15%) rotate(2deg);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
 `;
 export const EventExpl = styled.div`
@@ -167,14 +184,30 @@ export const EventExpl = styled.div`
   max-width: 80%;
   text-align: center;
   flex-direction: column;
-  margin-bottom: ${({ theme }) => 0.1 * theme.windowHeight}px;
+
+  border: 1px solid black;
+  padding: ${({ theme }) => 0.018 * theme.windowHeight}px ${({ theme }) => 0.01 * theme.windowHeight}px;
 
   h3 {
     font-size: ${({ theme }) => 0.018 * theme.windowHeight}px;
     margin: 0;
+    font-weight: normal;
   }
   h2 {
     font-size: ${({ theme }) => 0.022 * theme.windowHeight}px;
     margin: 0;
   }
+`;
+
+export const Restart = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
+
+  font-size: 2rem;
+
+  h2 {
+    font-size: 1.7rem;
+  }
+  margin-top: ${({ theme }) => 0.05 * theme.windowHeight}px;
+  margin-bottom: ${({ theme }) => 0.1 * theme.windowHeight}px;
 `;

@@ -5,7 +5,7 @@ import { DATA } from "./data";
 import { useNavigate } from "react-router-dom";
 
 //icons
-import { RiKakaoTalkFill } from "react-icons/ri";
+import { RiKakaoTalkFill, RiRestartLine } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { AiOutlineLink } from "react-icons/ai";
 
@@ -72,7 +72,7 @@ export default function Aglio({ type }: any) {
   }
 
   async function linkShare() {
-    const url = window.location.href;
+    const url = "https://snufestival.com/aglio";
     await navigator.clipboard.writeText(url);
     alert("링크 복사 완료! " + url);
   }
@@ -127,12 +127,6 @@ export default function Aglio({ type }: any) {
           </S.ChukasaExpl>
 
           <S.ShareContainer>
-            <S.SingleShare onClick={storyShare}>
-              <S.Text>스토리에 공유하리오</S.Text>
-              <S.Image>
-                <FaInstagram />
-              </S.Image>
-            </S.SingleShare>
             <S.SingleShare onClick={linkShare}>
               <S.Text>링크 복사하리오</S.Text>
               <S.Image>
@@ -153,10 +147,20 @@ export default function Aglio({ type }: any) {
 
           <S.EventExpl>
             <h3>4.2 ~ 4.9 사이에</h3>
-            <h3>검사 결과를 인스타 스토리에 공유하고,</h3>
-            <h3>축하사 계정을 팔로우한 후 태그하면</h3>
+            <h3>결과페이지를 캡쳐한 뒤</h3>
+            <h3>인스타 스토리에 @snufestival을 태그해서 올리고</h3>
+            <h3>해당 계정을 팔로우하면</h3>
             <h2>추첨을 통해 상품 증정!</h2>
           </S.EventExpl>
+
+          <S.Restart
+            onClick={() => {
+              navigate("/aglio");
+            }}
+          >
+            <RiRestartLine />
+            <h2>다시하기</h2>
+          </S.Restart>
         </S.Contents>
       </S.Inner>
     </S.Container>
