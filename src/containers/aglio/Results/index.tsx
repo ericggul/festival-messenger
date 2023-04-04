@@ -146,7 +146,7 @@ export default function Aglio({ type }: any) {
           </S.ResultContainer>
 
           <S.EventExpl>
-            <h3>4.1 ~ 4.8 사이에</h3>
+            <h3>4.1 ~ 4.7 사이에</h3>
             <h3>결과페이지를 캡쳐한 뒤</h3>
             <h3>인스타 스토리에 @snufestival을 태그해서 올리고</h3>
             <h3>해당 계정을 팔로우하면</h3>
