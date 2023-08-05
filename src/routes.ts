@@ -17,6 +17,10 @@ const Writing = lazy(() => import("@/pages/tempTesting/writing"));
 const Aglio = lazy(() => import("@/pages/aglio/Aglio"));
 const AglioResults = lazy(() => import("@/pages/aglio/Results"));
 
+//odbd
+const ODBD = lazy(() => import("@/pages/odbd/Odbd"));
+const ODBDResults = lazy(() => import("@/pages/odbd/Results"));
+
 //loading
 const Loading = lazy(() => import("@/pages/loading/Loading"));
 
@@ -32,6 +36,14 @@ const routes = [
   {
     path: "/aglio/results/:type",
     component: AglioResults,
+  },
+  {
+    path: "/odbd",
+    component: ODBD,
+  },
+  {
+    path: "/odbd/results/:type",
+    component: ODBDResults,
   },
   {
     path: "/about",

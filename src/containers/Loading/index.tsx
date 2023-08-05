@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { Suspense, useMemo } from "react";
 import * as S from "./styles";
 
 //foundations
@@ -321,7 +321,9 @@ function Loading() {
 
   return (
     <S.Container>
-      <RandomRender number={randomNumber} />
+      <Suspense fallback={<></>}>
+        <RandomRender number={randomNumber} />
+      </Suspense>
     </S.Container>
   );
 }
