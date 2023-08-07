@@ -11,11 +11,12 @@ export const Container = styled.div`
 export const Background = styled.div`
   ${WholeContainer};
   ${FlexCenterStyle};
+  height: 100vh;
   transition: all 0.3s;
 
   img {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     position: absolute;
     top: 0;
@@ -29,6 +30,8 @@ export const Contents = styled.div`
   ${WholeContainer};
   ${FlexCenterStyle};
   z-index: 1;
+
+  transition: opacity 0.5s;
 `;
 
 export const Title = styled.div`
@@ -130,6 +133,24 @@ export const Img = styled.div`
     }
     50% {
       transform: translateY(0);
+    }
+  }
+
+  @keyframes grow {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    90% {
+      transform: scale(2);
+      opacity: 0.6;
+    }
+    92% {
+      transform: scale(1) rotate(1080deg);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 `;

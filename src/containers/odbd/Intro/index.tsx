@@ -1,13 +1,85 @@
-import React, { useCallback, useState, useMemo, useRef } from "react";
+import React, { useCallback, useState, useEffect, useMemo, useRef } from "react";
 
 import useResize from "@/utils/hooks/useResize";
 
 import * as CS from "@C/odbd/styles";
 import * as S from "./styles";
 
-const ASSET_LINK = `/odbd/1_intro_page`;
+const ASSET_LINK_EXPLAIN = `/odbd/2_explain_page`;
+const ASSET_LINK_INTRO = `/odbd/1_intro_page`;
 
-const ELEMENTS = [
+const ELEMENTS_EXPLAIN = [
+  {
+    img: "text",
+    x: 50,
+    y: 108,
+    width: 400,
+  },
+  {
+    img: "righttop",
+    x: 21,
+    y: 51,
+    width: 108,
+  },
+  {
+    img: "lefttop",
+    x: 371,
+    y: 51,
+    width: 108,
+  },
+  {
+    img: "rightleft",
+    x: 21,
+    y: 740,
+    width: 108,
+  },
+  {
+    img: "rightdown",
+    x: 371,
+    y: 740,
+    width: 108,
+  },
+  {
+    img: "seolmuing",
+    width: 270,
+    x: 115,
+    y: 60,
+  },
+  {
+    img: "ex4",
+    x: 299,
+    y: 464,
+    width: 144,
+  },
+  {
+    img: "ex3",
+    x: 178,
+    y: 464,
+    width: 144,
+  },
+  {
+    img: "ex2",
+    x: 67,
+    y: 464,
+    width: 144,
+  },
+  {
+    img: "explain1",
+    x: 85,
+    y: 623,
+    width: 330,
+  },
+  {
+    img: "ok",
+    width: 250,
+    x: 125,
+    y: 660,
+    isButton: true,
+    cursor: "pointer",
+  },
+];
+
+const ELEMENTS_INTRO = [
   {
     img: "untheboaed",
     width: 300,
@@ -28,6 +100,12 @@ const ELEMENTS = [
     x: 78,
     y: 572,
     delay: 0,
+    additionalAnimations: [
+      {
+        animation: "grow",
+        duration: 3,
+      },
+    ],
   },
   {
     img: "myluck",
@@ -67,12 +145,12 @@ const ELEMENTS = [
     animation: "appear-from-bottom",
     delay: 0.5,
     cursor: "pointer",
+    isButton: true,
   },
 ];
 
-export default function Comp({ handleNext }: any) {
+export default function Comp({ state, handleNext }: any) {
   const [windowWidth, windowHeight] = useResize();
-
   const locFormatter = useCallback(
     ({ width, x, y, animation = "appear", delay = 0.3, additionalAnimations = [], ...otherParams }: any) => {
       let anim = `${animation} 0.4s ease-in-out both`;
@@ -92,7 +170,7 @@ export default function Comp({ handleNext }: any) {
           animationDelay: `${delay}s`,
           ...otherParams,
         };
-      } else {
+      } else if (state === "intro") {
         const xExpand = windowWidth / 500;
         const xStart = windowWidth / 2 - xExpand * 250;
 
@@ -105,25 +183,56 @@ export default function Comp({ handleNext }: any) {
           animationDelay: `${delay}s`,
           ...otherParams,
         };
+      } else {
+        const yScale = windowHeight / 900;
+
+        return {
+          width: `${width}px`,
+          left: `${windowWidth / 2 - 250 + x}px`,
+          top: `${y * yScale}px`,
+          animation: anim,
+          animationDelay: `${delay}s`,
+          ...otherParams,
+        };
       }
     },
-    [windowWidth, windowHeight]
+    [state, windowWidth, windowHeight]
   );
+
+  ///show contents & handle next
+  const [showContents, setShowContents] = useState(false);
+  useEffect(() => {
+    setShowContents(true);
+  }, [state]);
+  function handleClick() {
+    setShowContents(false);
+    setTimeout(() => {
+      handleNext();
+    }, 700);
+  }
 
   return (
     <CS.Container>
       <CS.Background>
-        <img src={windowWidth < 768 ? `${ASSET_LINK}/background_iP.png` : `${ASSET_LINK}/background_PC.png`} />
+        <img src={windowWidth < 768 ? `${ASSET_LINK_INTRO}/background_iP.png` : `${ASSET_LINK_INTRO}/background_PC.png`} />
       </CS.Background>
-      <CS.Contents>
-        {ELEMENTS.map((el, i) => (
-          <CS.Img key={i} style={locFormatter(el)}>
-            <img src={`${ASSET_LINK}/${el.img}.png`} />
-          </CS.Img>
-        ))}
-
-        {/* <CS.Title>보드게임으로 알아보는 오늘의 운세</CS.Title>
-        <CS.Footer>@snufestival</CS.Footer> */}
+      <CS.Contents
+        style={{
+          opacity: showContents ? 1 : 0,
+        }}
+      >
+        {state === "intro" &&
+          ELEMENTS_INTRO.map((el, i) => (
+            <CS.Img key={i} style={locFormatter(el)} onClick={() => el.isButton && handleClick()}>
+              <img src={`${ASSET_LINK_INTRO}/${el.img}.png`} />
+            </CS.Img>
+          ))}
+        {state === "expl" &&
+          ELEMENTS_EXPLAIN.map((el, i) => (
+            <CS.Img key={i} style={locFormatter(el)} onClick={() => el.isButton && handleClick()}>
+              <img src={`${ASSET_LINK_EXPLAIN}/${el.img}.png`} />
+            </CS.Img>
+          ))}
       </CS.Contents>
     </CS.Container>
   );
