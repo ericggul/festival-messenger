@@ -9,6 +9,23 @@
   font-weight: bold;
 }
 
+/* ODBD */
+
+@font-face {
+  font-family: "Happy";
+  src: url("./happy.ttf") format("Truetype");
+}
+
+@font-face {
+  font-family: "Good";
+  src: url("./good.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Chosun";
+  src: url("./Chosun.TTF") format("Truetype");
+}
+
 @font-face {
   font-family: "Seoul Namsan";
   src: url("./SeoulNamsanM.ttf") format("Truetype"), url("./SeoulNamsanM.woff2") format("woff2"), url("./SeoulNamsanM.woff") format("woff");

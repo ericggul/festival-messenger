@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 
-import AglioEl from "@C/aglio/Aglio";
+import AglioEl from "@C/odbd";
 
 export default function Aglio() {
   return (
