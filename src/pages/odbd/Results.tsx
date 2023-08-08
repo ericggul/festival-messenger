@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
-import Results from "@C/aglio/Results";
+import Results from "@C/odbd/Results";
 
-export default function Aglio() {
+export default function Page() {
   const params = useParams();
 
   return (

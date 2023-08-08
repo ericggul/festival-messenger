@@ -35,16 +35,31 @@ export const Contents = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: Chosun;
+  position: absolute;
+  top: 2rem;
+
+  font-family: Happy;
+  font-size: 4rem;
+  line-height: 3rem;
+  margin-top: 1rem;
+  text-align: center;
 `;
 
 export const Footer = styled.div`
   font-family: Good;
+
+  position: absolute;
+  bottom: 2rem;
+  font-size: 1.5rem;
+  color: white;
 `;
 
 export const Img = styled.div`
   position: absolute;
   transition: all 0.3s;
+  ${FlexCenterStyle};
+  flex-direction: column;
+
   img {
     width: 100%;
   }
