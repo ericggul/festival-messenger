@@ -6,7 +6,7 @@ import Cards from "@C/odbd/Cards";
 import { useNavigate } from "react-router-dom";
 
 export default function ODBD() {
-  const [state, setState] = useState("card 1");
+  const [state, setState] = useState("intro");
   const [answerArchive, setAnswerArchive] = useState<any[]>([]);
 
   const navigate = useNavigate();

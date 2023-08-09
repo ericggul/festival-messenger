@@ -15,7 +15,7 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "firebase": "^9.6.9",
-    "firebase-admin": "^10.0.2",
+    "firebase-admin": "10.3",
     "firebase-functions": "^3.18.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6"
