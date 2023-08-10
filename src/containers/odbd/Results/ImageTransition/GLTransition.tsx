@@ -1,7 +1,7 @@
 import React, { Suspense, useRef, useMemo, useState, useCallback, useEffect } from "react";
 import ShadertoyReact from "shadertoy-react";
 
-export default function GLTransition({ transition, progress, from, to, size }: any) {
+export default function GLTransition({ transition, progress, from, to, windowWidth, windowHeight }: any) {
   const [loaded, setLoaded] = useState(false);
 
   const fragmentShader = useMemo(() => {
@@ -32,7 +32,7 @@ export default function GLTransition({ transition, progress, from, to, size }: a
           fs={fragmentShader}
           uniforms={{
             progress: { type: "1f", value: progress },
-            resolution: { type: "2fv", value: [size, size] },
+            resolution: { type: "2fv", value: [windowWidth, windowHeight] },
           }}
           textures={[{ url: from }, { url: to }]}
         />

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 
 import Intro from "@C/odbd/Intro";
 import Cards from "@C/odbd/Cards";
@@ -13,10 +13,19 @@ export default function ODBD() {
 
   function handleToResult() {}
 
+  const storedIndexesRef = useRef<any>([]);
+  function handleCardNext(st: any, selectedCardIdx: any) {
+    storedIndexesRef.current.push(selectedCardIdx);
+    if (st <= 1) setState(`card ${st + 1}`);
+    else {
+      handleToResult();
+    }
+  }
+
   return (
     <>
-      {(state === "intro" || state === "expl") && <Intro state={state} handleNext={() => setState("expl")} />}
-      {state.includes("card") && <Cards state={parseInt(state.split(" ")[1])} handleNext={(st: any) => (st <= 2 ? () => setState(`card ${st + 1}`) : handleToResult)} />}
+      {(state === "intro" || state === "expl") && <Intro state={state} setState={setState} />}
+      {state.includes("card") && <Cards state={parseInt(state.split(" ")[1])} handleNext={handleCardNext} />}
     </>
   );
 }

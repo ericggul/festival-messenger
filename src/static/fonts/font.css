@@ -27,6 +27,16 @@
 }
 
 @font-face {
+  font-family: "AppleMyungjo";
+  src: url("./AppleMyungjo.ttf") format("Truetype");
+}
+
+@font-face {
+  font-family: "Goolim";
+  src: url("./goolim.ttf") format("Truetype");
+}
+
+@font-face {
   font-family: "Seoul Namsan";
   src: url("./SeoulNamsanM.ttf") format("Truetype"), url("./SeoulNamsanM.woff2") format("woff2"), url("./SeoulNamsanM.woff") format("woff");
 }

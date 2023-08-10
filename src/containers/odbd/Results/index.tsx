@@ -10,8 +10,9 @@ import * as S from "./styles";
 import { KAKAO_ODBD_ID } from "@/configs/kakao";
 import html2canvas from "html2canvas";
 
-const ASSET_LINK_1 = `/odbd/4_result_page_1/etc`;
+const BACKGROUND_LINK = `https://operating-as-usual.vercel.app/INTERNETINENTAL/images/odbd`;
 
+const ASSET_LINK_1 = `/odbd/4_result_page_1/etc`;
 const ASSET_LINK_2 = `/odbd/5_result_page_2`;
 
 const ELEMENTS_1 = [
@@ -250,17 +251,33 @@ export default function Comp({ type }: any) {
     // document.body.removeChild(link);
   }
 
+  const [showBackgroundAsImage, setShowBackgroundAsImage] = useState(false);
+  const windowWidthMoreThanZeroRef = useRef(0);
+
+  useEffect(() => {
+    if (windowWidth > 0) {
+      if (windowWidthMoreThanZeroRef.current != 0 && windowWidthMoreThanZeroRef.current != windowWidth) {
+        setShowBackgroundAsImage(true);
+      }
+      windowWidthMoreThanZeroRef.current = windowWidth;
+    }
+  }, [windowWidth]);
+
   return (
     <CS.Container>
       <CS.Background>
-        {/* <ImageTransition 
-        startTransition={true}
-        fromImgUrl={`${ASSET_LINK}/background.png`}
-        toImgUrl={`${ASSET_LINK}/background_PC.png`}
-    duration={3000}
-        
-        /> */}
-        <img src={windowWidth < 768 ? `${ASSET_LINK}/background.png` : `${ASSET_LINK}/background_PC.png`} />
+        <ImageTransition
+          startTransition={true}
+          fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+          toImgUrl={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+          duration={3000}
+        />
+        <img
+          style={{
+            opacity: showBackgroundAsImage ? 1 : 0,
+          }}
+          src={`https://snufestival.com${ASSET_LINK_1}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+        />
       </CS.Background>
       <CS.Contents
         style={{

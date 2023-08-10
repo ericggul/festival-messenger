@@ -23,13 +23,26 @@ export const Background = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 1;
   }
+
+  @keyframes appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  animation: appear 0.3s;
 `;
 
 export const Contents = styled.div`
   ${WholeContainer};
   ${FlexCenterStyle};
-  z-index: 1;
+  flex-direction: column;
+  z-index: 2;
 
   transition: opacity 0.5s;
 `;

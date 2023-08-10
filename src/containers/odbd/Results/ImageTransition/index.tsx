@@ -12,7 +12,7 @@ import { useSpring } from "react-spring";
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * Math.floor(max));
 
-export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 3000, size = 0 }: any) {
+export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 3000 }: any) {
   const [windowWidth, windowHeight] = useResize();
 
   const [start, setStart] = useState(0);
@@ -49,7 +49,7 @@ export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 
   return (
     <React.Fragment>
       <Suspense fallback={<div>Loading...</div>}>
-        <GLTransition from={fromImgUrl} to={toImgUrl} transition={glTransitions[glTransitionsIdx]} progress={progress} size={size || windowHeight} />
+        <GLTransition from={fromImgUrl} to={toImgUrl} transition={glTransitions[glTransitionsIdx]} progress={progress} windowWidth={windowWidth} windowHeight={windowHeight} />
       </Suspense>
     </React.Fragment>
   );
