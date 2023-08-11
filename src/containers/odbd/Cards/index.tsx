@@ -1,10 +1,14 @@
 import React, { useCallback, useState, useEffect, useMemo, useRef } from "react";
 
+import styled, { css } from "styled-components";
+
 import useResize from "@/utils/hooks/useResize";
 import preloadImage from "@U/functions/preload";
 
 import * as CS from "@C/odbd/styles";
 import * as S from "./styles";
+
+const ASSET_LINK_INTRO = `/odbd/1_intro_page`;
 
 const ASSET_LINKS = [`/odbd/3_picking_page/1_where`, `/odbd/3_picking_page/2_who`, `/odbd/3_picking_page/3_what`];
 const CARD_LINKS = [`/odbd/4_result_page_1/1_where_front/where_card_front`, `/odbd/4_result_page_1/2_who_front/who_card_front`, `/odbd/4_result_page_1/3_what_front/what_front`];
@@ -16,9 +20,13 @@ export default function Comp({ state, handleNext }: any) {
   const [windowWidth, windowHeight] = useResize();
 
   ///show contents & handle next
+
   const [showContents, setShowContents] = useState(false);
   useEffect(() => {
-    setShowContents(true);
+    const timeout = setTimeout(() => {
+      setShowContents(true);
+    }, 400);
+    return () => clearTimeout(timeout);
   }, [state]);
 
   //pre-selected card
@@ -27,14 +35,29 @@ export default function Comp({ state, handleNext }: any) {
     preloadImage(`${CARD_LINKS[state]}${selectedCardIdx}.png`);
   }, [selectedCardIdx]);
 
+  //preload all backgrounds
+  useEffect(() => {
+    ASSET_LINKS.forEach((el) => {
+      preloadImage(`${el}/header.png`);
+    });
+  }, [windowWidth]);
+
+  //ui selected card index
   const [uiSelectedCardPos, setUISelectedCardPos] = useState(-1);
+  //init
+  useEffect(() => {
+    setUISelectedCardPos(-1);
+  }, [state]);
+
   const handleCardClick = useCallback(
     (i: number) => {
       setUISelectedCardPos(i);
-      // setShowContents(false);
+      setTimeout(() => {
+        setShowContents(false);
+      }, 900);
       setTimeout(() => {
         handleNext(state, selectedCardIdx);
-      }, 700);
+      }, 1300);
     },
     [selectedCardIdx]
   );
@@ -42,34 +65,78 @@ export default function Comp({ state, handleNext }: any) {
   return (
     <CS.Container>
       <CS.Background>
-        <img src={windowWidth < 768 ? `${ASSET_LINKS[state]}/background.png` : `${ASSET_LINKS[state]}/background_desktop.png`} />
-      </CS.Background>
-      <CS.Contents
-        style={{
-          opacity: showContents ? 1 : 0,
-          justifyContent: "space-between",
-        }}
-      >
-        <S.Header>
-          <img src={`${ASSET_LINKS[state]}/header.png`} />
-        </S.Header>
-
-        <S.Grid>
-          {new Array(16).fill(0).map((_, i) => (
-            <S.SingleCard key={i} onClick={() => handleCardClick(i)}>
-              <img src={`${ASSET_LINKS[state]}/card.png`} alt="card" />
-            </S.SingleCard>
-          ))}
-        </S.Grid>
-
-        <S.Footer
+        <S.Background
           style={{
-            color: "white",
+            zIndex: "1",
           }}
         >
-          @snufestival
-        </S.Footer>
-      </CS.Contents>
+          <img src={windowWidth < 768 ? `${ASSET_LINKS[0]}/background.png` : `${ASSET_LINKS[0]}/background_desktop.png`} />
+        </S.Background>
+
+        <S.Background
+          style={{
+            zIndex: "2",
+            transform: `translateX(${state >= 1 ? 0 : -100}vw)`,
+          }}
+        >
+          <img src={windowWidth < 768 ? `${ASSET_LINKS[1]}/background.png` : `${ASSET_LINKS[1]}/background_desktop.png`} />
+        </S.Background>
+        <S.Background
+          style={{
+            zIndex: "3",
+            transform: `translateY(${state >= 2 ? 0 : -100}vh)`,
+          }}
+        >
+          <img src={windowWidth < 768 ? `${ASSET_LINKS[2]}/background.png` : `${ASSET_LINKS[2]}/background_desktop.png`} />
+        </S.Background>
+
+        <S.Background
+          style={{
+            zIndex: "4",
+            transform: `translateY(${state === 3 ? 0 : 100}vh)`,
+          }}
+        >
+          <img src={windowWidth < 768 ? `${ASSET_LINK_INTRO}/background_iP.png` : `${ASSET_LINK_INTRO}/background_PC.png`} />
+        </S.Background>
+      </CS.Background>
+      {state <= 2 && (
+        <CS.Contents
+          style={{
+            opacity: showContents ? 1 : 0,
+            justifyContent: "space-between",
+            zIndex: "5",
+            transition: "all 0.2s",
+          }}
+        >
+          <S.Header>
+            <img src={`${ASSET_LINKS[state]}/header.png`} />
+          </S.Header>
+
+          <S.Grid>
+            {showContents &&
+              new Array(16).fill(0).map((_, i) => (
+                <S.SingleCard
+                  style={{
+                    transform: `rotateY(${i === uiSelectedCardPos ? 360 : 0}deg)`,
+                    filter: `${i === uiSelectedCardPos ? "blur(1px)" : "blur(0)"}`,
+                  }}
+                  key={i}
+                  onClick={() => handleCardClick(i)}
+                >
+                  <S.Img src={i === uiSelectedCardPos ? `${CARD_LINKS[state]}${selectedCardIdx}.png` : `${ASSET_LINKS[state]}/card.png`} alt="card" idx={i} />
+                </S.SingleCard>
+              ))}
+          </S.Grid>
+
+          <S.Footer
+            style={{
+              color: "white",
+            }}
+          >
+            @snufestival
+          </S.Footer>
+        </CS.Contents>
+      )}
     </CS.Container>
   );
 }

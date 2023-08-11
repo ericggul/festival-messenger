@@ -6,19 +6,17 @@ import Cards from "@C/odbd/Cards";
 import { useNavigate } from "react-router-dom";
 
 export default function ODBD() {
-  const [state, setState] = useState("intro");
+  const [state, setState] = useState("card 0");
   const [answerArchive, setAnswerArchive] = useState<any[]>([]);
 
   const navigate = useNavigate();
 
-  function handleToResult() {}
-
   const storedIndexesRef = useRef<any>([]);
   function handleCardNext(st: any, selectedCardIdx: any) {
     storedIndexesRef.current.push(selectedCardIdx);
-    if (st <= 1) setState(`card ${st + 1}`);
-    else {
-      handleToResult();
+    setState(`card ${st + 1}`);
+    if (st >= 2) {
+      setTimeout(() => navigate("/odbd/results/" + "TEST"), 700);
     }
   }
 
