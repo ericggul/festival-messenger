@@ -24,6 +24,8 @@ export const Background = styled.div`
     right: 0;
     bottom: 0;
     z-index: 1;
+
+    transition: all 0.3s;
   }
 
   @keyframes appear {
@@ -143,6 +145,24 @@ export const Img = styled.div`
     }
   }
 
+  @keyframes rotate-shake {
+    0% {
+      transform: rotate(-10deg);
+    }
+    25% {
+      transform: rotate(10deg);
+    }
+    50% {
+      transform: rotate(-10deg);
+    }
+    75% {
+      transform: rotate(10deg);
+    }
+    100% {
+      transform: rotate(-10deg);
+    }
+  }
+
   @keyframes shake {
     0% {
       transform: translateX(0);
@@ -211,6 +231,39 @@ export const Img = styled.div`
     100% {
       transform: scale(1);
       opacity: 1;
+    }
+  }
+
+  @keyframes stretch-x {
+    0% {
+      transform: scaleX(1);
+    }
+    90% {
+      transform: scaleX(2.4);
+    }
+    93% {
+      transform: scaleX(0.4);
+    }
+    94.5% {
+      transform: scaleX(1.5);
+    }
+    95.5% {
+      transform: scaleX(0.6);
+    }
+    96.5% {
+      transform: scaleX(1.3);
+    }
+    97.5% {
+      transform: scaleX(0.75);
+    }
+    98.5% {
+      transform: scaleX(1.15);
+    }
+    99.5% {
+      transform: scaleX(0.9);
+    }
+    100% {
+      transform: scaleX(1);
     }
   }
 

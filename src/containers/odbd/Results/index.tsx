@@ -28,7 +28,7 @@ const ELEMENTS_1 = [
     x: 29,
     y: 350,
     animation: "appear-from-top",
-    delay: 0.75,
+    delay: 1.0,
   },
   {
     img: "card 2",
@@ -36,7 +36,7 @@ const ELEMENTS_1 = [
     x: 185,
     y: 350,
     animation: "appear-from-top",
-    delay: 1.0,
+    delay: 1.5,
   },
   {
     img: "card 3",
@@ -44,7 +44,7 @@ const ELEMENTS_1 = [
     x: 341,
     y: 350,
     animation: "appear-from-top",
-    delay: 1.25,
+    delay: 2.0,
   },
   {
     img: "result1_button1",
@@ -52,7 +52,7 @@ const ELEMENTS_1 = [
     x: 39,
     y: 586,
     animation: "appear-from-bottom",
-    delay: 0.75,
+    delay: 1.0,
   },
   {
     img: "result1_button2",
@@ -60,7 +60,7 @@ const ELEMENTS_1 = [
     x: 195,
     y: 586,
     animation: "appear-from-bottom",
-    delay: 1.0,
+    delay: 1.5,
   },
   {
     img: "result1_button3",
@@ -68,7 +68,7 @@ const ELEMENTS_1 = [
     x: 351,
     y: 586,
     animation: "appear-from-bottom",
-    delay: 1.25,
+    delay: 2.0,
   },
 ];
 
@@ -78,6 +78,16 @@ const ELEMENTS_2 = [
     width: 400,
     x: 50,
     y: 138,
+    animation: "appear-from-top",
+    delay: 0.3,
+
+    additionalAnimations: [
+      {
+        animation: "stretch-x",
+        duration: 3.0,
+        animationDelay: 0,
+      },
+    ],
   },
 
   {
@@ -86,6 +96,16 @@ const ELEMENTS_2 = [
     x: 0,
     y: 533,
     background: true,
+    animation: "appear-from-left",
+    delay: 2.0,
+
+    additionalAnimations: [
+      {
+        animation: "rotate-shake",
+        duration: 0.8,
+        animationDelay: 0.05,
+      },
+    ],
   },
   {
     img: "result2_background_asset1",
@@ -93,12 +113,16 @@ const ELEMENTS_2 = [
     x: 160,
     y: 587,
     background: true,
-  },
-  {
-    img: "result_title",
-    width: 400,
-    x: 50,
-    y: 138,
+    animation: "appear-from-right",
+    delay: 2.2,
+
+    additionalAnimations: [
+      {
+        animation: "zoom-a-bit",
+        duration: 0.27,
+        animationDelay: 0.05,
+      },
+    ],
   },
   {
     img: "result2_button1",
@@ -106,6 +130,16 @@ const ELEMENTS_2 = [
     x: 31,
     y: 700,
     cursor: "pointer",
+    animation: "appear-from-bottom",
+    delay: 1.5,
+    additionalAnimations: [
+      {
+        animation: "rotate-shake",
+        duration: 2.4,
+        animationDelay: 0.0,
+      },
+    ],
+    isButton: "link",
   },
   {
     img: "result2_button2",
@@ -113,6 +147,16 @@ const ELEMENTS_2 = [
     x: 279,
     y: 700,
     cursor: "pointer",
+    animation: "appear-from-bottom",
+    delay: 1.7,
+    additionalAnimations: [
+      {
+        animation: "rotate-shake",
+        duration: 2.4,
+        animationDelay: -0.6,
+      },
+    ],
+    isButton: "kakao",
   },
 ];
 
@@ -121,6 +165,9 @@ const ELEMENT_PAPER = {
   width: 440,
   x: 30,
   y: 280,
+  animation: "appear-by-zoom",
+  delay: 0.8,
+  animationDuration: 1.0,
 };
 
 const DUMMY_CARDS = [
@@ -138,7 +185,7 @@ export default function Comp({ selection }: any) {
   useEffect(() => {
     let timeout: any;
     if (state === 1) {
-      timeout = setTimeout(handleTransition, 2.5 * 1000);
+      timeout = setTimeout(handleTransition, 3.5 * 1000);
     }
     if (state === 2) {
       setAssetLink(ASSET_LINK_2);
@@ -156,13 +203,13 @@ export default function Comp({ selection }: any) {
     setShowContents(false);
     setTimeout(() => {
       setState(2);
-    }, 1200);
+    }, 1500);
   }
 
   const [windowWidth, windowHeight] = useResize();
   const locFormatter = useCallback(
-    ({ width, x, y, animation = "appear", delay = 0.3, additionalAnimations = [], background = false, ...otherParams }: any) => {
-      let anim = `${animation} 0.4s ease-in-out both`;
+    ({ width, x, y, animation = "appear", delay = 0.3, animationDuration = 0.4, additionalAnimations = [], background = false, ...otherParams }: any) => {
+      let anim = `${animation} ${animationDuration}s ease-in-out both`;
       additionalAnimations.forEach(({ animation, delay, duration }: any) => {
         anim += `, ${animation} ${duration}s ease-in-out both infinite`;
       });
@@ -223,6 +270,18 @@ export default function Comp({ selection }: any) {
 
   const letterElRef = useRef<HTMLDivElement>(null);
 
+  async function handleButtonClick(isButton: string) {
+    if (isButton === "link") {
+      //copy current url
+      const url = "https://snufestival.com/odbd";
+      await navigator.clipboard.writeText(url);
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      alert("링크가 복사되었습니다.");
+    } else {
+      shareKakao();
+    }
+  }
+
   async function shareKakao() {
     console.log("202");
     const url = await letterElImg();
@@ -268,18 +327,33 @@ export default function Comp({ selection }: any) {
   return (
     <CS.Container>
       <CS.Background>
-        {/* <img src={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`} /> */}
-        <ImageTransition
-          startTransition={true}
-          fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-          toImgUrl={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-          duration={3000}
-        />
+        {/* <img
+          style={{
+            zIndex: 0,
+          }}
+          src={`${BACKGROUND_LINK}/${state === 1 ? "from" : "to"}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+        /> */}
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            zIndex: 1,
+          }}
+        >
+          <ImageTransition
+            startTransition={true}
+            fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+            toImgUrl={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+            duration={3000}
+          />
+        </div>
+
         <img
           style={{
             opacity: showBackgroundAsImage ? 1 : 0,
           }}
-          src={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+          src={`${BACKGROUND_LINK}/${state === 1 ? "from" : "to"}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
         />
       </CS.Background>
       <CS.Contents
@@ -297,13 +371,13 @@ export default function Comp({ selection }: any) {
           ))}
         {state === 2 &&
           ELEMENTS_2.map((el, i) => (
-            <CS.Img key={i} style={locFormatter(el)}>
+            <CS.Img key={i} style={locFormatter(el)} onClick={() => el.isButton && handleButtonClick(el.isButton)}>
               <img src={`${ASSET_LINK}/${el.img}.png`} />
             </CS.Img>
           ))}
 
         {state === 2 && (
-          <CS.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef} onClick={shareKakao}>
+          <CS.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef}>
             <img src={`${ASSET_LINK}/${ELEMENT_PAPER.img}.png`} />
             <S.Text>
               <p>관정 도서관에서</p>
