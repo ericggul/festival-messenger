@@ -2,19 +2,16 @@ import React, { useCallback, useState, useEffect, useMemo, useRef } from "react"
 
 import useResize from "@/utils/hooks/useResize";
 
-import ImageTransition from "./ImageTransition";
-
 import * as CS from "@C/odbd/styles";
 import * as S from "./styles";
+
+import { DB } from "@/containers/odbd/data";
 
 import { KAKAO_ODBD_ID } from "@/configs/kakao";
 import html2canvas from "html2canvas";
 
-import { DB } from "@/containers/odbd/data";
-
 const BACKGROUND_LINK = `https://operating-as-usual.vercel.app/INTERNETINENTAL/images/odbd`;
 
-const ASSET_LINK_0 = `/odbd/4_result_page_1`;
 const ASSET_LINK_1 = `/odbd/4_result_page_1/etc`;
 const ASSET_LINK_2 = `/odbd/5_result_page_2`;
 
@@ -81,16 +78,6 @@ const ELEMENTS_2 = [
     width: 400,
     x: 50,
     y: 138,
-    animation: "appear-from-top",
-    delay: 0.3,
-
-    additionalAnimations: [
-      {
-        animation: "stretch-x",
-        duration: 4.0,
-        animationDelay: 0,
-      },
-    ],
   },
 
   {
@@ -99,16 +86,6 @@ const ELEMENTS_2 = [
     x: 0,
     y: 533,
     background: true,
-    animation: "appear-from-left",
-    delay: 2.0,
-
-    additionalAnimations: [
-      {
-        animation: "rotate-shake",
-        duration: 0.8,
-        animationDelay: 0.05,
-      },
-    ],
   },
   {
     img: "result2_background_asset1",
@@ -116,16 +93,6 @@ const ELEMENTS_2 = [
     x: 160,
     y: 587,
     background: true,
-    animation: "appear-from-right",
-    delay: 2.2,
-
-    additionalAnimations: [
-      {
-        animation: "zoom-a-bit",
-        duration: 0.27,
-        animationDelay: 0.05,
-      },
-    ],
   },
   {
     img: "result2_button1",
@@ -133,15 +100,7 @@ const ELEMENTS_2 = [
     x: 31,
     y: 700,
     cursor: "pointer",
-    animation: "appear-from-bottom",
-    delay: 1.5,
-    additionalAnimations: [
-      {
-        animation: "rotate-shake",
-        duration: 2.4,
-        animationDelay: 0.0,
-      },
-    ],
+
     isButton: "link",
   },
   {
@@ -150,15 +109,7 @@ const ELEMENTS_2 = [
     x: 279,
     y: 700,
     cursor: "pointer",
-    animation: "appear-from-bottom",
-    delay: 1.7,
-    additionalAnimations: [
-      {
-        animation: "rotate-shake",
-        duration: 2.4,
-        animationDelay: -0.6,
-      },
-    ],
+
     isButton: "kakao",
   },
 ];
@@ -166,17 +117,25 @@ const ELEMENTS_2 = [
 const ELEMENT_PAPER = {
   img: "result2_paper",
   width: 440,
+  height: 440,
   x: 30,
   y: 280,
-  animation: "appear-by-zoom",
-  delay: 0.8,
+
   animationDuration: 1.0,
 };
 
-export default function Comp({ selection }: any) {
-  console.log(selection);
+const DUMMY_CARDS = [
+  "/odbd/4_result_page_1/1_where_front/where_card_front1.png",
+  "/odbd/4_result_page_1/1_where_front/where_card_front2.png",
+  "/odbd/4_result_page_1/1_where_front/where_card_front3.png",
+];
 
-  const [state, setState] = useState(1);
+const RANGE = [13, 22, 32];
+
+export default function Comp() {
+  const ARR = [0, 0, 0];
+
+  const [state, setState] = useState(2);
   const [ASSET_LINK, setAssetLink] = useState(ASSET_LINK_1);
 
   useEffect(() => {
@@ -200,7 +159,7 @@ export default function Comp({ selection }: any) {
     setShowContents(false);
     setTimeout(() => {
       setState(2);
-    }, 750);
+    }, 1500);
   }
 
   const [windowWidth, windowHeight] = useResize();
@@ -280,115 +239,100 @@ export default function Comp({ selection }: any) {
   }
 
   async function shareKakao() {
+    console.log("202");
     const url = await letterElImg();
+    console.log(url);
 
-    if (!url) return;
-
-    let text = `보드게임으로 알아본 오늘의 운세: ${DB[0][parseInt(selection[0]) - 1].text} ${DB[1][parseInt(selection[1]) - 1].text} ${DB[2][parseInt(selection[2]) - 1].text}`;
-
-    window.Kakao.Link.sendCustom({
-      templateId: KAKAO_ODBD_ID,
-      templateArgs: {
-        imageUrl: url,
-        text,
-      },
-    });
+    // if (!url) return;
+    // window.Kakao.Link.sendCustom({
+    //   templateId: KAKAO_ODBD_ID,
+    //   templateArgs: {
+    //     imageUrl: url,
+    //   },
+    // });
   }
-
-  async function letterElImg() {
-    if (!letterElRef.current) return;
-    const canvas = await html2canvas(letterElRef.current);
-    const dataURL = canvas.toDataURL("image/png");
-
-    //dataurl to globally accessible url
-    const blobBin = atob(dataURL.split(",")[1]);
-    const array = [];
-    for (let i = 0; i < blobBin.length; i++) {
-      array.push(blobBin.charCodeAt(i));
-    }
-    const file = new Blob([new Uint8Array(array)], { type: "image/png" });
-    const url = URL.createObjectURL(file);
-
-    return url;
-  }
-
-  const [showBackgroundAsImage, setShowBackgroundAsImage] = useState(false);
-  const windowWidthMoreThanZeroRef = useRef(0);
 
   useEffect(() => {
-    if (windowWidth > 0) {
-      if (windowWidthMoreThanZeroRef.current != 0 && windowWidthMoreThanZeroRef.current != windowWidth) {
-        setShowBackgroundAsImage(true);
+    letterElImg();
+  }, []);
+
+  const [currCombination, setCurrCombination] = useState([0, 1, 17]);
+
+  const [getNextCombi, setGetNextCombi] = useState(false);
+
+  useEffect(() => {
+    if (getNextCombi) {
+      let COMBI = [13, 22, 32];
+
+      //generate next combination with RANGE as a boundary
+      const combiToIdx = currCombination[0] * 22 * 32 + currCombination[1] * 32 + currCombination[2];
+      const nextCombiIdx = (combiToIdx + 1) % (13 * 22 * 32);
+
+      if (nextCombiIdx >= 50 && nextCombiIdx < 13 * 22 * 32) {
+        COMBI[0] = Math.floor(nextCombiIdx / (22 * 32));
+        COMBI[1] = Math.floor((nextCombiIdx % (22 * 32)) / 32);
+        COMBI[2] = nextCombiIdx % 32;
+
+        setCurrCombination(COMBI);
       }
-      windowWidthMoreThanZeroRef.current = windowWidth;
+
+      setGetNextCombi(false);
     }
-  }, [windowWidth]);
+  }, [getNextCombi]);
+
+  useEffect(() => {
+    letterElImg();
+  }, [currCombination]);
+
+  async function letterElImg() {
+    await new Promise((resolve) => setTimeout(resolve, 900));
+    if (!letterElRef.current) return;
+    const canvas = await html2canvas(letterElRef.current, {
+      useCORS: true,
+    });
+    const dataURL = canvas.toDataURL("image/png");
+
+    //download iamge
+    const a = document.createElement("a");
+
+    a.href = dataURL;
+
+    a.download = `result_${currCombination[0]}-${currCombination[1]}-${currCombination[2]}.png`;
+    a.click();
+
+    //a remove
+    a.remove();
+
+    setGetNextCombi(true);
+  }
 
   return (
     <CS.Container>
-      <CS.Background>
-        {/* <img
-          style={{
-            zIndex: 0,
-          }}
-          src={`${BACKGROUND_LINK}/${state === 1 ? "from" : "to"}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-        /> */}
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            zIndex: 1,
-          }}
-        >
-          <ImageTransition
-            startTransition={state === 2}
-            fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-            toImgUrl={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-            duration={3600}
-          />
-        </div>
-
-        <img
-          style={{
-            opacity: showBackgroundAsImage ? 1 : 0,
-          }}
-          src={`${BACKGROUND_LINK}/${state === 1 ? "from" : "to"}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-        />
-      </CS.Background>
-      <CS.Contents
-        style={{
-          opacity: showContents ? 1 : 0,
-          transition: "opacity 0.7s ease-in-out",
-        }}
-      >
+      <CS.Contents>
         <CS.Title>보드게임으로 알아보는 오늘의 운세</CS.Title>
-        {state === 1 &&
-          ELEMENTS_1.map((el, i) => (
-            <CS.Img key={i} style={locFormatter(el)}>
-              <img
-                src={
-                  el.img.includes("card") ? ASSET_LINK_0 + DB[parseInt(el.img.split(" ")[1]) - 1][parseInt(selection[parseInt(el.img.split(" ")[1]) - 1]) - 1].imgURL : `${ASSET_LINK}/${el.img}.png`
-                }
-              />
-            </CS.Img>
-          ))}
-        {state === 2 &&
-          ELEMENTS_2.map((el, i) => (
-            <CS.Img key={i} style={locFormatter(el)} onClick={() => el.isButton && handleButtonClick(el.isButton)}>
-              <img src={`${ASSET_LINK}/${el.img}.png`} />
-            </CS.Img>
-          ))}
 
         {state === 2 && (
-          <CS.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef}>
-            <img src={`${ASSET_LINK}/${ELEMENT_PAPER.img}.png`} />
+          <S.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef}>
+            <img
+              src={`${ASSET_LINK}/kakao_back.png`}
+              style={{
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <img
+              src={`${ASSET_LINK}/${ELEMENT_PAPER.img}.png`}
+              style={{
+                transform: "translateY(2rem)",
+              }}
+            />
+            <S.Title>보드게임으로 알아보는 오늘의 운세</S.Title>
             <S.Text>
-              <p>{DB[0][parseInt(selection[0]) - 1].text}</p>
-              <p>{DB[1][parseInt(selection[1]) - 1].text}</p>
-              <p>{DB[2][parseInt(selection[2]) - 1].text}</p>
+              <p>{DB[0][currCombination[0]].text}</p>
+              <p>{DB[1][currCombination[1]].text}</p>
+              <p>{DB[2][currCombination[2]].text}</p>
             </S.Text>
-          </CS.Img>
+          </S.Img>
         )}
 
         <CS.Footer>@snufestival</CS.Footer>

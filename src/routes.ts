@@ -20,6 +20,7 @@ const AglioResults = lazy(() => import("@/pages/aglio/Results"));
 //odbd
 const ODBD = lazy(() => import("@/pages/odbd/Odbd"));
 const ODBDResults = lazy(() => import("@/pages/odbd/Results"));
+const ODBDImages = lazy(() => import("@/pages/odbd/ImageGenerator"));
 
 //loading
 const Loading = lazy(() => import("@/pages/loading/Loading"));
@@ -27,7 +28,7 @@ const Loading = lazy(() => import("@/pages/loading/Loading"));
 const routes = [
   {
     path: "/",
-    component: Intro,
+    component: ODBD,
   },
   {
     path: "/aglio",
@@ -44,6 +45,10 @@ const routes = [
   {
     path: "/odbd/results/:type",
     component: ODBDResults,
+  },
+  {
+    path: "/odbd/images",
+    component: ODBDImages,
   },
   {
     path: "/about",

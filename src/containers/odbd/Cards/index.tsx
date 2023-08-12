@@ -44,6 +44,7 @@ export default function Comp({ state, handleNext }: any) {
 
   //ui selected card index
   const [uiSelectedCardPos, setUISelectedCardPos] = useState(-1);
+
   //init
   useEffect(() => {
     setUISelectedCardPos(-1);
@@ -53,11 +54,11 @@ export default function Comp({ state, handleNext }: any) {
     (i: number) => {
       setUISelectedCardPos(i);
       setTimeout(() => {
-        setShowContents(false);
-      }, 900);
-      setTimeout(() => {
         handleNext(state, selectedCardIdx);
       }, 1300);
+      setTimeout(() => {
+        setShowContents(false);
+      }, 900);
     },
     [selectedCardIdx]
   );
@@ -118,10 +119,10 @@ export default function Comp({ state, handleNext }: any) {
                 <S.SingleCard
                   style={{
                     transform: `rotateY(${i === uiSelectedCardPos ? 360 : 0}deg)`,
-                    filter: `${i === uiSelectedCardPos ? "blur(1px)" : "blur(0)"}`,
+                    // filter: `${i === uiSelectedCardPos ? "blur(1px)" : "blur(0)"}`,
                   }}
                   key={i}
-                  onClick={() => handleCardClick(i)}
+                  onClick={() => uiSelectedCardPos === -1 && handleCardClick(i)}
                 >
                   <S.Img src={i === uiSelectedCardPos ? `${CARD_LINKS[state]}${selectedCardIdx}.png` : `${ASSET_LINKS[state]}/card.png`} alt="card" idx={i} />
                 </S.SingleCard>

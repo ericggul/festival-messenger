@@ -43,30 +43,3 @@ export const InnerText = styled.div`
     margin-right: 0.5rem;
   }
 `;
-
-// <S.Title>
-// <img src={ASSET_LINK + '/untheboaed.png'} />
-
-// </S.Title>
-
-// <S.MyLuck>
-// <img src={ASSET_LINK + '/myluck.png'} />
-
-// </S.MyLuck>
-
-// <S.WhatIs>
-// <img src={ASSET_LINK + '/Whatismyluck.png'} />
-
-// </S.WhatIs>
-// <S.Chukjae>
-// <img src={ASSET_LINK + '/Chujae.png'} />
-
-// </S.Chukjae>
-// <S.Rio>
-// <img src={ASSET_LINK + '/riooo.png'} />
-
-// </S.Rio>
-// <S.StartButton>
-// <img src={ASSET_LINK + '/start_button.png'} />
-
-// </S.StartButton>
