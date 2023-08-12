@@ -129,7 +129,9 @@ const DUMMY_CARDS = [
   "/odbd/4_result_page_1/1_where_front/where_card_front3.png",
 ];
 
-export default function Comp({ type }: any) {
+export default function Comp({ selection }: any) {
+  console.log(selection);
+
   const [state, setState] = useState(1);
   const [ASSET_LINK, setAssetLink] = useState(ASSET_LINK_1);
 
@@ -266,6 +268,7 @@ export default function Comp({ type }: any) {
   return (
     <CS.Container>
       <CS.Background>
+        {/* <img src={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`} /> */}
         <ImageTransition
           startTransition={true}
           fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
@@ -276,7 +279,7 @@ export default function Comp({ type }: any) {
           style={{
             opacity: showBackgroundAsImage ? 1 : 0,
           }}
-          src={`https://snufestival.com${ASSET_LINK_1}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+          src={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
         />
       </CS.Background>
       <CS.Contents

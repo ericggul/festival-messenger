@@ -14,54 +14,83 @@ const ELEMENTS_EXPLAIN = [
     width: 270,
     x: 115,
     y: 25,
+    animation: "appear-by-zoom",
+    delay: 0.4,
+    additionalAnimations: [
+      {
+        animation: "jump",
+        duration: 1,
+      },
+    ],
   },
   {
     img: "righttop",
     x: 21,
     y: 10,
     width: 108,
+    animation: "appear-from-top",
+    delay: 0.1,
+    additionalAnimations: [
+      {
+        animation: "vibrate",
+        duration: 0.25,
+        animationDelay: 0.1,
+      },
+    ],
   },
   {
     img: "lefttop",
     x: 371,
     y: 10,
     width: 108,
+    animation: "appear-from-top",
+    delay: 0.1,
+    additionalAnimations: [
+      {
+        animation: "vibrate",
+        duration: 0.25,
+        animationDelay: 0.05,
+      },
+    ],
   },
   {
     img: "rightleft",
     x: 21,
     yBottom: 10,
     width: 108,
+    animation: "appear-from-bottom",
+    delay: 0.1,
+    additionalAnimations: [
+      {
+        animation: "vibrate",
+        duration: 0.25,
+        animationDelay: 0.2,
+      },
+    ],
   },
   {
     img: "rightdown",
     x: 371,
     yBottom: 10,
     width: 108,
+    animation: "appear-from-bottom",
+    delay: 0.1,
+    additionalAnimations: [
+      {
+        animation: "vibrate",
+        duration: 0.25,
+        animationDelay: 0.3,
+      },
+    ],
   },
+
   {
-    img: "ex4",
-    x: 301,
+    img: "ex1234",
+    x: 70,
     yBottom: 260,
-    width: 140,
-  },
-  {
-    img: "ex3",
-    x: 180,
-    yBottom: 260,
-    width: 140,
-  },
-  {
-    img: "ex2",
-    x: 69,
-    yBottom: 260,
-    width: 140,
-  },
-  {
-    img: "explain1",
-    x: 85,
-    yBottom: 200,
-    width: 330,
+    width: 360,
+    animation: "appear-by-zoom",
+    delay: 0.4,
   },
   {
     img: "ok",
@@ -70,6 +99,16 @@ const ELEMENTS_EXPLAIN = [
     yBottom: 30,
     isButton: true,
     cursor: "pointer",
+    animation: "appear-from-bottom",
+    delay: 0.4,
+
+    additionalAnimations: [
+      {
+        animation: "zoom-a-bit",
+        duration: 0.25,
+        animationDelay: 0.1,
+      },
+    ],
   },
 ];
 

@@ -132,6 +132,17 @@ export const Img = styled.div`
     }
   }
 
+  @keyframes appear-by-zoom {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(540deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
   @keyframes shake {
     0% {
       transform: translateX(0);
@@ -150,6 +161,24 @@ export const Img = styled.div`
     }
   }
 
+  @keyframes vibrate {
+    0% {
+      transform: translateX(-2px);
+    }
+    25% {
+      transform: translateX(2px);
+    }
+    50% {
+      transform: translateX(-2px);
+    }
+    75% {
+      transform: translateX(2px);
+    }
+    100% {
+      transform: translateX(-2px);
+    }
+  }
+
   //animatuion jumping up-down like super mario koopa
 
   @keyframes jump {
@@ -160,6 +189,9 @@ export const Img = styled.div`
       transform: translateY(-18px);
     }
     50% {
+      transform: translateY(0);
+    }
+    100% {
       transform: translateY(0);
     }
   }
@@ -175,6 +207,21 @@ export const Img = styled.div`
     }
     92% {
       transform: scale(1) rotate(1080deg);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes zoom-a-bit {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 1;
     }
     100% {
       transform: scale(1);
