@@ -46,7 +46,7 @@ export const Contents = styled.div`
   flex-direction: column;
   z-index: 2;
 
-  transition: opacity 0.5s;
+  transition: opacity 0.2s;
 `;
 
 export const Title = styled.div`

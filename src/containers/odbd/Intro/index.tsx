@@ -8,7 +8,7 @@ import * as S from "./styles";
 const ASSET_LINK_EXPLAIN = `/odbd/2_explain_page`;
 const ASSET_LINK_INTRO = `/odbd/1_intro_page`;
 
-const ELEMENTS_EXPLAIN = [
+export const ELEMENTS_EXPLAIN = [
   {
     img: "seolmuing",
     width: 270,
@@ -20,6 +20,7 @@ const ELEMENTS_EXPLAIN = [
       {
         animation: "jump",
         duration: 1,
+        animationDelay: 1,
       },
     ],
   },
@@ -34,7 +35,7 @@ const ELEMENTS_EXPLAIN = [
       {
         animation: "vibrate",
         duration: 0.25,
-        animationDelay: 0.1,
+        animationDelay: 1.1,
       },
     ],
   },
@@ -49,7 +50,7 @@ const ELEMENTS_EXPLAIN = [
       {
         animation: "vibrate",
         duration: 0.25,
-        animationDelay: 0.05,
+        animationDelay: 1.05,
       },
     ],
   },
@@ -64,7 +65,7 @@ const ELEMENTS_EXPLAIN = [
       {
         animation: "vibrate",
         duration: 0.25,
-        animationDelay: 0.2,
+        animationDelay: 1.2,
       },
     ],
   },
@@ -79,7 +80,7 @@ const ELEMENTS_EXPLAIN = [
       {
         animation: "vibrate",
         duration: 0.25,
-        animationDelay: 0.3,
+        animationDelay: 1.3,
       },
     ],
   },
@@ -106,7 +107,7 @@ const ELEMENTS_EXPLAIN = [
       {
         animation: "zoom-a-bit",
         duration: 0.25,
-        animationDelay: 0.1,
+        animationDelay: 1.1,
       },
     ],
   },
@@ -182,7 +183,7 @@ const ELEMENTS_INTRO = [
   },
 ];
 
-export default function Comp({ state, setState }: any) {
+export default function Comp({ state, setState, setShowLoading }: any) {
   const [windowWidth, windowHeight] = useResize();
   const locFormatter = useCallback(
     ({ width, x, y = 0, yBottom = 0, height = 0, animation = "appear", delay = 0.3, additionalAnimations = [], ...otherParams }: any) => {
@@ -274,20 +275,33 @@ export default function Comp({ state, setState }: any) {
     setShowContents(false);
     setTimeout(() => {
       setState("expl");
-    }, 700);
+    }, 400);
   }
 
   function handleExplClick() {
     setShowContents(false);
     setTimeout(() => {
       setState("card 0");
-    }, 700);
+    }, 400);
   }
+
+  const [imgLoaded, setImgLoaded] = useState(0);
+
+  const timeoutRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (imgLoaded >= 7) {
+      timeoutRef.current = setTimeout(() => {
+        setShowLoading(false);
+      }, 2500);
+    }
+    return () => timeoutRef.current && clearTimeout(timeoutRef.current);
+  }, [imgLoaded]);
 
   return (
     <CS.Container>
       <CS.Background>
-        <img src={windowWidth < 768 ? `${ASSET_LINK_INTRO}/background_iP.png` : `${ASSET_LINK_INTRO}/background_PC.png`} />
+        <img onLoad={() => setImgLoaded((i: any) => i + 1)} src={windowWidth < 768 ? `${ASSET_LINK_INTRO}/background_iP.png` : `${ASSET_LINK_INTRO}/background_PC.png`} />
       </CS.Background>
       <CS.Contents
         style={{
@@ -341,7 +355,7 @@ export default function Comp({ state, setState }: any) {
         {state === "intro" &&
           ELEMENTS_INTRO.map((el, i) => (
             <CS.Img key={i} style={locFormatter(el)} onClick={() => el.isButton && handleIntroClick()}>
-              <img src={`${ASSET_LINK_INTRO}/${el.img}.png`} />
+              <img onLoad={() => setImgLoaded((i: any) => i + 1)} src={`${ASSET_LINK_INTRO}/${el.img}.png`} />
             </CS.Img>
           ))}
         {state === "expl" &&

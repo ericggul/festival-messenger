@@ -20,9 +20,6 @@ import { GlobalStyle, theme } from "@S/style/index";
 //routes
 import routes from "@/routes";
 
-//loading
-import LoadingContainer from "@C/Loading";
-
 const Message = lazy(() => import("@/pages/message"));
 
 function App() {
@@ -40,7 +37,7 @@ function App() {
               key={i}
               path={route.path}
               element={
-                <Suspense fallback={<LoadingContainer />}>
+                <Suspense fallback={null}>
                   <route.component />
                 </Suspense>
               }

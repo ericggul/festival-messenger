@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import LoadingContainer from "@C/Loading";
+
 import App from "./App";
 import { initializeGA } from "@/utils/initializer/googleAnalytics";
 import { initializeKakao } from "@/utils/initializer/kakao";
@@ -21,7 +21,7 @@ let root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <Provider store={store}>
-    <PersistGate loading={<LoadingContainer />} persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>

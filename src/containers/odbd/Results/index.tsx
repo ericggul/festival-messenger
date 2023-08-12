@@ -84,13 +84,13 @@ const ELEMENTS_2 = [
     animation: "appear-from-top",
     delay: 0.3,
 
-    additionalAnimations: [
-      {
-        animation: "stretch-x",
-        duration: 4.0,
-        animationDelay: 0,
-      },
-    ],
+    // additionalAnimations: [
+    //   {
+    //     animation: "stretch-x",
+    //     duration: 4.0,
+    //     animationDelay: 0,
+    //   },
+    // ],
   },
 
   {

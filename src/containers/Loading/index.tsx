@@ -51,7 +51,7 @@ import Loading46 from "@F/loading/hundreadLoadings/Loading46";
 import Loading47 from "@F/loading/hundreadLoadings/Loading47";
 import Loading48 from "@F/loading/hundreadLoadings/Loading48";
 import Loading49 from "@F/loading/hundreadLoadings/Loading49";
-import Loading50 from "@F/loading/hundreadLoadings/Loading50";
+import Loading50 from "@F/loading/hundreadLoadings/Loading58";
 import Loading51 from "@F/loading/hundreadLoadings/Loading51";
 import Loading52 from "@F/loading/hundreadLoadings/Loading52";
 import Loading53 from "@F/loading/hundreadLoadings/Loading53";
@@ -107,6 +107,7 @@ function Loading() {
   const randomNumber = useMemo(() => Math.floor(Math.random() * 100), []);
 
   const RandomRender = ({ number }: any) => {
+    console.log(number);
     switch (number) {
       case 0:
         return <Loading1 />;
@@ -125,26 +126,26 @@ function Loading() {
       case 7:
         return <Loading8 />;
       case 8:
-        return <Loading9 />;
+        return <Loading58 />;
       case 9:
         return <Loading10 />;
       case 10:
-        return <Loading11 />;
+        return <Loading58 />;
       case 11:
-        return <Loading12 />;
+        return <Loading58 />;
       case 12:
-        return <Loading13 />;
+        return <Loading58 />;
 
       case 13:
-        return <Loading14 />;
+        return <Loading58 />;
       case 14:
-        return <Loading15 />;
+        return <Loading58 />;
       case 15:
-        return <Loading16 />;
+        return <Loading58 />;
       case 16:
-        return <Loading17 />;
+        return <Loading58 />;
       case 17:
-        return <Loading18 />;
+        return <Loading58 />;
 
       case 18:
         return <Loading19 />;
@@ -211,7 +212,7 @@ function Loading() {
       case 48:
         return <Loading49 />;
       case 49:
-        return <Loading50 />;
+        return <Loading58 />;
       case 50:
         return <Loading51 />;
       case 51:
@@ -308,9 +309,9 @@ function Loading() {
       case 96:
         return <Loading97 />;
       case 97:
-        return <Loading98 />;
+        return <Loading58 />;
       case 98:
-        return <Loading99 />;
+        return <Loading58 />;
       case 99:
         return <Loading100 />;
 
@@ -321,7 +322,7 @@ function Loading() {
 
   return (
     <S.Container>
-      <Suspense fallback={<></>}>
+      <Suspense fallback={null}>
         <RandomRender number={randomNumber} />
       </Suspense>
     </S.Container>
