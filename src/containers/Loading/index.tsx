@@ -104,7 +104,8 @@ import Loading99 from "@F/loading/hundreadLoadings/Loading99";
 import Loading100 from "@F/loading/hundreadLoadings/Loading100";
 
 function Loading() {
-  const randomNumber = useMemo(() => Math.floor(Math.random() * 100), []);
+  // const randomNumber = useMemo(() => Math.floor(Math.random() * 100), []);
+  const randomNumber = 58;
 
   const RandomRender = ({ number }: any) => {
     console.log(number);

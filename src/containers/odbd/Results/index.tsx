@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect, useMemo, useRef } from "react";
 
+import LoadingContainer from "@C/Loading";
 import useResize from "@/utils/hooks/useResize";
 
 import ImageTransition from "./ImageTransition";
@@ -53,7 +54,7 @@ const ELEMENTS_1 = [
     img: "result1_button1",
     width: 110,
     x: 39,
-    y: 586,
+    y: 600,
     animation: "appear-from-bottom",
     delay: 1.0,
   },
@@ -61,7 +62,7 @@ const ELEMENTS_1 = [
     img: "result1_button2",
     width: 110,
     x: 195,
-    y: 586,
+    y: 600,
     animation: "appear-from-bottom",
     delay: 1.5,
   },
@@ -69,7 +70,7 @@ const ELEMENTS_1 = [
     img: "result1_button3",
     width: 110,
     x: 351,
-    y: 586,
+    y: 600,
     animation: "appear-from-bottom",
     delay: 2.0,
   },
@@ -82,7 +83,7 @@ const ELEMENTS_2 = [
     x: 50,
     y: 138,
     animation: "appear-from-top",
-    delay: 0.3,
+    delay: 0.7,
 
     // additionalAnimations: [
     //   {
@@ -105,8 +106,7 @@ const ELEMENTS_2 = [
     additionalAnimations: [
       {
         animation: "rotate-shake",
-        duration: 0.8,
-        animationDelay: 0.05,
+        duration: 1.5,
       },
     ],
   },
@@ -116,14 +116,13 @@ const ELEMENTS_2 = [
     x: 160,
     y: 587,
     background: true,
-    animation: "appear-from-right",
-    delay: 2.2,
+    animation: "appear-from-left",
+    delay: 2.0,
 
     additionalAnimations: [
       {
         animation: "zoom-a-bit",
-        duration: 0.27,
-        animationDelay: 0.05,
+        duration: 1.5,
       },
     ],
   },
@@ -139,7 +138,7 @@ const ELEMENTS_2 = [
       {
         animation: "rotate-shake",
         duration: 2.4,
-        animationDelay: 0.0,
+        animationDelay: -0.0,
       },
     ],
     isButton: "link",
@@ -169,27 +168,37 @@ const ELEMENT_PAPER = {
   x: 30,
   y: 280,
   animation: "appear-by-zoom",
-  delay: 0.8,
+  delay: 1.0,
   animationDuration: 1.0,
 };
 
 export default function Comp({ selection }: any) {
-  console.log(selection);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let timeout: any;
+    timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+    return () => timeout && clearTimeout(timeout);
+  }, []);
 
   const [state, setState] = useState(1);
   const [ASSET_LINK, setAssetLink] = useState(ASSET_LINK_1);
 
   useEffect(() => {
     let timeout: any;
-    if (state === 1) {
-      timeout = setTimeout(handleTransition, 3.5 * 1000);
-    }
-    if (state === 2) {
-      setAssetLink(ASSET_LINK_2);
+    if (!loading) {
+      if (state === 1) {
+        timeout = setTimeout(handleTransition, 3.5 * 1000);
+      }
+      if (state === 2) {
+        setAssetLink(ASSET_LINK_2);
+      }
     }
 
     return () => timeout && clearTimeout(timeout);
-  }, [state]);
+  }, [loading, state]);
 
   ///show contents & handle next
   const [showContents, setShowContents] = useState(false);
@@ -220,7 +229,7 @@ export default function Comp({ selection }: any) {
           left: `${x * xScale}px`,
           top: `${y * yScale}px`,
           animation: anim,
-          animationDelay: `${delay}s`,
+          animationDelay: `${state === 1 ? 2.5 + delay : delay}s`,
           ...otherParams,
         };
       } else if (state === 1) {
@@ -231,9 +240,9 @@ export default function Comp({ selection }: any) {
         return {
           width: `${width}px`,
           left: `${(width / 2 + x) * xExpand - width / 2 + xStart}px`,
-          top: `${y <= 350 ? y * yScale : windowHeight - (800 - y) * yScale}px`,
+          top: `${y <= 300 ? y * yScale : windowHeight - (800 - y) * yScale}px`,
           animation: anim,
-          animationDelay: `${delay}s`,
+          animationDelay: `${2.5 + delay}s`,
           ...otherParams,
         };
       } else if (background) {
@@ -272,7 +281,7 @@ export default function Comp({ selection }: any) {
       //copy current url
       const url = "https://snufestival.com/odbd";
       await navigator.clipboard.writeText(url);
-      await new Promise((resolve) => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, 300));
       alert("링크가 복사되었습니다.");
     } else {
       shareKakao();
@@ -324,6 +333,11 @@ export default function Comp({ selection }: any) {
     }
   }, [windowWidth]);
 
+  function handleFooterClick() {
+    const LINK = `https://www.instagram.com/snufestival/`;
+    window.open(LINK, "_blank");
+  }
+
   return (
     <CS.Container>
       <CS.Background>
@@ -341,17 +355,17 @@ export default function Comp({ selection }: any) {
             zIndex: 1,
           }}
         >
-          <ImageTransition
+          {/* <ImageTransition
             startTransition={state === 2}
             fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
             toImgUrl={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
             duration={3600}
-          />
+          /> */}
         </div>
 
         <img
           style={{
-            opacity: showBackgroundAsImage ? 1 : 0,
+            opacity: showBackgroundAsImage ? 1 : 1,
           }}
           src={`${BACKGROUND_LINK}/${state === 1 ? "from" : "to"}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
         />
@@ -391,8 +405,10 @@ export default function Comp({ selection }: any) {
           </CS.Img>
         )}
 
-        <CS.Footer>@snufestival</CS.Footer>
+        <CS.Footer onClick={handleFooterClick}>@snufestival</CS.Footer>
       </CS.Contents>
+
+      {loading && <LoadingContainer />}
     </CS.Container>
   );
 }

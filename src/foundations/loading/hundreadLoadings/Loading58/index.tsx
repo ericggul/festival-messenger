@@ -13,7 +13,7 @@ function Loading() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIdx((idx) => (idx + 1) % array.length);
-    }, 800);
+    }, 300);
     return () => clearInterval(interval);
   }, []);
 

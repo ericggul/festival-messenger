@@ -12,6 +12,8 @@ import { useSpring } from "react-spring";
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * Math.floor(max));
 
+const getNearestAbovePowerOfTwo = (num: number) => Math.pow(2, Math.ceil(Math.log(num) / Math.log(2)));
+
 export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 3000 }: any) {
   const [windowWidth, windowHeight] = useResize();
 
@@ -49,7 +51,14 @@ export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 
   return (
     <React.Fragment>
       <Suspense fallback={<div>Loading...</div>}>
-        <GLTransition from={fromImgUrl} to={toImgUrl} transition={glTransitions[glTransitionsIdx]} progress={progress} windowWidth={windowWidth} windowHeight={windowHeight} />
+        <GLTransition
+          from={fromImgUrl}
+          to={toImgUrl}
+          transition={glTransitions[glTransitionsIdx]}
+          progress={progress}
+          windowWidth={getNearestAbovePowerOfTwo(windowWidth)}
+          windowHeight={getNearestAbovePowerOfTwo(windowHeight)}
+        />
       </Suspense>
     </React.Fragment>
   );

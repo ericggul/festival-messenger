@@ -6,6 +6,17 @@ export const Background = styled.div`
   ${FlexCenterStyle};
   height: 100vh;
   transition: all 0.35s;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  animation: appear 0.3s both;
 `;
 
 export const BackgroundImage = styled.img`
@@ -37,8 +48,8 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  row-gap: ${({ theme }) => (theme.windowWidth < 768 ? "18px" : "9px")};
-  column-gap: ${({ theme }) => (theme.windowWidth < 768 ? "15px" : "7px")};
+  row-gap: ${({ theme }) => (theme.windowWidth < 768 ? "7px" : "9px")};
+  column-gap: ${({ theme }) => (theme.windowWidth < 768 ? "5px" : "7px")};
   width: ${({ theme }) => Math.min(theme.windowWidth * 0.75, theme.windowHeight * 0.8 * 0.5)}px;
 `;
 

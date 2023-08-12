@@ -31,13 +31,6 @@ export const ELEMENTS_EXPLAIN = [
     width: 108,
     animation: "appear-from-top",
     delay: 0.1,
-    additionalAnimations: [
-      {
-        animation: "vibrate",
-        duration: 0.25,
-        animationDelay: 1.1,
-      },
-    ],
   },
   {
     img: "lefttop",
@@ -46,13 +39,6 @@ export const ELEMENTS_EXPLAIN = [
     width: 108,
     animation: "appear-from-top",
     delay: 0.1,
-    additionalAnimations: [
-      {
-        animation: "vibrate",
-        duration: 0.25,
-        animationDelay: 1.05,
-      },
-    ],
   },
   {
     img: "rightleft",
@@ -60,14 +46,6 @@ export const ELEMENTS_EXPLAIN = [
     yBottom: 10,
     width: 108,
     animation: "appear-from-bottom",
-    delay: 0.1,
-    additionalAnimations: [
-      {
-        animation: "vibrate",
-        duration: 0.25,
-        animationDelay: 1.2,
-      },
-    ],
   },
   {
     img: "rightdown",
@@ -76,13 +54,6 @@ export const ELEMENTS_EXPLAIN = [
     width: 108,
     animation: "appear-from-bottom",
     delay: 0.1,
-    additionalAnimations: [
-      {
-        animation: "vibrate",
-        duration: 0.25,
-        animationDelay: 1.3,
-      },
-    ],
   },
 
   {
@@ -293,7 +264,7 @@ export default function Comp({ state, setState, setShowLoading }: any) {
     if (imgLoaded >= 7) {
       timeoutRef.current = setTimeout(() => {
         setShowLoading(false);
-      }, 2500);
+      }, 4000);
     }
     return () => timeoutRef.current && clearTimeout(timeoutRef.current);
   }, [imgLoaded]);

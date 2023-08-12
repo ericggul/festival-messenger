@@ -19,7 +19,10 @@ export default function ODBD() {
   const storedIndexesRef = useRef<any>({});
   function handleCardNext(st: any, selectedCardIdx: any) {
     storedIndexesRef.current[st] = selectedCardIdx;
-    setState(`card ${st + 1}`);
+    if (st < 2) {
+      setState(`card ${st + 1}`);
+    }
+
     if (st >= 2) {
       console.log(Object.entries(storedIndexesRef.current));
       let code = Object.entries(storedIndexesRef.current)
@@ -28,7 +31,7 @@ export default function ODBD() {
         .map((el: number) => (el < 10 ? "0" + el.toString() : el.toString()))
         .join("-");
 
-      setTimeout(() => navigate("/odbd/results/" + code), 400);
+      setTimeout(() => navigate("/odbd/results/" + code), 200);
     }
   }
 
