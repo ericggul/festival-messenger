@@ -239,9 +239,7 @@ export default function Comp() {
   }
 
   async function shareKakao() {
-    console.log("202");
     const url = await letterElImg();
-    console.log(url);
 
     // if (!url) return;
     // window.Kakao.Link.sendCustom({

@@ -270,15 +270,12 @@ export const Img = styled.div`
   @keyframes zoom-a-bit {
     0% {
       transform: scale(1);
-      opacity: 1;
     }
     50% {
       transform: scale(1.3);
-      opacity: 1;
     }
     100% {
       transform: scale(1);
-      opacity: 1;
     }
   }
 `;

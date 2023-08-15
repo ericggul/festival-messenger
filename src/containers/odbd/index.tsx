@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 
-import LoadingContainer from "@C/Loading";
+import LoadingContainer from "@C/odbd/Loading";
 import Intro from "@C/odbd/Intro";
 import Cards from "@C/odbd/Cards";
 
@@ -48,7 +48,7 @@ export default function ODBD() {
     <>
       {(state === "intro" || state === "expl") && <Intro setShowLoading={setShowLoading} state={state} setState={setState} />}
       {state.includes("card") && <Cards state={parseInt(state.split(" ")[1])} handleNext={handleCardNext} />}
-      {showLoading && <LoadingContainer />}
+      <LoadingContainer show={showLoading} />
     </>
   );
 }

@@ -19,3 +19,20 @@ export const Text = styled.div`
     margin: 0;
   }
 `;
+
+export const Footer = styled.div`
+  font-family: Good;
+
+  position: absolute;
+  bottom: 18px;
+  font-size: 18px;
+  color: white;
+  ${FlexCenterStyle};
+  flex-direction: column;
+  cursor: pointer;
+
+  p {
+    margin: 0;
+    line-height: 24px;
+  }
+`;

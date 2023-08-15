@@ -78,7 +78,7 @@ export const ELEMENTS_EXPLAIN = [
       {
         animation: "zoom-a-bit",
         duration: 0.25,
-        animationDelay: 1.1,
+        animationDelay: 0.4,
       },
     ],
   },

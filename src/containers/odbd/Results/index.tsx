@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect, useMemo, useRef } from "react";
-
-import LoadingContainer from "@C/Loading";
+import LoadingContainer from "@C/odbd/Loading";
 import useResize from "@/utils/hooks/useResize";
 
 import ImageTransition from "./ImageTransition";
@@ -15,6 +14,7 @@ import { DB } from "@/containers/odbd/data";
 
 const BACKGROUND_LINK = `https://operating-as-usual.vercel.app/INTERNETINENTAL/images/odbd`;
 
+const URL = "https://snufestival.com";
 const ASSET_LINK_0 = `/odbd/4_result_page_1`;
 const ASSET_LINK_1 = `/odbd/4_result_page_1/etc`;
 const ASSET_LINK_2 = `/odbd/5_result_page_2`;
@@ -123,6 +123,7 @@ const ELEMENTS_2 = [
       {
         animation: "zoom-a-bit",
         duration: 1.5,
+        animationDelay: 2.0,
       },
     ],
   },
@@ -289,16 +290,19 @@ export default function Comp({ selection }: any) {
   }
 
   async function shareKakao() {
-    const url = await letterElImg();
+    // const url = await letterElImg();
 
-    if (!url) return;
+    // if (!url) return;
 
-    let text = `보드게임으로 알아본 오늘의 운세: ${DB[0][parseInt(selection[0]) - 1].text} ${DB[1][parseInt(selection[1]) - 1].text} ${DB[2][parseInt(selection[2]) - 1].text}`;
+    let text = `오늘의 운세: ${DB[0][parseInt(selection[0]) - 1].text} ${DB[1][parseInt(selection[1]) - 1].text} ${DB[2][parseInt(selection[2]) - 1].text}`;
 
+    console.log(ASSET_LINK_0 + DB[0][parseInt(selection[0]) - 1].imgURL);
     window.Kakao.Link.sendCustom({
       templateId: KAKAO_ODBD_ID,
       templateArgs: {
-        imageUrl: url,
+        imageUrl1: URL + ASSET_LINK_0 + DB[0][parseInt(selection[0]) - 1].imgURL,
+        imageUrl2: URL + ASSET_LINK_0 + DB[1][parseInt(selection[1]) - 1].imgURL,
+        imageUrl3: URL + ASSET_LINK_0 + DB[2][parseInt(selection[2]) - 1].imgURL,
         text,
       },
     });
@@ -316,9 +320,9 @@ export default function Comp({ selection }: any) {
       array.push(blobBin.charCodeAt(i));
     }
     const file = new Blob([new Uint8Array(array)], { type: "image/png" });
-    const url = URL.createObjectURL(file);
+    // const url = URL.createObjectURL(file);
 
-    return url;
+    // return url;
   }
 
   const [showBackgroundAsImage, setShowBackgroundAsImage] = useState(false);
@@ -333,11 +337,6 @@ export default function Comp({ selection }: any) {
     }
   }, [windowWidth]);
 
-  function handleFooterClick() {
-    const LINK = `https://www.instagram.com/snufestival/`;
-    window.open(LINK, "_blank");
-  }
-
   return (
     <CS.Container>
       <CS.Background>
@@ -347,25 +346,17 @@ export default function Comp({ selection }: any) {
           }}
           src={`${BACKGROUND_LINK}/${state === 1 ? "from" : "to"}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
         /> */}
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            zIndex: 1,
-          }}
-        >
-          {/* <ImageTransition
-            startTransition={state === 2}
-            fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-            toImgUrl={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
-            duration={3600}
-          /> */}
-        </div>
+
+        <ImageTransition
+          startTransition={state === 2}
+          fromImgUrl={`${BACKGROUND_LINK}/from/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+          toImgUrl={`${BACKGROUND_LINK}/to/${windowWidth < 768 ? "background" : "background_PC"}.png`}
+          duration={3600}
+        />
 
         <img
           style={{
-            opacity: showBackgroundAsImage ? 1 : 1,
+            opacity: showBackgroundAsImage ? 1 : 0,
           }}
           src={`${BACKGROUND_LINK}/${state === 1 ? "from" : "to"}/${windowWidth < 768 ? "background" : "background_PC"}.png`}
         />
@@ -405,10 +396,27 @@ export default function Comp({ selection }: any) {
           </CS.Img>
         )}
 
-        <CS.Footer onClick={handleFooterClick}>@snufestival</CS.Footer>
+        <S.Footer>
+          <p
+            onClick={() => {
+              const LINK = `https://www.instagram.com/snufestival/`;
+              window.open(LINK, "_blank");
+            }}
+          >
+            @snufestival
+          </p>
+          <p
+            onClick={() => {
+              const LINK = `https://www.instagram.com/schumpeterstrasse/`;
+              window.open(LINK, "_blank");
+            }}
+          >
+            Developed by JYC
+          </p>
+        </S.Footer>
       </CS.Contents>
 
-      {loading && <LoadingContainer />}
+      <LoadingContainer show={loading} />
     </CS.Container>
   );
 }

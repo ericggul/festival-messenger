@@ -55,10 +55,10 @@ export default function Comp({ state, handleNext }: any) {
       setUISelectedCardPos(i);
       setTimeout(() => {
         handleNext(state, selectedCardIdx);
-      }, 1300);
+      }, 1150);
       setTimeout(() => {
         setShowContents(false);
-      }, 900);
+      }, 750);
     },
     [selectedCardIdx]
   );
@@ -69,6 +69,8 @@ export default function Comp({ state, handleNext }: any) {
         <S.Background
           style={{
             zIndex: "1",
+            animation: `appear-from-right 0.6s`,
+            animationDelay: "0.2s",
           }}
         >
           <img src={windowWidth < 768 ? `${ASSET_LINKS[0]}/background.png` : `${ASSET_LINKS[0]}/background_desktop.png`} />
@@ -91,14 +93,14 @@ export default function Comp({ state, handleNext }: any) {
           <img src={windowWidth < 768 ? `${ASSET_LINKS[2]}/background.png` : `${ASSET_LINKS[2]}/background_desktop.png`} />
         </S.Background>
 
-        <S.Background
+        {/* <S.Background
           style={{
             zIndex: "4",
             transform: `translateY(${state === 3 ? 0 : 100}vh)`,
           }}
         >
           <img src={windowWidth < 768 ? `${ASSET_LINK_INTRO}/background_iP.png` : `${ASSET_LINK_INTRO}/background_PC.png`} />
-        </S.Background>
+        </S.Background> */}
       </CS.Background>
       {state <= 2 && (
         <CS.Contents

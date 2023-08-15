@@ -16,7 +16,16 @@ export const Background = styled.div`
     }
   }
 
-  animation: appear 0.3s both;
+  @keyframes appear-from-right
+    from{
+      transform: translateX(100vw);
+    }
+    to{
+      transform: translateX(0);
+    }
+  }
+
+  animation: appear 0.5s both;
 `;
 
 export const BackgroundImage = styled.img`

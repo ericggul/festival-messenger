@@ -51,14 +51,25 @@ export default function App({ startTransition, fromImgUrl, toImgUrl, duration = 
   return (
     <React.Fragment>
       <Suspense fallback={<div>Loading...</div>}>
-        <GLTransition
-          from={fromImgUrl}
-          to={toImgUrl}
-          transition={glTransitions[glTransitionsIdx]}
-          progress={progress}
-          windowWidth={getNearestAbovePowerOfTwo(windowWidth)}
-          windowHeight={getNearestAbovePowerOfTwo(windowHeight)}
-        />
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            zIndex: 1,
+            // transform: `scale(${Math.min(windowWidth / getNearestAbovePowerOfTwo(windowWidth), windowHeight / getNearestAbovePowerOfTwo(windowHeight))})`,
+            transformOrigin: "center",
+          }}
+        >
+          <GLTransition
+            from={fromImgUrl}
+            to={toImgUrl}
+            transition={glTransitions[glTransitionsIdx]}
+            progress={progress}
+            windowWidth={getNearestAbovePowerOfTwo(windowWidth)}
+            windowHeight={getNearestAbovePowerOfTwo(windowHeight)}
+          />
+        </div>
       </Suspense>
     </React.Fragment>
   );
