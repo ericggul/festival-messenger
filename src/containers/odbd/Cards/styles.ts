@@ -5,7 +5,7 @@ export const Background = styled.div`
   ${WholeContainer};
   ${FlexCenterStyle};
   height: 100vh;
-  transition: all 0.35s;
+  transition: all 0.4s;
 
   @keyframes appear {
     from {
@@ -87,7 +87,7 @@ export const Img = styled.img<any>`
   width: 100%;
   cursor: pointer;
   animation: ${({ idx }: any) => cardAnimation(idx)} 0.4s both;
-  animation-delay: ${({ idx }: any) => idx * 0.07 + 0.5}s;
+  animation-delay: ${({ idx }: any) => idx * 0.085 + 0.5}s;
 `;
 
 export const Footer = styled.div`

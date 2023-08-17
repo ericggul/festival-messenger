@@ -107,6 +107,7 @@ const ELEMENTS_2 = [
       {
         animation: "rotate-shake",
         duration: 1.5,
+        animationDelay: 2.0,
       },
     ],
   },
@@ -126,6 +127,8 @@ const ELEMENTS_2 = [
         animationDelay: 2.0,
       },
     ],
+
+    isButton: "kakao",
   },
   {
     img: "result2_button1",
@@ -176,11 +179,19 @@ const ELEMENT_PAPER = {
 export default function Comp({ selection }: any) {
   const [loading, setLoading] = useState(true);
 
+  const audioRef = useRef<any>();
+
   useEffect(() => {
+    try {
+      audioRef.current.play();
+    } catch (e) {
+      console.log(e);
+    }
+
     let timeout: any;
     timeout = setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 1500);
     return () => timeout && clearTimeout(timeout);
   }, []);
 
@@ -415,6 +426,8 @@ export default function Comp({ selection }: any) {
           </p>
         </S.Footer>
       </CS.Contents>
+
+      <audio ref={audioRef} src="/odbd/bgm/result.mp3" loop autoPlay={false} muted={false} playsInline />
 
       <LoadingContainer show={loading} />
     </CS.Container>

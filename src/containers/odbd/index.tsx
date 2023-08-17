@@ -44,11 +44,15 @@ export default function ODBD() {
     });
   }, []);
 
+  const audioRef = useRef<any>();
+
   return (
     <>
-      {(state === "intro" || state === "expl") && <Intro setShowLoading={setShowLoading} state={state} setState={setState} />}
+      {(state === "intro" || state === "expl") && <Intro audioRef={audioRef} setShowLoading={setShowLoading} state={state} setState={setState} />}
       {state.includes("card") && <Cards state={parseInt(state.split(" ")[1])} handleNext={handleCardNext} />}
       <LoadingContainer show={showLoading} />
+
+      <audio ref={audioRef} src="/odbd/bgm/start.mp3" loop autoPlay={false} muted={false} playsInline />
     </>
   );
 }

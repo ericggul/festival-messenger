@@ -154,7 +154,7 @@ const ELEMENTS_INTRO = [
   },
 ];
 
-export default function Comp({ state, setState, setShowLoading }: any) {
+export default function Comp({ audioRef, state, setState, setShowLoading }: any) {
   const [windowWidth, windowHeight] = useResize();
   const locFormatter = useCallback(
     ({ width, x, y = 0, yBottom = 0, height = 0, animation = "appear", delay = 0.3, additionalAnimations = [], ...otherParams }: any) => {
@@ -242,7 +242,13 @@ export default function Comp({ state, setState, setShowLoading }: any) {
   useEffect(() => {
     setShowContents(true);
   }, [state]);
+
   function handleIntroClick() {
+    try {
+      audioRef.current.play();
+    } catch (e) {
+      console.log(e);
+    }
     setShowContents(false);
     setTimeout(() => {
       setState("expl");
@@ -264,7 +270,7 @@ export default function Comp({ state, setState, setShowLoading }: any) {
     if (imgLoaded >= 7) {
       timeoutRef.current = setTimeout(() => {
         setShowLoading(false);
-      }, 4000);
+      }, 1500);
     }
     return () => timeoutRef.current && clearTimeout(timeoutRef.current);
   }, [imgLoaded]);
