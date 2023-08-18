@@ -40,7 +40,7 @@ const ELEMENTS_1 = [
     x: 185,
     y: 350,
     animation: "appear-from-top",
-    delay: 1.5,
+    delay: 2.0,
   },
   {
     img: "card 3",
@@ -48,7 +48,7 @@ const ELEMENTS_1 = [
     x: 341,
     y: 350,
     animation: "appear-from-top",
-    delay: 2.0,
+    delay: 3.0,
   },
   {
     img: "result1_button1",
@@ -64,7 +64,7 @@ const ELEMENTS_1 = [
     x: 195,
     y: 600,
     animation: "appear-from-bottom",
-    delay: 1.5,
+    delay: 2.0,
   },
   {
     img: "result1_button3",
@@ -72,7 +72,7 @@ const ELEMENTS_1 = [
     x: 351,
     y: 600,
     animation: "appear-from-bottom",
-    delay: 2.0,
+    delay: 3.0,
   },
 ];
 
@@ -174,6 +174,8 @@ const ELEMENT_PAPER = {
   animation: "appear-by-zoom",
   delay: 1.0,
   animationDuration: 1.0,
+  isButton: "replay",
+  cursor: "pointer",
 };
 
 export default function Comp({ selection }: any) {
@@ -182,11 +184,20 @@ export default function Comp({ selection }: any) {
   const audioRef = useRef<any>();
 
   useEffect(() => {
+    document.addEventListener("click", playAudio);
+    return () => document.removeEventListener("click", playAudio);
+  }, []);
+
+  function playAudio() {
     try {
       audioRef.current.play();
     } catch (e) {
       console.log(e);
     }
+  }
+
+  useEffect(() => {
+    playAudio();
 
     let timeout: any;
     timeout = setTimeout(() => {
@@ -202,7 +213,8 @@ export default function Comp({ selection }: any) {
     let timeout: any;
     if (!loading) {
       if (state === 1) {
-        timeout = setTimeout(handleTransition, 3.5 * 1000);
+        setAssetLink(ASSET_LINK_1);
+        timeout = setTimeout(handleTransition, 6.5 * 1000);
       }
       if (state === 2) {
         setAssetLink(ASSET_LINK_2);
@@ -295,8 +307,10 @@ export default function Comp({ selection }: any) {
       await navigator.clipboard.writeText(url);
       await new Promise((resolve) => setTimeout(resolve, 300));
       alert("링크가 복사되었습니다.");
-    } else {
+    } else if (isButton === "kakao") {
       shareKakao();
+    } else if (isButton === "replay") {
+      setState(1);
     }
   }
 
@@ -397,7 +411,7 @@ export default function Comp({ selection }: any) {
           ))}
 
         {state === 2 && (
-          <CS.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef}>
+          <CS.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef} onClick={() => handleButtonClick("replay")}>
             <img src={`${ASSET_LINK}/${ELEMENT_PAPER.img}.png`} />
             <S.Text>
               <p>{DB[0][parseInt(selection[0]) - 1].text}</p>

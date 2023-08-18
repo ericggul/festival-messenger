@@ -55,10 +55,10 @@ export default function Comp({ state, handleNext }: any) {
       setUISelectedCardPos(i);
       setTimeout(() => {
         handleNext(state, selectedCardIdx);
-      }, 1150);
+      }, 1850);
       setTimeout(() => {
         setShowContents(false);
-      }, 750);
+      }, 1450);
     },
     [selectedCardIdx]
   );
@@ -121,7 +121,6 @@ export default function Comp({ state, handleNext }: any) {
                 <S.SingleCard
                   style={{
                     transform: `rotateY(${i === uiSelectedCardPos ? 360 : 0}deg)`,
-                    // filter: `${i === uiSelectedCardPos ? "blur(1px)" : "blur(0)"}`,
                   }}
                   key={i}
                   onClick={() => uiSelectedCardPos === -1 && handleCardClick(i)}

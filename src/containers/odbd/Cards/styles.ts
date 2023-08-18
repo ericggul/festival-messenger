@@ -64,7 +64,7 @@ export const Grid = styled.div`
 
 export const SingleCard = styled.div`
   ${FlexCenterStyle}
-  transition: transform 0.4s ease-in-out, blur 0.1s ease-in-out;
+  transition: transform 0.55s ease-in-out, blur 0.1s ease-in-out;
 `;
 
 export const cardAnimation = (idx: any) => keyframes`
@@ -87,7 +87,7 @@ export const Img = styled.img<any>`
   width: 100%;
   cursor: pointer;
   animation: ${({ idx }: any) => cardAnimation(idx)} 0.4s both;
-  animation-delay: ${({ idx }: any) => idx * 0.085 + 0.5}s;
+  animation-delay: ${({ idx }: any) => idx * 0.095 + 0.5}s;
 `;
 
 export const Footer = styled.div`

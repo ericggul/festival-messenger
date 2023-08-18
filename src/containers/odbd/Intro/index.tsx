@@ -295,7 +295,7 @@ export default function Comp({ audioRef, state, setState, setShowLoading }: any)
             })}
           >
             <S.InnerText>
-              {`12장의 단어가 적힌 카드 중 한 장씩 총 세 장을
+              {`12장의 단어가 적힌 보드게임 카드 중 한 장씩 총 세 장을
 뽑아 `}
               <span
                 style={{
