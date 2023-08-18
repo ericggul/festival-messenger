@@ -25,7 +25,7 @@ export const Background = styled.div`
     }
   }
 
-  animation: appear 0.6s both;
+  animation: appear 0.5s both;
 `;
 
 export const BackgroundImage = styled.img`
