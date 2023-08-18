@@ -21,7 +21,7 @@ const ASSET_LINK_2 = `/odbd/5_result_page_2`;
 
 const ELEMENTS_1 = [
   {
-    img: "result_title",
+    img: "result_title2",
     width: 400,
     x: 50,
     y: 138,
@@ -40,7 +40,7 @@ const ELEMENTS_1 = [
     x: 185,
     y: 350,
     animation: "appear-from-top",
-    delay: 2.0,
+    delay: 1.8,
   },
   {
     img: "card 3",
@@ -48,7 +48,7 @@ const ELEMENTS_1 = [
     x: 341,
     y: 350,
     animation: "appear-from-top",
-    delay: 3.0,
+    delay: 2.6,
   },
   {
     img: "result1_button1",
@@ -64,7 +64,7 @@ const ELEMENTS_1 = [
     x: 195,
     y: 600,
     animation: "appear-from-bottom",
-    delay: 2.0,
+    delay: 1.8,
   },
   {
     img: "result1_button3",
@@ -72,13 +72,13 @@ const ELEMENTS_1 = [
     x: 351,
     y: 600,
     animation: "appear-from-bottom",
-    delay: 3.0,
+    delay: 2.6,
   },
 ];
 
 const ELEMENTS_2 = [
   {
-    img: "result_title",
+    img: "result_title2",
     width: 400,
     x: 50,
     y: 138,
@@ -300,7 +300,8 @@ export default function Comp({ selection }: any) {
 
   const letterElRef = useRef<HTMLDivElement>(null);
 
-  async function handleButtonClick(isButton: string) {
+  async function handleButtonClick(isButton: string, e: any) {
+    e.stopPropagation();
     if (isButton === "link") {
       //copy current url
       const url = "https://snufestival.com/odbd";
@@ -391,6 +392,7 @@ export default function Comp({ selection }: any) {
           opacity: showContents ? 1 : 0,
           transition: "opacity 0.7s ease-in-out",
         }}
+        onClick={() => state === 2 && setState(1)}
       >
         <CS.Title>보드게임으로 알아보는 오늘의 운세</CS.Title>
         {state === 1 &&
@@ -405,13 +407,13 @@ export default function Comp({ selection }: any) {
           ))}
         {state === 2 &&
           ELEMENTS_2.map((el, i) => (
-            <CS.Img key={i} style={locFormatter(el)} onClick={() => el.isButton && handleButtonClick(el.isButton)}>
+            <CS.Img key={i} style={locFormatter(el)} onClick={(e) => el.isButton && handleButtonClick(el.isButton, e)}>
               <img src={`${ASSET_LINK}/${el.img}.png`} />
             </CS.Img>
           ))}
 
         {state === 2 && (
-          <CS.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef} onClick={() => handleButtonClick("replay")}>
+          <CS.Img style={locFormatter(ELEMENT_PAPER)} ref={letterElRef} onClick={(e) => handleButtonClick("replay", e)}>
             <img src={`${ASSET_LINK}/${ELEMENT_PAPER.img}.png`} />
             <S.Text>
               <p>{DB[0][parseInt(selection[0]) - 1].text}</p>
